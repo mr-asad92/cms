@@ -1,0 +1,149 @@
+<?php
+
+	/**
+	* 
+	*/
+	class Home_cont extends CI_Controller
+	{
+		public function index(){
+			$data=array(
+				'title'=>'Login | Register',
+				'view'=>'users/login_view'
+				);
+			$this->load->view('layouts/main_layout',$data);
+		}
+
+		public function register_view(){
+			$data=array(
+				'title'=>'Login | Register',
+				'view'=>'users/user_registration'
+				);
+			$this->load->view('layouts/main_layout',$data);
+		}
+
+		public function login(){
+			$this->form_validation->set_rules('username', 'Username','trim|required|min_length[3]');
+			$this->form_validation->set_rules('password', 'Password', 'trim|required|min_length[3]');
+			if ($this->form_validation->run()==FALSE) {
+				$data=array(
+					'errors'=>validation_errors()
+					);
+				$this->session->set_flashdata($data);
+				redirect('home_cont');
+			}
+			else{
+				$username=$this->input->post('username');
+				$password=$this->input->post('password');
+				$this->load->model('new_model');
+				$user_id=$this->new_model->show_profile($username,$password);
+				if ($user_id!=FALSE) {
+					// $this->load->view('users/profile',$profile_data);
+					$data=array(
+						'user_id'=>$user_id,
+						'username'=>$username,
+						'logged_in'=>TRUE
+						);
+					$this->session->set_userdata($data);
+					// $this->session->set_flashdata($data);
+					redirect('admin/index');
+					// redirect('home_cont');
+				}
+				else{
+					$data=array(
+						'errors'=>'<p class=\"text-danger\">User Does Not Exists.</p>'
+						);
+					$this->session->set_flashdata($data);
+					redirect('home_cont');
+					
+				}
+				
+			}
+		}
+
+		public function register(){
+			$this->form_validation->set_rules('username', 'Username','trim|required|min_length[3]');
+			$this->form_validation->set_rules('password', 'Password', 'trim|required|min_length[6]');
+			// $this->form_validation->set_rules('c_password', 'Confirm Password', 'trim|required|min_length[3]|matches[password]');
+			$this->form_validation->set_rules('email', 'Email','trim|required|min_length[12]');
+			
+			if ($this->form_validation->run()==FALSE) {
+				$data=array(
+					'errors'=>validation_errors()
+					);
+				$this->session->set_flashdata($data);
+				redirect('home_cont/register_view');
+			}
+			else{
+				$reg_data=array(
+					'username'=>$this->input->post('username'),
+					'password'=>$this->input->post('password'),
+					'email'=>$this->input->post('email'),
+					'gender'=>$this->input->post('gender')
+					
+					);
+				// 'country'=>$this->input->post('country'),
+				$this->load->model('new_model');
+				$data=$this->new_model->register($reg_data);
+				
+				if ($data['status']==TRUE) {
+					$msg=array(
+						'msg'=>'<p class="text-default" style="color:#fff;">User Registered Successfully, Please login to procceed.</p>'
+						);
+					redirect('home_cont/upload_images/'.$data['user_id']);
+				}
+				 else if ($data['status']=="user_exists") {
+					$msg=array(
+						'msg'=>'<p class="text-default" style="color:#fff;">User already exists, please choose another username.</p>'
+						);
+				}
+			
+			
+				else{
+					$msg=array(
+						'msg'=>'<p class="text-danger">There is some error, Please try again later.</p>'
+						);
+				}
+				$this->session->set_flashdata($msg);
+				redirect('home_cont/index');
+			}
+		}
+
+		public function upload_images($user_id){
+			$data=array(
+				'title'=>'Upload Images',
+				'view'=>'users/upload_images_view'
+				);
+			$this->load->view('layouts/main_layout',$data);
+		}
+
+		public function upload_to_db(){
+				$config['upload_path'] = './user_uploads/';
+                $config['allowed_types'] = 'gif|jpg|png|jpeg';
+
+                $this->load->library('upload', $config);
+
+                if ( ! ($this->upload->do_upload('upload_image_1')) ||($this->upload->do_upload('upload_image_2')) || ($this->upload->do_upload('upload_image_3')) ||($this->upload->do_upload('upload_image_4')) ||($this->upload->do_upload('upload_image_5')) ||($this->upload->do_upload('upload_image_6')))
+                {
+                        $error = array('error' => $this->upload->display_errors());
+
+                        $this->load->view('users/upload_images_view', $error);
+                }
+                else
+                {
+                        $data = array('upload_data' => $this->upload->data());
+
+                        $this->load->view('upload_success', $data);
+                }
+		}
+
+		public function show_login_error(){
+			$msg=array(
+					'login_error_msg'=>'<p class="text-danger">You must be logged in to access you account.</p>'
+				);
+			$this->session->set_flashdata($msg);
+			redirect('home_cont/index');
+		}
+
+	}
+
+?>
