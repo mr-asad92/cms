@@ -8919,14 +8919,7 @@ footer #back-to-top {
   display: block;
   padding-bottom: 40px;
   margin: 0 auto;
-  width: 380px;
-}
-.focusedform .siginup-verticalcenter{
-  position: absolute;
-  top: 42%;
-  left: 50%;
-  margin-top: -256px;
-  margin-left: -200px;
+  width: 224px;
 }
 .focusedform .verticalcenter {
   position: absolute;

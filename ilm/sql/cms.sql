@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.9
+-- version 4.7.0
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 16, 2018 at 09:26 AM
--- Server version: 10.1.31-MariaDB
--- PHP Version: 7.2.3
+-- Generation Time: Sep 08, 2018 at 11:34 AM
+-- Server version: 10.1.24-MariaDB
+-- PHP Version: 7.1.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -21,6 +21,22 @@ SET time_zone = "+00:00";
 --
 -- Database: `cms`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `addresses`
+--
+
+CREATE TABLE `addresses` (
+  `id` int(11) NOT NULL,
+  `enrollment_id` int(11) NOT NULL,
+  `city` varchar(255) NOT NULL,
+  `district` varchar(255) NOT NULL,
+  `country` varchar(255) NOT NULL,
+  `address` text NOT NULL,
+  `address_type` int(11) NOT NULL COMMENT '0 = present, 1 = permenant'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -41,6 +57,100 @@ CREATE TABLE `classes` (
 INSERT INTO `classes` (`id`, `title`, `program_id`) VALUES
 (1, 'part-I', 1),
 (2, 'part-II', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `enrollment`
+--
+
+CREATE TABLE `enrollment` (
+  `id` int(11) NOT NULL,
+  `enrollment_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `class_id` int(11) NOT NULL,
+  `section_id` int(11) NOT NULL,
+  `study_medium` int(11) NOT NULL,
+  `roll_no` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `family_information`
+--
+
+CREATE TABLE `family_information` (
+  `id` int(11) NOT NULL,
+  `enrollment_id` int(11) NOT NULL,
+  `guardian` int(11) NOT NULL COMMENT '0 = father, 1 = mother, 2 = other',
+  `first_name` varchar(255) NOT NULL,
+  `last_name` varchar(255) NOT NULL,
+  `profession` varchar(255) NOT NULL,
+  `designation` varchar(255) NOT NULL,
+  `organization_name` varchar(255) NOT NULL,
+  `office_address` text NOT NULL,
+  `telephone` varchar(100) NOT NULL,
+  `mobile_no` varchar(100) NOT NULL,
+  `email` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `fee_info`
+--
+
+CREATE TABLE `fee_info` (
+  `id` int(11) NOT NULL,
+  `enrollment_id` int(11) NOT NULL,
+  `adm_fee` float NOT NULL,
+  `fee_package` float NOT NULL,
+  `tuition_fee` float NOT NULL,
+  `boardUniReg_fee` float NOT NULL,
+  `library_fee` float NOT NULL,
+  `miscellaneous_fee` float NOT NULL,
+  `others` float NOT NULL,
+  `total_fee` float NOT NULL,
+  `grand_total` float NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `personal_details`
+--
+
+CREATE TABLE `personal_details` (
+  `id` int(11) NOT NULL,
+  `enrollment_id` int(11) NOT NULL,
+  `first_name` varchar(255) NOT NULL,
+  `last_name` varchar(255) NOT NULL,
+  `gender` int(11) NOT NULL,
+  `dob` date NOT NULL,
+  `religion` int(11) NOT NULL,
+  `blood_group` varchar(10) NOT NULL,
+  `caste` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `previous_institution_details`
+--
+
+CREATE TABLE `previous_institution_details` (
+  `id` int(11) NOT NULL,
+  `enrollment_id` int(11) NOT NULL,
+  `exam_type` varchar(255) NOT NULL,
+  `exam_year` int(11) NOT NULL,
+  `p_roll_no` varchar(255) NOT NULL,
+  `board_university` varchar(255) NOT NULL,
+  `obt_marks` float NOT NULL,
+  `total_marks` float NOT NULL,
+  `grade` varchar(10) NOT NULL,
+  `subjects` text NOT NULL,
+  `institute_name` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -92,93 +202,62 @@ INSERT INTO `sections` (`id`, `title`, `class_id`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `to_do_tasks`
---
-
-CREATE TABLE `to_do_tasks` (
-  `id` int(11) NOT NULL,
-  `user_id` int(11) NOT NULL,
-  `task_title` varchar(255) NOT NULL,
-  `task_descr` text NOT NULL,
-  `task_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `uploaded_images`
---
-
-CREATE TABLE `uploaded_images` (
-  `user_id` int(11) NOT NULL,
-  `img_id` int(11) NOT NULL,
-  `img_path` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `users`
 --
 
 CREATE TABLE `users` (
   `id` int(11) NOT NULL,
-  `first_name` varchar(100) NOT NULL,
-  `last_name` varchar(100) NOT NULL,
-  `password` varchar(255) NOT NULL,
-  `email` varchar(50) NOT NULL
+  `first_name` varchar(255) NOT NULL,
+  `last_name` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `first_name`, `last_name`, `password`, `email`) VALUES
-(1, 'Ali', 'Hamza', 'e10adc3949ba59abbe56e057f20f883e', 'alihamza446014@gmail.com');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `user_details`
---
-
-CREATE TABLE `user_details` (
-  `id` int(11) NOT NULL,
-  `img_url` varchar(150) NOT NULL,
-  `cell_no` varchar(50) NOT NULL,
-  `dob` date NOT NULL,
-  `address` varchar(300) NOT NULL,
-  `user_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+INSERT INTO `users` (`id`, `first_name`, `last_name`, `email`, `password`) VALUES
+(1, 'asad', 'ullah', 'king.master127@gmail.com', 'f5de9352cba612589e4b749a58cc9188');
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indexes for table `classes`
+-- Indexes for table `addresses`
 --
-ALTER TABLE `classes`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `program_id_FK` (`program_id`);
-
---
--- Indexes for table `programs`
---
-ALTER TABLE `programs`
+ALTER TABLE `addresses`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `sections`
+-- Indexes for table `enrollment`
 --
-ALTER TABLE `sections`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `class_id_FK` (`class_id`);
+ALTER TABLE `enrollment`
+  ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `to_do_tasks`
+-- Indexes for table `family_information`
 --
-ALTER TABLE `to_do_tasks`
+ALTER TABLE `family_information`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `fee_info`
+--
+ALTER TABLE `fee_info`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `personal_details`
+--
+ALTER TABLE `personal_details`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `previous_institution_details`
+--
+ALTER TABLE `previous_institution_details`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -188,74 +267,44 @@ ALTER TABLE `users`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `user_details`
---
-ALTER TABLE `user_details`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `user_id_FK` (`user_id`);
-
---
 -- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT for table `classes`
+-- AUTO_INCREMENT for table `addresses`
 --
-ALTER TABLE `classes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
--- AUTO_INCREMENT for table `programs`
---
-ALTER TABLE `programs`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
-
---
--- AUTO_INCREMENT for table `sections`
---
-ALTER TABLE `sections`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
--- AUTO_INCREMENT for table `to_do_tasks`
---
-ALTER TABLE `to_do_tasks`
+ALTER TABLE `addresses`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
+--
+-- AUTO_INCREMENT for table `enrollment`
+--
+ALTER TABLE `enrollment`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `family_information`
+--
+ALTER TABLE `family_information`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `fee_info`
+--
+ALTER TABLE `fee_info`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `personal_details`
+--
+ALTER TABLE `personal_details`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `previous_institution_details`
+--
+ALTER TABLE `previous_institution_details`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- AUTO_INCREMENT for table `user_details`
---
-ALTER TABLE `user_details`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- Constraints for dumped tables
---
-
---
--- Constraints for table `classes`
---
-ALTER TABLE `classes`
-  ADD CONSTRAINT `program_id_FK` FOREIGN KEY (`program_id`) REFERENCES `programs` (`id`);
-
---
--- Constraints for table `sections`
---
-ALTER TABLE `sections`
-  ADD CONSTRAINT `class_id_FK` FOREIGN KEY (`class_id`) REFERENCES `classes` (`id`);
-
---
--- Constraints for table `user_details`
---
-ALTER TABLE `user_details`
-  ADD CONSTRAINT `user_id_FK` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
-COMMIT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
