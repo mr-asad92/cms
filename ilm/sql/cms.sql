@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 08, 2018 at 11:34 AM
+-- Generation Time: Sep 10, 2018 at 01:12 AM
 -- Server version: 10.1.24-MariaDB
 -- PHP Version: 7.1.6
 
@@ -66,11 +66,16 @@ INSERT INTO `classes` (`id`, `title`, `program_id`) VALUES
 
 CREATE TABLE `enrollment` (
   `id` int(11) NOT NULL,
-  `enrollment_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `enrollment_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `class_id` int(11) NOT NULL,
   `section_id` int(11) NOT NULL,
   `study_medium` int(11) NOT NULL,
-  `roll_no` varchar(255) NOT NULL
+  `roll_no` varchar(255) NOT NULL,
+  `pic` text NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `created_by` int(11) NOT NULL,
+  `edited_by` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------

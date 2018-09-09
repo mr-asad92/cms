@@ -52,22 +52,22 @@ $(document).on('click', '.btnadd', function () {
     //clone.find('.btnadd').show();
     copyDiv.after(clone);
     count++;
-    rename();
     var frm = $(this).closest('.form-horizontal');
     frm.data('validator', null);
     $.validator.unobtrusive.parse(frm);
 });
 
 $(document).on('click', '.btnrmv', function () {
-    if (count > 1) {
-        $(this).closest('.form-group').remove();
-        rename();
-        count--;
-    }
+
+    $(this).closest('.addrow').remove();
+    count--;
+
     var frm = $(this).closest('.form-horizontal');
     frm.data('validator', null);
     $.validator.unobtrusive.parse(frm);
+
 });
+
 function rename() {
     var rows = $('.rw');
     //var hiddennstdid = $('.hdnstdid');
@@ -114,3 +114,45 @@ function rename() {
         //$(hiddennstdid[i]).attr('name', 'PreviousInstitutes[' + i + '].StudentId');
     }
 }
+
+var required_elems_count = 1;
+var already_focus = false;
+
+function validate(currentElement, className){
+    if ($(currentElement).val() == '' ){
+        $('.'+className).remove();
+        var errElem = "<span style='color:red;' class='"+className+"'>* This field is required.</span>";
+        $(errElem).insertAfter(currentElement);
+        $(currentElement).attr("style","border:1px solid red;");
+
+    }
+    else{
+        $('.'+className).remove();
+        $(currentElement).attr("style","");
+
+        if(required_elems_count >= 16){
+            //enable save button
+            $("#saveFormBtn").removeAttr('disabled');
+        }
+        required_elems_count++;
+    }
+
+}
+
+function calculateFee(){
+
+    var admFee = Number($("#AdmFee").val());
+    var feePkg = Number($("#feePkg").val());
+    var tuitionFee = Number($("#tuitionFee").val());
+    var boardUniRegFee = Number($("#boardUniRegFee").val());
+    var libFee = Number($("#libFee").val());
+    var miscFee = Number($("#miscFee").val());
+    var otherFee = Number($("#otherFee").val());
+
+    var totalFee = admFee + feePkg + tuitionFee + boardUniRegFee + libFee;
+    var grandTotal = totalFee + miscFee + otherFee;
+
+    $("#totalFee").val(totalFee);
+    $("#grandTotal").val(grandTotal);
+}
+
