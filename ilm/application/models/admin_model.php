@@ -156,6 +156,31 @@ class Admin_Model extends CI_Model
         return true;
 
     }
+
+    public function getStudentsList()
+    {
+        $query = $this->db->select('
+
+            enrollment.id as enrollment_no,
+            enrollment.roll_no,
+            personal_details.first_name as student_firstName,
+            personal_details.last_name as student_lastName,
+            family_information.first_name as guardian_firstName,
+            family_information.last_name as guardian_lastName,
+            family_information.mobile_no,
+            classes.title as class_name,
+            sections.title as section_name
+            
+            ')
+            ->from('enrollment')
+            ->join('personal_details','enrollment.id = personal_details.enrollment_id')
+            ->join('family_information', 'enrollment.id = family_information.enrollment_id')
+            ->join('classes', 'classes.id = enrollment.class_id' )
+            ->join('sections', 'sections.id = enrollment.section_id')
+            ->get();
+
+        return $query->result();
+    }
 }
 
 

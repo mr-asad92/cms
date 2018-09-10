@@ -330,6 +330,29 @@ class Admin extends CI_Controller
         }
     }
 
+    public function studentsList()
+    {
+
+        $data = array(
+            'title' => 'ILM | Admin',
+            'view' => 'admin/studentsList',
+            'studentsList' => $this->admin_model->getStudentsList()
+        );
+
+        $this->load->view('masterLayouts/admin',$data);
+    }
+
+    public function studentDetails($id)
+    {
+        $data = array(
+            'title' => 'ILM | Admin',
+            'view' => 'admin/studentDetails',
+            'student_detail' => $this->admin_model->getEditRegistrationData($id)
+        );
+
+        $this->load->view('masterLayouts/admin',$data);
+    }
+
 
 }
 ?>
