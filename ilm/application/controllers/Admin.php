@@ -347,10 +347,34 @@ class Admin extends CI_Controller
         $data = array(
             'title' => 'ILM | Admin',
             'view' => 'admin/studentDetails',
-            'student_detail' => $this->admin_model->getEditRegistrationData($id)
+            'student_detail' => $this->admin_model->getStudentDetail($id)
         );
+        $genderId = $data['student_detail']['gender'];
+
+        $data['gender'] = $this->getGenderById($genderId);
+
+        $enroll_id = $data['student_detail']['enroll_id'];
+
+        $data['presentAddresses'] = $this->admin_model->getPresentAddresses($enroll_id);
+        $data['permenantAddresses'] = $this->admin_model->getPermanentAddresses($enroll_id);
+
+        $data['previousInstitutes'] = $this->admin_model->getPreviousInstitutes($enroll_id);
+
+        //echo '<pre>';print_r($data['previousInstitutes']);exit();
 
         $this->load->view('masterLayouts/admin',$data);
+    }
+
+    public function getGenderById($id)
+    {
+        if ($id == 1)
+        {
+            return 'Male';
+        }
+        else
+        {
+            return 'Female';
+        }
     }
 
 

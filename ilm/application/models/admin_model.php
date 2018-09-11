@@ -181,6 +181,28 @@ class Admin_Model extends CI_Model
 
         return $query->result();
     }
+
+    public function getStudentDetail($id)
+    {
+        $query = "SELECT e.*, e.id as enroll_id, pd.first_name as fName, pd.last_name as lName, fi.*, feei.*, pd.*, fami.*,cl.*,
+        cl.title as class_name,
+        sec.*, sec.title as section_name FROM 
+          enrollment e 
+          LEFT JOIN family_information fi ON e.id=fi.enrollment_id
+          LEFT JOIN fee_info feei ON e.id=feei.enrollment_id
+          LEFT JOIN personal_details pd ON e.id=pd.enrollment_id
+          LEFT JOIN family_information fami ON e.id=fami.enrollment_id
+          LEFT JOIN classes cl ON cl.id=e.class_id
+          LEFT JOIN sections sec ON sec.id=e.section_id
+          WHERE e.id='$id' ";
+
+
+          $res = $this->db->query($query)->result_array();
+
+          return $res[0];
+
+
+    }
 }
 
 

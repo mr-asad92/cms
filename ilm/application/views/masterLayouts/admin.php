@@ -310,7 +310,7 @@
                 <ul class="acc-menu" style="display: block;">
                     <li class="active"><a href="<?php echo base_url()."admin/index";?>"><span>Registration</span></a></li>
                     <li><a href="<?php echo base_url()."admin/editRegistration";?>"><span>Edit Registration</span></a></li>
-                    <li><a href="/admission/Registration/Index"><span>Students List</span></a></li>
+                    <li><a href="<?php echo base_url();?>admin/studentsList"><span>Students List</span></a></li>
                     <li><a href="/academic/class"><span>Add Class</span></a></li>
                     <li><a href="/academic/Section"><span>Suspend</span></a></li>
                     <li><a href="/academic/program"><span>Add Program</span></a></li>
