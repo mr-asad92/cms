@@ -179,7 +179,7 @@ class Admin_Model extends CI_Model
             ->join('sections', 'sections.id = enrollment.section_id')
             ->get();
 
-        return $query->result();
+        return $query->result_array();
     }
 
     public function getStudentDetail($id)
@@ -201,8 +201,65 @@ class Admin_Model extends CI_Model
 
           return $res[0];
 
+    }
+
+    public function searchStudent($searchData)
+    {
+        $data = array(
+            $enroll_no = $searchData['enrollment_no'],
+            $roll_no = $searchData['roll_no'],
+            $student_name = $searchData['student_name'],
+            $guardian_name = $searchData['guardian_name'],
+            $mobile_no = $searchData['mobile_no'],
+            $class_id = $searchData['class_id']
+        );
+
+        $query = $this->db->select('
+            
+            enrollment.*,
+            enrollment.id as enrollment_no,
+            enrollment.roll_no,
+            personal_details.first_name as student_firstName,
+            personal_details.last_name as student_lastName,
+            
+            family_information.first_name as guardian_firstName,
+            family_information.last_name as guardian_lastName,
+            family_information.mobile_no,
+            classes.*,
+            classes.title as class_name,
+            sections.title as section_name
+            
+            ')
+            ->from('enrollment')
+            ->join('personal_details','enrollment.id = personal_details.enrollment_id')
+            ->join('family_information', 'enrollment.id = family_information.enrollment_id')
+            ->join('classes', 'classes.id = enrollment.class_id' )
+            ->join('sections', 'sections.id = enrollment.section_id')
+            ->where('enrollment.id',$enroll_no)
+            ->or_where('enrollment.roll_no', $roll_no)
+            ->or_where('mobile_no',$mobile_no)
+            ->or_where('classes.id', $class_id)
+            //->or_where('personal_details.first_name + personal_details.last_name', $guardian_name)
+
+            //->or_like('personal_details.first_name', $student_name)
+            //->or_like('family_information.first_name', $guardian_name)
+
+            ->get();
+           echo $this->db->last_query();die;
+
+            return $query->result_array();
 
     }
+
+    public function getFeeInfo($enrollment_id)
+    {
+         $query =  $this->db->where('id',$enrollment_id)
+                        ->get('fee_info');
+
+         return $query->result_array()[0];
+    }
+
+
 }
 
 

@@ -29,6 +29,9 @@ class Authentication extends CI_Controller {
             $password=md5($this->input->post('password'));
             $this->load->model('authentication_model');
             $user_id=$this->authentication_model->verifyLogin($email,$password);
+
+            //print_r($user_id); exit();
+
             if ($user_id != FALSE) {
                 // $this->load->view('users/profile',$profile_data);
                 $data=array(
@@ -37,6 +40,7 @@ class Authentication extends CI_Controller {
                     'logged_in'=>TRUE
                 );
                 $this->session->set_userdata($data);
+                //echo '<pre>'; print_r($this->session->userdata('user_id')); exit();
                 // $this->session->set_flashdata($data);
                 redirect(base_url().'admin');
                 // redirect('home_cont');
@@ -69,6 +73,7 @@ class Authentication extends CI_Controller {
         $this->form_validation->set_rules('password', 'Password', 'trim|required|min_length[6]');
         $this->form_validation->set_rules('confirm_password', 'Confirm Password', 'trim|required|min_length[6]|matches[password]');
         $this->form_validation->set_rules('email', 'Email','trim|required|min_length[12]');
+        $this->form_validation->set_rules('role_id', 'Role','trim|required');
 
         if ($this->form_validation->run()==FALSE) {
             $data=array(
@@ -82,8 +87,12 @@ class Authentication extends CI_Controller {
                 'first_name'=>$this->input->post('first_name'),
                 'last_name'=>$this->input->post('last_name'),
                 'password'=>md5($this->input->post('password')),
-                'email'=>$this->input->post('email')
+                'email'=> $this->input->post('email'),
+                'role_id' => $this->input->post('role_id'),
+                'created_by' => $this->session->userdata('user_id')
             );
+
+                //echo "<pre>"; print_r($reg_data); exit();
             // 'country'=>$this->input->post('country'),
             $this->load->model('authentication_model');
             $status=$this->authentication_model->register($reg_data);

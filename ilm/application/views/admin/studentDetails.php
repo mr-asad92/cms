@@ -13,7 +13,7 @@
                 </div>
                 <div class="col-sm-3">
                     <div class="">
-                        <img src="assets/img/profile picture.png" class="img-responsive">
+                        <img src="<?php echo base_url(); ?>assets/img/profile picture.png" class="img-responsive">
                     </div>
                 </div>
             </div>
@@ -155,7 +155,7 @@
                             <th>Examination</th>
                             <th>Year</th>
                             <th>Roll no</th>
-                            <th>Board/Univercity</th>
+                            <th>Board/University</th>
                             <th>Obtained Marks</th>
                             <th>Total Marks</th>
                             <th>Grade</th>
@@ -178,6 +178,58 @@
                             <td><?php echo  $institute['institute_name']; ?></td>
                         </tr>
                         <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<div class="panel panel-midnightblue">
+    <div class="">
+        <h4>Fee Package</h4>
+
+
+
+        <div class="options">
+
+        </div>
+    </div>
+    <div class="panel-body std-panel infinite-scroll">
+
+        <div class="std-detail clearfix">
+            <div class="col-sm-12">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>Admission Fee</th>
+                            <th>Fee Package</th>
+                            <th>Tuition Fee</th>
+                            <th>Board/University Fee</th>
+                            <th>Library Fee</th>
+                            <th>Miscellaneous</th>
+                            <th>Others</th>
+                            <th>Total</th>
+                            <th>Grand Total</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+
+                            <tr>
+
+                                <td><?php echo  $feeInfo['adm_fee']; ?></td>
+                                <td><?php echo  $feeInfo['fee_package']; ?></td>
+                                <td><?php echo  $feeInfo['tuition_fee']; ?> </td>
+                                <td><?php echo  $feeInfo['boardUniReg_fee']; ?></td>
+                                <td><?php echo  $feeInfo['library_fee']; ?></td>
+                                <td><?php echo  $feeInfo['miscellaneous_fee']; ?></td>
+                                <td><?php echo  $feeInfo['others']; ?></td>
+                                <td><b><?php echo  $feeInfo['total_fee']; ?></b></td>
+                                <td><b><?php echo  $feeInfo['grand_total']; ?></b></td>
+                            </tr>
+
                         </tbody>
                     </table>
                 </div>

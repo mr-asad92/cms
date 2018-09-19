@@ -1,4 +1,4 @@
-<div class="siginup-verticalcenter">
+<div class="siginup verticalcenter">
     <a href="<?php echo base_url();?>authentication"><img src="<?php echo base_url();?>assets/img/logo-big.png" alt="Logo" class="brand" /></a>
     <div class="panel panel-primary">
         <div class="panel-body">
@@ -41,6 +41,20 @@
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-lock"></i></span>
                             <input type="password" class="form-control" name="confirm_password" placeholder="Repeat password">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-sm-12">
+                        <div class="">
+                            <select class="form-control" name="role_id">
+                                <option disabled selected>Select Role</option>
+                                <option value="0">Admin</option>
+                                <option value="1">Clerk</option>
+                                <option value="2">Accountant</option>
+
+                            </select>
                         </div>
                     </div>
                 </div>

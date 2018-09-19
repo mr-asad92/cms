@@ -336,33 +336,39 @@ class Admin extends CI_Controller
         $data = array(
             'title' => 'ILM | Admin',
             'view' => 'admin/studentsList',
+            'classes' => $this->admin_model->getClasses(),
             'studentsList' => $this->admin_model->getStudentsList()
         );
 
         $this->load->view('masterLayouts/admin',$data);
     }
 
-    public function studentDetails($id)
+    public function studentDetails($id = NULL)
     {
-        $data = array(
-            'title' => 'ILM | Admin',
-            'view' => 'admin/studentDetails',
-            'student_detail' => $this->admin_model->getStudentDetail($id)
-        );
-        $genderId = $data['student_detail']['gender'];
+        if ($id)
+        {
+            $data = array(
+                'title' => 'ILM | Admin',
+                'view' => 'admin/studentDetails',
+                'student_detail' => $this->admin_model->getStudentDetail($id),
+                'feeInfo' => $this->admin_model->getFeeInfo($id)
+            );
+            $genderId = $data['student_detail']['gender'];
 
-        $data['gender'] = $this->getGenderById($genderId);
+            $data['gender'] = $this->getGenderById($genderId);
 
-        $enroll_id = $data['student_detail']['enroll_id'];
+            $enroll_id = $data['student_detail']['enroll_id'];
 
-        $data['presentAddresses'] = $this->admin_model->getPresentAddresses($enroll_id);
-        $data['permenantAddresses'] = $this->admin_model->getPermanentAddresses($enroll_id);
+            $data['presentAddresses'] = $this->admin_model->getPresentAddresses($enroll_id);
+            $data['permenantAddresses'] = $this->admin_model->getPermanentAddresses($enroll_id);
 
-        $data['previousInstitutes'] = $this->admin_model->getPreviousInstitutes($enroll_id);
+            $data['previousInstitutes'] = $this->admin_model->getPreviousInstitutes($enroll_id);
 
-        //echo '<pre>';print_r($data['previousInstitutes']);exit();
+            //echo '<pre>';print_r($data['feeInfo']);exit();
 
-        $this->load->view('masterLayouts/admin',$data);
+            $this->load->view('masterLayouts/admin',$data);
+        }
+
     }
 
     public function getGenderById($id)
@@ -375,6 +381,33 @@ class Admin extends CI_Controller
         {
             return 'Female';
         }
+    }
+
+    public function searchStudent()
+    {
+        $searchData = array(
+            'enrollment_no' => $this->input->post('EnrollmentNo'),
+            'roll_no' => $this->input->post('rollNo'),
+            'student_name' => $this->input->post('Name'),
+            'guardian_name' => $this->input->post('guardianName'),
+            'mobile_no' => $this->input->post('guardianMobile'),
+            'class_id' => $this->input->post('classId')
+        );
+
+        $data = array(
+            'title' => 'ILM | Admin',
+            'view' => 'admin/studentsList',
+            'classes' => $this->admin_model->getClasses(),
+            'studentsList' => $this->admin_model->searchStudent($searchData)
+        );
+
+        //echo '<pre>';print_r($data['studentsList']);exit();
+
+        //$this->studentsList();
+
+
+
+        $this->load->view('masterLayouts/admin',$data);
     }
 
 

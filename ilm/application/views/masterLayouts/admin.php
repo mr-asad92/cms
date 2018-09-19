@@ -135,7 +135,12 @@
                 </li>
                 <li class="userlinks">
                     <ul class="dropdown-menu">
-                        <li><a href="#">Edit Profile <i class="pull-right fa fa-pencil"></i></a></li>
+                        <?php if($this->session->userdata('user_id')):?>
+                        <?php $user_id = $this->session->userdata('user_id');?>
+                        <?php endif;?>
+                        <li><a href="<?php echo base_url().'users/edit_profile/'.$user_id ;?>">Edit Profile <i
+                                        class="pull-right fa
+                        fa-pencil"></i></a></li>
                         <li><a href="#">Account <i class="pull-right fa fa-cog"></i></a></li>
                         <li><a href="#">Help <i class="pull-right fa fa-question-circle"></i></a></li>
                         <li class="divider"></li>
@@ -311,9 +316,11 @@
                     <li class="active"><a href="<?php echo base_url()."admin/index";?>"><span>Registration</span></a></li>
                     <li><a href="<?php echo base_url()."admin/editRegistration";?>"><span>Edit Registration</span></a></li>
                     <li><a href="<?php echo base_url();?>admin/studentsList"><span>Students List</span></a></li>
-                    <li><a href="/academic/class"><span>Add Class</span></a></li>
-                    <li><a href="/academic/Section"><span>Suspend</span></a></li>
-                    <li><a href="/academic/program"><span>Add Program</span></a></li>
+                    <li><a href="<?php echo base_url();?>users"><span>Users List</span></a></li>
+                    <li><a href="<?php echo base_url() ; ?>programs"><span>Programs</span></a></li>
+                    <li><a href="<?php echo base_url() ; ?>classes"><span>Classes</span></a></li>
+                    <li><a href="<?php echo base_url() ; ?><?php echo base_url() ; ?>"><span>Suspend</span></a></li>
+
                 </ul>
             </li>
             <li class="hasChild">

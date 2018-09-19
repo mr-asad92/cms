@@ -27,14 +27,20 @@ class Authentication_Model extends CI_Model
 
     public function verifyLogin($email,$password){
         $this->db->where(
-            [
+            array(
                 'email'=>$email,
                 'password'=>$password
-            ]
+            )
         );
         $num=$this->db->get('users')->num_rows();
         if ($num>0) {
-            $return = $this->db->get('users')->row(0)->id;;
+            $this->db->where(
+                array(
+                    'email'=>$email,
+                    'password'=>$password
+                )
+            );
+            $return = $this->db->get('users')->row(0)->id;
         }
         else{
             $return = FALSE;
