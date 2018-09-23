@@ -107,9 +107,9 @@
                                                                         class="fa fa-info" aria-hidden="true"></i></a> &nbsp; <b>|</b>&nbsp;
                                                             <a href="<?php echo base_url();
                                                             ?>admin/editRegistration/<?php echo $student['enrollment_no']; ?>" data-toggle="tooltip" title="Edit"><i class="fa fa-pencil" aria-hidden="true"></i></a> &nbsp; <b>|</b>&nbsp;
-                                                            <a href="/Admission/Registration/Installment/10007" class="disabled" data-toggle="tooltip" title="Fee Installment"><i class="fa fa-money" aria-hidden="true"></i></a>
+                                                            <a href="<?php echo base_url();?>admin/makeInstallments/<?php echo $student['enrollment_no']; ?>" class="disabled" data-toggle="tooltip" title="Fee Installment"><i class="fa fa-money" aria-hidden="true"></i></a>
                                                             &nbsp; <b>|</b>&nbsp;
-                                                            <a style="margin-top:2px" class="fa fa-print" data-ajax="true" data-ajax-method="GET" data-ajax-mode="replace" data-ajax-success="PrintElem('.printable')" data-ajax-update="#rldAdmission" data-toggle="tooltip" href="/Admission/Registration/PrintStudent/10007" title="Print"> </a>
+                                                            <a style="margin-top:2px" class="fa fa-print" data-ajax="true" data-ajax-method="GET" data-ajax-mode="replace" data-ajax-success="PrintElem('.printable')" data-ajax-update="#rldAdmission" data-toggle="tooltip" href="<?php echo base_url();?>admin/printStudentDetails/<?php echo $student['enrollment_no']; ?>" title="Print"> </a>
                                                         </td>
                                                     </tr>
                                                     <?php endforeach; ?>

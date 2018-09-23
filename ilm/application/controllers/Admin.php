@@ -18,7 +18,7 @@ class Admin extends CI_Controller
         $data['gender'] = ['1' => 'Male', '2' => 'Female'];
         $data['religion'] = ['1' => 'Muslim', '2' => 'Non-Muslim'];
         $data['bloodGroup'] = ['1' => 'A+', '2' => 'A-', '3' => 'B+', '4' => 'B-', '5' => 'AB+', '6' => 'AB-', '7' => 'O+', '8' => 'O-'];
-        $data['PreviousInstitutesExamType'] = ['1' => 'MatricOrEqualant', '2' => 'InterOrEqualant', '3' => 'GraduationOrEqualant', '4' => 'Others']
+        $data['PreviousInstitutesExamType'] = $this->admin_model->getPreviousExamsTypes();
         ;
         $data['editRegistration'] = false;
         $data['enrollment_data'] = [];
@@ -410,6 +410,182 @@ class Admin extends CI_Controller
         $this->load->view('masterLayouts/admin',$data);
     }
 
+    public function makeInstallments($enrollment_id){
 
+        //check if installments are already made then redirect to edit installments
+
+        $installment_exists = $this->admin_model->installments_exists($enrollment_id);
+
+        if($installment_exists){
+            redirect(base_url().'admin/editInstallments/'.$enrollment_id);
+        }
+
+        $classId = $this->admin_model->getCurrentClassId($enrollment_id);
+        $sectionId = $this->admin_model->getCurrentSectionId($enrollment_id);
+
+        $data = array(
+            'title' => 'ILM | Admin',
+            'view' => 'admin/makeInstallments',
+            'student_detail' => $this->admin_model->getStudentInfoForInstallments($enrollment_id),
+            'to_date' => date("Y-m-d", strtotime("+30 days")),
+        );
+
+        $data['student_detail']['enrollment_number']=$enrollment_id;
+
+//        debug($this->admin_model->getTotalPaidFee($enrollment_id, $classId, $sectionId));
+//        die();
+        $total_paidFee = $this->admin_model->getTotalPaidFee($enrollment_id, $classId, $sectionId);
+
+//        debug($data['student_detail']['grand_total']);
+        $data['pending_amount'] = number_format($data['student_detail']['grand_total'], 2, '.', '') - number_format($total_paidFee['total_paid_fee'], 2, '.', '');
+
+        $this->load->view('masterLayouts/admin',$data);
+    }
+
+    public function editInstallments($enrollment_id){
+
+        $installment_exists = $this->admin_model->installments_exists($enrollment_id);
+
+        if(!$installment_exists){
+            redirect(base_url().'admin/makeInstallments/'.$enrollment_id);
+        }
+
+        $classId = $this->admin_model->getCurrentClassId($enrollment_id);
+        $sectionId = $this->admin_model->getCurrentSectionId($enrollment_id);
+
+        $data = array(
+            'title' => 'ILM | Admin',
+            'view' => 'admin/editInstallments',
+            'student_detail' => $this->admin_model->getStudentInfoForInstallments($enrollment_id),
+            'initial_amount' => $this->admin_model->getInitialAmount($enrollment_id),
+            'installments'   => $this->admin_model->getInstallments($enrollment_id),
+            'to_date' => date("Y-m-d", strtotime("+30 days")),
+        );
+
+        $data['student_detail']['enrollment_number']=$enrollment_id;
+
+        $total_paidFee = $this->admin_model->getTotalPaidFee($enrollment_id, $classId, $sectionId);
+
+//        debug($data['student_detail']['grand_total']);
+        $data['pending_amount'] = number_format($data['student_detail']['grand_total'], 2, '.', '') - number_format($total_paidFee['total_paid_fee'], 2, '.', '');
+
+        $this->load->view('masterLayouts/admin',$data);
+
+    }
+
+    public function saveInstallments(){
+
+        $enrollment_id = $this->input->post('enrollmentNo');
+
+        $classId = $this->admin_model->getCurrentClassId($enrollment_id);
+        $sectionId = $this->admin_model->getCurrentSectionId($enrollment_id);
+
+        $first_installment = [
+            'enrollment_id'            => $enrollment_id,
+            'classId'                  => $classId,
+            'sectionId'                => $sectionId,
+            'installment_no'           => 1,
+            'fee_amount'               => $this->input->post('initialAmount'),
+            'installment_date'         => date("Y-m-d"),
+            'status'                   => 1,
+            'created_by'               => $this->session->userdata['user_id'],
+            'edited_by'                => 0,
+        ];
+
+        $installments = [
+            'enrollment_id'            => $enrollment_id,
+            'classId'                  => $classId,
+            'sectionId'                => $sectionId,
+            'installment_no'           => $this->input->post('installmentNo'),
+            'fee_amount'               => $this->input->post('installmentAmount'),
+            'installment_date'         => array_map("formatDateForDb", $this->input->post('installmentDate')),
+            'created_by'               => $this->session->userdata['user_id'],
+        ];
+
+//        debug($this->input->post('installmentNo'));
+        $data = [
+            'first_installment'   => $first_installment,
+            'installments'        => $installments,
+        ];
+
+        $is_saved = $this->admin_model->save_installments($data);
+
+        if($is_saved){
+            $this->session->set_flashdata('msg', 'Installments Saved!');
+            redirect(base_url().'admin/makeInstallments/'.$installments['enrollment_id']);
+        }
+
+
+    }
+
+    public function updateInstallments(){
+
+        $enrollment_id = $this->input->post('enrollmentNo');
+
+        $classId = $this->admin_model->getCurrentClassId($enrollment_id);
+        $sectionId = $this->admin_model->getCurrentSectionId($enrollment_id);
+
+        $first_installment = [
+            'enrollment_id'            => $enrollment_id,
+            'classId'                  => $classId,
+            'sectionId'                => $sectionId,
+            'installment_no'           => 1,
+            'fee_amount'               => $this->input->post('initialAmount'),
+            'installment_date'         => date("Y-m-d"),
+            'status'                   => 1,
+            'created_by'               => $this->session->userdata['user_id'],
+            'edited_by'                => 0,
+        ];
+
+        $installments = [
+            'enrollment_id'            => $enrollment_id,
+            'classId'                  => $classId,
+            'sectionId'                => $sectionId,
+            'installment_no'           => $this->input->post('installmentNo'),
+            'fee_amount'               => $this->input->post('installmentAmount'),
+            'installment_date'         => array_map("formatDateForDb", $this->input->post('installmentDate')),
+            'created_by'               => $this->session->userdata['user_id'],
+        ];
+
+        $data = [
+            'first_installment'   => $first_installment,
+            'installments'        => $installments,
+        ];
+
+        $is_saved = $this->admin_model->update_installments($data);
+
+        if($is_saved){
+            $this->session->set_flashdata('msg', 'Installments Saved!');
+            redirect(base_url().'admin/makeInstallments/'.$installments['enrollment_id']);
+        }
+
+    }
+
+    public function printStudentDetails($id = NULL){
+        if ($id)
+        {
+            $data = array(
+                'title' => 'ILM | Admin',
+                'view' => 'admin/printStudentDetails',
+                'student_detail' => $this->admin_model->getStudentDetail($id),
+                'feeInfo' => $this->admin_model->getFeeInfo($id)
+            );
+            $genderId = $data['student_detail']['gender'];
+
+            $data['gender'] = $this->getGenderById($genderId);
+
+            $enroll_id = $data['student_detail']['enroll_id'];
+
+            $data['presentAddresses'] = $this->admin_model->getPresentAddresses($enroll_id);
+            $data['permenantAddresses'] = $this->admin_model->getPermanentAddresses($enroll_id);
+
+            $data['previousInstitutes'] = $this->admin_model->getPreviousInstitutes($enroll_id);
+
+            //echo '<pre>';print_r($data['feeInfo']);exit();
+
+            $this->load->view('masterLayouts/admin',$data);
+        }
+
+    }
 }
 ?>

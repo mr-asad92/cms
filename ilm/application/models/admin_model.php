@@ -105,6 +105,17 @@ class Admin_Model extends CI_Model
         return $this->db->where(['enrollment_id' => $enroll_id])->get('previous_institution_details')->result_array();
     }
 
+    public function getPreviousExamsTypes(){
+        $examTypes =  $this->db->get('previous_examination_types')->result_array();
+        $formatted_array = [];
+
+        foreach ($examTypes as $key => $examType){
+            $formatted_array[$examType['id']] = $examType['title'];
+        }
+
+        return $formatted_array;
+    }
+
     public function update_enrollment($enrollment_data){
 
         $enroll_id = $enrollment_data['enrollment_id'];
@@ -259,6 +270,140 @@ class Admin_Model extends CI_Model
          return $query->result_array()[0];
     }
 
+    public function getStudentInfoForInstallments($enrollment_id){
+
+        $query = $this->db->select('
+            
+            personal_details.first_name,personal_details.last_name,
+            family_information.first_name as guardian_first_name, family_information.last_name as guardian_last_name,
+            fee_info.grand_total
+            ')
+            ->from('enrollment')
+            ->join('personal_details','enrollment.id = personal_details.enrollment_id')
+            ->join('fee_info','enrollment.id = fee_info.enrollment_id')
+            ->join('family_information', 'enrollment.id = family_information.enrollment_id')
+            ->where('enrollment.id',$enrollment_id)
+            ->get()->result_array()[0];
+
+        return $query;
+
+    }
+
+    public function getInitialAmount($enrollment_id){
+        $query = $this->db->select('
+            fee_amount
+            ')
+            ->from('paid_fee')
+            ->where(['enrollment_id'=>$enrollment_id,'installment_no' => 1,'delete_status'=>0])
+            ->get()->result_array()[0]['fee_amount'];
+
+        return $query;
+    }
+
+    public function getInstallments($enrollment_id){
+        $query = $this->db->select('
+            installment_no, fee_amount, installment_date
+            ')
+            ->from('paid_fee')
+            ->where(['enrollment_id'=>$enrollment_id, 'delete_status' => 0, 'installment_no > ' => 1])
+            ->get()->result_array();
+
+        return $query;
+    }
+
+    public function getTotalPaidFee($enrollment_id, $classId, $sectionId){
+        $query = $this->db->select('
+            SUM(fee_amount) as total_paid_fee
+            ')
+            ->from('paid_fee')
+            ->where('paid_fee.enrollment_id',$enrollment_id)
+            ->where('paid_fee.status',1)
+            ->where('paid_fee.classId',$classId)
+            ->where('paid_fee.sectionId',$sectionId)
+            ->where('paid_fee.delete_status',0)
+            ->get()->result_array()[0];
+
+            if($query['total_paid_fee'] == ""){
+                $query['total_paid_fee'] = 0;
+            }
+
+        return $query;
+    }
+
+    public function getCurrentClassId($enrollment_id){
+        return $this->db->select('class_id')->where(['id' => $enrollment_id])->get('enrollment')->result_array()[0]['class_id'];
+    }
+
+    public function getCurrentSectionId($enrollment_id){
+        return $this->db->select('section_id')->where(['id' => $enrollment_id])->get('enrollment')->result_array()[0]['section_id'];
+    }
+
+    public function installments_exists($enrollment_id){
+        $this->db->where(
+            array(
+                'enrollment_id'=>$enrollment_id,
+                'delete_status'=>0
+            )
+        );
+        $num=$this->db->get('paid_fee')->num_rows();
+        if ($num>0) {
+            $return = TRUE;
+        }
+        else{
+            $return = FALSE;
+        }
+        return $return;
+    }
+
+    public function save_installments($data){
+
+        $this->db->insert('paid_fee', $data['first_installment']);
+
+        foreach ($data['installments']['installment_no'] as $key => $value){
+
+            $installment = [
+                'enrollment_id'            => $data['installments']['enrollment_id'],
+                'classId'                  => $data['installments']['classId'],
+                'sectionId'                => $data['installments']['sectionId'],
+                'installment_no'           => $data['installments']['installment_no'][$key],
+                'fee_amount'               => $data['installments']['fee_amount'][$key],
+                'installment_date'         => $data['installments']['installment_date'][$key],
+                'pay_date'                 => '',
+                'created_by'               => $data['installments']['created_by'],
+            ];
+
+            $this->db->insert('paid_fee', $installment);
+
+        }
+
+        return true;
+
+    }
+
+    public function softDeleteInstallments($enrollment_id, $edited_by){
+
+        $updateData = ['delete_status' => 1, 'edited_by' => $edited_by];
+
+        $this->db->where('enrollment_id', $enrollment_id);
+        $this->db->update('paid_fee', $updateData);
+    }
+
+    public function update_installments($data){
+        $enrollment_id = $data['installments']['enrollment_id'];
+
+        //hard delete previously soft deleted installments
+
+        $where = ['enrollment_id' => $enrollment_id, 'delete_status' => 1];
+        $this->db->delete('paid_fee', $where);
+
+        $edited_by = $data['installments']['created_by'];
+        $this->softDeleteInstallments($enrollment_id, $edited_by);
+
+        $this->save_installments($data);
+
+        return true;
+
+    }
 
 }
 
