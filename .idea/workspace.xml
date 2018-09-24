@@ -3,14 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="df23ca28-d291-42d4-bc4f-35af8aaf2a9a" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ilm/application/config/autoload.php" beforeDir="false" afterPath="$PROJECT_DIR$/ilm/application/config/autoload.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ilm/application/controllers/Admin.php" beforeDir="false" afterPath="$PROJECT_DIR$/ilm/application/controllers/Admin.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ilm/application/controllers/Authentication.php" beforeDir="false" afterPath="$PROJECT_DIR$/ilm/application/controllers/Authentication.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ilm/application/models/admin_model.php" beforeDir="false" afterPath="$PROJECT_DIR$/ilm/application/models/admin_model.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ilm/application/models/authentication_model.php" beforeDir="false" afterPath="$PROJECT_DIR$/ilm/application/models/authentication_model.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ilm/application/views/admin/studentDetails.php" beforeDir="false" afterPath="$PROJECT_DIR$/ilm/application/views/admin/studentDetails.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ilm/application/views/admin/studentsList.php" beforeDir="false" afterPath="$PROJECT_DIR$/ilm/application/views/admin/studentsList.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ilm/application/views/authentication/register.php" beforeDir="false" afterPath="$PROJECT_DIR$/ilm/application/views/authentication/register.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ilm/application/controllers/Classes.php" beforeDir="false" afterPath="$PROJECT_DIR$/ilm/application/controllers/Classes.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ilm/application/controllers/Programs.php" beforeDir="false" afterPath="$PROJECT_DIR$/ilm/application/controllers/Programs.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ilm/application/views/masterLayouts/admin.php" beforeDir="false" afterPath="$PROJECT_DIR$/ilm/application/views/masterLayouts/admin.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -26,56 +21,58 @@
     <session id="-1584781569">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="13" />
+          <entry key="project.closed" value="17" />
           <entry key="project.open.time.105" value="1" />
+          <entry key="project.open.time.14" value="1" />
           <entry key="project.open.time.169" value="1" />
           <entry key="project.open.time.20" value="1" />
           <entry key="project.open.time.40" value="1" />
           <entry key="project.open.time.50" value="1" />
+          <entry key="project.open.time.51" value="1" />
           <entry key="project.open.time.52" value="1" />
           <entry key="project.open.time.54" value="1" />
           <entry key="project.open.time.55" value="1" />
           <entry key="project.open.time.56" value="1" />
-          <entry key="project.open.time.64" value="1" />
+          <entry key="project.open.time.64" value="2" />
           <entry key="project.open.time.68" value="1" />
           <entry key="project.open.time.70" value="1" />
           <entry key="project.open.time.73" value="1" />
           <entry key="project.open.time.88" value="2" />
-          <entry key="project.opened" value="15" />
+          <entry key="project.opened" value="18" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="html" value="1212" />
           <entry key="js" value="3615" />
-          <entry key="php" value="12949" />
+          <entry key="php" value="14172" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="HTML" value="1212" />
           <entry key="JavaScript" value="3615" />
-          <entry key="PHP" value="12912" />
+          <entry key="PHP" value="14135" />
           <entry key="SQL" value="37" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
           <entry key="html" value="8" />
-          <entry key="js" value="4" />
-          <entry key="php" value="89" />
+          <entry key="js" value="6" />
+          <entry key="php" value="100" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key="HTML" value="8" />
-          <entry key="JavaScript" value="4" />
-          <entry key="PHP" value="89" />
+          <entry key="JavaScript" value="6" />
+          <entry key="PHP" value="100" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.php.new.class">
         <counts>
-          <entry key="PHP Class.type" value="9" />
+          <entry key="PHP Class.type" value="13" />
         </counts>
       </usages-collector>
     </session>
@@ -83,68 +80,37 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/ilm/application/controllers/Programs.php">
+        <entry file="file://$PROJECT_DIR$/ilm/application/controllers/Accounts.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-648">
-              <caret line="20" column="33" selection-start-line="20" selection-start-column="33" selection-end-line="20" selection-end-column="33" />
+            <state>
+              <caret line="24" column="32" selection-start-line="24" selection-start-column="20" selection-end-line="24" selection-end-column="32" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/ilm/application/controllers/Classes.php">
+        <entry file="file://$PROJECT_DIR$/ilm/application/models/Accounts_model.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="405">
-              <caret line="77" column="25" selection-start-line="77" selection-start-column="25" selection-end-line="77" selection-end-column="25" />
-              <folding>
-                <element signature="n#add_post#0;n#Classes#0;n#!!top" />
-                <element signature="n#edit_post#0;n#Classes#0;n#!!top" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/ilm/application/views/classes/classes.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="189">
-              <caret line="7" column="18" lean-forward="true" selection-start-line="7" selection-start-column="18" selection-end-line="7" selection-end-column="18" />
+            <state>
+              <caret line="14" column="5" selection-start-line="14" selection-start-column="5" selection-end-line="14" selection-end-column="5" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/ilm/application/views/classes/classesList.php">
+        <entry file="file://$PROJECT_DIR$/ilm/application/views/accounts/accountsList.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="384">
-              <caret line="51" column="6" selection-start-line="51" selection-start-column="6" selection-end-line="51" selection-end-column="6" />
+            <state relative-caret-position="182">
+              <caret line="45" column="7" lean-forward="true" selection-start-line="45" selection-start-column="7" selection-end-line="45" selection-end-column="7" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/ilm/application/views/programs/add_edit.php">
+        <entry file="file://$PROJECT_DIR$/ilm/application/views/masterLayouts/admin.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="222">
-              <caret line="28" column="63" lean-forward="true" selection-start-line="28" selection-start-column="63" selection-end-line="28" selection-end-column="63" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/ilm/application/views/programs/programsList.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="135">
-              <caret line="10" column="18" lean-forward="true" selection-start-line="10" selection-start-column="18" selection-end-line="10" selection-end-column="18" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/ilm/application/views/programs/programs.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="108">
-              <caret line="4" column="5" lean-forward="true" selection-start-line="4" selection-start-column="5" selection-end-line="4" selection-end-column="5" />
+            <state relative-caret-position="81">
+              <caret line="30" column="32" selection-start-line="30" selection-start-column="32" selection-end-line="30" selection-end-column="32" />
             </state>
           </provider>
         </entry>
@@ -160,8 +126,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>btnadress</find>
-      <find>same as</find>
       <find>btnadd</find>
       <find>rename</find>
       <find>var count</find>
@@ -190,6 +154,8 @@
       <find>add class</find>
       <find>Action</find>
       <find>add cl</find>
+      <find>howdy</find>
+      <find>classes</find>
     </findStrings>
     <replaceStrings>
       <replace>&lt;?php echo base_url(); ?&gt;assets</replace>
@@ -201,8 +167,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/application/config/database.php" />
-        <option value="$PROJECT_DIR$/application/config/config.php" />
         <option value="$PROJECT_DIR$/application/views/layouts/main.php" />
         <option value="$PROJECT_DIR$/ilm/application/config/database.php" />
         <option value="$PROJECT_DIR$/ilm/application/config/config.php" />
@@ -228,7 +192,6 @@
         <option value="D:/jquery_practice/home.html" />
         <option value="D:/jquery_practice/script.js" />
         <option value="$PROJECT_DIR$/ilm/application/models/authentication_model.php" />
-        <option value="$PROJECT_DIR$/ilm/application/controllers/Authentication.php" />
         <option value="$PROJECT_DIR$/ilm/application/config/autoload.php" />
         <option value="$PROJECT_DIR$/ilm/application/models/Users_model.php" />
         <option value="$PROJECT_DIR$/ilm/application/views/users/user_details.php" />
@@ -243,12 +206,18 @@
         <option value="$PROJECT_DIR$/ilm/application/views/classes/add_edit.php" />
         <option value="$PROJECT_DIR$/ilm/application/views/admin/home.php" />
         <option value="$PROJECT_DIR$/ilm/application/views/programs/programsList.php" />
-        <option value="$PROJECT_DIR$/ilm/application/controllers/Programs.php" />
         <option value="$PROJECT_DIR$/ilm/application/views/programs/programs.php" />
         <option value="$PROJECT_DIR$/ilm/application/views/classes/classes.php" />
-        <option value="$PROJECT_DIR$/ilm/application/controllers/Classes.php" />
-        <option value="$PROJECT_DIR$/ilm/application/views/masterLayouts/admin.php" />
         <option value="$PROJECT_DIR$/ilm/application/views/classes/classesList.php" />
+        <option value="$PROJECT_DIR$/ilm/application/controllers/Authentication.php" />
+        <option value="$PROJECT_DIR$/ilm/application/controllers/Classes.php" />
+        <option value="$PROJECT_DIR$/ilm/application/controllers/Programs.php" />
+        <option value="$PROJECT_DIR$/ilm/application/models/Employee_model.php" />
+        <option value="$PROJECT_DIR$/ilm/application/controllers/Employee.php" />
+        <option value="$PROJECT_DIR$/ilm/application/models/Accounts_model.php" />
+        <option value="$PROJECT_DIR$/ilm/application/controllers/Accounts.php" />
+        <option value="$PROJECT_DIR$/ilm/application/views/masterLayouts/admin.php" />
+        <option value="$PROJECT_DIR$/ilm/application/views/accounts/accountsList.php" />
       </list>
     </option>
   </component>
@@ -271,52 +240,13 @@
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
-    <panes>
-      <pane id="Scope" />
-      <pane id="ProjectPane">
-        <subPane>
-          <expand>
-            <path>
-              <item name="cms" type="b2602c69:ProjectViewProjectNode" />
-              <item name="cms" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="cms" type="b2602c69:ProjectViewProjectNode" />
-              <item name="cms" type="462c0819:PsiDirectoryNode" />
-              <item name="ilm" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="cms" type="b2602c69:ProjectViewProjectNode" />
-              <item name="cms" type="462c0819:PsiDirectoryNode" />
-              <item name="ilm" type="462c0819:PsiDirectoryNode" />
-              <item name="application" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="cms" type="b2602c69:ProjectViewProjectNode" />
-              <item name="cms" type="462c0819:PsiDirectoryNode" />
-              <item name="ilm" type="462c0819:PsiDirectoryNode" />
-              <item name="application" type="462c0819:PsiDirectoryNode" />
-              <item name="views" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="cms" type="b2602c69:ProjectViewProjectNode" />
-              <item name="cms" type="462c0819:PsiDirectoryNode" />
-              <item name="ilm" type="462c0819:PsiDirectoryNode" />
-              <item name="application" type="462c0819:PsiDirectoryNode" />
-              <item name="views" type="462c0819:PsiDirectoryNode" />
-              <item name="masterLayouts" type="462c0819:PsiDirectoryNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
-    </panes>
+    <panes />
   </component>
   <component name="PropertiesComponent">
     <property name="SearchEverywhereHistoryKey" value="&#9;FILE&#9;file://F:/xampp_installed/htdocs/cms/ilm/assets/js/registration.js" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$USER_HOME$/Desktop/scrmbl_mobile" />
-    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../ajax" />
+    <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -367,18 +297,20 @@
       <workItem from="1537161303371" duration="21303000" />
       <workItem from="1537258419277" duration="19642000" />
       <workItem from="1537335272875" duration="19667000" />
-      <workItem from="1537359260428" duration="3055000" />
+      <workItem from="1537359260428" duration="3790000" />
+      <workItem from="1537373683675" duration="2572000" />
+      <workItem from="1537599773057" duration="14864000" />
+      <workItem from="1537794693397" duration="819000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="229851000" />
+    <option name="totallyTimeSpent" value="248841000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
-    <editor active="true" />
+    <frame x="-8" y="-8" width="1040" height="744" extended-state="6" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.1762481" />
+      <window_info content_ui="combo" id="Project" order="0" weight="0.18078668" />
       <window_info id="Structure" order="1" weight="0.20574887" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -427,36 +359,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/ilm/assets/js/registration_temp.js" />
-    <entry file="file://$PROJECT_DIR$/ilm/user_guide/_static/jquery-3.1.0.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="246">
-          <caret line="8110" selection-start-line="8110" selection-end-line="8110" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/lib/JavaScriptLanguage.jar!/com/intellij/lang/javascript/index/predefined/EcmaScript.js" />
-    <entry file="file://$PROJECT_DIR$/ilm/assets/js/registration.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="459">
-          <caret line="17" column="46" lean-forward="true" selection-start-line="17" selection-start-column="46" selection-end-line="17" selection-end-column="46" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ilm/application/views/admin/studentsList.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="378">
-          <caret line="14" column="95" selection-start-line="14" selection-start-column="95" selection-end-line="14" selection-end-column="95" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://D:/CMS Project/CMS/Student-Enrolment.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="161">
-          <caret line="429" column="27" lean-forward="true" selection-end-line="1195" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/../MyProject/application/controllers/Accounts.php">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -635,24 +537,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ilm/application/models/Programs_model.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="297">
-          <caret line="31" column="26" lean-forward="true" selection-start-line="31" selection-start-column="26" selection-end-line="31" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/ilm/application/models/Classes_model.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="101">
           <caret line="34" column="32" selection-start-line="34" selection-start-column="20" selection-end-line="34" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ilm/application/controllers/Authentication.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="594">
-          <caret line="91" column="67" lean-forward="true" selection-start-line="91" selection-start-column="67" selection-end-line="91" selection-end-column="67" />
         </state>
       </provider>
     </entry>
@@ -684,63 +572,113 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ilm/application/views/programs/add_edit.php">
+    <entry file="file://$PROJECT_DIR$/ilm/application/controllers/Classes.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="222">
-          <caret line="28" column="63" lean-forward="true" selection-start-line="28" selection-start-column="63" selection-end-line="28" selection-end-column="63" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ilm/application/controllers/Programs.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-648">
-          <caret line="20" column="33" selection-start-line="20" selection-start-column="33" selection-end-line="20" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ilm/application/views/programs/programs.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="108">
-          <caret line="4" column="5" lean-forward="true" selection-start-line="4" selection-start-column="5" selection-end-line="4" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ilm/application/views/masterLayouts/admin.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="205">
-          <caret line="319" column="99" selection-start-line="319" selection-start-column="99" selection-end-line="319" selection-end-column="99" />
+        <state relative-caret-position="4590">
+          <caret line="175" column="1" selection-start-line="175" selection-start-column="1" selection-end-line="175" selection-end-column="1" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/ilm/application/views/classes/classes.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="189">
-          <caret line="7" column="18" lean-forward="true" selection-start-line="7" selection-start-column="18" selection-end-line="7" selection-end-column="18" />
+          <caret line="7" column="18" selection-start-line="7" selection-start-column="18" selection-end-line="7" selection-end-column="18" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ilm/application/controllers/Classes.php">
+    <entry file="file://$PROJECT_DIR$/ilm/application/views/classes/classesList.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="405">
-          <caret line="77" column="25" selection-start-line="77" selection-start-column="25" selection-end-line="77" selection-end-column="25" />
-          <folding>
-            <element signature="n#add_post#0;n#Classes#0;n#!!top" />
-            <element signature="n#edit_post#0;n#Classes#0;n#!!top" />
-          </folding>
+        <state relative-caret-position="837">
+          <caret line="36" column="17" selection-start-line="36" selection-start-column="17" selection-end-line="36" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ilm/application/controllers/Authentication.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3321">
+          <caret line="123" column="45" lean-forward="true" selection-start-line="123" selection-start-column="45" selection-end-line="123" selection-end-column="45" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ilm/application/views/programs/add_edit.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="621">
+          <caret line="28" column="63" selection-start-line="28" selection-start-column="63" selection-end-line="28" selection-end-column="63" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/ilm/application/views/programs/programsList.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="135">
-          <caret line="10" column="18" lean-forward="true" selection-start-line="10" selection-start-column="18" selection-end-line="10" selection-end-column="18" />
+          <caret line="10" column="18" selection-start-line="10" selection-start-column="18" selection-end-line="10" selection-end-column="18" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ilm/application/views/classes/classesList.php">
+    <entry file="file://$PROJECT_DIR$/ilm/application/views/programs/programs.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="384">
-          <caret line="51" column="6" selection-start-line="51" selection-start-column="6" selection-end-line="51" selection-end-column="6" />
+        <state relative-caret-position="108">
+          <caret line="4" column="5" selection-start-line="4" selection-start-column="5" selection-end-line="4" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ilm/application/controllers/Employee.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="405">
+          <caret line="20" column="33" selection-end-line="28" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ilm/application/models/Employee_model.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="162">
+          <caret line="11" lean-forward="true" selection-start-line="11" selection-end-line="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ilm/application/models/Programs_model.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="162">
+          <caret line="14" column="5" lean-forward="true" selection-start-line="14" selection-start-column="5" selection-end-line="14" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ilm/application/controllers/Programs.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="263">
+          <caret line="40" column="69" lean-forward="true" selection-start-line="32" selection-start-column="8" selection-end-line="40" selection-end-column="69" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ilm/assets/js/registration.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-3882" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ilm/application/controllers/Accounts.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret line="24" column="32" selection-start-line="24" selection-start-column="20" selection-end-line="24" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ilm/application/models/Accounts_model.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret line="14" column="5" selection-start-line="14" selection-start-column="5" selection-end-line="14" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ilm/application/views/masterLayouts/admin.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="81">
+          <caret line="30" column="32" selection-start-line="30" selection-start-column="32" selection-end-line="30" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ilm/application/views/accounts/accountsList.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="182">
+          <caret line="45" column="7" lean-forward="true" selection-start-line="45" selection-start-column="7" selection-end-line="45" selection-end-column="7" />
         </state>
       </provider>
     </entry>

@@ -91,7 +91,7 @@ class Classes extends CI_Controller
 
             $this->session->set_flashdata($data);
 
-            redirect('classes/add');
+            redirect('classes');
 
         }
         else
@@ -130,7 +130,7 @@ class Classes extends CI_Controller
 
             $this->session->set_flashdata($data);
 
-            redirect('classes/edit/'.$this->input->post('id'));
+            redirect('classes');
 
         }
         else

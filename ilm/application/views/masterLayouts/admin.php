@@ -319,6 +319,7 @@
                     <li><a href="<?php echo base_url();?>users"><span>Users List</span></a></li>
                     <li><a href="<?php echo base_url() ; ?>programs"><span>Programs</span></a></li>
                     <li><a href="<?php echo base_url() ; ?>classes"><span>Classes</span></a></li>
+                    <li><a href="<?php echo base_url() ; ?>accounts"><span>Accounts</span></a></li>
                     <li><a href="<?php echo base_url() ; ?><?php echo base_url() ; ?>"><span>Suspend</span></a></li>
 
                 </ul>
@@ -578,5 +579,5 @@
 
 </body>
 
-<!-- Mirrored from avant.redteamux.com/form-layout.php by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 11 Jan 2017 07:32:12 GMT -->
+
 </html>

@@ -90,7 +90,7 @@ class Programs extends CI_Controller
 
             $this->session->set_flashdata($data);
 
-            redirect('programs/add');
+            redirect('programs');
 
         }
         else
@@ -128,7 +128,7 @@ class Programs extends CI_Controller
 
             $this->session->set_flashdata($data);
 
-            redirect('programs/edit/'.$this->input->post('id'));
+            redirect('programs');
 
         }
         else
