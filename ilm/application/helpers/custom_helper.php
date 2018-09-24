@@ -10,3 +10,21 @@ if ( ! function_exists('setVal')) {
     }
 
 }
+
+if ( ! function_exists('debug')) {
+    // this function set the value to form fields based on if it is new form or edit form.
+    function debug($data) {
+       echo "<pre>";
+       print_r($data);
+       die();
+    }
+
+}
+
+if ( ! function_exists('formatDateForDb')) {
+    // this function set the value to form fields based on if it is new form or edit form.
+    function formatDateForDb($date) {
+       return date("Y-m-d", strtotime($date));
+    }
+
+}

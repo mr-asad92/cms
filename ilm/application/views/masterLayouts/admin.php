@@ -575,6 +575,7 @@
 <script type='text/javascript' src='<?php echo base_url();?>assets/js/application.js'></script>
 <script type='text/javascript' src='<?php echo base_url();?>assets/demo/demo.js'></script>
 <script type='text/javascript' src='<?php echo base_url();?>assets/js/registration.js'></script>
+<script type='text/javascript' src='<?php echo base_url();?>assets/plugins/form-datepicker/js/bootstrap-datepicker.js'></script>
 
 </body>
 
