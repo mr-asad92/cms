@@ -2,6 +2,8 @@
 
 //echo '<pre>';print_r($studentsList);exit();
 ?>
+<link href='<?php echo base_url();?>assets/plugins/datatables/dataTables.css' rel='stylesheet' type='text/css' media='all' id='headerswitcher'>
+
 <div class="panel panel-info">
                             <div class="panel-heading ">
                                 <h4>Serach Student</h4>
@@ -73,7 +75,7 @@
                                 <div class="std-detail clearfix">
                                     <div class="col-sm-12">
                                         <div class="table-responsive">
-                                            <table class="table">
+                                            <table class="table" id="studentsList">
                                                 <thead>
                                                     
                                                     <tr>
@@ -122,3 +124,4 @@
                             </div>
                         </div>
                     </div>
+

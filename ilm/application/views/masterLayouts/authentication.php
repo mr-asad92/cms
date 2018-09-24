@@ -26,5 +26,17 @@
 
     ?>
     </div>
+
+    <script type='text/javascript' src='<?php echo base_url();?>assets/js/jquery-1.10.2.min.js'></script>
+
+    <script>
+        $("#next").click(function(){
+            $("#resetPassword").submit();
+        });
+
+        $("#change_password_btn").click(function(){
+            $("#change_password_form").submit();
+        });
+    </script>
 </body>
 </html>

@@ -141,6 +141,7 @@
                         <li><a href="<?php echo base_url().'users/edit_profile/'.$user_id ;?>">Edit Profile <i
                                         class="pull-right fa
                         fa-pencil"></i></a></li>
+                        <li><a href="<?php echo base_url().'authentication/change_password';?>">Change Password <i class="pull-right fa fa-lock"></i></a></li>
                         <li><a href="#">Account <i class="pull-right fa fa-cog"></i></a></li>
                         <li><a href="#">Help <i class="pull-right fa fa-question-circle"></i></a></li>
                         <li class="divider"></li>
@@ -577,6 +578,12 @@
 <script type='text/javascript' src='<?php echo base_url();?>assets/js/registration.js'></script>
 <script type='text/javascript' src='<?php echo base_url();?>assets/plugins/form-datepicker/js/bootstrap-datepicker.js'></script>
 
+<script type='text/javascript' src='<?php echo base_url();?>assets/plugins/datatables/jquery.dataTables.min.js'></script>
+<script>
+    $(document).ready( function () {
+        $('#studentsList').DataTable();
+    } );
+</script>
 </body>
 
 
