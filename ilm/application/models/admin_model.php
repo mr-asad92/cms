@@ -305,7 +305,7 @@ class Admin_Model extends CI_Model
 
     public function getInitialAmount($enrollment_id){
         $query = $this->db->select('
-            fee_amount
+            fee_amount, status
             ')
             ->from('paid_fee')
             ->where(['enrollment_id'=>$enrollment_id,'installment_no' => 1,'delete_status'=>0])
@@ -316,7 +316,7 @@ class Admin_Model extends CI_Model
 
     public function getInstallments($enrollment_id){
         $query = $this->db->select('
-            installment_no, fee_amount, installment_date
+            installment_no, fee_amount, installment_date, status
             ')
             ->from('paid_fee')
             ->where(['enrollment_id'=>$enrollment_id, 'delete_status' => 0, 'installment_no > ' => 1])
@@ -383,6 +383,7 @@ class Admin_Model extends CI_Model
                 'fee_amount'               => $data['installments']['fee_amount'][$key],
                 'installment_date'         => $data['installments']['installment_date'][$key],
                 'pay_date'                 => '',
+                'status'                   => $data['installments']['paidStatus'][$key],
                 'created_by'               => $data['installments']['created_by'],
             ];
 
@@ -417,6 +418,35 @@ class Admin_Model extends CI_Model
 
         return true;
 
+    }
+
+    public function getUnPaidInstallments(){
+        $query = $this->db->select('
+            e.id,
+            pd.first_name, pd.last_name,
+            pf.installment_no, pf.fee_amount, pf.installment_date, pf.status, pf.installment_date, pf.id as pfid,
+            c.title
+            ')
+            ->from('enrollment e')
+            ->join('personal_details pd', 'pd.enrollment_id = e.id')
+            ->join('paid_fee pf', 'pf.enrollment_id = e.id')
+            ->join('classes c', 'pf.classId = c.id')
+            ->where(['pf.status' => 0, 'delete_status' => 0, 'installment_no > ' => 1])
+            ->get()->result_array();
+
+        return $query;
+    }
+
+    public function payInstallment($id){
+        $data = [
+            'status' => 1,
+            'pay_date' => date("Y-m-d h:i:s")
+        ];
+
+        $this->db->where('id', $id);
+        $this->db->update('paid_fee', $data);
+
+        return true;
     }
 
 }

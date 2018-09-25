@@ -61,7 +61,12 @@
                             <div class="col-md-4">
                                 <div class="fileinput fileinput-new col-sm-offset-2" data-provides="fileinput">
 
-                                    <div id="img-holder" class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 200px; height: 150px; line-height: 150px;margin-left:80px"><img src="<?php echo base_url();?>assets/img/profile picture.png" style="width: 200px; height: 160px;"></div>
+                                    <?php
+                                        if($editRegistration){
+                                            $src = ($enrollment_data['pic'] == '')?base_url().'assets/img/profile picture.png':base_url().'studentsPics/'.$enrollment_data['pic'];
+                                        }
+                                    ?>
+                                    <div id="img-holder" class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 200px; height: 150px; line-height: 150px;margin-left:80px"><img src="<?php echo $src;?>" style="width: 200px; height: 160px;"></div>
                                     <div class="text-center" style="margin-left: 80px;">
                                         <span class="btn btn-default btn-file"><span class="fileinput-new">Select image</span><span class="fileinput-exists">Change</span><input name="img_url1" type="file"></span>
 
