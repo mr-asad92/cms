@@ -340,6 +340,7 @@ class Admin extends CI_Controller
             'studentsList' => $this->admin_model->getStudentsList()
         );
 
+
         $this->load->view('masterLayouts/admin',$data);
     }
 
@@ -363,6 +364,9 @@ class Admin extends CI_Controller
             $data['permenantAddresses'] = $this->admin_model->getPermanentAddresses($enroll_id);
 
             $data['previousInstitutes'] = $this->admin_model->getPreviousInstitutes($enroll_id);
+
+            $data['blood_group'] = ['1' => 'A+', '2' => 'A-', '3' => 'B+', '4' => 'B-', '5' => 'AB+', '6' => 'AB-',
+             '7' => 'O+', '8' => 'O-'];
 
             //echo '<pre>';print_r($data['feeInfo']);exit();
 

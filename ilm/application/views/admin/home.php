@@ -195,7 +195,8 @@
                     <div class="row stdpresentadress">
                         <div class="col-md-12">
                             <div class="panel panel-midnightblue">
-                                <h4><img src="assets/img/address.png" style="height:30px; width:30px; float:left;margin-right:5px;"> Present Address</h4>
+                                <h4><img src="assets/img/address.png" style="height:30px; width:30px; float:left;
+                                margin-right:5px;"> Present Address</h4>
                                 <div class="panel-body" style="border-radius: 0px;">
                                     <div class="row">
                                         <div class="col-md-12">

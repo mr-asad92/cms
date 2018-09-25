@@ -319,6 +319,7 @@
                     <li><a href="<?php echo base_url();?>users"><span>Users List</span></a></li>
                     <li><a href="<?php echo base_url() ; ?>programs"><span>Programs</span></a></li>
                     <li><a href="<?php echo base_url() ; ?>classes"><span>Classes</span></a></li>
+                    <li><a href="<?php echo base_url() ; ?>Vouchers"><span>Vouchers</span></a></li>
                     <li><a href="<?php echo base_url() ; ?>accounts"><span>Accounts</span></a></li>
                     <li><a href="<?php echo base_url() ; ?><?php echo base_url() ; ?>"><span>Suspend</span></a></li>
 
@@ -545,7 +546,7 @@
 <footer role="contentinfo">
     <div class="clearfix">
         <ul class="list-unstyled list-inline pull-left">
-            <li>AVANT &copy; 2014</li>
+            <li>VNext &copy; 2018</li>
         </ul>
         <button class="pull-right btn btn-inverse-alt btn-xs hidden-print" id="back-to-top"><i class="fa fa-arrow-up"></i></button>
     </div>

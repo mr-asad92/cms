@@ -48,11 +48,15 @@
                         <tr>
                             <th>Blood</th>
                             <td>
-
-                                <?php echo $student_detail['blood_group'] ;?>
+                                <?php
+                                    //$blood_group = $student_detail['blood_group'];
+                                ?>
+                                <?php //echo $blood_group ;?>
+                                <?php echo $blood_group[$student_detail['blood_group']]; ?>
                             </td>
                             <th>Caste</th>
                             <td colspan="3"><?php echo $student_detail['caste'] ;?></td>
+
                         </tr>
 
                         </tbody></table>
