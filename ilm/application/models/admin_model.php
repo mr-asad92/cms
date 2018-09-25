@@ -216,49 +216,63 @@ class Admin_Model extends CI_Model
 
     public function searchStudent($searchData)
     {
-        $data = array(
-            $enroll_no = $searchData['enrollment_no'],
-            $roll_no = $searchData['roll_no'],
-            $student_name = $searchData['student_name'],
-            $guardian_name = $searchData['guardian_name'],
-            $mobile_no = $searchData['mobile_no'],
-            $class_id = $searchData['class_id']
-        );
 
-        $query = $this->db->select('
-            
-            enrollment.*,
-            enrollment.id as enrollment_no,
-            enrollment.roll_no,
-            personal_details.first_name as student_firstName,
-            personal_details.last_name as student_lastName,
-            
-            family_information.first_name as guardian_firstName,
-            family_information.last_name as guardian_lastName,
-            family_information.mobile_no,
-            classes.*,
-            classes.title as class_name,
-            sections.title as section_name
-            
-            ')
-            ->from('enrollment')
-            ->join('personal_details','enrollment.id = personal_details.enrollment_id')
-            ->join('family_information', 'enrollment.id = family_information.enrollment_id')
-            ->join('classes', 'classes.id = enrollment.class_id' )
-            ->join('sections', 'sections.id = enrollment.section_id')
-            ->where('enrollment.id',$enroll_no)
-            ->or_where('enrollment.roll_no', $roll_no)
-            ->or_where('mobile_no',$mobile_no)
-            ->or_where('classes.id', $class_id)
-            //->or_where('personal_details.first_name + personal_details.last_name', $guardian_name)
+        $enroll_no = $searchData['enrollment_no'];
+        $roll_no = $searchData['roll_no'];
+        $student_name = $searchData['student_name'];
+        $guardian_name = $searchData['guardian_name'];
+        $mobile_no = $searchData['mobile_no'];
+        $class_id = $searchData['class_id'];
 
-            //->or_like('personal_details.first_name', $student_name)
-            //->or_like('family_information.first_name', $guardian_name)
 
-            ->get();
-           echo $this->db->last_query();die;
+        $query = "
+        SELECT 
+        `enrollment`.*, `enrollment`.`id` as `enrollment_no`, `enrollment`.`roll_no`, 
+        `personal_details`.`first_name` as `student_firstName`, `personal_details`.`last_name` as `student_lastName`, 
+        `family_information`.`first_name` as `guardian_firstName`, `family_information`.`last_name` as `guardian_lastName`, `family_information`.`mobile_no`, 
+        `classes`.*, `classes`.`title` as `class_name`, 
+        `sections`.`title` as `section_name` 
+        FROM `enrollment` 
+        LEFT JOIN `personal_details` ON `enrollment`.`id` = `personal_details`.`enrollment_id` 
+        LEFT JOIN `family_information` ON `enrollment`.`id` = `family_information`.`enrollment_id` 
+        LEFT JOIN `classes` ON `classes`.`id` = `enrollment`.`class_id` 
+        LEFT JOIN `sections` ON `sections`.`id` = `enrollment`.`section_id`
+        ";
 
-            return $query->result_array();
+        $condition = '';
+        if($enroll_no != ""){
+            $condition = (whereClauseExists($query))?'AND ':' WHERE ';
+            $query .= $condition."`enrollment`.`id` = '$enroll_no'";
+        }
+
+        if($roll_no != ""){
+            $condition = (whereClauseExists($query))?'AND ':' WHERE ';
+            $query .= $condition." `enrollment`.`roll_no` = ''";
+        }
+
+        if($student_name != ""){
+            $condition = (whereClauseExists($query))?'AND ':' WHERE ';
+            $query .= $condition." (`personal_details`.`first_name` LIKE '$student_name' OR `personal_details`.`last_name` LIKE '$student_name')";
+        }
+
+        if($guardian_name != ""){
+            $condition = (whereClauseExists($query))?'AND ':' WHERE ';
+            $query .= $condition." (`family_information`.`first_name` LIKE '$guardian_name' OR `family_information`.`last_name` LIKE '$guardian_name')";
+        }
+
+        if($mobile_no != ""){
+            $condition = (whereClauseExists($query))?'AND ':' WHERE ';
+            $query .= $condition." (`family_information`.`mobile_no` = '$mobile_no' OR `family_information`.`mobile_number` = '$student_name')";
+        }
+
+        if($class_id != ""){
+            $condition = (whereClauseExists($query))?'AND ':' WHERE ';
+            $query .= $condition." `enrollment`.`class_id` = '$class_id'";
+        }
+
+        $res = $this->db->query($query);
+
+            return $res->result_array();
 
     }
 

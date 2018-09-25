@@ -129,6 +129,106 @@ class Authentication extends CI_Controller {
 
     }
 
+    public function resetPassword(){
+        $this->load->model('authentication_model');
+
+        $email = $this->input->post('email');
+        $findemail = $this->authentication_model->forgotPassword($email);
+        if($findemail){
+            $this->authentication_model->sendpassword($findemail);
+        }else{
+            $this->session->set_flashdata('msg',' Email not found!');
+            redirect(base_url().'authentication/forgot_password');
+        }
+
+    }
+
+    public function change_password(){
+        $data=array(
+            'title'=>'ILM | Change Password',
+            'view'=>'authentication/change_password'
+        );
+
+        $this->load->view('masterLayouts/authentication', $data);
+    }
+
+    public function updatePassword(){
+        $this->load->library('form_validation');
+        $this->form_validation->set_rules('opassword','Old Password','required|trim');
+        $this->form_validation->set_rules('npassword','New Password','required|trim|min_length[6]');
+        $this->form_validation->set_rules('cpassword','Confirm Password','required|trim|matches[npassword]|min_length[6]');
+
+        if($this->form_validation->run()== FALSE) {
+
+            $data=array(
+                'errors'=>validation_errors()
+            );
+            $this->session->set_flashdata($data);
+
+//            $data=array(
+//                'title'=>'ILM | Change Password',
+//                'view'=>'authentication/change_password'
+//            );
+//
+//            $this->load->view('masterLayouts/authentication', $data);
+
+            redirect('authentication/change_password');
+
+        }
+
+        else{
+            $sql = $this->db->select("*")->from("users")->where("email",$this->session->userdata('email'))->get();
+
+            foreach ($sql->result() as $my_info) {
+
+                $db_password = $my_info->password;
+                $db_id = $my_info->id;
+
+            }
+
+            if(md5($this->input->post("opassword")) == $db_password){
+
+                $fixed_pw = md5($this->input->post("npassword"));
+                $update = $this->db->query("Update `users` SET `password`='$fixed_pw' WHERE `id`='$db_id'")or die(mysqli_error());
+
+                $this->session->set_flashdata('msg', 'Password Updated Sucessfully!');
+
+            }else {
+
+                $this->session->set_flashdata('msg', 'Wrong Old Password!');
+            }
+
+            redirect(base_url().'authentication/change_password');
+        }
+    }
+
+
+    public function change() {
+        $sql = $this->db->select("*")->from("users")->where("email",$this->session->userdata('email'))->get();
+
+        foreach ($sql->result() as $my_info) {
+
+            $db_password = $my_info->password;
+            $db_id = $my_info->id;
+
+        }
+
+        if(md5($this->input->post("opassword")) == $db_password){
+
+            $fixed_pw = md5($this->input->post("npassword"));
+            $update = $this->db->query("Update `users` SET `password`='$fixed_pw' WHERE `id`='$db_id'")or die(mysqli_error());
+
+            $this->session->set_flashdata('msg', 'Password Updated Sucessfully!');
+            return false;
+
+        }else {
+
+            $this->session->set_flashdata('msg', 'Wrong Old Password!');
+        }
+
+        redirect(base_url().'authentication/change_password');
+    }
+
     
 
 }

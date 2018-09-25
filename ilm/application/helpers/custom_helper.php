@@ -28,3 +28,17 @@ if ( ! function_exists('formatDateForDb')) {
     }
 
 }
+
+if ( ! function_exists('whereClauseExists')) {
+    // this function set the value to form fields based on if it is new form or edit form.
+    function whereClauseExists($query) {
+
+        if (stripos($query, 'WHERE') !== false) {
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+}
