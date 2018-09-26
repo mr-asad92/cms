@@ -33,7 +33,7 @@
                         <div class="form-group">
                             <div class="col-sm-2">
                                 <label for="FeeInstallment_InitialAmount">InitialAmount</label>
-                                <input class="form-control txtCal valid" data-val="true" data-val-number="The field InitialAmount must be a number." id="InitialAmount" name="initialAmount" value="<?php echo $initial_amount;?>" aria-describedby="InitialAmount-error" aria-invalid="false" type="text">
+                                <input class="form-control txtCal valid" data-val="true" data-val-number="The field InitialAmount must be a number." id="InitialAmount" name="initialAmount" value="<?php echo $initial_amount;?>" aria-describedby="InitialAmount-error" aria-invalid="false" type="text" readonly="readonly">
                             </div>
                             <div class="col-sm-2">
                                 <label for="FeeInstallment_PendingAmount">PendingAmount</label>
@@ -70,6 +70,7 @@
                                     <th>Installment No</th>
                                     <th>Installment Amount</th>
                                     <th>Installment Date</th>
+                                    <th>Status</th>
                                     <th>Action</th>
                                 </tr>
                                 </thead>
@@ -84,11 +85,16 @@
                                 <tr class="rw">
                                     <td class="text-center" id="NoOfInst"><input class="form-control txtNo" data-val="true" data-val-number="The field NoOFInstallment must be a number." data-val-required="The NoOFInstallment field is required." id="FeeInstallmentDetails" readonly="readonly" name="installmentNo[]" value="<?php echo $installment['installment_no'];?>" type="text"><span class="field-validation-valid text-danger VLDNo" data-valmsg-for="FeeInstallmentDetails[0].NoOFInstallment" data-valmsg-replace="true"></span></td>
 
-                                    <td class="text-center" id="PendAmnt"><input class="form-control txtAmnt" data-val="true" data-val-number="The field InstallmentAmount must be a number." data-val-required="The InstallmentAmount field is required." id="FeeInstallmentDetails" name="installmentAmount[]" value="<?php echo $installment['fee_amount'];?>" type="text"><span class="field-validation-valid text-danger VLDAmnt" data-valmsg-for="FeeInstallmentDetails[0].InstallmentAmount" data-valmsg-replace="true"></span></td>
+                                    <td class="text-center" id="PendAmnt"><input class="form-control txtAmnt" data-val="true" data-val-number="The field InstallmentAmount must be a number." data-val-required="The InstallmentAmount field is required." id="FeeInstallmentDetails" name="installmentAmount[]" value="<?php echo $installment['fee_amount'];?>" type="text" <?php echo ($installment['status']==1)?'readonly="readonly"':'';?>><span class="field-validation-valid text-danger VLDAmnt" data-valmsg-for="FeeInstallmentDetails[0].InstallmentAmount" data-valmsg-replace="true"></span></td>
 
-                                    <td class="text-center" id="dte"><div class="input-group date "><input value="<?php echo $installment['installment_date'];?>" class="form-control txtDate" data-val="true" data-val-date="The field InstallmentDate must be a date." data-val-required="The InstallmentDate field is required." id="Date" name="installmentDate[]" type="text"><span class="input-group-addon"><i class="fa fa-calendar"></i></span></div><span class="field-validation-valid text-danger VLDDate" data-valmsg-for="FeeInstallmentDetails[0].InstallmentDate" data-valmsg-replace="true"></span></td>
+                                    <td class="text-center" id="dte"><div class="input-group date "><input value="<?php echo $installment['installment_date'];?>" class="form-control txtDate" data-val="true" data-val-date="The field InstallmentDate must be a date." data-val-required="The InstallmentDate field is required." id="Date" name="installmentDate[]" type="text" <?php echo ($installment['status']==1)?'readonly="readonly"':'';?>><span class="input-group-addon"><i class="fa fa-calendar"></i></span></div><span class="field-validation-valid text-danger VLDDate" data-valmsg-for="FeeInstallmentDetails[0].InstallmentDate" data-valmsg-replace="true"></span></td>
 
-                                    <td><input value="Add" class="btn btn-info btnAdd valid" aria-invalid="false" type="button">&nbsp;<input value="Remove" class="btn btn-info btnDel" type="button"></td>
+                                    <td><?php echo ($installment['status'] == 0)?'UnPaid <input class="unpaid" name="paidStatus[]" type="hidden" value="0" />':'Paid <input class="pad" name="paidStatus[]" type="hidden" value="1" />';?></td>
+
+                                    <td>
+                                        <input value="Add" class="btn btn-info btnAdd valid <?php echo ($installment['status']==1)?'disabled':'';?>" aria-invalid="false" type="button" >&nbsp;
+                                        <input value="Remove" class="btn btn-info btnDel <?php echo ($installment['status']==1)?'disabled':'';?>" type="button" >
+                                    </td>
 
                                 </tr>
 
@@ -115,4 +121,5 @@
         </div>
     </form></div>
 
-<script type='text/javascript' src='<?php echo base_url();?>assets/js/installments.js'></script>
+<script type='text/javascript' src='<?php echo base_url();?>assets/js/jquery-1.10.2.min.js'></script>
+<script type='text/javascript' src='<?php echo base_url();?>assets/js/edit_installments.js'></script>

@@ -330,9 +330,7 @@
                 <a href="javascript:;"><i class="fa fa-user"></i> <span>Fee Collection</span> </a>
                 <ul class="acc-menu">
                     <li><a href="/admission/fee/index"><span>Fees</span></a></li>
-                    <li><a href="/admission/feepayment/Index"><span>Fee payments</span></a></li>
-                    <li><a href="/admission/fee/index"><span>Fees</span></a></li>
-                    <li><a href="/admission/feepayment/Index"><span>Fee payments</span></a></li>
+                    <li><a href="<?php echo base_url() ; ?>admin/fee_payments"><span>Fee payments</span></a></li>
 
                 </ul>
             </li>

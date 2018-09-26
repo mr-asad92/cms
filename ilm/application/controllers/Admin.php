@@ -502,6 +502,7 @@ class Admin extends CI_Controller
             'sectionId'                => $sectionId,
             'installment_no'           => $this->input->post('installmentNo'),
             'fee_amount'               => $this->input->post('installmentAmount'),
+            'paidStatus'                   => $this->input->post('paidStatus'),
             'installment_date'         => array_map("formatDateForDb", $this->input->post('installmentDate')),
             'created_by'               => $this->session->userdata['user_id'],
         ];
@@ -547,6 +548,7 @@ class Admin extends CI_Controller
             'sectionId'                => $sectionId,
             'installment_no'           => $this->input->post('installmentNo'),
             'fee_amount'               => $this->input->post('installmentAmount'),
+            'paidStatus'               => $this->input->post('paidStatus'),
             'installment_date'         => array_map("formatDateForDb", $this->input->post('installmentDate')),
             'created_by'               => $this->session->userdata['user_id'],
         ];
@@ -566,8 +568,7 @@ class Admin extends CI_Controller
     }
 
     public function printStudentDetails($id = NULL){
-        if ($id)
-        {
+        if ($id) {
             $data = array(
                 'title' => 'ILM | Admin',
                 'view' => 'admin/printStudentDetails',
@@ -590,6 +591,21 @@ class Admin extends CI_Controller
             $this->load->view('masterLayouts/admin',$data);
         }
 
+    }
+
+    public function fee_payments(){
+        $data = array(
+            'title' => 'ILM | Admin',
+            'view' => 'admin/fee_payments',
+            'installments' => $this->admin_model->getUnPaidInstallments()
+        );
+
+        $this->load->view('masterLayouts/admin',$data);
+    }
+
+    public function payInstallment($id){
+        $paid = $this->admin_model->payInstallment($id);
+        echo $paid;
     }
 }
 ?>
