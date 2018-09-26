@@ -247,7 +247,7 @@ class Admin_Model extends CI_Model
 
         if($roll_no != ""){
             $condition = (whereClauseExists($query))?'AND ':' WHERE ';
-            $query .= $condition." `enrollment`.`roll_no` = ''";
+            $query .= $condition." `enrollment`.`roll_no` = '$roll_no'";
         }
 
         if($student_name != ""){
@@ -262,7 +262,7 @@ class Admin_Model extends CI_Model
 
         if($mobile_no != ""){
             $condition = (whereClauseExists($query))?'AND ':' WHERE ';
-            $query .= $condition." (`family_information`.`mobile_no` = '$mobile_no' OR `family_information`.`mobile_number` = '$student_name')";
+            $query .= $condition." (`family_information`.`mobile_no` = '$mobile_no' OR `family_information`.`mobile_no` = '$student_name')";
         }
 
         if($class_id != ""){
