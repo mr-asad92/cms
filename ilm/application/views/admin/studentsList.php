@@ -67,7 +67,10 @@
                             <div class="panel-heading">
                                 <h4>Student List</h4>
 
-                                <a href="/Admission/Registration/Create" style="margin-top:5px;" class="btn btn-primary btn-sm pull-right">Add Student</a>
+                                <a href="<?php echo base_url() ;?>admin" style="margin-top:5px;" class="btn btn-primary
+                                btn-sm
+                                pull-right">Add
+                                    Student</a>
                                 <div class="options">
                                 </div>
                             </div>

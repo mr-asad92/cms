@@ -1,34 +1,56 @@
-﻿<div class="panel panel-midnightblue">
-    <div class="">
+﻿<div class="panel panel-primary">
+    <div class="panel-heading">
         <h4>Student Information</h4>
     </div>
     <div class="panel-body">
         <div class="std-detail clearfix">
             <div class="row">
-                <div class="col-sm-9">
-                    <h4><?php echo $student_detail['fName'] . ' ' . $student_detail['lName'];?></h4>
-                    <h4>Enrollment No: <?php echo $student_detail['id'] ;?></h4>
-                    <h4>Class: <?php echo $student_detail['class_name'] ;?></h4>
-                    <h4>Section: <?php echo $student_detail['section_name'] ;?> </h4>
+                <div class="col-sm-6">
+
+                    <table class="table table-responsive table-condensed table-hover table-bordered">
+                        <tr class="alert alert-info">
+                            <td ><h5><b>Name</b></h5></span></td>
+                            <td><h5><b><?php echo $student_detail['fName'] . ' ' .
+                                            $student_detail['lName'];
+                            ?></b></h5></td>
+                        </tr>
+                        <tr>
+                            <td><h5>Enrollment No</h5></td>
+                            <td><h5><?php echo $student_detail['enrollment_id'] ;?></h5></td>
+                        </tr>
+                        <tr>
+                            <td><h5>Class</h5></td>
+                            <td><h5><?php echo $student_detail['class_name'] ;?></h5></td>
+                        </tr>
+                        <tr>
+                            <td><h5>Section</h5></td>
+                            <td><h5><?php echo $student_detail['section_name'] ;?></h5></td>
+                        </tr>
+                        <tr>
+                            <td><h5>Address</h5></td>
+                            <td><h5><?= $presentAddresses['address']." , ".$presentAddresses['city']."  , "
+                                    .$presentAddresses['district']."  , ".$presentAddresses['country'];?></h5></td>
+                        </tr>
+                    </table>
                 </div>
-                <div class="col-sm-3">
+                <div class="col-sm-3 col-sm-offset-3">
                     <div class="">
-                        <img src="<?php echo base_url(); ?>assets/img/profile picture.png" class="img-responsive">
+                        <img src="<?php echo base_url(); ?>assets/img/profile picture.png" class="img-responsive img-thumbnail">
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-<div class="panel panel-midnightblue">
-    <div class="">
+<div class="panel panel-info">
+    <div class="panel-heading">
         <h4>Personal Detail</h4>
     </div>
     <div class="panel-body">
         <div class="std-detail clearfix">
             <div class="col-sm-12">
-                <div class="table-responsive">
-                    <table class="table">
+                <div class="">
+                    <table class="table table-responsive table-hover  ">
                         <tbody><tr>
                             <th>Gender</th>
                             <td><?php echo $gender ;?></td>
@@ -65,15 +87,15 @@
         </div>
     </div>
 </div>
-<div class="panel panel-midnightblue">
-    <div class="pannel">
+<div class="panel panel-primary">
+    <div class="panel-heading">
         <h4>Guardian Information</h4>
     </div>
     <div class="panel-body">
         <div class="std-detail clearfix">
             <div class="col-sm-12">
-                <div class="table-responsive">
-                    <table class="table">
+                <div class="">
+                    <table class="table table-responsive table-hover  ">
                         <tbody><tr>
                             <td colspan="4">
                                 <div class="form-group">
@@ -138,8 +160,8 @@
         </div>
     </div>
 </div>
-<div class="panel panel-midnightblue">
-    <div class="">
+<div class="panel panel-info">
+    <div class="panel-heading">
         <h4>Previous Institute Detail</h4>
 
 
@@ -152,8 +174,8 @@
 
         <div class="std-detail clearfix">
             <div class="col-sm-12">
-                <div class="table-responsive">
-                    <table class="table">
+                <div class="">
+                    <table class="table table-responsive table-hover table-striped">
                         <thead>
                         <tr>
                             <th>Examination</th>
@@ -190,67 +212,33 @@
 
     </div>
 </div>
-<div class="panel panel-midnightblue">
-    <div class="">
-        <h4>Fee Package</h4>
 
+<?php
+    //fee_pkg_history view is called
+    echo $fee_pkg_history_view;
 
-
-        <div class="options">
-
-        </div>
-    </div>
-    <div class="panel-body std-panel infinite-scroll">
-
-        <div class="std-detail clearfix">
-            <div class="col-sm-12">
-                <div class="table-responsive">
-                    <table class="table">
-                        <thead>
-                        <tr>
-                            <th>Admission Fee</th>
-                            <th>Fee Package</th>
-                            <th>Tuition Fee</th>
-                            <th>Board/University Fee</th>
-                            <th>Library Fee</th>
-                            <th>Miscellaneous</th>
-                            <th>Others</th>
-                            <th>Total</th>
-                            <th>Grand Total</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-
-                            <tr>
-
-                                <td><?php echo  $feeInfo['adm_fee']; ?></td>
-                                <td><?php echo  $feeInfo['fee_package']; ?></td>
-                                <td><?php echo  $feeInfo['tuition_fee']; ?> </td>
-                                <td><?php echo  $feeInfo['boardUniReg_fee']; ?></td>
-                                <td><?php echo  $feeInfo['library_fee']; ?></td>
-                                <td><?php echo  $feeInfo['miscellaneous_fee']; ?></td>
-                                <td><?php echo  $feeInfo['others']; ?></td>
-                                <td><b><?php echo  $feeInfo['total_fee']; ?></b></td>
-                                <td><b><?php echo  $feeInfo['grand_total']; ?></b></td>
-                            </tr>
-
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-
-    </div>
-</div>
+?>
 <div class="row">
-    <div class="col-md-2 pull-right">
-        <div class="col-md-6">
-            <a href="<?php echo base_url(); ?>admin/editRegistration/<?php echo $student_detail['id']; ?>"
-               class="btn btn-primary pull-right">Edit</a>
-        </div>
-        <div class="col-md-6">
-            <a href="<?php echo base_url(); ?>admin/studentsList"
-               class="btn-default btn pull-right"> Cancel </a>
-        </div>
+    <div class="col-md-4 col-md-offset-8 btn-group">
+
+
+            <a href="<?php echo base_url(); ?>admin/editRegistration/<?php echo $student_detail['id']; ?>"><button class="btn btn-primary">Edit</button></a>
+
+
+            <a href="<?php echo base_url(); ?>"><button class="btn btn-danger">Delete</button></a>
+
+
+
+            <a href="<?php echo base_url(); ?>"><button class="btn btn-warning">Suspend</button></a>
+
+
+
+            <a href="<?php echo base_url(); ?>"><button class="btn btn-brown">Leave</button></a>
+
+
+
+            <a href="<?php echo base_url(); ?>admin/studentsList"><button class="btn btn-default">Cancel</button></a>
+
+
     </div>
 </div>

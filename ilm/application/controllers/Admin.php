@@ -2,6 +2,11 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 class Admin extends CI_Controller
 {
+    public function __construct()
+    {
+        parent::__construct();
+        $this->load->model('Vouchers_model');
+    }
 
     public function index() {
 
@@ -344,6 +349,22 @@ class Admin extends CI_Controller
         $this->load->view('masterLayouts/admin',$data);
     }
 
+    public function feeRecord($enrollment_id)
+    {
+        $data = array(
+            'title' => 'ILM | Admin',
+            //'view' => 'vouchers/fee_pkg_history',
+            'fee_package' => $this->Vouchers_model->getFeePackage($enrollment_id),
+            'paid_fee' => $this->Vouchers_model->getPaidFee($enrollment_id),
+            'unpaid_fee' => $this->Vouchers_model->getUnPaidFee($enrollment_id)
+        );
+
+        //echo '<pre>'; print_r($data['paid_fee']); exit();
+
+        $view = $this->load->view('vouchers/fee_pkg_history',$data,TRUE);
+        return $view;
+    }
+
     public function studentDetails($id = NULL)
     {
         if ($id)
@@ -352,7 +373,7 @@ class Admin extends CI_Controller
                 'title' => 'ILM | Admin',
                 'view' => 'admin/studentDetails',
                 'student_detail' => $this->admin_model->getStudentDetail($id),
-                'feeInfo' => $this->admin_model->getFeeInfo($id)
+                'fee_pkg_history_view' => $this->feeRecord($id)
             );
             $genderId = $data['student_detail']['gender'];
 
@@ -368,7 +389,7 @@ class Admin extends CI_Controller
             $data['blood_group'] = ['1' => 'A+', '2' => 'A-', '3' => 'B+', '4' => 'B-', '5' => 'AB+', '6' => 'AB-',
              '7' => 'O+', '8' => 'O-'];
 
-            //echo '<pre>';print_r($data['feeInfo']);exit();
+            //echo '<pre>';print_r($data);exit();
 
             $this->load->view('masterLayouts/admin',$data);
         }

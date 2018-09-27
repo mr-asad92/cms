@@ -582,6 +582,10 @@
     $(document).ready( function () {
         $('#studentsList').DataTable();
     } );
+
+    $(document).ready( function () {
+        $('#vouchersList').DataTable();
+    } );
 </script>
 </body>
 
