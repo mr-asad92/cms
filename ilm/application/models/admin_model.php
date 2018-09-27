@@ -37,6 +37,14 @@ class Admin_Model extends CI_Model
         return $sectionsList;
     }
 
+    public function getFeeInfo($enrollment_id)
+    {
+        $query =  $this->db->where('id',$enrollment_id)
+            ->get('fee_info');
+
+        return $query->result_array()[0];
+    }
+
     public function save_enrollment($enrollment_data){
 
         $this->db->insert('enrollment', $enrollment_data['enrollment']);
