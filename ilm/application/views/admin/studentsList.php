@@ -89,6 +89,7 @@
                                                         <th>Class</th>
                                                         <th>Section</th>
                                                         <th>Roll No</th>
+                                                        <th>Status</th>
                                                         <th>Action</th>
                                                     </tr>
                                                 </thead>
@@ -104,6 +105,27 @@
                                                         <td><?php echo $student['class_name']; ?></td>
                                                         <td><?php echo $student['section_name']; ?></td>
                                                         <td><?php echo $student['roll_no']; ?></td>
+                                                        <td>
+                                                            <?php
+                                                                if ($student['status'] == 0)
+                                                                {
+                                                                    echo 'Old';
+                                                                }
+                                                                elseif ($student['status'] == 1)
+                                                                {
+                                                                    echo '<p class="text-success">Active</p>';
+                                                                }
+                                                                elseif ($student['status'] == 2)
+                                                                {
+                                                                    echo '<p class="text-danger">Suspend</p>';
+                                                                }
+                                                                elseif ($student['status'] == 3)
+                                                                {
+                                                                    echo '<p class="text-warning">Leave</p>';
+                                                                }
+
+                                                            ?>
+                                                        </td>
                                                         <td>
 
                                                             <a href="<?php echo base_url();

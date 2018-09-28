@@ -181,6 +181,7 @@ class Admin_Model extends CI_Model
         $query = $this->db->select('
 
             enrollment.id as enrollment_no,
+            enrollment.status,
             enrollment.roll_no,
             personal_details.first_name as student_firstName,
             personal_details.last_name as student_lastName,
@@ -446,6 +447,73 @@ class Admin_Model extends CI_Model
 
         $this->db->where('id', $id);
         $this->db->update('paid_fee', $data);
+
+        return true;
+    }
+
+    public function getSuspendHistory($enrollment_id)
+    {
+        $q = $this->db->where(array('enrollment_id' => $enrollment_id, 'status_id' => 2))
+                                ->get('student_status');
+
+        return $q->result_array();
+    }
+
+    public function getLeaveHistory($enrollment_id)
+    {
+        $q = $this->db->where(array('enrollment_id' => $enrollment_id, 'status_id' => 3))
+            ->get('student_status');
+
+        return $q->result_array();
+    }
+
+    public function getSuspendReason($enrollment_id)
+    {
+       $q = $this->db->where(array('enrollment_id' => $enrollment_id, 'status_id' => 2))
+            ->order_by('created_at','desc')
+            ->get('student_status');
+
+        //print_r($this->db->last_query()); exit();
+        return $q->row();
+    }
+
+    public function getLeaveReason($enrollment_id)
+    {
+        $q = $this->db->where(array('enrollment_id' => $enrollment_id, 'status_id' => 3))
+            ->order_by('created_at','desc')
+            ->get('student_status');
+
+        //print_r($this->db->last_query()); exit();
+        return $q->row();
+    }
+
+    public function activeStudent($enrollment_id)
+    {
+        $query = $this->db->where('id',$enrollment_id)
+                 ->set('status',1)
+                 ->update('enrollment');
+
+        return $query;
+    }
+
+    public function suspendStudent($data)
+    {
+        $enrollment_id = $data['enrollment_id'];
+        $query1 = $this->db->insert('student_status',$data);
+        $query2 = $this->db->where('id',$enrollment_id)
+                        ->set('status',2)
+                        ->update('enrollment');
+
+        return true;
+    }
+
+    public function leaveStudent($data)
+    {
+        $enrollment_id = $data['enrollment_id'];
+        $query1 = $this->db->insert('student_status',$data);
+        $query2 = $this->db->where('id',$enrollment_id)
+            ->set('status',3)
+            ->update('enrollment');
 
         return true;
     }

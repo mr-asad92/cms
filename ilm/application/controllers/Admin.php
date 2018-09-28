@@ -345,6 +345,8 @@ class Admin extends CI_Controller
             'studentsList' => $this->admin_model->getStudentsList()
         );
 
+        //echo '<pre>'; print_r($data); exit();
+
 
         $this->load->view('masterLayouts/admin',$data);
     }
@@ -373,7 +375,11 @@ class Admin extends CI_Controller
                 'title' => 'ILM | Admin',
                 'view' => 'admin/studentDetails',
                 'student_detail' => $this->admin_model->getStudentDetail($id),
-                'fee_pkg_history_view' => $this->feeRecord($id)
+                'fee_pkg_history_view' => $this->feeRecord($id),
+                'studentSuspendHistory' => $this->admin_model->getSuspendHistory($id),
+                'studentLeaveHistory' => $this->admin_model->getLeaveHistory($id),
+                'suspendReason' => $this->admin_model->getSuspendReason($id),
+                'leaveReason' => $this->admin_model->getLeaveReason($id)
             );
             $genderId = $data['student_detail']['gender'];
 
@@ -386,10 +392,10 @@ class Admin extends CI_Controller
 
             $data['previousInstitutes'] = $this->admin_model->getPreviousInstitutes($enroll_id);
 
-            $data['blood_group'] = ['1' => 'A+', '2' => 'A-', '3' => 'B+', '4' => 'B-', '5' => 'AB+', '6' => 'AB-',
-             '7' => 'O+', '8' => 'O-'];
+            $data['blood_group'] = array('1' => 'A+', '2' => 'A-', '3' => 'B+', '4' => 'B-', '5' => 'AB+', '6' => 'AB-',
+             '7' => 'O+', '8' => 'O-');
 
-            //echo '<pre>';print_r($data);exit();
+            //echo '<pre>';print_r($data['student_detail']);exit();
 
             $this->load->view('masterLayouts/admin',$data);
         }
@@ -627,6 +633,82 @@ class Admin extends CI_Controller
     public function payInstallment($id){
         $paid = $this->admin_model->payInstallment($id);
         echo $paid;
+    }
+
+    public function makeStudentActive($enrollment_id)
+    {
+        $result = $this->admin_model->activeStudent($enrollment_id);
+        if ($result)
+        {
+            $this->session->set_flashdata('msg','<p class="alert alert-success">Student has been marked as Active Successfully</p>');
+        }
+        else
+        {
+            $this->session->set_flashdata('msg','<p class="alert alert-danger">An unknown error occurred.</p>');
+        }
+
+        return redirect('admin/studentDetails/'.$enrollment_id);
+
+    }
+
+    public function makeStudentSuspend()
+    {
+        //set default time zone
+
+        date_default_timezone_set('Asia/Karachi');
+
+        $data = array(
+            'enrollment_id' => $this->input->post('enrollment_id'),
+            'reason' => $this->input->post('reason'),
+            'created_at' => date('y-m-d'),
+            'created_by' => $this->session->userdata('user_id'),
+            'status_id' => 2
+        );
+
+        //echo '<pre>';print_r($data);exit();
+
+        $result = $this->admin_model->suspendStudent($data);
+        if ($result)
+        {
+            $this->session->set_flashdata('msg','<p class="alert alert-success">Student has been marked as Suspend Successfully</p>');
+        }
+        else
+        {
+            $this->session->set_flashdata('msg','<p class="alert alert-danger">An unknown error occurred.</p>');
+        }
+
+        return redirect('admin/studentDetails/'.$data['enrollment_id']);
+
+    }
+
+    public function makeStudentLeave()
+    {
+        //set default time zone
+
+        date_default_timezone_set('Asia/Karachi');
+
+        $data = array(
+            'enrollment_id' => $this->input->post('enrollment_id'),
+            'reason' => $this->input->post('reason'),
+            'created_at' => date('y-m-d'),
+            'created_by' => $this->session->userdata('user_id'),
+            'status_id' => 3
+        );
+
+        //echo '<pre>';print_r($data);exit();
+
+        $result = $this->admin_model->leaveStudent($data);
+        if ($result)
+        {
+            $this->session->set_flashdata('msg','<p class="alert alert-success">Student has been marked as Leave Successfully</p>');
+        }
+        else
+        {
+            $this->session->set_flashdata('msg','<p class="alert alert-danger">An unknown error occurred.</p>');
+        }
+
+        return redirect('admin/studentDetails/'.$data['enrollment_id']);
+
     }
 }
 ?>
