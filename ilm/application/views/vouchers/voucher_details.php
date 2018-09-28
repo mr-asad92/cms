@@ -1,126 +1,236 @@
-<div class="panel panel-midnightblue">
-    <div class="pannel">
-        <h4>Employee Details</h4>
-    </div>
+<div id="printVoucher">
+    <div class="col-md-10 col-md-offset-1" style="background-color: #fff;border: 2px solid #000; border-radius: 5px; margin-bottom:30px;">
+        <div class="col-md-12 text-center">
+            <img src="<?= base_url(). 'uploaded_images/ilmCollege.png';?>">
+        </div>
+        <div class="col-md-12">
+            <h2 class="text-center"> Student Fee Voucher (Student Copy) </h2>
+            <table class="table">
+                <tr>
+                    <th>Student Name</th>
+                    <th class="alert alert-info">
+                        <?php echo $voucher->first_name.'       '. $voucher->last_name;?>
+                    </th>
 
-    <?php foreach ($users as $user): ?>
+                    <th>Father Name</th>
+                    <td>
+                        <?php echo $voucher->first_name.'     '. $voucher->last_name;?>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Enrollment No</th>
+                    <td>
+                        <?php echo $voucher->enrollmentId;?>
+                    </td>
 
-    <div class="panel-body">
-        <div class="std-detail clearfix">
-            <div class="col-sm-12">
-                <div class="table-responsive">
-                    <div class="col-sm-8">
-                        <table class="table">
-                            <tbody>
-                            <tr>
-                                <th> Name</th>
-                                <td><?php echo $user->first_name . ' ' . $user->last_name;?></td>
+                    <th>Class </th>
+                    <td>
+                        <?php echo $voucher->classTitle.' '. $voucher->title;?>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Installment No</th>
+                    <td>
+                        <?php echo $voucher->installment_no;?>
+                    </td>
 
+                    <th>Installment Amuount </th>
+                    <td>
+                        <?php echo $voucher->fee_amount;?>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Due Date</th>
+                    <td>
+                        <?php echo $voucher->installment_date;?>
+                    </td>
 
-                            </tr>
-                            <tr>
+                    <th>Fine</th>
+                    <td>
+                        <?php echo $voucher->fee_amount;?>
+                    </td>
+                </tr>
+                <tr>
+                    <th></th>
+                    <td>
 
-                                <th>Email</th>
-                                <td>
-                                    <?php echo $user->email ;?>
-                                </td>
+                    </td>
 
-                            </tr>
-                            <tr>
-                                <th>Qualification</th>
-                                <td><?php echo $user->qualification ;?></td>
-                            </tr>
-                            <tr>
-                                <th>Gender</th>
-                                <td><?php echo ucfirst($user->gender) ;?></td>
-
-                            </tr>
-
-                            <tr>
-                                <th>Date of Birth</th>
-                                <td><?php echo $user->dob ;?></td>
-                            </tr>
-
-                            <tr>
-                                <th>Mobile No</th>
-                                <td><?php echo $user->phone_no ;?></td>
-
-                            </tr>
-
-                            <tr>
-                                <th>C.N.I.C</th>
-                                <td><?php echo $user->cnic ;?></td>
-                            </tr>
-
-                            <tr>
-                                <th>Created Date</th>
-                                <td><?php echo $user->created_at ;?></td>
-                            </tr>
-
-                            <tr>
-                                <th>Modified Date</th>
-                                <td><?php echo $user->modified_at ;?></td>
-                            </tr>
-
-                            <tr>
-                                <th>Created By</th>
-                                <td><?php echo $user->user_fname.' '.$user->user_lname ;?></td>
-                            </tr>
-
-                            <tr>
-                                <th>Status</th>
-                                <td colspan="3">
-                                    <?php
-
-                                    if ($user->is_approved == 0)
-                                    {
-                                        echo '<p class="text-danger">Disapproved</p>';
-                                    }
-                                    else
-                                    {
-                                        echo '<p class="text-success">Approved</p>';
-                                    }
-                                    ;?>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <?php if ($user->is_approved == 0) :?>
-                                    <th>Disapproved By</th>
-                                <?php else: ?>
-                                    <th>Approved By</th>
-                                <?php endif; ?>
-                                <td><?php echo $user->usr_firstName.' '.$user->usr_lastName ;?></td>
-                            </tr>
-
-                            <tr>
-                                <th>Address</th>
-                                <td colspan="3"><?php echo $user->address ;?></td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <div class="col-sm-3 col-sm-offset-1">
-
-                        <?php if ($user->image_url != NULL) : ?>
-
-                            <img src="<?php echo base_url(). $user->image_url ;?>"
-                                 class="img-responsive">
-                        <?php else: ?>
-
-                            <img src="<?php echo base_url();?>assets/img/profile picture.png"
-                                 class="img-responsive">
-
-                        <?php endif; ?>
-
-                    </div>
-
-                </div>
-            </div>
+                    <th>Total Amount</th>
+                    <th class="alert alert-warning">
+                        <?php echo $voucher->fee_amount;?>
+                    </th>
+                </tr>
+            </table>
         </div>
     </div>
-    <?php endforeach; ?>
+
+    <div class="col-md-10 col-md-offset-1" style="background-color: #fff;border: 2px solid #000; border-radius: 5px; margin-bottom:30px;">
+        <div class="col-md-12 text-center">
+            <img src="<?= base_url(). 'uploaded_images/ilmCollege.png';?>">
+        </div>
+        <div class="col-md-12">
+            <h2 class="text-center"> Student Fee Voucher (Accounts Copy) </h2>
+            <table class="table">
+                <tr>
+                    <th>Student Name</th>
+                    <th class="alert alert-info">
+                        <?php echo $voucher->first_name.'       '. $voucher->last_name;?>
+                    </th>
+
+                    <th>Father Name</th>
+                    <td>
+                        <?php echo $voucher->first_name.'     '. $voucher->last_name;?>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Enrollment No</th>
+                    <td>
+                        <?php echo $voucher->enrollmentId;?>
+                    </td>
+
+                    <th>Class </th>
+                    <td>
+                        <?php echo $voucher->classTitle.' '. $voucher->title;?>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Installment No</th>
+                    <td>
+                        <?php echo $voucher->installment_no;?>
+                    </td>
+
+                    <th>Installment Amuount </th>
+                    <td>
+                        <?php echo $voucher->fee_amount;?>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Due Date</th>
+                    <td>
+                        <?php echo $voucher->installment_date;?>
+                    </td>
+
+                    <th>Fine</th>
+                    <td>
+                        <?php echo $voucher->fee_amount;?>
+                    </td>
+                </tr>
+                <tr>
+                    <th></th>
+                    <td>
+
+                    </td>
+
+                    <th>Total Amount</th>
+                    <th class="alert alert-warning">
+                        <?php echo $voucher->fee_amount;?>
+                    </th>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="col-md-10 col-md-offset-1" style="background-color: #fff;border: 2px solid #000; border-radius: 5px; margin-bottom:30px;">
+        <div class="col-md-12 text-center">
+            <img src="<?= base_url(). 'uploaded_images/ilmCollege.png';?>">
+        </div>
+        <div class="col-md-12">
+            <h2 class="text-center"> Student Fee Voucher (Admin Copy) </h2>
+            <table class="table">
+                <tr>
+                    <th>Student Name</th>
+                    <th class="alert alert-info">
+                        <?php echo $voucher->first_name.'       '. $voucher->last_name;?>
+                    </th>
+
+                    <th>Father Name</th>
+                    <td>
+                        <?php echo $voucher->first_name.'     '. $voucher->last_name;?>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Enrollment No</th>
+                    <td>
+                        <?php echo $voucher->enrollmentId;?>
+                    </td>
+
+                    <th>Class </th>
+                    <td>
+                        <?php echo $voucher->classTitle.' '. $voucher->title;?>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Installment No</th>
+                    <td>
+                        <?php echo $voucher->installment_no;?>
+                    </td>
+
+                    <th>Installment Amuount </th>
+                    <td>
+                        <?php echo $voucher->fee_amount;?>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Due Date</th>
+                    <td>
+                        <?php echo $voucher->installment_date;?>
+                    </td>
+
+                    <th>Fine</th>
+                    <td>
+                        <?php echo $voucher->fee_amount;?>
+                    </td>
+                </tr>
+                <tr>
+                    <th></th>
+                    <td>
+
+                    </td>
+
+                    <th>Total Amount</th>
+                    <th class="alert alert-warning">
+                        <?php echo $voucher->fee_amount;?>
+                    </th>
+                </tr>
+            </table>
+        </div>
+    </div>
 
 </div>
+<?php if ($print): ?>
 
+
+    <script type='text/javascript' src='<?php echo base_url();?>assets/js/jquery-1.10.2.min.js'></script>
+
+    <script type="text/javascript">
+
+        $(document).ready(function(){
+            PrintElem('#printVoucher');
+        });
+
+        function PrintElem(elem) {
+            Popup($(elem).html());
+            window.location.href = '<?php echo base_url()."vouchers/index";?>';
+        }
+
+        function Popup(data) {
+            var infoPrintWindow = window.open('', 'Student Fee Voucher', "width="+screen.availWidth+",height="+screen
+                .availHeight);
+            infoPrintWindow.document.write('<html><head><title>Student Fee Voucher</title>');
+            infoPrintWindow.document.write('<link rel="stylesheet" href="<?php echo base_url();?>assets/css/styles.minc726.css?=140">');
+            infoPrintWindow.document.write('<link href=\'<?php echo base_url();?>assets/demo/variations/default.css\' rel=\'stylesheet\' type=\'text/css\' media=\'all\' id=\'styleswitcher\'>');
+            infoPrintWindow.document.write('<link href=\'<?php echo base_url();?>assets/demo/variations/default.css\' rel=\'stylesheet\' type=\'text/css\' media=\'all\' id=\'headerswitcher\'>');
+            infoPrintWindow.document.write('</head><body >');
+            infoPrintWindow.document.write(data);
+            infoPrintWindow.document.write('</body></html>');
+
+            infoPrintWindow.print();
+            infoPrintWindow.close();
+
+            return true;
+        }
+
+    </script>
+
+<?php endif; ?>

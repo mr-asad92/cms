@@ -136,7 +136,7 @@
                 <li class="userlinks">
                     <ul class="dropdown-menu">
                         <?php if($this->session->userdata('user_id')):?>
-                        <?php $user_id = $this->session->userdata('user_id');?>
+                            <?php $user_id = $this->session->userdata('user_id');?>
                         <?php endif;?>
                         <li><a href="<?php echo base_url().'users/edit_profile/'.$user_id ;?>">Edit Profile <i
                                         class="pull-right fa
@@ -148,48 +148,6 @@
                         <li><a href="#" class="text-right">Sign Out</a></li>
                     </ul>
                 </li>
-            </ul>
-        </li>
-        <li class="dropdown">
-            <a href="#" class="hasnotifications dropdown-toggle" data-toggle='dropdown'><i class="fa fa-envelope"></i><span class="badge">1</span></a>
-            <ul class="dropdown-menu messages arrow">
-                <li class="dd-header">
-                    <span>You have 1 new message(s)</span>
-                    <span><a href="#">Mark all Read</a></span>
-                </li>
-                <div class="scrollthis">
-                    <li><a href="#" class="active">
-                            <span class="time">6 mins</span>
-                            <img src="<?php echo base_url();?>assets/demo/avatar/doyle.png" alt="avatar" />
-                            <div><span class="name">Alan Doyle</span><span class="msg">Please mail me the files by tonight.</span></div>
-                        </a></li>
-                    <li><a href="#">
-                            <span class="time">12 mins</span>
-                            <img src="<?php echo base_url();?>assets/demo/avatar/paton.png" alt="avatar" />
-                            <div><span class="name">Polly Paton</span><span class="msg">Uploaded all the files to server. Take a look.</span></div>
-                        </a></li>
-                    <li><a href="#">
-                            <span class="time">9 hrs</span>
-                            <img src="<?php echo base_url();?>assets/demo/avatar/corbett.png" alt="avatar" />
-                            <div><span class="name">Simon Corbett</span><span class="msg">I am signing off for today.</span></div>
-                        </a></li>
-                    <li><a href="#">
-                            <span class="time">2 days</span>
-                            <img src="<?php echo base_url();?>assets/demo/avatar/tennant.png" alt="avatar" />
-                            <div><span class="name">David Tennant</span><span class="msg">How are you doing?</span></div>
-                        </a></li>
-                    <li><a href="#">
-                            <span class="time">6 mins</span>
-                            <img src="<?php echo base_url();?>assets/demo/avatar/doyle.png" alt="avatar" />
-                            <div><span class="name">Alan Doyle</span><span class="msg">Please mail me the files by tonight.</span></div>
-                        </a></li>
-                    <li><a href="#">
-                            <span class="time">12 mins</span>
-                            <img src="<?php echo base_url();?>assets/demo/avatar/paton.png" alt="avatar" />
-                            <div><span class="name">Polly Paton</span><span class="msg">Uploaded all the files to server. Take a look.</span></div>
-                        </a></li>
-                </div>
-                <li class="dd-footer"><a href="#">View All Messages</a></li>
             </ul>
         </li>
         <li class="dropdown">
@@ -260,39 +218,6 @@
                 <li class="dd-footer"><a href="#">View All Notifications</a></li>
             </ul>
         </li>
-        <li>
-            <a href="#" id="headerbardropdown"><span><i class="fa fa-level-down"></i></span></a>
-        </li>
-        <li class="dropdown demodrop">
-            <a href="#" class="dropdown-toggle tooltips" data-toggle="dropdown"><i class="fa fa-magic"></i></a>
-
-            <ul class="dropdown-menu arrow dropdown-menu-form" id="demo-dropdown">
-                <li>
-                    <label for="demo-header-variations" class="control-label">Header Colors</label>
-                    <ul class="list-inline demo-color-variation" id="demo-header-variations">
-                        <li><a class="color-black" href="javascript:;"  data-headertheme="header-black.html"></a></li>
-                        <li><a class="color-dark" href="javascript:;"  data-headertheme="default.html"></a></li>
-                        <li><a class="color-red" href="javascript:;" data-headertheme="header-red.html"></a></li>
-                        <li><a class="color-blue" href="javascript:;" data-headertheme="header-blue.html"></a></li>
-                    </ul>
-                </li>
-                <li class="divider"></li>
-                <li>
-                    <label for="demo-color-variations" class="control-label">Sidebar Colors</label>
-                    <ul class="list-inline demo-color-variation" id="demo-color-variations">
-                        <li><a class="color-lite" href="javascript:;"  data-theme="default.html"></a></li>
-                        <li><a class="color-steel" href="javascript:;" data-theme="sidebar-steel.html"></a></li>
-                        <li><a class="color-lavender" href="javascript:;" data-theme="sidebar-lavender.html"></a></li>
-                        <li><a class="color-green" href="javascript:;" data-theme="sidebar-green.html"></a></li>
-                    </ul>
-                </li>
-                <li class="divider"></li>
-                <li>
-                    <label for="fixedheader">Fixed Header</label>
-                    <div id="fixedheader" style="margin-top:5px;"></div>
-                </li>
-            </ul>
-        </li>
     </ul>
 </header>
 
@@ -302,39 +227,57 @@
     <nav id="page-leftbar" role="navigation">
         <!-- BEGIN SIDEBAR MENU -->
         <ul class="acc-menu" id="sidebar">
-            <li id="search">
-                <a href="javascript:;"><i class="fa fa-search opacity-control"></i></a>
-                <form>
-                    <input class="search-query" placeholder="Search..." type="text">
-                    <button type="submit"><i class="fa fa-search"></i></button>
-                </form>
-            </li>
+
             <li class="divider"></li>
+
+
             <li><a href="<?php echo base_url()."admin";?>"><i class="fa fa-home"></i> <span>Dashboard</span></a></li>
+
+
             <li class="open hasChild">
-                <a href="javascript:;"><i class="fa fa-user"></i> <span>Admission Office</span> </a>
+                <a href="javascript:;"><i class="fa fa-user"></i> <span>Admin</span> </a>
                 <ul class="acc-menu" style="display: block;">
-                    <li class="active"><a href="<?php echo base_url()."admin/index";?>"><span>Registration</span></a></li>
-                    <li><a href="<?php echo base_url()."admin/editRegistration";?>"><span>Edit Registration</span></a></li>
-                    <li><a href="<?php echo base_url();?>admin/studentsList"><span>Students List</span></a></li>
-                    <li><a href="<?php echo base_url();?>users"><span>Users List</span></a></li>
+                    <li><a href="<?php echo base_url();?>users"><span>Employee List</span></a></li>
                     <li><a href="<?php echo base_url() ; ?>programs"><span>Programs</span></a></li>
                     <li><a href="<?php echo base_url() ; ?>classes"><span>Classes</span></a></li>
-                    <li><a href="<?php echo base_url() ; ?>Vouchers"><span>Vouchers</span></a></li>
-                    <li><a href="<?php echo base_url() ; ?>accounts"><span>Accounts</span></a></li>
-                    <li><a href="<?php echo base_url() ; ?><?php echo base_url() ; ?>"><span>Suspend</span></a></li>
-
                 </ul>
             </li>
-            <li class="hasChild">
-                <a href="javascript:;"><i class="fa fa-user"></i> <span>Fee Collection</span> </a>
-                <ul class="acc-menu">
-                    <li><a href="/admission/fee/index"><span>Fees</span></a></li>
+
+            <li class="open hasChild">
+                <a href="javascript:;"><i class="fa fa-graduation-cap"></i> <span>Admission Office</span> </a>
+                <ul class="acc-menu" style="display: block;">
+                    <li class="active"><a href="<?php echo base_url()."admin/index";?>"><span>Registration</span></a></li>
+                    <li><a href="<?php echo base_url();?>admin/studentsList"><span>Students List</span></a></li>
+                </ul>
+            </li>
+
+
+            <li class="open hasChild">
+                <a href="javascript:;"><i class="fa fa-print"></i> <span>Fee Collection</span> </a>
+                <ul class="acc-menu" style="display: block;">
+                    <li><a href="<?php echo base_url() ; ?>Vouchers"><span>Fee Vouchers</span></a></li>
                     <li><a href="<?php echo base_url() ; ?>admin/fee_payments"><span>Fee payments</span></a></li>
-
                 </ul>
             </li>
-
+            <li class="open hasChild">
+                <a href="javascript:;"><i class="fa fa-pencil-square-o"></i> <span>Accounts Office</span> </a>
+                <ul class="acc-menu" style="display: block;">
+                    <li><a href="<?php echo base_url() ; ?>accounts"><span>Charts of Account</span></a></li>
+                    <li><a href="<?php echo base_url() ; ?>accounts"><span>Transactions</span></a></li>
+                    <li><a href="<?php echo base_url() ; ?>accounts"><span>Journal</span></a></li>
+                    <li><a href="<?php echo base_url() ; ?>accounts"><span>Ledger</span></a></li>
+                    <li><a href="<?php echo base_url() ; ?>accounts"><span>Trial Balance</span></a></li>
+                    <li><a href="<?php echo base_url() ; ?>accounts"><span>Profit & Loss</span></a></li>
+                </ul>
+            </li>
+            <li class="open hasChild">
+                <a href="javascript:;"><i class="fa fa-cog"></i> <span>Settings</span> </a>
+                <ul class="acc-menu" style="display: block;">
+                    <li><a href="<?php echo base_url();?>users"><span>Build Profile</span></a></li>
+                    <li><a href="<?php echo base_url();?>users"><span>Change Password</span></a></li>
+                    <li><a href="<?php echo base_url();?>users"><span>Forgot Password</span></a></li>
+                </ul>
+            </li>
         </ul>
         <!-- END SIDEBAR MENU -->
     </nav>
@@ -522,7 +465,7 @@
             <div class="container">
 
                 <?php
-                    $this->load->view($view);
+                $this->load->view($view);
                 ?>
 
                 <div class="container">

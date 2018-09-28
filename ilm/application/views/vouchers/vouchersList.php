@@ -4,7 +4,7 @@
 <div class="container">
     <div class="panel panel-info">
         <div class="panel-heading ">
-            <h4>Serach Student</h4>
+            <h4>Serach Student Vouchers</h4>
         </div>
         <div class="panel-body">
             <div class="col-sm-12">
@@ -16,18 +16,18 @@
                     </div>
                     <div class="form-group">
                         <div class="col-sm-2">
-                            <label for="EnrollmentNo">EnrollmentNo</label>
+                            <label for="EnrollmentNo">Enrollment No</label>
                             <input class="form-control" name="enrollment_id" type="text">
                         </div>
                         <div class="col-sm-2">
-                            <label class="control-label" for="DateFrom">DateFrom</label>
+                            <label class="control-label" for="DateFrom">Date From</label>
                             <div class="input-group date">
                                 <input type="date" class="form-control" name="">
                                 <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                             </div>
                         </div>
                         <div class="col-sm-2">
-                            <label class="control-label" for="DateTo">DateTo</label>
+                            <label class="control-label" for="DateTo">Date To</label>
                             <div class="input-group date">
                                 <input class="form-control" name="DateTo" type="date">
                                 <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
@@ -63,7 +63,7 @@
     </div>
     <div class="panel panel-info">
         <div class="panel-heading">
-            <h4>Vouchers List</h4>
+            <h4>Student Vouchers List</h4>
 
 
             <input style="margin-top:5px;" class="btn btn-primary btn-sm pull-right" id="btnPrintsel" value="Print Selected" type="button">
@@ -93,50 +93,50 @@
                             </thead>
                             <tbody>
                             <?php foreach ($vouchers as $voucher): ?>
-                            <tr>
+                                <tr>
 
-                                <td class="text-center hdns">
-                                    <input class="checkbox chkbulk" type="checkbox">
-                                </td>
-                                <td><?php echo $voucher->enrollmentId ;?></td>
-                                <td><?php echo $voucher->first_name .' '.$voucher->last_name  ;?></td>
-                                <td><?php echo $voucher->installment_no ;?></td>
-                                <td><?php echo $voucher->fee_amount ;?></td>
-                                <td><?php echo $voucher->installment_date ;?></td>
-                                <td><?php echo $voucher->classTitle ;?></td>
-                                <td>
-                                    <?php
-                                            if ($voucher->status == 1)
-                                            {
-                                                echo '<p class="text-success">Paid</p>';
-                                            }
-                                            else
-                                            {
-                                                echo '<p class="text-danger">Unpaid</p>';
-                                            }
-                                    ;?>
-                                </td>
+                                    <td class="text-center hdns">
+                                        <input class="checkbox chkbulk" type="checkbox">
+                                    </td>
+                                    <td><?php echo $voucher->enrollmentId ;?></td>
+                                    <td><?php echo $voucher->first_name .' '.$voucher->last_name  ;?></td>
+                                    <td><?php echo $voucher->installment_no ;?></td>
+                                    <td><?php echo $voucher->fee_amount ;?></td>
+                                    <td><?php echo $voucher->installment_date ;?></td>
+                                    <td><?php echo $voucher->classTitle ;?></td>
+                                    <td>
+                                        <?php
+                                        if ($voucher->status == 1)
+                                        {
+                                            echo '<p class="text-success">Paid</p>';
+                                        }
+                                        else
+                                        {
+                                            echo '<p class="text-danger">Unpaid</p>';
+                                        }
+                                        ;?>
+                                    </td>
 
-                                <td>
-                                    &nbsp;
-                                    <a href="<?php echo base_url().'vouchers/details/'. $voucher->id ;?>"
-                                       style="margin-top:2px" class="fa fa-info"
-                                        title="Details"> </a>
-                                    &nbsp;
-                                    <a href="<?php echo base_url().'vouchers/feePackageAndHistory/'.
-                                        $voucher->enrollmentId ;?>"
-                                       style="margin-top:2px"
-                                       class="fa fa-history"
-                                       title="Fee History"> </a>
-                                    &nbsp;
-                                    <a href="<?php echo base_url().'vouchers/print/'. $voucher->id ;?>"
-                                       style="margin-top:2px"
-                                       class="fa fa-print"
-                                       title="Print"> </a>
-                                </td>
+                                    <td>
+                                        &nbsp;
+                                        <a href="<?php echo base_url().'vouchers/details/'. $voucher->vocher_id ;?>"
+                                           style="margin-top:2px" class="fa fa-info"
+                                           title="Details"> </a>
+                                        &nbsp;
+                                        <a href="<?php echo base_url().'vouchers/feePackageAndHistory/'.
+                                            $voucher->enrollmentId ;?>"
+                                           style="margin-top:2px"
+                                           class="fa fa-history"
+                                           title="Fee History"> </a>
+                                        &nbsp;
+                                        <a href="<?php echo base_url().'vouchers/printVoucher/'. $voucher->vocher_id ;?>"
+                                           style="margin-top:2px"
+                                           class="fa fa-print"
+                                           title="Print"> </a>
+                                    </td>
 
 
-                            </tr>
+                                </tr>
                             <?php endforeach; ?>
                             </tbody>
                         </table>

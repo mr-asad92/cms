@@ -36,7 +36,7 @@
             </table>
             <p><span class="pull-right alert alert-info" ><b>Total Fee Package :  Rs. <?php echo
                         $fee_package->grand_total ;
-            ?></b></span></p>
+                        ?></b></span></p>
         </div>
 
     </div>
@@ -83,7 +83,7 @@
                 </tbody>
             </table>
             <p><span class="pull-right alert alert-success" ><b>Total Paid Amount  :  Rs. <?php echo $sum ;
-            ?></b></span></p>
+                        ?></b></span></p>
         </div>
 
         <!-- Table -->
@@ -128,7 +128,7 @@
                 </tbody>
             </table>
             <p><span class="pull-right alert alert-danger" ><b>Total Unpaid Amount  :  Rs. <?php echo $sum ;
-            ?></b></span></p>
+                        ?></b></span></p>
         </div>
 
         <!-- Table -->

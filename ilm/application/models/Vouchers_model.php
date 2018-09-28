@@ -18,6 +18,7 @@ class Vouchers_model extends CI_Model
             enrollment.*,
             personal_details.*,
             paid_fee.*,
+            paid_fee.id as vocher_id,
             classes.*,
             classes.title as classTitle,
             enrollment.id as enrollmentId,
@@ -55,7 +56,7 @@ class Vouchers_model extends CI_Model
             ->where('paid_fee.id',$id)
             ->get();
 
-        return $q->result();
+        return $q->row();
 
         /*$query = $this->db->where('id',$id)
                 ->get('users');
@@ -125,7 +126,7 @@ class Vouchers_model extends CI_Model
         return $res->result_array();
 
     }
-    
+
     public function edit_user($id)
     {
         $query = $this->db->where('id',$id)
@@ -138,7 +139,7 @@ class Vouchers_model extends CI_Model
     public function update_profile($data)
     {
         $query = $this->db->where('id',$data['id'])
-                        ->update('users',$data);
+            ->update('users',$data);
         return $query;
     }
 
@@ -167,14 +168,14 @@ class Vouchers_model extends CI_Model
     public function getFeePackage($enrollment_id)
     {
         $query =  $this->db->where('enrollment_id',$enrollment_id)
-                            ->get('fee_info');
+            ->get('fee_info');
         return $query->row();
     }
 
     public function getPaidFee($enrollment_id)
     {
         $query =  $this->db->where(array('enrollment_id' => $enrollment_id, 'status' => 1))
-                                ->get('paid_fee');
+            ->get('paid_fee');
 
         //print_r($this->db->last_query());
 

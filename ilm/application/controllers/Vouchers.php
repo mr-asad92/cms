@@ -20,7 +20,7 @@ class Vouchers extends CI_Controller
     public function index()
     {
         $data = array(
-            'title' => 'ILM | Admin',
+            'title' => 'ILM |Fee Voucher',
             'view' => 'vouchers/vouchersList',
             'vouchers' => $this->Vouchers_model->getVouchers()
         );
@@ -35,8 +35,21 @@ class Vouchers extends CI_Controller
             'title' => 'ILM | Admin',
             'view' => 'vouchers/voucher_details',
             'voucher' => $this->Vouchers_model->getById($id),
+            'print' => false
         );
-        echo '<pre>'; print_r($data); exit();
+
+        $this->load->view('masterLayouts/admin',$data);
+    }
+
+    public function printVoucher($id)
+    {
+        $data = array(
+            'title' => 'ILM | Admin',
+            'view' => 'vouchers/voucher_details',
+            'voucher' => $this->Vouchers_model->getById($id),
+            'print' => true
+        );
+
 
         $this->load->view('masterLayouts/admin',$data);
     }
