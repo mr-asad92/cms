@@ -3,11 +3,17 @@
   <component name="ChangeListManager">
     <list default="true" id="df23ca28-d291-42d4-bc4f-35af8aaf2a9a" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ilm/application/controllers/Accounts.php" beforeDir="false" afterPath="$PROJECT_DIR$/ilm/application/controllers/Accounts.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ilm/application/controllers/Admin.php" beforeDir="false" afterPath="$PROJECT_DIR$/ilm/application/controllers/Admin.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ilm/application/controllers/Vouchers.php" beforeDir="false" afterPath="$PROJECT_DIR$/ilm/application/controllers/Vouchers.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ilm/application/models/Vouchers_model.php" beforeDir="false" afterPath="$PROJECT_DIR$/ilm/application/models/Vouchers_model.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ilm/application/models/Accounts_model.php" beforeDir="false" afterPath="$PROJECT_DIR$/ilm/application/models/Accounts_model.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ilm/application/views/accounts/accountsList.php" beforeDir="false" afterPath="$PROJECT_DIR$/ilm/application/views/accounts/accountsList.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ilm/application/views/accounts/add_edit.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ilm/application/views/accounts/programs.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ilm/application/views/admin/studentDetails.php" beforeDir="false" afterPath="$PROJECT_DIR$/ilm/application/views/admin/studentDetails.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ilm/application/views/masterLayouts/admin.php" beforeDir="false" afterPath="$PROJECT_DIR$/ilm/application/views/masterLayouts/admin.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ilm/application/views/vouchers/edit_user.php" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/ilm/application/views/vouchers/fee_pkg_history.php" beforeDir="false" afterPath="$PROJECT_DIR$/ilm/application/views/vouchers/fee_pkg_history.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ilm/application/views/vouchers/voucher_details.php" beforeDir="false" afterPath="$PROJECT_DIR$/ilm/application/views/vouchers/voucher_details.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ilm/application/views/vouchers/vouchersList.php" beforeDir="false" afterPath="$PROJECT_DIR$/ilm/application/views/vouchers/vouchersList.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -56,14 +62,14 @@
         <counts>
           <entry key="html" value="1218" />
           <entry key="js" value="3615" />
-          <entry key="php" value="20476" />
+          <entry key="php" value="22373" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="HTML" value="1219" />
           <entry key="JavaScript" value="3615" />
-          <entry key="PHP" value="20438" />
+          <entry key="PHP" value="22335" />
           <entry key="SQL" value="37" />
         </counts>
       </usages-collector>
@@ -71,14 +77,14 @@
         <counts>
           <entry key="html" value="10" />
           <entry key="js" value="6" />
-          <entry key="php" value="149" />
+          <entry key="php" value="161" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key="HTML" value="10" />
           <entry key="JavaScript" value="6" />
-          <entry key="PHP" value="149" />
+          <entry key="PHP" value="161" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.php.new.class">
@@ -90,111 +96,42 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/ilm/application/controllers/Admin.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="740">
-              <caret line="618" column="9" selection-start-line="618" selection-start-column="9" selection-end-line="618" selection-end-column="9" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/ilm/application/controllers/Vouchers.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="864">
-              <caret line="43" column="37" lean-forward="true" selection-start-line="43" selection-start-column="37" selection-end-line="43" selection-end-column="37" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/ilm/application/views/vouchers/vouchersList.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="281">
-              <caret line="131" column="93" selection-start-line="131" selection-start-column="93" selection-end-line="131" selection-end-column="93" />
-              <folding>
-                <element signature="n#style#0;n#input#0;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-                <element signature="e#6767#6773#0#HTML" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/ilm/application/views/vouchers/fee_pkg_history.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="173">
-              <caret line="125" column="36" lean-forward="true" selection-start-line="125" selection-start-column="36" selection-end-line="125" selection-end-column="36" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/ilm/application/views/vouchers/voucher_details.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="162">
-              <caret line="213" column="73" selection-start-line="213" selection-start-column="73" selection-end-line="213" selection-end-column="73" />
-              <folding>
-                <element signature="n#style#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#div#0;n#div#0;n#!!top" />
-                <element signature="n#style#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#div#1;n#div#0;n#!!top" />
-                <element signature="n#style#0;n#div#2;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#div#2;n#div#0;n#!!top" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/ilm/application/views/masterLayouts/admin.php">
+        <entry file="file://$PROJECT_DIR$/ilm/application/controllers/Accounts.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="497">
-              <caret line="535" column="7" selection-start-line="535" selection-start-column="7" selection-end-line="535" selection-end-column="7" />
+            <state relative-caret-position="171">
+              <caret line="31" column="44" selection-start-line="31" selection-start-column="44" selection-end-line="31" selection-end-column="44" />
               <folding>
-                <element signature="n#style#0;n#ul#0;n#li#2;n#ul#0;n#nav#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#ul#0;n#li#3;n#ul#0;n#nav#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#ul#0;n#li#4;n#ul#0;n#nav#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#ul#0;n#li#5;n#ul#0;n#nav#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#ul#0;n#li#6;n#ul#0;n#nav#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#addAccount#0;n#Accounts#0;n#!!top" />
+                <element signature="n#Details#0;n#Vouchers#0;n#!!top" />
+                <element signature="n#printVoucher#0;n#Vouchers#0;n#!!top" />
+                <element signature="n#searchStudent#0;n#Vouchers#0;n#!!top" />
+                <element signature="n#feePackageAndHistory#0;n#Vouchers#0;n#!!top" />
+                <element signature="n#studentInfo#0;n#Vouchers#0;n#!!top" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/ilm/application/views/admin/printStudentDetails.php">
+        <entry file="file://$PROJECT_DIR$/ilm/application/models/Accounts_model.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="297">
-              <caret line="11" column="19" lean-forward="true" selection-start-line="11" selection-start-column="19" selection-end-line="11" selection-end-column="19" />
+            <state relative-caret-position="216">
+              <caret line="30" column="26" selection-start-line="30" selection-start-column="26" selection-end-line="30" selection-end-column="26" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/ilm/application/views/admin/studentsList.php">
+        <entry file="file://$PROJECT_DIR$/ilm/application/views/accounts/accountsList.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3213">
-              <caret line="119" column="95" selection-start-line="119" selection-start-column="95" selection-end-line="119" selection-end-column="95" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/ilm/application/models/admin_model.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="902">
-              <caret line="263" column="45" selection-start-line="263" selection-start-column="45" selection-end-line="263" selection-end-column="45" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/ilm/application/views/admin/studentDetails.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="10449">
-              <caret line="387" column="80" selection-start-line="387" selection-start-column="80" selection-end-line="387" selection-end-column="80" />
+            <state relative-caret-position="-1677">
+              <caret line="114" column="87" selection-start-line="114" selection-start-column="87" selection-end-line="114" selection-end-column="87" />
+              <folding>
+                <element signature="n#div#0;n#div#0;n#!!top" />
+                <element signature="n#style#0;n#a#0;n#td#5;n#tr#0;n#tbody#0;n#table#0;n#div#0;n#div#0;n#div#0;n#div#1;n#div#1;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#div#1;n#!!top" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -210,7 +147,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>&gt; p</find>
       <find>Personal Detail</find>
       <find>model</find>
       <find>mymodal</find>
@@ -240,6 +176,7 @@
       <find>Blood Group</find>
       <find>Serach Student</find>
       <find>tudentsList</find>
+      <find>add new</find>
     </findStrings>
     <replaceStrings>
       <replace>&lt;?php echo base_url(); ?&gt;assets</replace>
@@ -251,7 +188,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/ilm/application/views/authentication/forgot_password.php" />
         <option value="$PROJECT_DIR$/ilm/application/models/authentication.php" />
         <option value="$PROJECT_DIR$/ilm/application/views/authentication/login.php" />
         <option value="$PROJECT_DIR$/ilm/application/.htaccess" />
@@ -287,21 +223,22 @@
         <option value="$PROJECT_DIR$/ilm/application/controllers/Programs.php" />
         <option value="$PROJECT_DIR$/ilm/application/models/Employee_model.php" />
         <option value="$PROJECT_DIR$/ilm/application/controllers/Employee.php" />
-        <option value="$PROJECT_DIR$/ilm/application/models/Accounts_model.php" />
-        <option value="$PROJECT_DIR$/ilm/application/controllers/Accounts.php" />
-        <option value="$PROJECT_DIR$/ilm/application/views/accounts/accountsList.php" />
         <option value="$USER_HOME$/Desktop/CMS Theme files/StudentList.html" />
         <option value="$PROJECT_DIR$/ilm/application/views/admin/home.php" />
         <option value="$PROJECT_DIR$/ilm/application/views/admin/studentsList.php" />
-        <option value="$PROJECT_DIR$/ilm/application/views/admin/studentDetails.php" />
-        <option value="$PROJECT_DIR$/ilm/application/controllers/Admin.php" />
         <option value="$PROJECT_DIR$/ilm/application/models/admin_model.php" />
         <option value="$PROJECT_DIR$/ilm/application/models/Vouchers_model.php" />
-        <option value="$PROJECT_DIR$/ilm/application/views/vouchers/fee_pkg_history.php" />
-        <option value="$PROJECT_DIR$/ilm/application/controllers/Vouchers.php" />
-        <option value="$PROJECT_DIR$/ilm/application/views/vouchers/vouchersList.php" />
         <option value="$PROJECT_DIR$/ilm/application/views/vouchers/voucher_details.php" />
+        <option value="$PROJECT_DIR$/ilm/application/views/vouchers/vouchersList.php" />
+        <option value="$PROJECT_DIR$/ilm/application/views/admin/student_info.php" />
+        <option value="$PROJECT_DIR$/ilm/application/views/admin/studentDetails.php" />
+        <option value="$PROJECT_DIR$/ilm/application/views/vouchers/fee_pkg_history.php" />
+        <option value="$PROJECT_DIR$/ilm/application/controllers/Admin.php" />
+        <option value="$PROJECT_DIR$/ilm/application/controllers/Vouchers.php" />
         <option value="$PROJECT_DIR$/ilm/application/views/masterLayouts/admin.php" />
+        <option value="$PROJECT_DIR$/ilm/application/models/Accounts_model.php" />
+        <option value="$PROJECT_DIR$/ilm/application/views/accounts/accountsList.php" />
+        <option value="$PROJECT_DIR$/ilm/application/controllers/Accounts.php" />
       </list>
     </option>
   </component>
@@ -311,7 +248,7 @@
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
   </component>
-  <component name="ProjectFrameBounds" extendedState="1">
+  <component name="ProjectFrameBounds">
     <option name="x" value="-7" />
     <option name="width" value="1378" />
     <option name="height" value="735" />
@@ -348,7 +285,7 @@
               <item name="cms" type="462c0819:PsiDirectoryNode" />
               <item name="ilm" type="462c0819:PsiDirectoryNode" />
               <item name="application" type="462c0819:PsiDirectoryNode" />
-              <item name="views" type="462c0819:PsiDirectoryNode" />
+              <item name="controllers" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="cms" type="b2602c69:ProjectViewProjectNode" />
@@ -356,7 +293,6 @@
               <item name="ilm" type="462c0819:PsiDirectoryNode" />
               <item name="application" type="462c0819:PsiDirectoryNode" />
               <item name="views" type="462c0819:PsiDirectoryNode" />
-              <item name="masterLayouts" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -432,18 +368,18 @@
       <workItem from="1538028267839" duration="768000" />
       <workItem from="1538069573353" duration="23738000" />
       <workItem from="1538139608270" duration="4175000" />
-      <workItem from="1538155748343" duration="1357000" />
+      <workItem from="1538155748343" duration="17659000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="324001000" />
+    <option name="totallyTimeSpent" value="340303000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="0" width="1378" height="735" extended-state="1" />
+    <frame x="-7" y="0" width="1378" height="735" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.19271624" />
+      <window_info content_ui="combo" id="Project" order="0" weight="0.19271624" />
       <window_info id="Structure" order="1" weight="0.20574887" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -492,20 +428,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/ilm/application/views/users/edit_user.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="81">
-          <caret line="36" lean-forward="true" selection-start-line="36" selection-end-line="36" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ilm/application/views/users/usersList.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="70" column="71" selection-start-line="70" selection-start-column="71" selection-end-line="70" selection-end-column="71" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/ilm/application/views/users/user_details.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="695">
@@ -621,27 +543,6 @@
         <state relative-caret-position="-3882" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ilm/application/views/accounts/accountsList.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="182">
-          <caret line="45" column="7" lean-forward="true" selection-start-line="45" selection-start-column="7" selection-end-line="45" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ilm/application/models/Accounts_model.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="243">
-          <caret line="14" column="5" selection-start-line="14" selection-start-column="5" selection-end-line="14" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ilm/application/controllers/Accounts.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="236">
-          <caret line="24" column="32" selection-start-line="24" selection-start-column="20" selection-end-line="24" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://E:/backup/cms/ilm/application/views/admin/studentDetails.php" />
     <entry file="file://$PROJECT_DIR$/ilm/application/views/programs/programsList.php">
       <provider selected="true" editor-type-id="text-editor">
@@ -699,77 +600,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ilm/application/controllers/Programs.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1032">
-          <caret line="64" column="20" selection-start-line="64" selection-start-column="20" selection-end-line="64" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ilm/application/controllers/Users.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-263">
-          <caret line="123" column="17" lean-forward="true" selection-start-line="123" selection-start-column="17" selection-end-line="123" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/ilm/application/controllers/Authentication.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="332">
           <caret line="36" column="28" lean-forward="true" selection-start-line="36" selection-start-column="28" selection-end-line="36" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ilm/application/views/admin/studentsList.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3213">
-          <caret line="119" column="95" selection-start-line="119" selection-start-column="95" selection-end-line="119" selection-end-column="95" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ilm/application/views/admin/studentDetails.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="10449">
-          <caret line="387" column="80" selection-start-line="387" selection-start-column="80" selection-end-line="387" selection-end-column="80" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ilm/application/models/admin_model.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="902">
-          <caret line="263" column="45" selection-start-line="263" selection-start-column="45" selection-end-line="263" selection-end-column="45" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ilm/application/controllers/Admin.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="740">
-          <caret line="618" column="9" selection-start-line="618" selection-start-column="9" selection-end-line="618" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ilm/application/models/Vouchers_model.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="227">
-          <caret line="182" column="5" lean-forward="true" selection-start-line="182" selection-start-column="5" selection-end-line="182" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ilm/application/views/vouchers/fee_pkg_history.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="173">
-          <caret line="125" column="36" lean-forward="true" selection-start-line="125" selection-start-column="36" selection-end-line="125" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ilm/application/views/vouchers/vouchersList.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="281">
-          <caret line="131" column="93" selection-start-line="131" selection-start-column="93" selection-end-line="131" selection-end-column="93" />
-          <folding>
-            <element signature="n#style#0;n#input#0;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-            <element signature="e#6767#6773#0#HTML" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -780,16 +614,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ilm/application/controllers/Vouchers.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="864">
-          <caret line="43" column="37" lean-forward="true" selection-start-line="43" selection-start-column="37" selection-end-line="43" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/ilm/application/views/vouchers/voucher_details.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="162">
+        <state relative-caret-position="567">
           <caret line="213" column="73" selection-start-line="213" selection-start-column="73" selection-end-line="213" selection-end-column="73" />
           <folding>
             <element signature="n#style#0;n#div#0;n#div#0;n#!!top" expanded="true" />
@@ -802,16 +629,140 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/ilm/application/views/admin/studentsList.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3213">
+          <caret line="119" column="95" selection-start-line="119" selection-start-column="95" selection-end-line="119" selection-end-column="95" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ilm/application/views/vouchers/fee_pkg_history.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="27">
+          <caret line="1" column="33" selection-start-line="1" selection-start-column="33" selection-end-line="1" selection-end-column="33" />
+          <folding>
+            <element signature="n#div#0;n#!!top" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ilm/application/models/admin_model.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1388">
+          <caret line="263" column="45" selection-start-line="263" selection-start-column="45" selection-end-line="263" selection-end-column="45" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ilm/application/views/vouchers/vouchersList.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="27">
+          <caret line="1" column="15" lean-forward="true" selection-start-line="1" selection-start-column="15" selection-end-line="1" selection-end-column="15" />
+          <folding>
+            <element signature="n#div#1;n#div#0;n#!!top" />
+            <element signature="n#style#0;n#input#0;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
+            <element signature="e#6829#6835#0#HTML" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ilm/application/views/admin/student_info.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="378">
+          <caret line="14" column="15" lean-forward="true" selection-start-line="14" selection-start-column="15" selection-end-line="14" selection-end-column="15" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ilm/application/controllers/Admin.php">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ilm/application/controllers/Vouchers.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="200">
+          <caret line="94" column="12" selection-end-line="130" selection-end-column="1" />
+          <folding>
+            <element signature="n#index#0;n#Vouchers#0;n#!!top" />
+            <element signature="n#Details#0;n#Vouchers#0;n#!!top" />
+            <element signature="n#printVoucher#0;n#Vouchers#0;n#!!top" />
+            <element signature="n#searchStudent#0;n#Vouchers#0;n#!!top" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ilm/application/models/Vouchers_model.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="227">
+          <caret line="182" column="5" lean-forward="true" selection-end-line="192" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ilm/application/views/accounts/vouchersList.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="81">
+          <caret line="3" column="23" lean-forward="true" selection-start-line="3" selection-start-column="23" selection-end-line="3" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/ilm/application/views/masterLayouts/admin.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="497">
-          <caret line="535" column="7" selection-start-line="535" selection-start-column="7" selection-end-line="535" selection-end-column="7" />
+        <state relative-caret-position="304">
+          <caret line="533" column="24" selection-start-line="533" selection-start-column="24" selection-end-line="533" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ilm/application/views/admin/studentDetails.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="218">
+          <caret line="278" column="107" lean-forward="true" selection-start-line="278" selection-start-column="12" selection-end-line="278" selection-end-column="107" />
           <folding>
-            <element signature="n#style#0;n#ul#0;n#li#2;n#ul#0;n#nav#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#ul#0;n#li#3;n#ul#0;n#nav#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#ul#0;n#li#4;n#ul#0;n#nav#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#ul#0;n#li#5;n#ul#0;n#nav#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#ul#0;n#li#6;n#ul#0;n#nav#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#div#7;n#!!top" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ilm/application/controllers/Users.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2435">
+          <caret line="161" column="5" lean-forward="true" selection-start-line="161" selection-start-column="5" selection-end-line="161" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ilm/application/controllers/Programs.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="486">
+          <caret line="81" column="5" lean-forward="true" selection-start-line="81" selection-start-column="5" selection-end-line="81" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ilm/application/models/Accounts_model.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="216">
+          <caret line="30" column="26" selection-start-line="30" selection-start-column="26" selection-end-line="30" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ilm/application/views/accounts/accountsList.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1677">
+          <caret line="114" column="87" selection-start-line="114" selection-start-column="87" selection-end-line="114" selection-end-column="87" />
+          <folding>
+            <element signature="n#div#0;n#div#0;n#!!top" />
+            <element signature="n#style#0;n#a#0;n#td#5;n#tr#0;n#tbody#0;n#table#0;n#div#0;n#div#0;n#div#0;n#div#1;n#div#1;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#div#1;n#!!top" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ilm/application/controllers/Accounts.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="171">
+          <caret line="31" column="44" selection-start-line="31" selection-start-column="44" selection-end-line="31" selection-end-column="44" />
+          <folding>
+            <element signature="n#addAccount#0;n#Accounts#0;n#!!top" />
+            <element signature="n#Details#0;n#Vouchers#0;n#!!top" />
+            <element signature="n#printVoucher#0;n#Vouchers#0;n#!!top" />
+            <element signature="n#searchStudent#0;n#Vouchers#0;n#!!top" />
+            <element signature="n#feePackageAndHistory#0;n#Vouchers#0;n#!!top" />
+            <element signature="n#studentInfo#0;n#Vouchers#0;n#!!top" />
           </folding>
         </state>
       </provider>

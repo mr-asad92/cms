@@ -529,6 +529,10 @@
     $(document).ready( function () {
         $('#vouchersList').DataTable();
     } );
+
+    $(document).ready( function () {
+        $('#accountsList').DataTable();
+    } );
 </script>
 </body>
 

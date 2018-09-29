@@ -367,6 +367,23 @@ class Admin extends CI_Controller
         return $view;
     }
 
+    public function studentInfo($id = NULL)
+    {
+        if ($id)
+        {
+            $data = array(
+                'student_detail' => $this->admin_model->getStudentDetail($id),
+                'suspendReason' => $this->admin_model->getSuspendReason($id),
+                'leaveReason' => $this->admin_model->getLeaveReason($id)
+            );
+
+            $student_info = $this->load->view('admin/student_info',$data,TRUE);
+
+            return $student_info;
+        }
+
+    }
+
     public function studentDetails($id = NULL)
     {
         if ($id)
@@ -375,6 +392,7 @@ class Admin extends CI_Controller
                 'title' => 'ILM | Admin',
                 'view' => 'admin/studentDetails',
                 'student_detail' => $this->admin_model->getStudentDetail($id),
+                'student_info_view' => $this->studentInfo($id),
                 'fee_pkg_history_view' => $this->feeRecord($id),
                 'studentSuspendHistory' => $this->admin_model->getSuspendHistory($id),
                 'studentLeaveHistory' => $this->admin_model->getLeaveHistory($id),
