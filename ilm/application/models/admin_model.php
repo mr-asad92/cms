@@ -517,8 +517,14 @@ class Admin_Model extends CI_Model
             ')
             ->from('fines f')
             ->where(['f.classId' => $classId, 'f.sectionId' => $sectionId])
-            ->get()->result_array()[0]['fine'];
+            ->get();
 
+            if($perDayFine->num_rows() > 0){
+                $perDayFine = $perDayFine->result_array()[0]['fine'];
+            }
+            else{
+                $perDayFine = 0;
+            }
             $today_date = date('Y-m-d');
             $days = getDaysDifference($installment_date, $today_date);
             $calculated_fine = $perDayFine * $days;
