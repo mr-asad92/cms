@@ -29,6 +29,20 @@ if ( ! function_exists('formatDateForDb')) {
 
 }
 
+if ( ! function_exists('getDaysDifference')) {
+    function getDaysDifference($dateOne, $dateTwo){
+
+        $diff = abs(strtotime($dateTwo) - strtotime($dateOne));
+
+        $years = floor($diff / (365*60*60*24));
+        $months = floor(($diff - $years * 365*60*60*24) / (30*60*60*24));
+        $days = floor(($diff - $years * 365*60*60*24 - $months*30*60*60*24)/ (60*60*24));
+
+        return $days;
+    }
+
+}
+
 if ( ! function_exists('whereClauseExists')) {
     // this function set the value to form fields based on if it is new form or edit form.
     function whereClauseExists($query) {

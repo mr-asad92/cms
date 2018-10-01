@@ -5,48 +5,40 @@
         </div>
         <div class="panel-body">
             <div class="col-sm-12">
-                <form action="/Admission/FeePayment" class="" method="get" novalidate="novalidate">                    <div class="mb5 clearfix">
+                <form action="<?php echo base_url().'admin/fee_payments';?>" class="" method="post" novalidate="novalidate">                    <div class="mb5 clearfix">
                         <h4 class="pull-left"><strong>Enter any of the following field data to search</strong></h4>
                         <button type="submit" class="btn btn-primary pull-right"><span class="fa fa-search"></span>  Search</button>
                     </div>
                     <div class="form-group">
                         <div class="col-sm-2">
                             <label for="EnrollmentNo">EnrollmentNo</label>
-                            <input class="form-control" id="EnrollmentNo" name="EnrollmentNo" value="100" type="text">
+                            <input class="form-control" id="EnrollmentNo" name="EnrollmentNo" value="<?php echo set_value('EnrollmentNo');?>" type="text">
                         </div>
                         <div class="col-sm-2">
                             <label class="control-label" for="DateFrom">DateFrom</label>
                             <div class="input-group date">
-                                <input class="form-control" data-val="true" data-val-date="The field DateFrom must be a date." id="dto" name="DateFrom" placeholder="From" value="04/10/2018" type="text">
+                                <input class="form-control" data-val="true" data-val-date="The field DateFrom must be a date." id="dto" name="DateFrom" placeholder="From" value="<?php echo set_value('DateFrom');?>" type="text">
                                 <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                             </div>
                         </div>
                         <div class="col-sm-2">
                             <label class="control-label" for="DateTo">DateTo</label>
                             <div class="input-group date">
-                                <input class="form-control" data-val="true" data-val-date="The field DateTo must be a date." id="dto" name="DateTo" placeholder="To" value="11/15/2018" type="text">
+                                <input class="form-control" data-val="true" data-val-date="The field DateTo must be a date." id="dto" name="DateTo" placeholder="To" value="<?php echo set_value('DateTo');?>" type="text">
                                 <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                             </div>
                         </div>
                         <div class="col-sm-2">
                             <label for="ClassId">ClassId</label>
-                            <select class="form-control" data-val="true" data-val-number="The field ClassId must be a number." id="ddlclass" name="ClassId"><option value="">Select Class</option>
-                                <option value="7">B</option>
-                                <option value="6">FA</option>
-                                <option value="5">ICS</option>
-                                <option value="4">I-Com</option>
-                                <option value="3">ADP(CS)</option>
-                                <option value="2">ADP (Accounting )</option>
-                                <option value="1">FSC (Medical)</option>
-                            </select>
+                            <?php echo form_dropdown('classId', $classes, set_value('classId'),'class="form-control"');?>
                         </div>
                         <div class="col-sm-2">
                             <label for="SectionId">SectionId</label>
-                            <select class="form-control" data-val="true" data-val-number="The field SectionId must be a number." id="ddlSection" name="SectionId"><option value="">Select Section</option>
-                            </select>                        </div>
+                            <?php echo form_dropdown('sectionId', $sections, set_value('sectionId'),'class="form-control"');?>
+                        </div>
                         <div class="col-sm-2">
                             <label for="Status">Status</label>
-                            <select class="form-control" data-val="true" data-val-number="The field Status must be a number." id="Status" name="Status"><option value="">Select</option>
+                            <select class="form-control" data-val="true" data-val-number="The field Status must be a number." id="Status" name="Status"><option value="3">Select</option>
                                 <option value="0">UnPaid</option>
                                 <option value="1">Paid</option>
                                 <option selected="selected" value="3">All</option>
@@ -104,8 +96,10 @@
                                 <td>
 
 
-                                    <a href="javascript:payInstallment('<?php echo $installment['pfid'];?>')" class="btn btn-info"><i aria-hidden="true"></i>Paid</a>
-                                    <a href="<?php echo base_url()."admin/editInstallments/".$installment['id'];?>" class="btn btn-primary"><i aria-hidden="true"></i>Change</a>
+<!--                                    <a href="javascript:payInstallment('--><?php //echo $installment['pfid'];?><!--')" class="btn btn-info"><i aria-hidden="true"></i>Paid</a>-->
+
+                                    <a href="javascript:getFeeData('<?php echo $installment['pfid'];?>')" class="btn btn-info <?php echo ($installment['status'] == 1)?'disabled':'';?>"><i aria-hidden="true"></i>Paid</a>
+                                    <a href="<?php echo base_url()."admin/editInstallments/".$installment['id'];?>" class="btn btn-primary <?php echo ($installment['status'] == 1)?'disabled':'';?>"><i aria-hidden="true"></i>Change</a>
                                 </td>
                             </tr>
                             <?php } ?>
@@ -122,6 +116,44 @@
 <script type='text/javascript' src='<?php echo base_url();?>assets/js/jquery-1.10.2.min.js'></script>
 
 <script>
+
+    function getFeeData(id){
+
+        var url = '<?php echo base_url();?>admin/getInstallmenetData/'+id;
+        $.ajax({
+            url: url,
+            type:'get',
+            success: function (data) {
+                console.log(JSON.stringify(data, null, 4));
+                data = JSON.parse(data);
+                var html = '<table class="table table-stripped table-condensed">';
+
+                var status = data.status == 0? 'UnPaid':'Paid';
+                html += '' +
+                    '<tr><th>Enrollment No: </th><td>'+data.id+'</td></tr>\n' +
+                    '<tr><th>Name: </th><td>'+data.first_name+' '+data.last_name+'</td></tr>\n' +
+                    '<tr><th>Class: </th><td>'+data.title+'</td></tr>\n' +
+                    '<tr><th>Installment No: </th><td>'+data.installment_no+'</td></tr>\n' +
+                    '<tr><th>Installment Date: </th><td>'+data.installment_date+'</td></tr>\n' +
+                    '<tr><th>Installment Amount: </th><td>'+data.fee_amount+'</td></tr>\n' +
+                    '<tr><th>Fine: </th><td>'+data.calculated_fine+'</td></tr>\n' +
+                    '<tr><th class="text-info">Total Amount: </th><th class="text-info">'+data.total_amount+'</th></tr>\n' +
+                    '<tr><th class="text-danger">Status: </th><td class="text-danger">'+status+'</td></tr>\n' +
+                    '';
+
+                html += "<tr><td></td><td><a href='javascript:payInstallment("+data.pfid+")' class='btn btn-info'><i aria-hidden='true'></i>Confirm Pay</a></td></tr>";
+
+                html +='</table>';
+
+                $("#payFeeModalBody").html(html);
+                $("#feePayModal").modal('show');
+
+            },
+            error: function (err) {
+                console.log(err);
+            }
+        });
+    }
     function payInstallment(id){
         var url = '<?php echo base_url();?>admin/payInstallment/'+id;
         $.ajax({

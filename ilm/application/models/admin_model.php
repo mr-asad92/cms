@@ -13,10 +13,13 @@ class Admin_Model extends CI_Model
         return $enrollment_id;
     }
 
-    public function getClasses() {
+    public function getClasses($get_empty_selected = false) {
         $classesList = [];
         $classes = $this->db->get('classes')->result_array();
 
+        if ($get_empty_selected){
+            $classesList['0'] = '';
+        }
         foreach ($classes as $class ){
             $classesList[$class['id']] = $class['title'];
         }
@@ -25,10 +28,13 @@ class Admin_Model extends CI_Model
         return $classesList;
     }
 
-    public function getSections() {
+    public function getSections($get_empty_selected = false) {
         $sectionsList = [];
         $classes = $this->db->get('sections')->result_array();
 
+        if ($get_empty_selected){
+            $sectionsList['0'] = '';
+        }
         foreach ($classes as $class ){
             $sectionsList[$class['id']] = $class['title'];
         }
@@ -437,6 +443,86 @@ class Admin_Model extends CI_Model
             ->get()->result_array();
 
         return $query;
+    }
+
+    public function searchFeePayments($search){
+
+
+        $query = "SELECT
+            e.id,
+            pd.first_name, pd.last_name,
+            pf.installment_no, pf.fee_amount, pf.installment_date, pf.status, pf.installment_date, pf.id as pfid,
+            c.title
+            FROM enrollment e 
+            LEFT JOIN personal_details pd ON pd.enrollment_id = e.id
+            LEFT JOIN paid_fee pf ON pf.enrollment_id = e.id
+            LEFT JOIN classes c ON pf.classId = c.id
+            WHERE pf.delete_status = 0
+        ";
+
+        if($search['enrollmentNo']){
+            $query .= " AND pf.enrollment_id = '".$search['enrollmentNo']."'";
+        }
+
+        if($search['dateFrom']){
+            $query .= " AND pf.installment_date >= '".date('Y-m-d',strtotime($search['dateFrom']))."'";
+        }
+
+        if($search['dateTo']){
+            $query .= " AND pf.installment_date <= '".date('Y-m-d',strtotime($search['dateTo']))."'";
+        }
+
+        if($search['classId']){
+            $query .= " AND pf.classId = '".$search['classId']."'";
+        }
+
+        if($search['sectionId']){
+            $query .= " AND pf.sectionId = '".$search['sectionId']."'";
+        }
+
+        if($search['status'] || $search['status'] == 0){
+            if($search['status'] != 3){
+                $query .= " AND pf.status = '".$search['status']."'";
+            }
+        }
+
+//        debug($query);
+
+        $result = $this->db->query($query)->result_array();
+
+        return $result;
+    }
+
+    public function getInstallmentData($installment_id){
+        $query = $this->db->select('
+            e.id,
+            pd.first_name, pd.last_name,
+            pf.classId, pf.sectionId,
+            pf.installment_no, pf.fee_amount, pf.installment_date, pf.status, pf.installment_date, pf.id as pfid,
+            c.title
+            ')
+            ->from('enrollment e')
+            ->join('personal_details pd', 'pd.enrollment_id = e.id')
+            ->join('paid_fee pf', 'pf.enrollment_id = e.id')
+            ->join('classes c', 'pf.classId = c.id')
+            ->where(['pf.status' => 0, 'delete_status' => 0, 'pf.id ' => $installment_id])
+            ->get()->result_array()[0];
+
+        return $query;
+    }
+
+    public function getFine($classId, $sectionId, $installment_date){
+        $perDayFine = $this->db->select('
+           f.fine
+            ')
+            ->from('fines f')
+            ->where(['f.classId' => $classId, 'f.sectionId' => $sectionId])
+            ->get()->result_array()[0]['fine'];
+
+            $today_date = date('Y-m-d');
+            $days = getDaysDifference($installment_date, $today_date);
+            $calculated_fine = $perDayFine * $days;
+            return $calculated_fine;
     }
 
     public function payInstallment($id){

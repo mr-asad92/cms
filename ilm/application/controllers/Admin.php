@@ -639,13 +639,45 @@ class Admin extends CI_Controller
     }
 
     public function fee_payments(){
+
         $data = array(
             'title' => 'ILM | Admin',
             'view' => 'admin/fee_payments',
-            'installments' => $this->admin_model->getUnPaidInstallments()
         );
 
+        if(isset($_POST)){
+            $search = [];
+
+            $search['enrollmentNo'] = $this->input->post('EnrollmentNo');
+            $search['dateFrom'] = $this->input->post('DateFrom');
+            $search['dateTo'] = $this->input->post('DateTo');
+            $search['classId'] = $this->input->post('classId');
+            $search['sectionId'] = $this->input->post('sectionId');
+            $search['status'] = $this->input->post('Status');
+
+            $data['installments'] = $this->admin_model->searchFeePayments($search);
+
+
+        }
+        else{
+            $data['installments'] = $this->admin_model->getUnPaidInstallments();
+        }
+
+        $data['classes'] = $this->admin_model->getClasses(true);
+        $data['sections'] = $this->admin_model->getSections(true);
+
         $this->load->view('masterLayouts/admin',$data);
+    }
+
+    public function getInstallmenetData($id){
+        $data = $this->admin_model->getInstallmentData($id);
+        $data['calculated_fine'] = 0;
+        if($data['installment_date'] < date('Y-m-d')){
+            $data['calculated_fine'] = $this->admin_model->getFine($data['classId'],$data['sectionId'],$data['installment_date']);
+        }
+        $data['total_amount'] = $data['calculated_fine'] + $data['fee_amount'];
+
+        echo json_encode($data);
     }
 
     public function payInstallment($id){
@@ -726,6 +758,21 @@ class Admin extends CI_Controller
         }
 
         return redirect('admin/studentDetails/'.$data['enrollment_id']);
+
+    }
+
+    public function searchFeePayments(){
+
+        $data = [];
+
+        $data['enrollmentNo'] = $this->input->post('EnrollmentNo');
+        $data['dateFrom'] = $this->input->post('DateFrom');
+        $data['dateTo'] = $this->input->post('DateTo');
+        $data['classId'] = $this->input->post('classId');
+        $data['sectionId'] = $this->input->post('sectionId');
+        $data['status'] = $this->input->post('Status');
+
+        $this->admin_model->searchFeePayments($data);
 
     }
 }
