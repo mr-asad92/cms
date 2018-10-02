@@ -59,23 +59,24 @@
                                 </div>
                             </div>
                             <div class="col-md-4">
-                                <div class="fileinput fileinput-new col-sm-offset-2" data-provides="fileinput">
 
-                                    <?php
-                                        if($editRegistration){
-                                            $src = ($enrollment_data['pic'] == '')?base_url().'assets/img/profile picture.png':base_url().'studentsPics/'.$enrollment_data['pic'];
-                                        }
-                                    ?>
-                                    <div id="img-holder" class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 200px; height: 150px; line-height: 150px;margin-left:80px"><img src="<?php echo $src;?>" style="width: 200px; height: 160px;"></div>
-                                    <div class="text-center" style="margin-left: 80px;">
-                                        <span class="btn btn-default btn-file"><span class="fileinput-new">Select image</span><span class="fileinput-exists">Change</span><input name="img_url1" type="file"></span>
+                                <?php
+                                $src = base_url().'assets/img/profile picture.png';
+                                    if($editRegistration){
+                                        $src = ($enrollment_data['pic'] == '')?base_url().'assets/img/profile picture.png':base_url().'studentsPics/'.$enrollment_data['pic'];
+                                    }
+                                ?>
 
-                                        <input name="studentsPics" type="file">
-
+                                <div class="fileinput fileinput-new" data-provides="fileinput">
+                                    <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 200px; height: 150px;">
+                                        <img src="<?php echo $src;?>" style="width: 200px; height: 160px;">
+                                    </div>
+                                    <div>
+                                        <span class="btn btn-default btn-file"><span class="fileinput-new">Select image</span><span class="fileinput-exists">Change</span><input type="file" name="studentsPics"></span>
                                         <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
-
                                     </div>
                                 </div>
+
                             </div>
                         </div>
                     </div>
@@ -132,7 +133,12 @@
                                     </div>
                                     <label class="col-sm-2 control-label" for="Student_Cast">Caste</label>
                                     <div class="col-sm-2">
-                                        <input class="form-control" id="Student_Cast" name="cast" type="text" value="">
+                                        <input class="form-control" id="Student_Cast" name="cast" type="text" value="<?php echo set_value('cast',setVal($enrollment_data, '', 'caste', $editRegistration));?>">
+                                    </div>
+
+                                    <label class="col-sm-2 control-label" for="Student_Cast">B-Form / CNIC</label>
+                                    <div class="col-sm-2">
+                                        <input class="form-control" id="bform_or_cnic" name="bform_or_cnic" type="text" value="<?php echo set_value('bform_or_cnic',setVal($enrollment_data, '', 'bform_or_cnic_no', $editRegistration));?>">
                                     </div>
 
                                 </div>
@@ -285,6 +291,26 @@
                         <div class="row">
                             <div class="col-sm-12">
                                 <div class="form-group">
+
+                                    <h4>
+                                        <span class="col-md-2">Father Information</span>
+                                    </h4>
+
+                                    <div class="form-group">
+                                        <label class="control-label col-sm-2" for="fatherfirstname">Full Name</label>
+                                        <div class="col-sm-3">
+                                            <input class="form-control" data-val="true" data-val-required="This field is requried." id="fathername" name="fathername" type="text" onblur="validate(this, 'fathername')" value="<?php echo set_value('fathername', setVal($enrollment_data, '', 'father_name', $editRegistration));?>">
+                                            <span class="field-validation-valid text-danger" data-valmsg-for="Parent.FirstName" data-valmsg-replace="true"></span>
+                                        </div>
+
+                                        <label class="control-label col-sm-1" for="fatherfirstname">CNIC</label>
+                                        <div class="col-sm-3">
+                                            <input class="form-control" data-val="true" data-val-required="This field is requried." id="father_cnic" name="father_cnic" type="text" onblur="validate(this, 'father_cnic')" value="<?php echo set_value('father_cnic', setVal($enrollment_data, '', 'father_cnic', $editRegistration));?>">
+                                            <span class="field-validation-valid text-danger" data-valmsg-for="Parent.FirstName" data-valmsg-replace="true"></span>
+                                        </div>
+                                    </div>
+
+
                                     <h4>
                                         <span class="col-md-2">Guardian Detail</span>
                                     </h4>
@@ -363,6 +389,9 @@
 
                         </div>
                     </div>
+                    <?php
+                        if ($hasFeeEditPermissions){
+                    ?>
                     <div class="row">
                         <div class="col-md-12">
                             <div class="panel panel-midnightblue">
@@ -440,21 +469,24 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="panel-footer">
-                                    <div class="row">
-                                        <div class="col-sm-2 pull-right">
-                                            <div class="col-md-6">
-                                                <button class="btn-primary btn pull-right" type="submit" id="saveFormBtn"> Save </button>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <a href="<?php echo base_url().'admin';?>" class="btn-default btn pull-right"> Cancel </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+
                             </div>
                         </div>
                     </div>
+                    <?php } ?>
+
+                    <br />
+                    <div class="row">
+                        <div class="col-sm-2 pull-right">
+                            <div class="col-md-6">
+                                <button class="btn-primary btn pull-right" type="submit" id="saveFormBtn"> Save </button>
+                            </div>
+                            <div class="col-md-6">
+                                <a href="<?php echo base_url().'admin';?>" class="btn-default btn pull-right"> Cancel </a>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>

@@ -32,6 +32,9 @@ class Admin extends CI_Controller
 
         $data['previousInstitutes'] = [];
 
+        $data['hasFeeEditPermissions'] = true;
+
+
         $this->load->view('masterLayouts/admin', $data);
 
     }
@@ -89,8 +92,12 @@ class Admin extends CI_Controller
 //        else{
             //save Data in DB.
 
+        $res['file_name']='';
+
         if (!empty($_FILES['studentsPics']['name'])) {
 
+            $new_name = uniqid().'_'.$_FILES["studentsPics"]['name'];
+            $config['file_name'] = $new_name;
             $config['upload_path'] = './studentsPics/';
             $config['allowed_types'] = 'jpeg|jpg|png';
 
@@ -101,6 +108,7 @@ class Admin extends CI_Controller
             } else {
                 $res = $this->upload->data();
             }
+
         }
 
 
@@ -110,7 +118,7 @@ class Admin extends CI_Controller
                 'section_id'               => $this->input->post('sectionId'),
                 'study_medium'             => $this->input->post('studyMedium'),
                 'roll_no'                  => $this->input->post('roll_no'),
-                'pic'                      => '',
+                'pic'                      => $res['file_name'],
                 'created_by'               => $this->session->userdata['user_id'],
                 'edited_by'               => 0,
             ];
@@ -127,6 +135,7 @@ class Admin extends CI_Controller
                 'religion'                 => $this->input->post('religion'),
                 'blood_group'              => $this->input->post('bloodGroup'),
                 'caste'                    => $this->input->post('cast'),
+                'bform_or_cnic_no'         => $this->input->post('bform_or_cnic'),
             ];
 
             $previous_institution_detail = [
@@ -159,6 +168,8 @@ class Admin extends CI_Controller
             ];
 
             $family_information = [
+                'father_name'             => $this->input->post('fathername'),
+                'father_cnic'             => $this->input->post('father_cnic'),
                 'guardian'                => $this->input->post('guardian'),
                 'first_name'              => $this->input->post('fatherFirstName'),
                 'last_name'               => $this->input->post('fatherLastName'),
@@ -167,7 +178,7 @@ class Admin extends CI_Controller
                 'organization_name'       => $this->input->post('fatherOrgName'),
                 'office_address'          => $this->input->post('fatherOfficeAddress'),
                 'telephone'               => $this->input->post('fatherTelephone'),
-                'mobile_no'          => $this->input->post('fatherMobile'),
+                'mobile_no'               => $this->input->post('fatherMobile'),
                 'email'                   => $this->input->post('fatherEmail'),
             ];
 
@@ -186,7 +197,7 @@ class Admin extends CI_Controller
 
             $enrollment_data = [
                 'enrollment'                  => $enrollment,
-                'personal_details'             => $personal_details,
+                'personal_details'            => $personal_details,
                 'previous_institution_detail' => $previous_institution_detail,
                 'address'                     => $address,
                 'family_information'          => $family_information,
@@ -228,6 +239,7 @@ class Admin extends CI_Controller
         $data['permenantAddresses'] = $this->admin_model->getPermanentAddresses($enroll_id);
 
         $data['previousInstitutes'] = $this->admin_model->getPreviousInstitutes($enroll_id);
+        $data['hasFeeEditPermissions'] = $this->admin_model->hasFeeEditPermissions($this->session->userdata['user_id']);
 
         $this->load->view('masterLayouts/admin', $data);
 
@@ -235,17 +247,35 @@ class Admin extends CI_Controller
 
     public function updateRegistration($regId){
 
+        if (!empty($_FILES['studentsPics']['name'])) {
 
+            $new_name = uniqid().'_'.$_FILES["studentsPics"]['name'];
+            $config['file_name'] = $new_name;
+            $config['upload_path'] = './studentsPics/';
+            $config['allowed_types'] = 'jpeg|jpg|png';
+
+            $this->load->library('upload', $config);
+
+            if (!$this->upload->do_upload('studentsPics')) {
+                $res = array('error' => $this->upload->display_errors());
+            } else {
+                $res = $this->upload->data();
+            }
+
+        }
 
         $enrollment = [
             'class_id'                 => $this->input->post('classId'),
             'section_id'               => $this->input->post('sectionId'),
             'study_medium'             => $this->input->post('studyMedium'),
             'roll_no'                  => $this->input->post('roll_no'),
-            'pic'                      => '',
             'edited_by'                => $this->session->userdata['user_id'],
             'updated_at'               => date("Y-m-d h:i:s")
         ];
+
+        if(isset($res['file_name'])){
+            $enrollment['pic'] = $res['file_name'];
+        }
 
         if (isset($res) && isset($res['file_name'])){
             $enrollment['pic'] = $res['file_name'];
@@ -259,6 +289,7 @@ class Admin extends CI_Controller
             'religion'                 => $this->input->post('religion'),
             'blood_group'              => $this->input->post('bloodGroup'),
             'caste'                    => $this->input->post('cast'),
+            'bform_or_cnic_no'         => $this->input->post('bform_or_cnic'),
         ];
 
 //        die(print_r($this->input->post('PI_rowId')));
@@ -293,6 +324,8 @@ class Admin extends CI_Controller
         ];
 
         $family_information = [
+            'father_name'             => $this->input->post('fathername'),
+            'father_cnic'             => $this->input->post('father_cnic'),
             'guardian'                => $this->input->post('guardian'),
             'first_name'              => $this->input->post('fatherFirstName'),
             'last_name'               => $this->input->post('fatherLastName'),
@@ -301,7 +334,7 @@ class Admin extends CI_Controller
             'organization_name'       => $this->input->post('fatherOrgName'),
             'office_address'          => $this->input->post('fatherOfficeAddress'),
             'telephone'               => $this->input->post('fatherTelephone'),
-            'mobile_no'          => $this->input->post('fatherMobile'),
+            'mobile_no'               => $this->input->post('fatherMobile'),
             'email'                   => $this->input->post('fatherEmail'),
         ];
 
@@ -317,6 +350,11 @@ class Admin extends CI_Controller
             'grand_total'            => $this->input->post('grandTotal'),
         ];
 
+        $fee_pkg_history = [
+            'fee_pkg_id'             => $this->admin_model->getActiveFeePkgId($regId),
+            'modified_by'            => $this->session->userdata['user_id'],
+        ];
+
 
         $enrollment_data = [
             'enrollment'                  => $enrollment,
@@ -325,6 +363,7 @@ class Admin extends CI_Controller
             'address'                     => $address,
             'family_information'          => $family_information,
             'fee_info'                    => $fee_info,
+            'fee_pkg_history'             => $fee_pkg_history,
             'enrollment_id'               => $regId
         ];
 

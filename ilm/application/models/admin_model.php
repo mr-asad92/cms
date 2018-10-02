@@ -96,7 +96,7 @@ class Admin_Model extends CI_Model
 
         $query = "SELECT e.*, e.id as enroll_id, pd.first_name as fName, pd.last_name as lName, fi.*, feei.*, pd.*, fami.* FROM enrollment e 
           LEFT JOIN family_information fi ON e.id=fi.enrollment_id
-          LEFT JOIN fee_info feei ON e.id=feei.enrollment_id
+          LEFT JOIN fee_info feei ON e.id=feei.enrollment_id AND feei.status = 1
           LEFT JOIN personal_details pd ON e.id=pd.enrollment_id
           LEFT JOIN family_information fami ON e.id=fami.enrollment_id
           WHERE e.id='$id'
@@ -105,6 +105,12 @@ class Admin_Model extends CI_Model
         $res = $this->db->query($query)->result_array();
 
         return $res[0];
+    }
+
+    public function hasFeeEditPermissions($user_id){
+        // check from DB
+
+        return true;
     }
 
     public function getPresentAddresses($enroll_id){
@@ -175,11 +181,26 @@ class Admin_Model extends CI_Model
         $this->db->where('enrollment_id', $enroll_id);
         $this->db->update('family_information', $enrollment_data['family_information']);
 
+        //update status of all old fee pkgs to maintain history
         $this->db->where('enrollment_id', $enroll_id);
-        $this->db->update('fee_info', $enrollment_data['fee_info']);
+        $this->db->update('fee_info', ['status' => 0]);
+
+        //add entry to fee_pkg_history table
+        $enrollment_data['fee_pkg_history']['enrollment_id'] = $enroll_id;
+        $this->db->insert('fee_pkg_history', $enrollment_data['fee_pkg_history']);
+
+        //add newly edited fee pkg
+        $enrollment_data['fee_info']['enrollment_id'] = $enroll_id;
+        $this->db->insert('fee_info', $enrollment_data['fee_info']);
 
         return true;
 
+    }
+
+    public function getActiveFeePkgId($enroll_id){
+        $this->db->order_by('id', 'DESC');
+        $this->db->limit(1);
+        return $this->db->select('id')->from('fee_info')->where(['enrollment_id' => $enroll_id, 'status'=>1])->get()->result_array()[0]['id'];
     }
 
     public function getStudentsList()

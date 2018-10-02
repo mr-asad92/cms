@@ -533,6 +533,7 @@
 <script type='text/javascript' src='<?php echo base_url();?>assets/js/enquire.js'></script>
 <script type='text/javascript' src='<?php echo base_url();?>assets/js/jquery.cookie.js'></script>
 <script type='text/javascript' src='<?php echo base_url();?>assets/js/jquery.nicescroll.min.js'></script>
+<script type='text/javascript' src='<?php echo base_url();?>assets/plugins/form-jasnyupload/fileinput.js'></script>
 <script type='text/javascript' src='<?php echo base_url();?>assets/plugins/codeprettifier/prettify.js'></script>
 <script type='text/javascript' src='<?php echo base_url();?>assets/plugins/easypiechart/jquery.easypiechart.min.js'></script>
 <script type='text/javascript' src='<?php echo base_url();?>assets/plugins/sparklines/jquery.sparklines.min.js'></script>
