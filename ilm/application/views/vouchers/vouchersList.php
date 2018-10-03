@@ -84,7 +84,7 @@
                             <thead>
                             <tr>
                                 <th class="text-center">
-                                    <input id="chkAll" type="checkbox">
+                                    <input id="checkAll" type="checkbox">
                                 </th>
                                 <th>Enrollment No</th>
                                 <th>Full Name</th>
@@ -101,7 +101,7 @@
                                 <tr>
 
                                     <td class="text-center hdns">
-                                        <input class="checkbox chkbulk" type="checkbox">
+                                        <input class="checkbox chkbulk" name="printChkBox" type="checkbox" value="<?php echo $voucher->enrollmentId."_".$voucher->installment_no."_".$voucher->vocher_id;?>">
                                     </td>
                                     <td><?php echo $voucher->enrollmentId ;?></td>
                                     <td><?php echo $voucher->first_name .' '.$voucher->last_name  ;?></td>
@@ -137,6 +137,7 @@
                                         <a href="<?php echo base_url().'vouchers/printVoucher/'. $voucher->vocher_id ;?>"
                                            style="margin-top:2px"
                                            class="fa fa-print"
+                                           id="<?php echo $voucher->enrollmentId."_".$voucher->installment_no."_".$voucher->vocher_id;?>"
                                            title="Print"> </a>
                                     </td>
 

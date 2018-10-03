@@ -557,6 +557,28 @@
     $(document).ready( function () {
         $('#accountsList').DataTable();
     } );
+
+    $('#checkAll').click(function () {
+        $('input:checkbox').prop('checked', this.checked);
+    });
+
+
+    $("#btnPrintsel").on('click', function(){
+
+        $('input:checkbox.chkbulk').each(function () {
+            var printId = (this.checked ? $(this).val() : "");
+
+            if(printId != ''){
+                console.log(printId);
+
+                $("#"+printId)[0].click();
+            }
+
+        });
+
+
+    });
+
 </script>
 </body>
 
