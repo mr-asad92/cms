@@ -145,7 +145,7 @@
                         <li><a href="#">Account <i class="pull-right fa fa-cog"></i></a></li>
                         <li><a href="#">Help <i class="pull-right fa fa-question-circle"></i></a></li>
                         <li class="divider"></li>
-                        <li><a href="#" class="text-right">Sign Out</a></li>
+                        <li><a href="<?php echo base_url().'authentication/logout'?>" class="text-right">Sign Out</a></li>
                     </ul>
                 </li>
             </ul>

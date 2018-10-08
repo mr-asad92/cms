@@ -229,6 +229,9 @@ class Authentication extends CI_Controller {
         redirect(base_url().'authentication/change_password');
     }
 
-    
+    public function logout(){
+        $this->session->sess_destroy();
+        redirect(base_url());
+    }
 
 }

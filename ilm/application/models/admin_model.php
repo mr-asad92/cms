@@ -110,7 +110,17 @@ class Admin_Model extends CI_Model
     public function hasFeeEditPermissions($user_id){
         // check from DB
 
-        return true;
+        $this->db->where(['role_id'=> 0, 'id' => $user_id]);
+        $res = $this->db->get('users');
+
+//        debug($user_id.$res->num_rows());
+        if($res->num_rows() >0){
+            return true;
+        }
+        else{
+            return false;
+        }
+
     }
 
     public function getPresentAddresses($enroll_id){
@@ -181,18 +191,41 @@ class Admin_Model extends CI_Model
         $this->db->where('enrollment_id', $enroll_id);
         $this->db->update('family_information', $enrollment_data['family_information']);
 
-        //update status of all old fee pkgs to maintain history
+
+        $compare = false;
+
         $this->db->where('enrollment_id', $enroll_id);
-        $this->db->update('fee_info', ['status' => 0]);
+        $res = $this->db->get('fee_info');
 
-        //add entry to fee_pkg_history table
-        $enrollment_data['fee_pkg_history']['enrollment_id'] = $enroll_id;
-        $this->db->insert('fee_pkg_history', $enrollment_data['fee_pkg_history']);
+        if($res->num_rows() > 0){
+            $dbArr = $res->result_array()[0];
 
-        //add newly edited fee pkg
-        $enrollment_data['fee_info']['enrollment_id'] = $enroll_id;
-        $this->db->insert('fee_info', $enrollment_data['fee_info']);
+            unset($dbArr['id']);
+            unset($dbArr['enrollment_id']);
+            unset($dbArr['status']);
 
+            foreach ($dbArr as $key => $elem){
+                if($elem != $enrollment_data['fee_info'][$key]){
+
+                    $compare = true;
+                    break;
+                }
+            }
+        }
+        if($compare) {
+
+            //update status of all old fee pkgs to maintain history
+            $this->db->where('enrollment_id', $enroll_id);
+            $this->db->update('fee_info', ['status' => 0]);
+
+            //add entry to fee_pkg_history table
+            $enrollment_data['fee_pkg_history']['enrollment_id'] = $enroll_id;
+            $this->db->insert('fee_pkg_history', $enrollment_data['fee_pkg_history']);
+
+            //add newly edited fee pkg
+            $enrollment_data['fee_info']['enrollment_id'] = $enroll_id;
+            $this->db->insert('fee_info', $enrollment_data['fee_info']);
+        }
         return true;
 
     }
