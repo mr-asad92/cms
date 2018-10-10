@@ -11,7 +11,7 @@ class Accounts_model extends CI_Model
     public function getAccountsList()
     {
         $q = $this->db->get('accounts');
-        return $q->result();
+        return $q->result_array();
 
     }
 

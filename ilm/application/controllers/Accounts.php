@@ -20,7 +20,8 @@ class Accounts extends CI_Controller
         $data = array(
             'title' => 'ILM | Accounts',
             'view' => 'accounts/accountsList',
-            'accounts' => $this->Accounts_model->getAccountsList(),
+//            'accounts' => getChildren(buildTree1($this->Accounts_model->getAccountsList(), 'parent_id', 'id')),
+            'accounts' => getChildren(buildTree($this->Accounts_model->getAccountsList(), 'parent_id', 'id')),
         );
 
         $this->load->view('masterLayouts/admin',$data);
@@ -38,7 +39,7 @@ class Accounts extends CI_Controller
 
     public function addAccount()
     {
-        $this->form_validation->set_rules('account_headId', 'Account Head','trim|required');
+        $this->form_validation->set_rules('parent_id', 'Parent ID','trim|required');
         $this->form_validation->set_rules('account_name','account Name','trim|required');
         $this->form_validation->set_rules('description', 'Description','trim|required');
 
@@ -60,11 +61,11 @@ class Accounts extends CI_Controller
 
             $data = array(
 
-                'account_headId' => $this->input->post('account_headId'),
+                'parent_id' => $this->input->post('parent_id'),
                 'account_name' => $this->input->post('account_name'),
                 'description' => $this->input->post('description'),
-                'created_by' => $this->session->userdata('user_id'),
-                'created_at' => date('y-m-d')
+                'account_type' => $this->input->post('account_type'),
+                'created_by' => $this->session->userdata('user_id')
             );
 
 

@@ -555,8 +555,43 @@
     } );
 
     $(document).ready( function () {
-        $('#accountsList').DataTable();
-    } );
+        $('#accountsList').DataTable(
+            {
+                "bSort": false
+            }
+        );
+
+
+        $('#addAccountsModal').on('hidden.bs.modal', function () {
+            window.location.reload();
+        })
+
+        $("#saveAccountBtn").click(function () {
+
+            var form = $("#addAccountForm")[0];
+
+            $.ajax({
+                url:'<?php echo base_url()."accounts/addAccount";?>',
+                type: 'post',
+                data: new FormData(form),
+                cache: false,
+                contentType: false,
+                processData: false,
+                beforeSend: function () {
+                    var src = '<?php echo base_url();?>assets/img/ajax-loader.gif';
+                    $("#messageLoader").html("<img src='"+src+"' alt=''>&nbsp;<b>Saving .. </b>");
+                },
+                success: function (response) {
+                    $("#messageLoader").html("Saved!");
+                },
+                error: function (err) {
+                    console.log(JSON.stringify(err, null, 4));
+                    $("#messageLoader").html("Error!");
+                }
+
+            });
+        });
+    });
 
     $('#checkAll').click(function () {
         $('input:checkbox').prop('checked', this.checked);

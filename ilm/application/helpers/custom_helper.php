@@ -29,6 +29,69 @@ if ( ! function_exists('formatDateForDb')) {
 
 }
 
+if ( ! function_exists('buildTree')) {
+    function buildTree($flat, $pidKey, $idKey = null)
+    {
+        $grouped = array();
+        foreach ($flat as $sub){
+            $grouped[$sub[$pidKey]][] = $sub;
+        }
+
+        $fnBuilder = function($siblings) use (&$fnBuilder, $grouped, $idKey) {
+            foreach ($siblings as $k => $sibling) {
+                $id = $sibling[$idKey];
+                if(isset($grouped[$id])) {
+                    $sibling['descendants'] = $fnBuilder($grouped[$id]);
+                }
+                $siblings[$k] = $sibling;
+            }
+
+            return $siblings;
+        };
+
+        $tree = $fnBuilder($grouped[0]);
+
+        return $tree;
+    }
+
+}
+
+if ( ! function_exists('getChildren')) {
+    function getChildren($tree_structure, $level = 0) {
+        $html = "";
+
+        $pad = $level * 10;
+        $pad .= 'px';
+        if (is_array($tree_structure) && count($tree_structure)) {
+
+            foreach ($tree_structure as $key => $leaf) {
+                $active = "";
+                if($leaf['parent_id'] == 0){
+                    $active = "style='background-color:#f2f2f2;'";
+                }
+                $html .= "<tr ".$active.">\n";
+
+                $account_type = ($leaf['account_type'] ==  1)?"Debit":"Credit";
+                $html .= "
+<td >".$leaf['id']."</td>
+<td ><span style='padding-left: $pad;'>".$leaf['account_name']."</span></td>
+<td >".$account_type."</td>
+<td >".$leaf['created_at']."</td>
+<td >".$leaf['description']."</td>
+<td >edit | delete</td>
+</tr>\n";
+                if (isset($leaf["descendants"])) {
+                    $level++;
+                    $html .= getChildren($leaf["descendants"],  $level);
+                }
+
+            }
+        }
+        return $html;
+    }
+
+}
+
 if ( ! function_exists('getDaysDifference')) {
     function getDaysDifference($dateOne, $dateTwo){
 
