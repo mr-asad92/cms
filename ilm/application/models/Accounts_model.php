@@ -22,6 +22,20 @@ class Accounts_model extends CI_Model
 
     }
 
+    public function update_account($data){
+        $this->db->where('id', $data['id']);
+        $this->db->update('accounts', $data);
+
+        return true;
+    }
+
+    public function deleteAccount($id){
+        $this->db->where('id', $id);
+        $this->db->delete('accounts');
+
+        return "deleted";
+    }
+
     public function getById($id)
     {
 

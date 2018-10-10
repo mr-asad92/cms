@@ -614,6 +614,27 @@
 
     });
 
+    function deleteAccount(id) {
+        $.ajax({
+            url:'<?php echo base_url()."accounts/deleteAccount/";?>'+id,
+            type: 'post',
+            data: {id: id},
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function (response) {
+                if(response == "deleted"){
+                    $("#"+id).remove();
+                    alert("Account Deleted!");
+                }
+            },
+            error: function (err) {
+                console.log(JSON.stringify(err, null, 4));
+            }
+
+        });
+    }
+
 </script>
 </body>
 

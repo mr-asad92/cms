@@ -77,7 +77,7 @@
             <div class="std-detail clearfix">
                 <div class="col-sm-12">
                     <div class="">
-                        <table class="table table-responsive table-condensed" id="accountsList" >
+                        <table class="table table-responsive table-condensed table-hover" id="accountsList" >
                             <thead>
                             <tr>
                                 <th>Account ID</th>

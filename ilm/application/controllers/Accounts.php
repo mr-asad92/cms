@@ -86,9 +86,23 @@ class Accounts extends CI_Controller
 
     }
 
+    public function update_account($id){
+
+        $data = array(
+            'title' => 'ILM | Edit Account',
+            'view' => 'accounts/updateAccount',
+            'account' => $this->Accounts_model->getById($id),
+            'parentIds' => [1 => 'Expense', 2 => 'Revenue', 3 => 'Asset', 4 => 'Equity', 5 => 'Liability']
+        );
+
+        $this->load->view('masterLayouts/admin',$data);
+
+    }
+
+
     public function updateAccount()
     {
-        $this->form_validation->set_rules('account_headId', 'Account Head','trim|required');
+        $this->form_validation->set_rules('parent_id', 'Parent ID','trim|required');
         $this->form_validation->set_rules('account_name','account Name','trim|required');
         $this->form_validation->set_rules('description', 'Description','trim|required');
 
@@ -100,7 +114,7 @@ class Accounts extends CI_Controller
 
             $this->session->set_flashdata($data);
 
-            redirect('accounts');
+            redirect('accounts/update_account/'.$this->input->post('id'));
 
         }
         else
@@ -110,15 +124,16 @@ class Accounts extends CI_Controller
 
             $data = array(
                 'id' => $this->input->post('id'),
-                'account_headId' => $this->input->post('account_headId'),
+                'parent_id' => $this->input->post('parent_id'),
                 'account_name' => $this->input->post('account_name'),
                 'description' => $this->input->post('description'),
-                'created_by' => $this->session->userdata('user_id'),
-                'created_at' => date('y-m-d')
+                'account_type' => $this->input->post('account_type'),
+                'modified_by' => $this->session->userdata('user_id'),
+                'modified_at' => date('y-m-d h:i:s')
             );
 
 
-            $result = $this->Accounts_model->add_account($data);
+            $result = $this->Accounts_model->update_account($data);
 
             if($result)
             {
@@ -133,6 +148,11 @@ class Accounts extends CI_Controller
             redirect('accounts');
         }
 
+    }
+
+    public function deleteAccount($id){
+        $return = $this->Accounts_model->deleteAccount($id);
+        echo $return;
     }
 
     public function Details($id)

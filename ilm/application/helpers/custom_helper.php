@@ -69,7 +69,7 @@ if ( ! function_exists('getChildren')) {
                 if($leaf['parent_id'] == 0){
                     $active = "style='background-color:#f2f2f2;'";
                 }
-                $html .= "<tr ".$active.">\n";
+                $html .= "<tr ".$active." id='".$leaf['id']."'>\n";
 
                 $account_type = ($leaf['account_type'] ==  1)?"Debit":"Credit";
                 $html .= "
@@ -78,7 +78,7 @@ if ( ! function_exists('getChildren')) {
 <td >".$account_type."</td>
 <td >".$leaf['created_at']."</td>
 <td >".$leaf['description']."</td>
-<td >edit | delete</td>
+<td > <a href=\"".base_url()."accounts/update_account/".$leaf['id']."\">Edit </a>| <a href=\"javascript:deleteAccount('".$leaf['id']."')\">Delete</a></td>
 </tr>\n";
                 if (isset($leaf["descendants"])) {
                     $level++;
