@@ -190,4 +190,10 @@ class Vouchers_model extends CI_Model
 
         return $query->result();
     }
+
+    public function save_voucher($data){
+
+        $this->db->insert('transactions', $data);
+        return true;
+    }
 }

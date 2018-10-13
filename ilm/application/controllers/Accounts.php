@@ -92,7 +92,7 @@ class Accounts extends CI_Controller
             'title' => 'ILM | Edit Account',
             'view' => 'accounts/updateAccount',
             'account' => $this->Accounts_model->getById($id),
-            'parentIds' => [1 => 'Expense', 2 => 'Revenue', 3 => 'Asset', 4 => 'Equity', 5 => 'Liability']
+            'parentIds' => [0 => 'Account Head',1 => 'Expense', 2 => 'Revenue', 3 => 'Asset', 4 => 'Equity', 5 => 'Liability']
         );
 
         $this->load->view('masterLayouts/admin',$data);

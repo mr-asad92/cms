@@ -124,7 +124,7 @@
             url: url,
             type:'get',
             success: function (data) {
-                console.log(JSON.stringify(data, null, 4));
+//                console.log(JSON.stringify(data, null, 4));
                 data = JSON.parse(data);
                 var html = '<table class="table table-stripped table-condensed">';
 
@@ -159,7 +159,7 @@
         $.ajax({
             url: url,
             type:'get',
-            success: function () {
+            success: function (data) {
                 alert("Installment Paid!");
                 $("#"+id).slideUp("slow", function() { $("#"+id).remove();});
 

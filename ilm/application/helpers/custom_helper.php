@@ -92,6 +92,44 @@ if ( ! function_exists('getChildren')) {
 
 }
 
+if ( ! function_exists('getHieraricalAccounts')) {
+    // this function set the value to form fields based on if it is new form or edit form.
+    function getHieraricalAccounts($tree_structure, $level = 0) {
+
+        $html = "";
+
+        $space_limit = $level * 3;
+        $spaces = '';
+
+        for($i = 0; $i<$space_limit; $i++){
+            $spaces .= "&nbsp;";
+        }
+
+        $heirarchy_indicator = 'l_';
+        if (is_array($tree_structure) && count($tree_structure)) {
+
+            foreach ($tree_structure as $key => $leaf) {
+                $active = "";
+                if($leaf['parent_id'] == 0){
+                    $active = "style='background-color:#f2f2f2;'";
+                    $heirarchy_indicator = '';
+                }
+                $html .= "<option ".$active." value='".$leaf['id']."'>\n";
+
+                $html .= $spaces.$heirarchy_indicator.$leaf['account_name']."</option>\n";
+                if (isset($leaf["descendants"])) {
+                    $level++;
+                    $html .= getHieraricalAccounts($leaf["descendants"],  $level);
+                }
+
+            }
+        }
+        return $html;
+
+    }
+
+}
+
 if ( ! function_exists('getDaysDifference')) {
     function getDaysDifference($dateOne, $dateTwo){
 

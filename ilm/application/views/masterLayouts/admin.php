@@ -257,6 +257,7 @@
                 <ul class="acc-menu" style="display: block;">
                     <li><a href="<?php echo base_url() ; ?>Vouchers"><span>Fee Vouchers</span></a></li>
                     <li><a href="<?php echo base_url() ; ?>admin/fee_payments"><span>Fee payments</span></a></li>
+                    <li><a href="<?php echo base_url() ; ?>vouchers/post_voucher"><span>Post Voucher</span></a></li>
                 </ul>
             </li>
             <li class="open hasChild">

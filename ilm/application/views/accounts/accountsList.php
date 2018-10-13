@@ -130,7 +130,7 @@
 
                             <div class="form-group">
                                 <select name="parent_id" id="" class="form-control">
-                                    <option value="" disabled selected>Account Head</option>
+                                    <option value="0" selected>Account Head</option>
                                     <option value="1">Expense</option>
                                     <option value="2">Revenue</option>
                                     <option value="3">Asset</option>

@@ -14,6 +14,7 @@ class Vouchers extends CI_Controller
         parent::__construct();
         $this->load->model('Vouchers_model');
         $this->load->model('admin_model');
+        $this->load->model('Accounts_model');
 
         //$this->load->library('../controllers/Admin');
 
@@ -122,7 +123,47 @@ class Vouchers extends CI_Controller
 
     }
 
+    public function post_voucher(){
 
+        $data = array(
+            'title' => 'ILM | Post Vouchers',
+            'view' => 'vouchers/post_vouchers',
+            'accounts' => getHieraricalAccounts(buildTree($this->Accounts_model->getAccountsList(), 'parent_id', 'id'))
+        );
+
+//        debug($data['accounts']);
+        $this->load->view('masterLayouts/admin', $data);
+
+    }
+
+    public function save_voucher(){
+
+        $v_date = $this->input->post('v_date');
+        $title = $this->input->post('title');
+        $book_reference = $this->input->post('book_reference');
+        $acc_debit = $this->input->post('acc_debit');
+        $acc_credit = $this->input->post('acc_credit');
+        $description = $this->input->post('description');
+        $amount = $this->input->post('amount');
+
+        $data = [
+            'title'      => $title,
+            'book_reference'=> $book_reference,
+            'debit_account'  => $acc_debit,
+            'credit_account'  => $acc_credit,
+            'description'  => $description,
+            'amount'  => $amount,
+            'created_by' => $this->session->userdata['user_id'],
+        ];
+
+        $status = $this->Vouchers_model->save_voucher($data);
+
+        if ($status){
+            $this->session->set_flashdata('msg','<p class="alert alert-success">Transaction added successfully!</p>');
+        }
+
+        redirect(base_url().'vouchers/post_voucher');
+    }
 
 
 

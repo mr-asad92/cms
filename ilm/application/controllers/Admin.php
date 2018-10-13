@@ -708,7 +708,7 @@ class Admin extends CI_Controller
         $this->load->view('masterLayouts/admin',$data);
     }
 
-    public function getInstallmenetData($id){
+    public function getInstallmenetData($id, $return = false){
         $data = $this->admin_model->getInstallmentData($id);
         $data['calculated_fine'] = 0;
         if($data['installment_date'] < date('Y-m-d')){
@@ -716,12 +716,50 @@ class Admin extends CI_Controller
         }
         $data['total_amount'] = $data['calculated_fine'] + $data['fee_amount'];
 
-        echo json_encode($data);
+        if($return){
+            return json_encode($data);
+        }
+        else{
+            echo json_encode($data);
+        }
     }
 
     public function payInstallment($id){
-        $paid = $this->admin_model->payInstallment($id);
-        echo $paid;
+
+        // add transaction in transactions table against cash and fee accounts
+
+        $installment = $this->getInstallmenetData($id, true);
+
+        $installment = json_decode($installment, true);
+
+        $enroll_id = $installment['id'];
+
+        $info = $this->admin_model->getStudentDetail($enroll_id);
+        $student_name = ucfirst($info['fName'])." ".ucfirst($info['lName']);
+        $class_name = $info['class_name'];
+
+        $transaction_title = 'Fee Recevied From: '. $student_name.', Class: '.$class_name;
+        $transaction_descr = $transaction_title;
+        $amount = $installment['total_amount'];
+
+        $credit_account = 9;
+        $debit_account = 10;
+
+        $data = [
+            'title' => $transaction_title,
+            'description' => $transaction_descr,
+            'amount' => $amount,
+            'debit_account' => $debit_account,
+            'credit_account' => $credit_account,
+            'created_by' => $this->session->userdata('user_id'),
+        ];
+
+        $this->Vouchers_model->save_voucher($data);
+
+        // now make fee status as paid
+        $this->admin_model->payInstallment($id);
+
+        echo true;
     }
 
     public function makeStudentActive($enrollment_id)

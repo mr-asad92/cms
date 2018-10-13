@@ -24,8 +24,10 @@ class Accounts_model extends CI_Model
 
     public function update_account($data){
         $this->db->where('id', $data['id']);
+        unset($data['id']);
         $this->db->update('accounts', $data);
 
+//        debug($data);
         return true;
     }
 
