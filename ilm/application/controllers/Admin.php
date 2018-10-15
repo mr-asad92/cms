@@ -397,9 +397,9 @@ class Admin extends CI_Controller
             //'view' => 'vouchers/fee_pkg_history',
             'fee_package' => $this->Vouchers_model->getFeePackage($enrollment_id),
             'paid_fee' => $this->Vouchers_model->getPaidFee($enrollment_id),
-            'unpaid_fee' => $this->Vouchers_model->getUnPaidFee($enrollment_id)
         );
 
+        $data['unpaid_fee'] = $this->Vouchers_model->getUnPaidFee($enrollment_id);
         //echo '<pre>'; print_r($data['paid_fee']); exit();
 
         $view = $this->load->view('vouchers/fee_pkg_history',$data,TRUE);
@@ -742,8 +742,8 @@ class Admin extends CI_Controller
         $transaction_descr = $transaction_title;
         $amount = $installment['total_amount'];
 
-        $credit_account = 9;
-        $debit_account = 10;
+        $credit_account = 16;
+        $debit_account = 17;
 
         $data = [
             'title' => $transaction_title,
@@ -852,5 +852,18 @@ class Admin extends CI_Controller
         $this->admin_model->searchFeePayments($data);
 
     }
+
+    public function fee_history(){
+        $data = array(
+            'title' => 'ILM | Admin',
+            'view' => 'admin/fee_change_history',
+            'fee_history' => $this->admin_model->getFeeHistory()
+        );
+
+//        debug($data['fee_history']);
+
+        $this->load->view('masterLayouts/admin',$data);
+    }
+
 }
 ?>

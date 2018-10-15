@@ -167,14 +167,14 @@ class Vouchers_model extends CI_Model
 
     public function getFeePackage($enrollment_id)
     {
-        $query =  $this->db->where('enrollment_id',$enrollment_id)
+        $query =  $this->db->where(['enrollment_id' => $enrollment_id])
             ->get('fee_info');
         return $query->row();
     }
 
     public function getPaidFee($enrollment_id)
     {
-        $query =  $this->db->where(array('enrollment_id' => $enrollment_id, 'status' => 1))
+        $query =  $this->db->where(array('enrollment_id' => $enrollment_id, 'status' => 1, 'delete_status' => 0))
             ->get('paid_fee');
 
         //print_r($this->db->last_query());
@@ -183,10 +183,8 @@ class Vouchers_model extends CI_Model
     }
     public function getUnPaidFee($enrollment_id)
     {
-        $query =  $this->db->where(array('enrollment_id' => $enrollment_id, 'status' => 0))
+        $query =  $this->db->where(array('enrollment_id' => $enrollment_id, 'status' => 0, 'delete_status' => 0))
             ->get('paid_fee');
-
-        //print_r($this->db->last_query());
 
         return $query->result();
     }
@@ -196,4 +194,25 @@ class Vouchers_model extends CI_Model
         $this->db->insert('transactions', $data);
         return true;
     }
+
+    public function update_voucher($data){
+        $this->db->where('id', $data['id']);
+        unset($data['id']);
+        $this->db->update('transactions', $data);
+        return true;
+    }
+
+    public function delete_transaction($id){
+        $this->db->where('id', $id);
+        $this->db->delete('transactions');
+
+        return true;
+    }
+
+    public function getVoucherData($id){
+        $this->db->where('id', $id);
+        return $this->db->get('transactions')->result_array()[0];
+    }
+
+
 }

@@ -7,6 +7,7 @@
             <div class="row">
                 <div class="col-sm-4">
 
+<!--                    --><?php //debug($student_detail['status']);?>
                     <table class="table table-responsive table-condensed table-hover table-bordered">
                         <tr class="alert alert-info">
                             <td ><h5><b>Name</b></h5></span></td>
@@ -31,12 +32,12 @@
                 </div>
 
                 <div class="col-sm-4 col-sm-offset-1">
-                    <?php if($student_detail['status'] == 1):?>
+                    <?php if($student_detail['std_status'] == 1):?>
                         <div class="well well-transparent well-sm">
                             <p class="alert alert-success">Active Student</p>
                         </div>
 
-                    <?php elseif ($student_detail['status'] == 2):?>
+                    <?php elseif ($student_detail['std_status'] == 2):?>
                         <div class="panel">
                             <div class="panel-body">
                                 <p class="alert alert-danger">Suspend Student</p>
@@ -49,7 +50,7 @@
                                     )); ?>
                             </div>
                         </div>
-                    <?php elseif ($student_detail['status'] == 3):?>
+                    <?php elseif ($student_detail['std_status'] == 3):?>
                         <div class="panel">
                             <div class="panel-body">
                                 <p class="alert alert-warning">Leave Student</p>
@@ -68,7 +69,11 @@
 
                 <div class="col-sm-2 col-sm-offset-1">
                     <div class="">
-                        <img src="<?php echo base_url(); ?>assets/img/profile picture.png" class="img-responsive img-thumbnail">
+                        <?php
+                        $src = ($student_detail['pic'] == '')?base_url().'assets/img/profile picture.png':base_url().'studentsPics/'.$student_detail['pic'];
+
+                        ?>
+                        <img src="<?php echo $src;?>" class="img-thumbnail img-responsive pull-right" style="height: 200px; width: 200px;">
                     </div>
                 </div>
             </div>

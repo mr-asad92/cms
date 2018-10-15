@@ -165,8 +165,62 @@ class Vouchers extends CI_Controller
         redirect(base_url().'vouchers/post_voucher');
     }
 
+    public function delete_transaction($id){
 
+        $status = $this->Vouchers_model->delete_transaction($id);
 
+        if ($status){
+            $this->session->set_flashdata('msg','<p class="alert alert-success">Transaction Deleted Successfully!</p>');
+        }
+
+        redirect(base_url().'accounts/transactions');
+    }
+
+    public function edit_transaction($id){
+
+        $data = array(
+            'title' => 'ILM | Edit Account',
+            'view' => 'vouchers/update_voucher',
+            'voucher' => $this->Vouchers_model->getVoucherData($id),
+        );
+
+        $data['dr_account'] = getHieraricalAccounts(buildTree($this->Accounts_model->getAccountsList(), 'parent_id', 'id'),0, $data['voucher']['debit_account']);
+        $data['cr_account'] = getHieraricalAccounts(buildTree($this->Accounts_model->getAccountsList(), 'parent_id', 'id'),0, $data['voucher']['credit_account']);
+
+        $this->load->view('masterLayouts/admin',$data);
+
+    }
+
+    public function saveUpdatedVoucher(){
+        $id = $this->input->post('id');
+        $v_date = $this->input->post('v_date');
+        $title = $this->input->post('title');
+        $book_reference = $this->input->post('book_reference');
+        $acc_debit = $this->input->post('acc_debit');
+        $acc_credit = $this->input->post('acc_credit');
+        $description = $this->input->post('description');
+        $amount = $this->input->post('amount');
+
+        $data = [
+            'id' => $id,
+            'title'      => $title,
+            'book_reference'=> $book_reference,
+            'debit_account'  => $acc_debit,
+            'credit_account'  => $acc_credit,
+            'description'  => $description,
+            'amount'  => $amount,
+            'modified_by' => $this->session->userdata['user_id'],
+            'modified_at' => date("Y-m-d"),
+        ];
+
+        $status = $this->Vouchers_model->update_voucher($data);
+
+        if ($status){
+            $this->session->set_flashdata('msg','<p class="alert alert-success">Transaction updated successfully!</p>');
+        }
+
+        redirect(base_url().'accounts/transactions');
+    }
 
 
 }

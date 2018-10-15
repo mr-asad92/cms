@@ -273,7 +273,7 @@
     <div class="col-md-4 col-md-offset-8 btn-group">
 
 
-            <a href="<?php echo base_url(); ?>admin/editRegistration/<?php echo $student_detail['id']; ?>"><button class="btn btn-primary">Edit</button></a>
+            <a href="<?php echo base_url(); ?>admin/editRegistration/<?php echo $student_detail['enroll_id']; ?>"><button class="btn btn-primary">Edit</button></a>
 
 
             <button class="btn btn-danger" data-toggle="modal" data-target="#suspendModal">Suspend</button>

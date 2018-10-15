@@ -131,17 +131,18 @@
                             <div class="form-group">
                                 <select name="parent_id" id="" class="form-control">
                                     <option value="0" selected>Account Head</option>
-                                    <option value="1">Expense</option>
-                                    <option value="2">Revenue</option>
-                                    <option value="3">Asset</option>
-                                    <option value="4">Equity</option>
-                                    <option value="5">Liability</option>
+                                    <?php echo $accountsOptions;?>
                                 </select>
                             </div>
 
                             <div class="form-group">
                                 <input type="text" name="account_name" class="form-control"
                                        placeholder="Account Name">
+                            </div>
+
+                            <div class="form-group">
+                                <input type="text" name="opening_balance" class="form-control"
+                                          placeholder="Opening Balance">
                             </div>
 
                             <div class="form-group">

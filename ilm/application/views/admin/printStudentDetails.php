@@ -14,7 +14,11 @@
                         <h4>Section: <?php echo $student_detail['section_name'] ;?> </h4>
                     </div>
                     <div class="col-sm-7">
-                            <img src="<?php echo base_url(); ?>assets/img/profile picture.png" class="img-responsive pull-right" style="height: 200px; width: 200px;">
+                        <?php
+                        $src = ($student_detail['pic'] == '')?base_url().'assets/img/profile picture.png':base_url().'studentsPics/'.$student_detail['pic'];
+
+                        ?>
+                            <img src="<?php echo $src;?>" class="img-responsive pull-right" style="height: 200px; width: 200px;">
 
                     </div>
                 </div>

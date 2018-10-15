@@ -69,7 +69,7 @@
                 </thead>
                 <tbody>
                 <?php
-                $sum = 0.0;
+                $paidFee = 0.0;
                 $i = 1;
                 ?>
                 <?php foreach ($paid_fee as $fee): ?>
@@ -83,15 +83,22 @@
                         <td><?php echo  'Paid'; ?>
                         </td>
                         <?php
-                        $sum = $sum + $fee->fee_amount;
+                        $paidFee = $paidFee + $fee->fee_amount;
                         $i++;
                         ?>
                     </tr>
-                <?php endforeach; ?>
+                <?php
+                endforeach;
+
+                if(count($paid_fee) <= 0){
+                    $paidFee = 0;
+                }
+
+                ?>
 
                 </tbody>
             </table>
-            <p><span class="pull-right alert alert-success" ><b>Total Paid Amount  :  Rs. <?php echo $sum ;
+            <p><span class="pull-right alert alert-success" ><b>Total Paid Amount  :  Rs. <?php echo $paidFee ;
                         ?></b></span></p>
         </div>
 
@@ -132,7 +139,13 @@
                     <?php $sum = $sum + $fee->fee_amount;
                     $i++;
                     ?>
-                <?php endforeach; ?>
+                <?php
+                endforeach;
+
+                if(count($unpaid_fee) <= 0){
+                    $sum = $fee_package->grand_total - $paidFee;
+                }
+                ?>
 
                 </tbody>
             </table>

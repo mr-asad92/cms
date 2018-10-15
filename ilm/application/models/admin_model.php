@@ -45,7 +45,7 @@ class Admin_Model extends CI_Model
 
     public function getFeeInfo($enrollment_id)
     {
-        $query =  $this->db->where('id',$enrollment_id)
+        $query =  $this->db->where('enrollment_id',$enrollment_id)
             ->get('fee_info');
 
         return $query->result_array()[0];
@@ -194,7 +194,7 @@ class Admin_Model extends CI_Model
 
         $compare = false;
 
-        $this->db->where('enrollment_id', $enroll_id);
+        $this->db->where(['enrollment_id' => $enroll_id, 'status' => 1]);
         $res = $this->db->get('fee_info');
 
         if($res->num_rows() > 0){
@@ -264,7 +264,7 @@ class Admin_Model extends CI_Model
 
     public function getStudentDetail($id)
     {
-        $query = "SELECT e.*, e.id as enroll_id, pd.first_name as fName, pd.last_name as lName, fi.*, feei.*, pd.*, fami.*,cl.*,
+        $query = "SELECT e.*, e.id as enroll_id, e.status as std_status, pd.first_name as fName, pd.last_name as lName, fi.*, feei.*, pd.*, fami.*,cl.*,
         cl.title as class_name,
         sec.*, sec.title as section_name FROM 
           enrollment e 
@@ -433,7 +433,10 @@ class Admin_Model extends CI_Model
 
     public function save_installments($data){
 
+        $group_id = uniqid();
+        $data['first_installment']['group_id'] = $group_id;
         $this->db->insert('paid_fee', $data['first_installment']);
+
 
         foreach ($data['installments']['installment_no'] as $key => $value){
 
@@ -447,6 +450,7 @@ class Admin_Model extends CI_Model
                 'pay_date'                 => '',
                 'status'                   => $data['installments']['paidStatus'][$key],
                 'created_by'               => $data['installments']['created_by'],
+                'group_id'                 => $group_id
             ];
 
             $this->db->insert('paid_fee', $installment);
@@ -457,24 +461,31 @@ class Admin_Model extends CI_Model
 
     }
 
-    public function softDeleteInstallments($enrollment_id, $edited_by){
+    public function softDeleteInstallments($enrollment_id, $edited_by, $group_id=0){
 
         $updateData = ['delete_status' => 1, 'edited_by' => $edited_by];
 
-        $this->db->where('enrollment_id', $enrollment_id);
+        $where = ['enrollment_id'=> $enrollment_id];
+        if($group_id != 0){
+            $where['group_id'] = $group_id;
+        }
+        $this->db->where($where);
         $this->db->update('paid_fee', $updateData);
     }
 
     public function update_installments($data){
         $enrollment_id = $data['installments']['enrollment_id'];
 
+        /*
         //hard delete previously soft deleted installments
-
         $where = ['enrollment_id' => $enrollment_id, 'delete_status' => 1];
         $this->db->delete('paid_fee', $where);
+        */
+        $where = ['enrollment_id' => $enrollment_id, 'delete_status' => 0];
+        $group_id = $this->db->select('group_id')->from('paid_fee')->where($where)->get()->result_array()[0]['group_id'];
 
         $edited_by = $data['installments']['created_by'];
-        $this->softDeleteInstallments($enrollment_id, $edited_by);
+        $this->softDeleteInstallments($enrollment_id, $edited_by, $group_id);
 
         $this->save_installments($data);
 
@@ -662,6 +673,25 @@ class Admin_Model extends CI_Model
             ->update('enrollment');
 
         return true;
+    }
+
+    public function getFeeHistory(){
+        $query = $this->db->select(
+            'fph.*, 
+            u.first_name as editor_first_name, u.last_name as editor_last_name,
+            pd.first_name as std_first_name, pd.last_name as std_last_name,
+            fi.*
+            '
+        )
+            ->from('fee_pkg_history fph')
+            ->join('users u', 'u.id = fph.modified_by')
+            ->join('personal_details pd', 'pd.enrollment_id = fph.enrollment_id')
+            ->join('fee_info fi', 'fph.fee_pkg_id = fi.id')
+            ->order_by('modification_date','DESC')
+            ->get()->result();
+        ;
+
+        return $query;
     }
 
 }

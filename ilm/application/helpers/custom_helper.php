@@ -94,7 +94,7 @@ if ( ! function_exists('getChildren')) {
 
 if ( ! function_exists('getHieraricalAccounts')) {
     // this function set the value to form fields based on if it is new form or edit form.
-    function getHieraricalAccounts($tree_structure, $level = 0) {
+    function getHieraricalAccounts($tree_structure, $level = 0, $parent_id = null) {
 
         $html = "";
 
@@ -114,12 +114,17 @@ if ( ! function_exists('getHieraricalAccounts')) {
                     $active = "style='background-color:#f2f2f2;'";
                     $heirarchy_indicator = '';
                 }
-                $html .= "<option ".$active." value='".$leaf['id']."'>\n";
+                $selected = "";
+                if($leaf['id'] == $parent_id){
+                    $selected = "selected = 'selected'";
+//                    $selected = $leaf['parent_id'];
+                }
+                $html .= "<option ".$active." value='".$leaf['id']."' ".$selected.">\n";
 
                 $html .= $spaces.$heirarchy_indicator.$leaf['account_name']."</option>\n";
                 if (isset($leaf["descendants"])) {
                     $level++;
-                    $html .= getHieraricalAccounts($leaf["descendants"],  $level);
+                    $html .= getHieraricalAccounts($leaf["descendants"],  $level, $parent_id);
                 }
 
             }

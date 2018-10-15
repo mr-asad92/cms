@@ -257,14 +257,16 @@
                 <ul class="acc-menu" style="display: block;">
                     <li><a href="<?php echo base_url() ; ?>Vouchers"><span>Fee Vouchers</span></a></li>
                     <li><a href="<?php echo base_url() ; ?>admin/fee_payments"><span>Fee payments</span></a></li>
-                    <li><a href="<?php echo base_url() ; ?>vouchers/post_voucher"><span>Post Voucher</span></a></li>
+                    <li><a href="<?php echo base_url() ; ?>admin/fee_history"><span>Fee Change History</span></a></li>
                 </ul>
             </li>
             <li class="open hasChild">
                 <a href="javascript:;"><i class="fa fa-pencil-square-o"></i> <span>Accounts Office</span> </a>
                 <ul class="acc-menu" style="display: block;">
                     <li><a href="<?php echo base_url() ; ?>accounts"><span>Charts of Account</span></a></li>
-                    <li><a href="<?php echo base_url() ; ?>accounts"><span>Transactions</span></a></li>
+                    <li><a href="<?php echo base_url() ; ?>vouchers/post_voucher"><span>Post Voucher</span></a></li>
+                    <li><a href="<?php echo base_url() ; ?>accounts/transactions"><span>Transactions</span></a></li>
+                    <li><a href="<?php echo base_url() ; ?>accounts/cash_book"><span>Cash book</span></a></li>
                     <li><a href="<?php echo base_url() ; ?>accounts"><span>Journal</span></a></li>
                     <li><a href="<?php echo base_url() ; ?>accounts"><span>Ledger</span></a></li>
                     <li><a href="<?php echo base_url() ; ?>accounts"><span>Trial Balance</span></a></li>
@@ -611,7 +613,6 @@
             }
 
         });
-
 
     });
 

@@ -173,4 +173,108 @@ class Accounts_model extends CI_Model
 
         return $query->result();
     }
+
+    public function getCashBookTransactions($from_date, $to_date){
+
+        $query = "SELECT * FROM transactions WHERE created_at >= '$from_date' AND created_at <= '$to_date' + INTERVAL 1 DAY";
+        $res = $this->db->query($query)->result_array();
+
+        $transactions = [];
+        foreach ($res as $key => $value){
+            $value['dr_acc_title'] = $this->getAccountTitle($value['debit_account']);
+            $value['cr_acc_title'] = $this->getAccountTitle($value['credit_account']);
+
+            $transactions[] = $value;
+        }
+
+        return $transactions;
+    }
+
+    public function getAccountTitle($id){
+        $account_name = $this->db->select('account_name')
+            ->from('accounts')
+            ->where('id', $id)
+            ->get()->result_array()[0]['account_name'];
+
+            return($account_name);
+    }
+
+    public function getAccountId($name){
+        if($name == 'Cash'){
+            return 17; //cash account id
+        }
+        else{
+            return 12; //expense account id
+        }
+    }
+
+    public function getGrandTotal($from_date, $to_date, $cash_account){
+        $query = "SELECT (SELECT SUM(amount) FROM transactions WHERE debit_account = '$cash_account' AND created_at >= '$from_date' AND created_at <= '$to_date' + INTERVAL 1 DAY) as debit_sum, (SELECT SUM(amount) FROM transactions WHERE credit_account = '$cash_account' AND created_at >= '$from_date' AND created_at <= '$to_date' + INTERVAL 1 DAY) as credit_sum FROM transactions";
+
+        $result = $this->db->query($query)->result_array()[0];
+
+        $grandTotal = $result['debit_sum'] - $result['credit_sum'];
+
+        return $grandTotal;
+    }
+
+    public function getOpeningBalanceDate($date){
+        $lastWorkingDay = null;
+        $q = "SELECT count(id) as nR FROM transactions  WHERE created_at <= '$date' + INTERVAL 1 DAY";
+        $nR = $this->db->query($q)->result_array()[0]['nR'];
+//        debug($nR);
+        if($nR != 0){
+
+            do{
+
+                $query = "SELECT COUNT(id) as numRows FROM transactions WHERE created_at LIKE '%$date%'";
+                $numRows = $this->db->query($query)->result_array()[0]['numRows'];
+
+                if($numRows > 0){
+                    $lastWorkingDay = $date;
+                }
+                else{
+                    $date = date('Y-m-d', strtotime($date.' -1 day'));
+                }
+            }
+            while($lastWorkingDay == null);
+        }
+
+
+        return $lastWorkingDay;
+    }
+
+    public function getOpeningBalance($cash_account, $date){
+
+        if($date == null){
+            // get initial opening Balance
+            $openingBalance = $this->db->select('opening_balance')->from('accounts')->where('id', $cash_account)->get()->result_array()[0]['opening_balance'];
+        }
+        else{
+            $query = "SELECT (SELECT SUM(amount) FROM transactions WHERE debit_account = '$cash_account' AND created_at LIKE '%$date%') as debit_sum, (SELECT SUM(amount) FROM transactions WHERE credit_account = '$cash_account' AND created_at LIKE '%$date%') as credit_sum FROM transactions";
+
+            $result = $this->db->query($query)->result_array()[0];
+
+            $openingBalance = $result['debit_sum'] - $result['credit_sum'];
+        }
+
+        return $openingBalance;
+
+    }
+
+    public function getTransactions(){
+        $query = "SELECT * FROM transactions ORDER BY created_at DESC";
+        $res = $this->db->query($query)->result_array();
+
+        $transactions = [];
+        foreach ($res as $key => $value){
+            $value['dr_acc_title'] = $this->getAccountTitle($value['debit_account']);
+            $value['cr_acc_title'] = $this->getAccountTitle($value['credit_account']);
+
+            $transactions[] = $value;
+        }
+
+        return $transactions;
+    }
+
 }

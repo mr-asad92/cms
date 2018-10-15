@@ -13,13 +13,22 @@
 
                         <div class="form-group">
 
-                            <?php echo form_dropdown('parent_id', $parentIds, set_value('parent_id', $account->parent_id),'class="form-control"');?>
+<!--                            --><?php //echo form_dropdown('parent_id', $parentIds, set_value('parent_id', $account->parent_id),'class="form-control"');?>
+                            <select name="parent_id" class="form-control">
+                                <option value="0" selected>Select Account</option>
+                                <?php echo $parentIds;?>
+                            </select>
 
                         </div>
 
                         <div class="form-group">
                             <input type="text" name="account_name" class="form-control"
                                    placeholder="Account Name" value="<?php echo set_value('account_name', $account->account_name);?>">
+                        </div>
+
+                        <div class="form-group">
+                            <input type="text" name="opening_balance" class="form-control"
+                                   placeholder="Opening Balance" value="<?php echo set_value('account_name', $account->opening_balance);?>">
                         </div>
 
                         <div class="form-group">
