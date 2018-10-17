@@ -268,7 +268,7 @@
                     <li><a href="<?php echo base_url() ; ?>accounts/transactions"><span>Transactions</span></a></li>
                     <li><a href="<?php echo base_url() ; ?>accounts/cash_book"><span>Cash book</span></a></li>
                     <li><a href="<?php echo base_url() ; ?>accounts"><span>Journal</span></a></li>
-                    <li><a href="<?php echo base_url() ; ?>accounts"><span>Ledger</span></a></li>
+                    <li><a href="<?php echo base_url() ; ?>accounts/ledger"><span>Ledger</span></a></li>
                     <li><a href="<?php echo base_url() ; ?>accounts"><span>Trial Balance</span></a></li>
                     <li><a href="<?php echo base_url() ; ?>accounts"><span>Profit & Loss</span></a></li>
                 </ul>

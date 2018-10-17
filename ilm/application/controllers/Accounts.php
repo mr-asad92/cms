@@ -265,6 +265,7 @@ class Accounts extends CI_Controller
 
     public function cash_book() {
 
+        $cash_account_id = 17;
         date_default_timezone_set('Asia/Karachi');
 
         $from_date = '';
@@ -285,9 +286,10 @@ class Accounts extends CI_Controller
         $data = array(
             'title' => 'ILM | Admin',
             'view' => 'accounts/cash_book',
-            'transactions' => $this->Accounts_model->getCashBookTransactions($from_date, $to_date),
+            'transactions' => $this->Accounts_model->getCashBookTransactions($from_date, $to_date, $cash_account_id),
             'opening_balance' => $this->Accounts_model->getOpeningBalance($cash_account, $openingBalanceDate),
-            'grand_total' => $this->Accounts_model->getGrandTotal($from_date, $to_date, $cash_account, $expense_account)
+            'grand_total' => $this->Accounts_model->getGrandTotal($from_date, $to_date, $cash_account, $expense_account),
+            'cashOrLedgerAccount' => $cash_account
 
         );
 
@@ -299,6 +301,46 @@ class Accounts extends CI_Controller
     }
 
 
+    public function ledger(){
+
+        date_default_timezone_set('Asia/Karachi');
+
+        $data = array(
+            'title' => 'ILM | Admin',
+            'view' => 'accounts/ledger',
+            'accountsList' => getHieraricalAccounts(buildTree($this->Accounts_model->getAccountsList(), 'parent_id', 'id')),
+        );
+
+        $data['transactions'] = 0;
+        $data['cashOrLedgerAccount'] = 0;
+
+        if(isset($_POST)){
+            $from_date = $this->input->post('from_date');
+            $to_date = $this->input->post('to_date');
+            $ledgerAcount = $this->input->post('ledgerAcount');
+
+            if($ledgerAcount == 'select'){
+                $this->session->set_flashdata('msg', '<p class="alert alert-danger">Please select an account</p>');
+                redirect(base_url().'accounts/ledger');
+            }
+//            $ledgerAcount = 17;
+
+            $from_date = date('Y-m-d', strtotime($from_date));
+            $to_date = date('Y-m-d', strtotime($to_date));
+
+            $data['transactions'] = $this->Accounts_model->getCashBookTransactions($from_date, $to_date, $ledgerAcount);
+            $data['cashOrLedgerAccount'] = $ledgerAcount;
+
+            $data['fromDate'] = $from_date;
+            $data['toDate'] = $to_date;
+            $data['accountTitle'] = @$this->Accounts_model->getById($ledgerAcount)->account_name;
+        }
+
+//        debug($data['transactions']);
+        $this->load->view('masterLayouts/admin',$data);
+
+
+    }
 
 
 

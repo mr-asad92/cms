@@ -174,9 +174,9 @@ class Accounts_model extends CI_Model
         return $query->result();
     }
 
-    public function getCashBookTransactions($from_date, $to_date){
+    public function getCashBookTransactions($from_date, $to_date, $account){
 
-        $query = "SELECT * FROM transactions WHERE created_at >= '$from_date' AND created_at <= '$to_date' + INTERVAL 1 DAY";
+        $query = "SELECT * FROM transactions WHERE (debit_account='$account' OR credit_account='$account') AND created_at >= '$from_date' AND created_at <= '$to_date' + INTERVAL 1 DAY";
         $res = $this->db->query($query)->result_array();
 
         $transactions = [];
@@ -209,11 +209,15 @@ class Accounts_model extends CI_Model
     }
 
     public function getGrandTotal($from_date, $to_date, $cash_account){
+        $grandTotal = 0;
         $query = "SELECT (SELECT SUM(amount) FROM transactions WHERE debit_account = '$cash_account' AND created_at >= '$from_date' AND created_at <= '$to_date' + INTERVAL 1 DAY) as debit_sum, (SELECT SUM(amount) FROM transactions WHERE credit_account = '$cash_account' AND created_at >= '$from_date' AND created_at <= '$to_date' + INTERVAL 1 DAY) as credit_sum FROM transactions";
 
-        $result = $this->db->query($query)->result_array()[0];
+        $result = $this->db->query($query);
 
-        $grandTotal = $result['debit_sum'] - $result['credit_sum'];
+        if($result->num_rows() > 0){
+            $r = $result->result_array()[0];
+            $grandTotal = $r['debit_sum'] - $r['credit_sum'];
+        }
 
         return $grandTotal;
     }

@@ -20,12 +20,11 @@
                 <table class="table table-bordered table-condensed table-striped">
 
                 <tr>
-                    <th colspan="7" class="text-center">Income Details</th>
+                    <th colspan="6" class="text-center">Income Details</th>
 
                 </tr>
 
                 <tr>
-                    <th></th>
                     <th></th>
                     <th></th>
                     <th></th>
@@ -38,8 +37,7 @@
                     <th>Sr No.</th>
                     <th>Ref.</th>
                     <th>Title</th>
-                    <th>Dr. A/C</th>
-                    <th>Cr. A/C</th>
+                    <th>A/C</th>
                     <th>Description</th>
                     <th>Amount</th>
                 </tr>
@@ -48,13 +46,14 @@
                 $sr = 1;
                 $total_amount = 0;
                     foreach ($transactions as $transaction){
+
+                        $displayAccount = ($cashOrLedgerAccount == $transaction['debit_account'])?$transaction['cr_acc_title']:$transaction['dr_acc_title'];
                         ?>
                         <tr>
                             <td><?php echo $sr;?></td>
                             <td><?php echo $transaction['book_reference'];?></td>
                             <td><?php echo $transaction['title'];?></td>
-                            <td><?php echo $transaction['dr_acc_title'];?></td>
-                            <td><?php echo $transaction['cr_acc_title'];?></td>
+                            <td><?php echo $displayAccount;?></td>
                             <td><?php echo $transaction['description'];?></td>
                             <td class="text-right"><?php echo $transaction['amount'];?></td>
                         </tr>
@@ -71,7 +70,6 @@
                     <th></th>
                     <th></th>
                     <th></th>
-                    <th></th>
                 </tr>
 
                 <tr>
@@ -81,11 +79,9 @@
                     <th></th>
                     <th></th>
                     <th></th>
-                    <th></th>
                 </tr>
 
                 <tr>
-                    <th></th>
                     <th></th>
                     <th></th>
                     <th></th>
@@ -95,7 +91,6 @@
                 </tr>
 
                 <tr>
-                    <th></th>
                     <th></th>
                     <th></th>
                     <th></th>
