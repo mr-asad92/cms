@@ -231,7 +231,7 @@
             <li class="divider"></li>
 
 
-            <li><a href="<?php echo base_url()."admin";?>"><i class="fa fa-home"></i> <span>Dashboard</span></a></li>
+            <li><a href="<?php echo base_url()."admin/dashboard";?>"><i class="fa fa-home"></i> <span>Dashboard</span></a></li>
 
 
             <li class="open hasChild">

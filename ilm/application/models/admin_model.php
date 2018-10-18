@@ -132,7 +132,9 @@ class Admin_Model extends CI_Model
     }
 
     public function getPreviousInstitutes($enroll_id){
-        return $this->db->where(['enrollment_id' => $enroll_id])->get('previous_institution_details')->result_array();
+
+        return $this->db->select('pid.*, pet.*')->from('previous_institution_details pid')->join('previous_examination_types pet', 'pid.exam_type = pet.id')->where(['enrollment_id' => $enroll_id])->get()->result_array();
+//        return $this->db->where(['enrollment_id' => $enroll_id])->get('previous_institution_details pid')->result_array();
     }
 
     public function getPreviousExamsTypes(){
@@ -262,9 +264,26 @@ class Admin_Model extends CI_Model
         return $query->result_array();
     }
 
+
+    public function getStudentAddresses($id){
+        $q = $this->db->where('enrollment_id', $id)->get('addresses')->result_array();
+
+        $addresses = [];
+        foreach ($q as $address){
+            if ($address['address_type'] == 0){
+                $addresses['present'] = $address;
+            }
+            else{
+                $addresses['permenant'] = $address;
+            }
+        }
+
+        return $addresses;
+    }
+
     public function getStudentDetail($id)
     {
-        $query = "SELECT e.*, e.id as enroll_id, e.status as std_status, pd.first_name as fName, pd.last_name as lName, fi.*, feei.*, pd.*, fami.*,cl.*,
+        $query = "SELECT e.*, e.id as enroll_id, e.status as std_status, pd.first_name as fName, pd.last_name as lName, fi.*, fi.first_name as g_fname, fi.last_name as g_lname, feei.*, pd.*, fami.*,cl.*,
         cl.title as class_name,
         sec.*, sec.title as section_name FROM 
           enrollment e 
@@ -436,7 +455,7 @@ class Admin_Model extends CI_Model
         $group_id = uniqid();
         $data['first_installment']['group_id'] = $group_id;
         $this->db->insert('paid_fee', $data['first_installment']);
-
+        $insert_id = $this->db->insert_id();
 
         foreach ($data['installments']['installment_no'] as $key => $value){
 
@@ -457,7 +476,7 @@ class Admin_Model extends CI_Model
 
         }
 
-        return true;
+        return $insert_id;
 
     }
 
@@ -558,7 +577,13 @@ class Admin_Model extends CI_Model
         return $result;
     }
 
-    public function getInstallmentData($installment_id){
+    public function getInstallmentData($installment_id, $paid = false){
+
+        $status = 0;
+        if ($paid){
+            $status = 1;
+        }
+
         $query = $this->db->select('
             e.id,
             pd.first_name, pd.last_name,
@@ -570,9 +595,10 @@ class Admin_Model extends CI_Model
             ->join('personal_details pd', 'pd.enrollment_id = e.id')
             ->join('paid_fee pf', 'pf.enrollment_id = e.id')
             ->join('classes c', 'pf.classId = c.id')
-            ->where(['pf.status' => 0, 'delete_status' => 0, 'pf.id ' => $installment_id])
+            ->where(['pf.status' => $status, 'delete_status' => 0, 'pf.id ' => $installment_id])
             ->get()->result_array()[0];
 
+//            die($this->db->last_query());
         return $query;
     }
 
@@ -692,6 +718,18 @@ class Admin_Model extends CI_Model
         ;
 
         return $query;
+    }
+
+    public function getActiveStudentsCount(){
+        $query = "SELECT COUNT(id) as activeStudentsCount FROM enrollment WHERE status = 1";
+        return $this->db->query($query)->result_array()[0]['activeStudentsCount'];
+
+    }
+
+    public function getInActiveOrLeaveStudentsCount(){
+        $query = "SELECT COUNT(id) as inactiveOrLeaveStudentsCount FROM enrollment WHERE status IN (2, 3)";
+        return $this->db->query($query)->result_array()[0]['inactiveOrLeaveStudentsCount'];
+
     }
 
 }

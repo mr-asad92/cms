@@ -70,8 +70,8 @@
 
                             $displayAccount = ($cashOrLedgerAccount == $transaction['debit_account'])?$transaction['cr_acc_title']:$transaction['dr_acc_title'];
 
-                            $drAmount = ($cashOrLedgerAccount == $transaction['debit_account']) ? '' : $transaction['amount'];
-                            $crAmount = ($cashOrLedgerAccount == $transaction['credit_account']) ? '' : $transaction['amount'];
+                            $drAmount = ($cashOrLedgerAccount != $transaction['debit_account']) ? '' : $transaction['amount'];
+                            $crAmount = ($cashOrLedgerAccount != $transaction['credit_account']) ? '' : $transaction['amount'];
 
                             $balance = ($drAmount!='')?$balance+=$transaction['amount']:$balance-=$transaction['amount'];
 

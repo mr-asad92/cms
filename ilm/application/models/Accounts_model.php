@@ -200,12 +200,14 @@ class Accounts_model extends CI_Model
     }
 
     public function getAccountId($name){
-        if($name == 'Cash'){
-            return 17; //cash account id
-        }
-        else{
-            return 12; //expense account id
-        }
+
+        return $this->db->select('id')->from('accounts')->where('account_name',$name)->get()->result_array()[0]['id'];
+//        if($name == 'Cash'){
+//            return 17; //cash account id
+//        }
+//        else{
+//            return 12; //expense account id
+//        }
     }
 
     public function getGrandTotal($from_date, $to_date, $cash_account){
@@ -279,6 +281,36 @@ class Accounts_model extends CI_Model
         }
 
         return $transactions;
+    }
+
+    public function getCurrentMonthIncome($firstDayOfThisMonth, $lastDayThisMonth, $fee_account){
+        $query = "SELECT SUM(amount) as monthlyIncome FROM transactions WHERE credit_account='$fee_account' AND created_at>='$firstDayOfThisMonth' AND created_at <= '$lastDayThisMonth' + INTERVAL 1 DAY ";
+
+        return $this->db->query($query)->result_array()[0]['monthlyIncome'];
+    }
+
+    public function getCurrentMonthExpense($firstDayOfThisMonth, $lastDayThisMonth, $expense_account){
+        $query = "SELECT SUM(amount) as monthlyExpense FROM transactions WHERE debit_account='$expense_account' AND created_at>='$firstDayOfThisMonth' AND created_at <= '$lastDayThisMonth' + INTERVAL 1 DAY ";
+
+        return $this->db->query($query)->result_array()[0]['monthlyExpense'];
+    }
+
+    public function getCurrentMonthExpectedFee($firstDayOfThisMonth, $lastDayThisMonth){
+        $query = "SELECT SUM(fee_amount) as expectedFee FROM paid_fee WHERE status = 0 AND installment_date>='$firstDayOfThisMonth' AND installment_date <= '$lastDayThisMonth' + INTERVAL 1 DAY ";
+
+        return $this->db->query($query)->result_array()[0]['expectedFee'];
+    }
+
+    public function getTotalReceivedFee(){
+        $query = "SELECT SUM(fee_amount) as receivedFee FROM paid_fee WHERE status = 1";
+
+        return $this->db->query($query)->result_array()[0]['receivedFee'];
+    }
+
+    public function getTotalReceiveableFee(){
+        $query = "SELECT SUM(fee_amount) as receiveableFee FROM paid_fee WHERE status = 0";
+
+        return $this->db->query($query)->result_array()[0]['receiveableFee'];
     }
 
 }

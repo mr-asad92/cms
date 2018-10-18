@@ -6,6 +6,8 @@ class Admin extends CI_Controller
     {
         parent::__construct();
         $this->load->model('Vouchers_model');
+        $this->load->model('Accounts_model');
+
     }
 
     public function index() {
@@ -431,6 +433,7 @@ class Admin extends CI_Controller
                 'title' => 'ILM | Admin',
                 'view' => 'admin/studentDetails',
                 'student_detail' => $this->admin_model->getStudentDetail($id),
+                'addresses' => $this->admin_model->getStudentAddresses($id),
                 'student_info_view' => $this->studentInfo($id),
                 'fee_pkg_history_view' => $this->feeRecord($id),
                 'studentSuspendHistory' => $this->admin_model->getSuspendHistory($id),
@@ -597,9 +600,41 @@ class Admin extends CI_Controller
             'installments'        => $installments,
         ];
 
-        $is_saved = $this->admin_model->save_installments($data);
+        $installment_id = $this->admin_model->save_installments($data);
 
-        if($is_saved){
+//        debug($installment_id);
+        // add transaction in transactions table against cash and fee accounts
+
+        $installment = $this->getInstallmenetData($installment_id, true);
+
+        $installment = json_decode($installment, true);
+
+        $enroll_id = $enrollment_id;
+
+        $info = $this->admin_model->getStudentDetail($enroll_id);
+        $student_name = ucfirst($info['fName'])." ".ucfirst($info['lName']);
+        $class_name = $info['class_name'];
+
+        $transaction_title = 'Fee Recevied From: '. $student_name.', Class: '.$class_name;
+        $transaction_descr = $transaction_title;
+        $amount = $installment['total_amount'];
+
+        $credit_account = 16;
+        $debit_account = 17;
+
+        $data = [
+            'title' => $transaction_title,
+            'description' => $transaction_descr,
+            'amount' => $amount,
+            'debit_account' => $debit_account,
+            'credit_account' => $credit_account,
+            'created_by' => $this->session->userdata('user_id'),
+        ];
+
+        $this->Vouchers_model->save_voucher($data);
+
+
+        if(true){
             $this->session->set_flashdata('msg', 'Installments Saved!');
             redirect(base_url().'admin/makeInstallments/'.$installments['enrollment_id']);
         }
@@ -709,7 +744,7 @@ class Admin extends CI_Controller
     }
 
     public function getInstallmenetData($id, $return = false){
-        $data = $this->admin_model->getInstallmentData($id);
+        $data = $this->admin_model->getInstallmentData($id, true);
         $data['calculated_fine'] = 0;
         if($data['installment_date'] < date('Y-m-d')){
             $data['calculated_fine'] = $this->admin_model->getFine($data['classId'],$data['sectionId'],$data['installment_date']);
@@ -861,6 +896,44 @@ class Admin extends CI_Controller
         );
 
 //        debug($data['fee_history']);
+
+        $this->load->view('masterLayouts/admin',$data);
+    }
+
+    public function dashboard(){
+        $from_date = date('Y-m-d');
+        $to_date = date('Y-m-d');
+
+        $today_date = date('Y-m-d');
+        $firstDayOfThisMonth = date("Y-m").'-01';
+        $lastDayThisMonth = date("Y-m-t");
+
+
+        $openingBalanceDate = $this->Accounts_model->getOpeningBalanceDate(date('Y-m-d', strtotime($from_date.' -1 day')));
+
+        $cash_account = $this->Accounts_model->getAccountId('Cash');
+        $expense_account = $this->Accounts_model->getAccountId('Expense');
+        $fee_account = $this->Accounts_model->getAccountId('Fee');
+
+
+        $data = array(
+            'title' => 'ILM | Admin',
+            'view' => 'admin/dashboard',
+            'opening_balance' => $this->Accounts_model->getOpeningBalance($cash_account, $openingBalanceDate),
+            'grand_total' => $this->Accounts_model->getGrandTotal($from_date, $to_date, $cash_account, $expense_account),
+            'current_month_income' => $this->Accounts_model->getCurrentMonthIncome($firstDayOfThisMonth, $lastDayThisMonth, $fee_account),
+            'current_month_expense' => $this->Accounts_model->getCurrentMonthExpense($firstDayOfThisMonth, $lastDayThisMonth, $expense_account),
+            'current_month_expected_fee' => $this->Accounts_model->getCurrentMonthExpectedFee($firstDayOfThisMonth, $lastDayThisMonth),
+            'total_fee_received' => $this->Accounts_model->getTotalReceivedFee(),
+            'total_fee_receiveable' => $this->Accounts_model->getTotalReceiveableFee(),
+            'total_active_students' => $this->admin_model->getActiveStudentsCount(),
+            'total_inactive_students' => $this->admin_model->getInActiveOrLeaveStudentsCount(),
+        );
+
+//        debug($data['total_fee_received']);
+        if ($data['grand_total'] == 0){
+            $data['grand_total'] = $data['opening_balance'];
+        }
 
         $this->load->view('masterLayouts/admin',$data);
     }

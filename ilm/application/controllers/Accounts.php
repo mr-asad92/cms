@@ -293,6 +293,9 @@ class Accounts extends CI_Controller
 
         );
 
+        if ($data['grand_total'] == 0){
+            $data['grand_total'] = $data['opening_balance'];
+        }
 //        debug($data['transactions']);
         $this->load->view('masterLayouts/admin',$data);
 
