@@ -29,6 +29,7 @@ class Vouchers_model extends CI_Model
             ->join('enrollment','enrollment.id = paid_fee.enrollment_id')
             ->join('personal_details','enrollment.id = personal_details.enrollment_id')
             ->join('classes', 'classes.id = paid_fee.classId')
+            ->where('paid_fee.delete_status',1)
             ->get();
 
         return $q->result();

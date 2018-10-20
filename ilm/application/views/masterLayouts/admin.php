@@ -125,12 +125,12 @@
 
     <ul class="nav navbar-nav pull-right toolbar">
         <li class="dropdown">
-            <a href="#" class="dropdown-toggle username" data-toggle="dropdown"><span class="hidden-xs">John McCartney <i class="fa fa-caret-down"></i></span><img src="<?php echo base_url();?>assets/demo/avatar/dangerfield.png" alt="Dangerfield" /></a>
+            <a href="#" class="dropdown-toggle username" data-toggle="dropdown"><span class="hidden-xs">Admin<i class="fa fa-caret-down"></i></span><img src="<?php echo base_url();?>assets/demo/avatar/dangerfield.png" alt="Dangerfield" /></a>
             <ul class="dropdown-menu userinfo arrow">
                 <li class="username">
                     <a href="#">
                         <div class="pull-left"><img src="<?php echo base_url();?>assets/demo/avatar/dangerfield.png" alt="Jeff Dangerfield"/></div>
-                        <div class="pull-right"><h5>Howdy, John!</h5><small>Logged in as <span>john275</span></small></div>
+                        <div class="pull-right"><h5>Admin</h5><small>Logged in as <span>Admin</span></small></div>
                     </a>
                 </li>
                 <li class="userlinks">
@@ -235,7 +235,7 @@
 
 
             <li class="open hasChild">
-                <a href="javascript:;"><i class="fa fa-user"></i> <span>Admin</span> </a>
+                <a href="#22"><i class="fa fa-user"></i> <span>Admin</span> </a>
                 <ul class="acc-menu" style="display: block;">
                     <li><a href="<?php echo base_url();?>users"><span>Employee List</span></a></li>
                     <li><a href="<?php echo base_url() ; ?>programs"><span>Programs</span></a></li>
@@ -244,16 +244,16 @@
             </li>
 
             <li class="open hasChild">
-                <a href="javascript:;"><i class="fa fa-graduation-cap"></i> <span>Admission Office</span> </a>
+                <a href="#11"><i class="fa fa-graduation-cap"></i> <span>Admission Office</span> </a>
                 <ul class="acc-menu" style="display: block;">
-                    <li class="active"><a href="<?php echo base_url()."admin/index";?>"><span>Registration</span></a></li>
+                    <li><a href="<?php echo base_url()."admin/index";?>"><span>Registration</span></a></li>
                     <li><a href="<?php echo base_url();?>admin/studentsList"><span>Students List</span></a></li>
                 </ul>
             </li>
 
 
             <li class="open hasChild">
-                <a href="javascript:;"><i class="fa fa-print"></i> <span>Fee Collection</span> </a>
+                <a href="#33"><i class="fa fa-print"></i> <span>Fee Collection</span> </a>
                 <ul class="acc-menu" style="display: block;">
                     <li><a href="<?php echo base_url() ; ?>Vouchers"><span>Fee Vouchers</span></a></li>
                     <li><a href="<?php echo base_url() ; ?>admin/fee_payments"><span>Fee payments</span></a></li>
@@ -261,7 +261,7 @@
                 </ul>
             </li>
             <li class="open hasChild">
-                <a href="javascript:;"><i class="fa fa-pencil-square-o"></i> <span>Accounts Office</span> </a>
+                <a href="#2"><i class="fa fa-pencil-square-o"></i> <span>Accounts Office</span> </a>
                 <ul class="acc-menu" style="display: block;">
                     <li><a href="<?php echo base_url() ; ?>accounts"><span>Charts of Account</span></a></li>
                     <li><a href="<?php echo base_url() ; ?>vouchers/post_voucher"><span>Post Voucher</span></a></li>
@@ -269,8 +269,6 @@
                     <li><a href="<?php echo base_url() ; ?>accounts/cash_book"><span>Cash book</span></a></li>
                     <li><a href="<?php echo base_url() ; ?>accounts"><span>Journal</span></a></li>
                     <li><a href="<?php echo base_url() ; ?>accounts/ledger"><span>Ledger</span></a></li>
-                    <li><a href="<?php echo base_url() ; ?>accounts"><span>Trial Balance</span></a></li>
-                    <li><a href="<?php echo base_url() ; ?>accounts"><span>Profit & Loss</span></a></li>
                 </ul>
             </li>
             <li class="open hasChild">

@@ -39,6 +39,7 @@ class Admin extends CI_Controller
 
         $this->load->view('masterLayouts/admin', $data);
 
+
     }
 
     public function enrollment_save(){
@@ -244,6 +245,7 @@ class Admin extends CI_Controller
         $data['hasFeeEditPermissions'] = $this->admin_model->hasFeeEditPermissions($this->session->userdata['user_id']);
 
         $this->load->view('masterLayouts/admin', $data);
+        
 
     }
 

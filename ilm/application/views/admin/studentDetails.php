@@ -1,195 +1,356 @@
-﻿<div class="container">
-    <div class="row">
-        <div class="col-sm-12">
-            <h1 class="text-center"><b>Admission Form</b></h1>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-sm-2">
-        			<span>
-        				<h5><b>Enrollment No  : <?php echo $student_detail['enrollment_id'] ;?></b></h5>
-        			</span>
-        </div>
-        <div class="col-sm-2 col-sm-offset-8">
-        			<span>
-        				<h5><b>Study Program : <?php echo $student_detail['class_name'] ;?></b></h5>
-        			</span>
-        </div>
-    </div>
-    <div class="row">
-        <div class="panel panel-info">
-            <div class="panel-heading ">
-                <h4>Student Info</h4>
-            </div>
-            <div class="panel-body">
-                <div class="row">
-                    <div class="col-md-9">
-                        <div class="panel-body">
-                            <table class="table table-responsive">
-                                <tbody>
-                                <tr>
-                                    <th>Name</th>
-                                    <td><?php echo ucfirst($student_detail['fName']) . ' ' . ucfirst($student_detail['lName']);?></td>
-                                    <th>Father Name</th>
-                                    <td><?php echo ucfirst($student_detail['father_name']);?></td>
-                                </tr>
+﻿<?php
 
-                                <tr>
-                                    <th>Class</th>
-                                    <td>
-                                        <?php echo $student_detail['class_name'] ;?>
-                                    </td>
-                                    <th>Section</th>
-                                    <td colspan="3"><?php echo $student_detail['section_name'] ;?></td>
-                                </tr>
-                                <tr>
-                                    <th>NIC No</th>
-                                    <td>
-                                        <?php echo $student_detail['bform_or_cnic_no'] ;?>
-                                    </td>
-                                    <td><strong>D.O.B</strong></td>
-                                    <td><?php echo $student_detail['dob'] ;?></td>
-                                </tr>
-                                <tr>
-                                    <th>Mobile No</th>
-                                    <td>
-                                        <?php echo $student_detail['profession'];?>
-                                    </td>
-                                    <td><strong>Email</strong></td>
-                                    <td><?php echo $student_detail['email'];?></td>
-                                </tr>
-                                <tr>
-                                    <td><b>Address</b></td>
-                                    <td colspan="3"><?php echo $student_detail['class_name'] ;?></td>
-                                </tr>
-                                <tr>
-                                    <td><b>Permanat Address</b></td>
-                                    <td colspan="3"><?php echo $addresses['permenant']['address'].', '.$addresses['permenant']['district'].', '.$addresses['permenant']['city'].', '.$addresses['permenant']['country'] ;?></td>
-                                </tr>
+    echo $student_info_view;
 
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                    <div class="col-md-2 col-md-offset-1 text-right">
-                        <div class="col-md-12">
-                            <?php
-                                $dpSrc = ($student_detail['pic'] != '')?base_url().'studentsPics/'.$student_detail['pic']:base_url().'assets/img/profile picture.png';
-                            ?>
-                            <img src="<?php echo $dpSrc;?>" class="img-responsive thumbnail">
-                            <br>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <span class="alert alert-info"><b>Roll No   : <?php echo $student_detail['roll_no'] ;?> </b> </span>
-                            </div>
-                        </div>
-                    </div>
+?>
+
+<div class="panel panel-info">
+    <div class="panel-heading">
+        <h4>Personal Detail</h4>
+    </div>
+    <div class="panel-body">
+        <div class="std-detail clearfix">
+            <div class="col-sm-12">
+                <div class="">
+                    <table class="table table-responsive table-hover  ">
+                        <tbody><tr>
+                            <th>Gender</th>
+                            <td><?php echo $gender ;?></td>
+                            <th>Current Address</th>
+                            <td><?= $presentAddresses['address']." , ".$presentAddresses['city']."  , "
+                                .$presentAddresses['district']."  , ".$presentAddresses['country'];?></td>
+                        </tr>
+                        <tr>
+                            <td><strong>D.O.B</strong></td>
+                            <td><?php echo $student_detail['dob'] ;?></td>
+                            <td><b>Permanent Address</b></td>
+                            <td><?= $permenantAddresses['address']." , ".$permenantAddresses['city']."  , "
+                                .$permenantAddresses['district']."  , ".$permenantAddresses['country'];?></td>
+                        </tr>
+                        </tr>
+
+                        <tr>
+                            <th>Blood</th>
+                            <td>
+                                <?php
+                                    //$blood_group = $student_detail['blood_group'];
+                                ?>
+                                <?php //echo $blood_group ;?>
+                                <?php echo $blood_group[$student_detail['blood_group']]; ?>
+                            </td>
+                            <th>Caste</th>
+                            <td colspan="3"><?php echo $student_detail['caste'] ;?></td>
+
+                        </tr>
+
+                        </tbody></table>
                 </div>
             </div>
         </div>
     </div>
-
-    <div class="row">
-        <div class="panel panel-info">
-            <div class="panel-heading ">
-                <h4>Guardian's Information</h4>
-            </div>
-            <div class="panel-body">
-                <div class="panel-body">
-                    <table class="table">
-                        <tbody>
-                        <tr>
-                            <th>Guardain Name</th>
-                            <td><?php echo ucfirst($student_detail['g_fname']).' '.ucfirst($student_detail['g_lname']) ;?></td>
-                            <th>Father Name</th>
-                            <td><?php echo ucfirst($student_detail['father_name']) ;?></td>
-                        </tr>
-
-                        <tr>
-                            <th>Profession</th>
-                            <td><?php echo $student_detail['profession'];?></td>
-                            <th>Mobile No : </th>
-                            <td>
-                                <?php echo $student_detail['mobile_no'];?>
+</div>
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h4>Guardian Information</h4>
+    </div>
+    <div class="panel-body">
+        <div class="std-detail clearfix">
+            <div class="col-sm-12">
+                <div class="">
+                    <table class="table table-responsive table-hover  ">
+                        <tbody><tr>
+                            <td colspan="4">
+                                <div class="form-group">
+                                    <h4>
+                                        <span class="col-md-2">Guardian Detail</span>
+                                    </h4>
+                                    <span class="col-md-6">
+                                        <?php $guardian_Id = $student_detail['guardian'] ;?>
+                                        <label class="col-sm-3 radiofive">
+                                            <input <?php echo $guardian_Id == 0 ? 'checked="True"' : 'disabled';?>
+                                                    id="father" name="Parent.Type" type="radio"> <label
+                                                    for="father"></label> <span>Father</span>
+                                        </label>
+                                        <label class="col-sm-3 radiofive">
+                                            <input <?php echo $guardian_Id == 1 ? 'checked="True"' : 'disabled';?>
+                                                    id="mother" name="Parent.Type" type="radio"> <label for="mother"></label> <span>Mother</span>
+                                        </label>
+                                        <label class="col-sm-3 radiofive">
+                                            <input <?php echo $guardian_Id == 2 ? 'checked="True"' : 'disabled';?>
+                                                    id="other" name="Parent.Type"
+                                                    type="radio"> <label for="other"></label> <span>Other</span>
+                                        </label>
+                                    </span>
+                                </div>
                             </td>
-
                         </tr>
                         <tr>
-                            <td><b>Permanent Address</b></td>
-                            <td colspan="8"><?php echo $addresses['permenant']['address'].', '.$addresses['permenant']['district'].', '.$addresses['permenant']['city'].', '.$addresses['permenant']['country'] ;?></td>
+                            <th>Guardian Name</th>
+                            <td><?php echo $student_detail['first_name'].' '. $student_detail['last_name'] ;?></td>
+
+                            <th>Profession</th>
+                            <td>
+                                <?php echo $student_detail['profession'] ;?>
+                            </td>
                         </tr>
                         <tr>
-                            <td><b>Permanent Address</b></td>
-                            <td colspan="8"><?php echo $addresses['present']['address'].', '.$addresses['present']['district'].', '.$addresses['present']['city'].', '.$addresses['present']['country'] ;?></td>
+                            <th>Designation</th>
+                            <td><?php echo $student_detail['designation'] ;?></td>
+                        </tr>
+                        <tr>
+                            <th>Organization Name</th>
+                            <td><?php echo $student_detail['organization_name'] ;?></td>
+                            <th>Office Address</th>
+                            <td><?php echo $student_detail['office_address'] ;?></td>
+                        </tr>
+                        <tr>
+                            <th>Mobile</th>
+                            <td><?php echo $student_detail['mobile_no'] ;?></td>
+                            <th>Telephone</th>
+                            <td><?php echo $student_detail['telephone'] ;?></td>
                         </tr>
 
+
+
+                        <tr>
+                            <th>Email</th>
+                            <td colspan="3"><?php echo $student_detail['email'] ;?></td>
+                        </tr>
+                        </tbody></table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="panel panel-info">
+    <div class="panel-heading">
+        <h4>Previous Institute Detail</h4>
+
+
+
+        <div class="options">
+
+        </div>
+    </div>
+    <div class="panel-body std-panel infinite-scroll">
+
+        <div class="std-detail clearfix">
+            <div class="col-sm-12">
+                <div class="">
+                    <table class="table table-responsive table-hover table-striped">
+                        <thead>
+                        <tr>
+                            <th>Examination</th>
+                            <th>Year</th>
+                            <th>Roll no</th>
+                            <th>Board/University</th>
+                            <th>Obtained Marks</th>
+                            <th>Total Marks</th>
+                            <th>Grade</th>
+                            <th>Subjects</th>
+                            <th>Institute Name</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <?php //echo '<pre>'; print_r($previousInstitutes); exit();?>
+                        <?php foreach ($previousInstitutes as $institute) : ?>
+                        <tr>
+
+                            <td><?php echo  $institute['exam_type']; ?></td>
+                            <td><?php echo  $institute['exam_year']; ?></td>
+                            <td><?php echo  $institute['p_roll_no']; ?> </td>
+                            <td><?php echo  $institute['board_university']; ?></td>
+                            <td><?php echo  $institute['obt_marks']; ?></td>
+                            <td><?php echo  $institute['total_marks']; ?></td>
+                            <td><?php echo  $institute['grade']; ?></td>
+                            <td><?php echo  $institute['subjects']; ?></td>
+                            <td><?php echo  $institute['institute_name']; ?></td>
+                        </tr>
+                        <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<?php if ($studentSuspendHistory): ?>
+
+<div class="panel panel-primary">
+
+    <div class="panel-heading">
+        <h4>Student Suspend History</h4>
+    </div>
+
+    <div class="panel-body">
+        <div class="col-sm-12">
+            <div class="">
+                <table class="table table-responsive table-hover table-striped">
+                    <thead>
+                    <tr>
+                        <th>Sr No.</th>
+                        <th>Date</th>
+                        <th>Reason</th>
+
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <?php $i = 1; ?>
+                    <?php foreach ($studentSuspendHistory as $history) : ?>
+
+                        <tr>
+
+                            <td><?php echo  $i ?></td>
+                            <td><?php echo  $history['created_at']; ?></td>
+                            <td><?php echo  $history['reason']; ?> </td>
+
+                        </tr>
+
+                        <?php $i = $i + 1; ?>
+
+                    <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<?php endif; ?>
+
+<?php if ($studentLeaveHistory): ?>
+
+    <div class="panel panel-primary">
+
+        <div class="panel-heading">
+            <h4>Student Leave History</h4>
+        </div>
+
+        <div class="panel-body">
+            <div class="col-sm-12">
+                <div class="">
+                    <table class="table table-responsive table-hover table-striped">
+                        <thead>
+                        <tr>
+                            <th>Sr No.</th>
+                            <th>Date</th>
+                            <th>Reason</th>
+
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <?php $i = 1; ?>
+                        <?php foreach ($studentLeaveHistory as $history) : ?>
+
+                                <tr>
+
+                                    <td><?php echo  $i ?></td>
+                                    <td><?php echo  $history['created_at']; ?></td>
+                                    <td><?php echo  $history['reason']; ?> </td>
+
+                                </tr>
+
+                                <?php $i = $i + 1; ?>
+
+                        <?php endforeach; ?>
                         </tbody>
                     </table>
                 </div>
             </div>
         </div>
     </div>
-    <div class="row">
-        <div class="panel panel-info">
-            <div class="panel-heading ">
-                <h4>Previous Institute Detail</h4>
-            </div>
-            <div class="panel-body">
-                <div class="col-md-12">
-                    <div class="panel-body std-panel infinite-scroll">
-                        <div class="std-detail clearfix">
-                            <div class="col-sm-12">
-                                <div class="table-responsive">
-                                    <table class="table">
-                                        <thead>
-                                        <tr>
-                                            <th>Examination</th>
-                                            <th>Year</th>
-                                            <th>Roll no</th>
-                                            <th>Board/Univercity</th>
-                                            <th>Obtained Marks</th>
-                                            <th>Total Marks</th>
-                                            <th>Grade</th>
-                                            <th>Subjects</th>
-                                            <th>Institute Name</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <?php foreach ($previousInstitutes as $institute) : ?>
-                                            <tr>
 
-                                                <td><?php echo  $institute['title']; ?></td>
-                                                <td><?php echo  $institute['exam_year']; ?></td>
-                                                <td><?php echo  $institute['p_roll_no']; ?> </td>
-                                                <td><?php echo  $institute['board_university']; ?></td>
-                                                <td><?php echo  $institute['obt_marks']; ?></td>
-                                                <td><?php echo  $institute['total_marks']; ?></td>
-                                                <td><?php echo  $institute['grade']; ?></td>
-                                                <td><?php echo  $institute['subjects']; ?></td>
-                                                <td><?php echo  $institute['institute_name']; ?></td>
-                                            </tr>
-                                        <?php endforeach; ?>
-                                        </tbody>
-                                    </table>
+<?php endif; ?>
+
+<?php
+    //fee_pkg_history view is called
+    echo $fee_pkg_history_view;
+
+?>
+<div class="row">
+    <div class="col-md-4 col-md-offset-8 btn-group">
+
+
+            <a href="<?php echo base_url(); ?>admin/editRegistration/<?php echo $student_detail['enroll_id']; ?>"><button class="btn btn-primary">Edit</button></a>
+
+
+            <button class="btn btn-danger" data-toggle="modal" data-target="#suspendModal">Suspend</button>
+
+
+            <button class="btn btn-warning" data-toggle="modal" data-target="#leaveModal">Leave</button>
+
+            <a href="<?php echo base_url(); ?>admin/studentsList"><button class="btn btn-default">Cancel</button></a>
+
+
+
+    </div>
+</div>
+
+    <div class="modal fade modal-lg" tabindex="-1" role="dialog" id="suspendModal">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">Suspend Student</h4>
+                    </div>
+                    <form action="<?php echo base_url().'admin/makeStudentSuspend';?>" method="post">
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-md-12">
+
+                                        <?php echo form_hidden('enrollment_id',$student_detail['enrollment_id']); ?>
+                                        <?php echo form_textarea(array('name' => 'reason',
+                                            'class' => 'form-control','placeholder' => 'Enter Reason Here')) ;?>
+
                                 </div>
                             </div>
-                        </div>
 
-                    </div>
-                </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Save changes</button>
+                        </div>
+                    </form>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div>
+
+    <div class="modal fade modal-lg" tabindex="-1" role="dialog" id="leaveModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Leave Student</h4>
             </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-12">
-            <span>Student Signature___________</span>
-            <span class="pull-right"> Signature___________</span>
-        </div>
-    </div>
+            <form action="<?php echo base_url().'admin/makeStudentLeave';?>" method="post">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+
+                            <?php echo form_hidden('enrollment_id',$student_detail['enrollment_id']); ?>
+                            <?php echo form_textarea(array('name' => 'reason',
+                                'class' => 'form-control','placeholder' => 'Enter Reason Here')) ;?>
+
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+                </div>
+            </form>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
 </div>
-<div class="row">
-    <div class="col-md-12 text-center" style="background: #2bbce0;color: white;font-family: Arial;height: 50px;padding: 1%;">
-        <span>G.T Road, Gujranwala - 055-4296350|0555-4296360|055-4272937</span>
-    </div>
-</div>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#btnp').click(function () {
+            alert('hello');
+        });
+    });
+</script>

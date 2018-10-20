@@ -52,8 +52,6 @@
                         <th>Sr No.</th>
                         <th>Ref.</th>
                         <th>Title</th>
-                        <th>Account</th>
-                        <th>Description</th>
                         <th>Debit</th>
                         <th>Credit</th>
                         <th>Balance</th>
@@ -82,8 +80,7 @@
                                 <td><?php echo $sr; ?></td>
                                 <td><?php echo $transaction['book_reference']; ?></td>
                                 <td><?php echo $transaction['title']; ?></td>
-                                <td><?php echo $displayAccount; ?></td>
-                                <td><?php echo $transaction['description']; ?></td>
+                                
                                 <td><?php echo $drAmount; ?></td>
                                 <td><?php echo $crAmount; ?></td>
                                 <td class="text-right"><?php echo $balance; ?></td>
@@ -102,8 +99,7 @@
                         <th></th>
                         <th></th>
                         <th></th>
-                        <th></th>
-                        <th></th>
+                        
                     </tr>
 
                     <tr>
@@ -113,19 +109,17 @@
                         <th></th>
                         <th></th>
                         <th></th>
-                        <th></th>
-                        <th></th>
+                        
                     </tr>
 
                     <tr>
                         <th></th>
                         <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th class="text-right"><?php echo $drBalance;?></th>
-                        <th class="text-right"><?php echo $crBalance;?></th>
-                        <th></th>
+                        <th class="alert alert-danger">Total</th>
+                        
+                        <th class="text-right alert alert-danger"><?php echo $drBalance;?></th>
+                        <th class="text-right alert alert-danger"><?php echo $crBalance;?></th>
+                        <th class="text-right alert alert-success"><?php echo $balance; ?></th>
                     </tr>
 
                 </table>

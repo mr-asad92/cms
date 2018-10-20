@@ -27,18 +27,16 @@
                 <tr>
                     <th></th>
                     <th></th>
-                    <th></th>
-                    <th></th>
-                    <th class="text-center">Opening Balance</th>
-                    <th class="text-right"><?php echo $opening_balance;?></th>
+                    
+                    <th class="text-center alert alert-success">Opening Balance</th>
+                    <th class="text-right alert alert-success">RS. <?php echo $opening_balance;?></th>
                 </tr>
 
                 <tr>
                     <th>Sr No.</th>
                     <th>Ref.</th>
                     <th>Title</th>
-                    <th>A/C</th>
-                    <th>Description</th>
+                    
                     <th>Amount</th>
                 </tr>
 
@@ -53,9 +51,7 @@
                             <td><?php echo $sr;?></td>
                             <td><?php echo $transaction['book_reference'];?></td>
                             <td><?php echo $transaction['title'];?></td>
-                            <td><?php echo $displayAccount;?></td>
-                            <td><?php echo $transaction['description'];?></td>
-                            <td class="text-right"><?php echo $transaction['amount'];?></td>
+                            <td class="text-right">RS. <?php echo $transaction['amount'];?></td>
                         </tr>
                 <?php
                         $total_amount += $transaction['amount'];
@@ -68,8 +64,7 @@
                     <th></th>
                     <th></th>
                     <th></th>
-                    <th></th>
-                    <th></th>
+                    
                 </tr>
 
                 <tr>
@@ -77,26 +72,21 @@
                     <th></th>
                     <th></th>
                     <th></th>
-                    <th></th>
-                    <th></th>
+                    
                 </tr>
 
                 <tr>
                     <th></th>
                     <th></th>
-                    <th></th>
-                    <th></th>
-                    <th>Total</th>
-                    <th class="text-right"><?php echo $total_amount;?></th>
+                    <th class="alert alert-danger">Total</th>
+                    <th class="text-right alert alert-danger">RS. <?php echo $total_amount;?></th>
                 </tr>
 
                 <tr>
                     <th></th>
                     <th></th>
-                    <th></th>
-                    <th></th>
-                    <th>Closing Balance</th>
-                    <th class="text-right"><?php echo $grand_total;?></th>
+                    <th class="alert alert-success">Closing Balance</th>
+                    <th class="text-right alert alert-success">RS. <?php echo $grand_total;?></th>
                 </tr>
 
             </table>
