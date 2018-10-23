@@ -18,7 +18,7 @@
 <body class="focusedform">
 
 <div class="verticalcenter">
-    <a href="index.html"><img src="<?php echo base_url();?>assets/img/logo-big.png" alt="Logo" class="brand" /></a>
+    <a href="<?php echo base_url();?>"><img src="<?php echo base_url();?>assets/img/logo-big.png" alt="Logo" class="brand" /></a>
     <div class="panel panel-primary">
         <div class="panel-body">
             <h4 class="text-center" style="margin-bottom: 25px;">Reset Password</h4>
@@ -28,7 +28,7 @@
                     <div class="col-sm-12">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-lock"></i></span>
-                            <input type="password" class="form-control" name="opassword" id="password" placeholder="New Password">
+                            <input type="password" class="form-control" name="opassword" id="password" placeholder="Old Password" required>
                         </div>
                     </div>
                 </div>
@@ -37,7 +37,7 @@
                     <div class="col-sm-12">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-lock"></i></span>
-                            <input type="password" class="form-control" name="npassword" placeholder="New Password">
+                            <input type="password" class="form-control" name="npassword" placeholder="New Password" required>
                         </div>
                     </div>
                 </div>
@@ -46,7 +46,7 @@
                     <div class="col-sm-12">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-lock"></i></span>
-                            <input type="password" class="form-control" name="cpassword" placeholder="Confirm Password">
+                            <input type="password" class="form-control" name="cpassword" placeholder="Confirm Password" required>
                         </div>
                     </div>
                 </div>

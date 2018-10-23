@@ -12,6 +12,17 @@ class Vouchers extends CI_Controller
     public function __construct()
     {
         parent::__construct();
+        if(!$this->session->userdata('logged_in')){
+            redirect(base_url().'authentication/logout');
+        }
+
+        $method = $this->router->fetch_method();
+        if(!empty($method ) && $method != 'buildProfileFirst') {
+            if (!$this->admin_model->isProfileExists($this->session->userdata('email'))) {
+                redirect(base_url() . 'admin/buildProfileFirst');
+            }
+        }
+
         $this->load->model('Vouchers_model');
         $this->load->model('admin_model');
         $this->load->model('Accounts_model');
@@ -27,8 +38,27 @@ class Vouchers extends CI_Controller
         $data = array(
             'title' => 'ILM |Fee Voucher',
             'view' => 'vouchers/vouchersList',
-            'vouchers' => $this->Vouchers_model->getVouchers(),
         );
+//        'vouchers' => $this->Vouchers_model->getVouchers(),
+        $search = [];
+        $data['vouchers'] = $this->Vouchers_model->getVouchers($search);
+
+        if(isset($_POST)){
+
+            $search['enrollmentNo'] = $this->input->post('EnrollmentNo');
+            $search['dateFrom'] = $this->input->post('DateFrom');
+            $search['dateTo'] = $this->input->post('DateTo');
+            $search['classId'] = $this->input->post('classId');
+            $search['sectionId'] = $this->input->post('sectionId');
+            $search['status'] = $this->input->post('Status');
+
+            $data['vouchers'] = $this->Vouchers_model->getVouchers($search);
+
+        }
+
+
+        $data['classes'] = $this->admin_model->getClasses(true);
+        $data['sections'] = $this->admin_model->getSections(true);
 
         //echo '<pre>';print_r($data);exit();
         $this->load->view('masterLayouts/admin',$data);

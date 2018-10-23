@@ -31,7 +31,12 @@
 
     <script>
         $("#next").click(function(){
-            $("#resetPassword").submit();
+            if($("#email").val().length > 0) {
+                $("#resetPassword").submit();
+            }
+            else{
+                $("#errorMsg").html("Please input your Email!");
+            }
         });
 
         $("#change_password_btn").click(function(){

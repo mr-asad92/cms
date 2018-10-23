@@ -31,7 +31,8 @@ class Authentication_Model extends CI_Model
         $this->db->where(
             array(
                 'email'=>$email,
-                'password'=>$password
+                'password'=>$password,
+                'is_approved' => 1
             )
         );
         $num=$this->db->get('users')->num_rows();
@@ -39,7 +40,8 @@ class Authentication_Model extends CI_Model
             $this->db->where(
                 array(
                     'email'=>$email,
-                    'password'=>$password
+                    'password'=>$password,
+                    'is_approved' => 1
                 )
             );
             $return = $this->db->get('users')->row(0)->id;

@@ -732,6 +732,17 @@ class Admin_Model extends CI_Model
 
     }
 
+    public function isProfileExists($email){
+        $q = $this->db->select('address')->from('users')->where('email', $email)->where('address', '')->get()->num_rows();
+
+        $return = true;
+        if($q > 0){
+            $return = false;
+        }
+
+        return $return;
+    }
+
 }
 
 

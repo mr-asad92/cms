@@ -11,6 +11,9 @@ class Users extends CI_Controller
     public function __construct()
     {
         parent::__construct();
+        if(!$this->session->userdata('logged_in')){
+            redirect(base_url().'authentication/logout');
+        }
         $this->load->model('Users_model');
     }
 

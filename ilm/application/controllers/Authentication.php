@@ -4,6 +4,9 @@ class Authentication extends CI_Controller {
 
     public function index() {
 
+        if($this->session->userdata('logged_in')){
+            redirect(base_url().'admin');
+        }
         $data=array(
             'title'=>'ILM | Login',
             'view'=>'authentication/login'
@@ -47,7 +50,7 @@ class Authentication extends CI_Controller {
             }
             else{
                 $data=array(
-                    'errors'=>'<p class="text-danger">User Does Not Exists.</p>'
+                    'errors'=>'<p class="text-danger">Invalid Login or not approved by Admin Yet.</p>'
                 );
                 $this->session->set_flashdata($data);
 //                echo "error";
@@ -89,8 +92,11 @@ class Authentication extends CI_Controller {
                 'password'=>md5($this->input->post('password')),
                 'email'=> $this->input->post('email'),
                 'role_id' => $this->input->post('role_id'),
-                'created_by' => $this->session->userdata('user_id')
             );
+
+            if($this->session->userdata('logged_in')){
+                $reg_data['created_by'] = $this->session->userdata('user_id');
+            }
 
                 //echo "<pre>"; print_r($reg_data); exit();
             // 'country'=>$this->input->post('country'),

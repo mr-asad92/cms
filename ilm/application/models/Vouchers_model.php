@@ -8,7 +8,7 @@
 
 class Vouchers_model extends CI_Model
 {
-    public function getVouchers()
+    public function getVouchers($search = [])
     {
         //$q = $this->db->get('users');
         //return $q->result();
@@ -29,10 +29,40 @@ class Vouchers_model extends CI_Model
             ->join('enrollment','enrollment.id = paid_fee.enrollment_id')
             ->join('personal_details','enrollment.id = personal_details.enrollment_id')
             ->join('classes', 'classes.id = paid_fee.classId')
-            ->where('paid_fee.delete_status',1)
-            ->get();
+            ->where('paid_fee.delete_status',0);
 
-        return $q->result();
+        if(!empty($search)){
+
+            if($search['enrollmentNo']){
+                $q->where('paid_fee.enrollment_id',$search['enrollmentNo']);
+            }
+
+            if($search['dateFrom']){
+                $q->where('paid_fee.installment_date >= ',date('Y-m-d',strtotime($search['dateFrom'])));
+            }
+
+            if($search['dateTo']){
+                $q->where('paid_fee.installment_date <= ',date('Y-m-d',strtotime($search['dateTo'])));
+
+            }
+
+            if($search['classId']){
+                $q->where('paid_fee.classId',$search['classId']);
+            }
+
+            if($search['sectionId']){
+                $q->where('paid_fee.sectionId',$search['sectionId']);
+            }
+
+            if(($search['status'] || $search['status'] == 0) && $search['status']!=null){
+                if($search['status'] != 2){
+                    $q->where('paid_fee.status',$search['status']);
+                }
+            }
+
+        }
+
+        return $q->get()->result();
 
         //print_r($this->db->last_query()); exit();
     }

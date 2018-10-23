@@ -93,13 +93,13 @@
                                 <div class="form-group">
                                     <label class="col-sm-2 control-label" for="Student_FirstName">First Name</label>
                                     <div class="col-sm-4">
-                                        <input class="form-control" data-val="true" data-val-required="This field is requried." id="Student_FirstName" name="firstName" type="text" onblur="validate(this, 'fname')" value="<?php echo set_value('firstName',setVal($enrollment_data, '', 'fName', $editRegistration));?>">
+                                        <input class="form-control" data-val="true" data-val-required="This field is requried." id="Student_FirstName" name="firstName" type="text" onblur="validate(this, 'fname')" value="<?php echo set_value('firstName',setVal($enrollment_data, '', 'fName', $editRegistration));?>" required>
                                         <span class="field-validation-valid text-danger" data-valmsg-for="Student.FirstName" data-valmsg-replace="true"></span>
                                     </div>
 
                                     <label class="col-sm-2 control-label" for="Student_LastName">Last Name</label>
                                     <div class="col-sm-4">
-                                        <input class="form-control" data-val="true" data-val-required="This field is requried." id="Student_LastName" name="lastName" type="text" onblur="validate(this, 'lname')" value="<?php echo set_value('lastName',setVal($enrollment_data, '', 'lName', $editRegistration));?>">
+                                        <input class="form-control" data-val="true" data-val-required="This field is requried." id="Student_LastName" name="lastName" type="text" onblur="validate(this, 'lname')" value="<?php echo set_value('lastName',setVal($enrollment_data, '', 'lName', $editRegistration));?>" required>
                                         <span class="field-validation-valid text-danger" data-valmsg-for="Student.LastName" data-valmsg-replace="true"></span>
                                     </div>
                                 </div>
@@ -215,19 +215,19 @@
                                                 <label class="col-sm-2 control-label" for="presentadress">Address</label>
                                                 <div class="col-sm-10">
 
-                                                    <textarea class="form-control" cols="20" data-val="true" data-val-required="This field is requried." id="presentadress" name="presentAddress" rows="2" onblur="validate(this, 'paddr')"> <?php echo set_value('presentAddress',setVal($presentAddresses, '', 'address', $editRegistration));?></textarea>
+                                                    <textarea class="form-control" cols="20" data-val="true" data-val-required="This field is requried." id="presentadress" name="presentAddress" rows="2" onblur="validate(this, 'paddr')" required> <?php echo set_value('presentAddress',setVal($presentAddresses, '', 'address', $editRegistration));?></textarea>
 
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <label class="col-sm-2 control-label" for="presentcity">City</label>
                                                 <div class="col-sm-2">
-                                                    <input class="form-control" data-val="true" data-val-required="This field is requried." id="presentcity" name="presentCity" type="text" onblur="validate(this, 'pcity')"  value="<?php echo set_value('presentCity', setVal($presentAddresses, '', 'city', $editRegistration));?>">
+                                                    <input class="form-control" data-val="true" data-val-required="This field is requried." id="presentcity" name="presentCity" type="text" onblur="validate(this, 'pcity')"  value="<?php echo set_value('presentCity', setVal($presentAddresses, '', 'city', $editRegistration));?>" required>
                                                     <span class="field-validation-valid text-danger" data-valmsg-for="address[0].City" data-valmsg-replace="true"></span>
                                                 </div>
                                                 <label class="col-sm-2 control-label" for="presentdstrct">District</label>
                                                 <div class="col-sm-2">
-                                                    <input class="form-control" data-val="true" data-val-required="This field is requried." id="presentdstrct" name="presentDistrict" type="text" onblur="validate(this, 'pdistrict')" value="<?php echo set_value('presentDistrict', setVal($presentAddresses, '', 'district', $editRegistration));?>">
+                                                    <input class="form-control" data-val="true" data-val-required="This field is requried." id="presentdstrct" name="presentDistrict" type="text" onblur="validate(this, 'pdistrict')" value="<?php echo set_value('presentDistrict', setVal($presentAddresses, '', 'district', $editRegistration));?>" required>
                                                     <span class="field-validation-valid text-danger" data-valmsg-for="address[0].District" data-valmsg-replace="true"></span>
                                                 </div>
                                                 <label class="col-sm-2 control-label" for="presentcntry">Country</label>

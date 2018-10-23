@@ -274,9 +274,9 @@
             <li class="open hasChild">
                 <a href="javascript:;"><i class="fa fa-cog"></i> <span>Settings</span> </a>
                 <ul class="acc-menu" style="display: block;">
-                    <li><a href="<?php echo base_url();?>users"><span>Build Profile</span></a></li>
-                    <li><a href="<?php echo base_url();?>users"><span>Change Password</span></a></li>
-                    <li><a href="<?php echo base_url();?>users"><span>Forgot Password</span></a></li>
+                    <li><a href="<?php echo base_url().'users/edit_profile/'.$user_id ;?>"><span>Build Profile</span></a></li>
+                    <li><a href="<?php echo base_url().'authentication/change_password';?>"><span>Change Password</span></a></li>
+<!--                    <li><a href="--><?php //echo base_url();?><!--users"><span>Forgot Password</span></a></li>-->
                 </ul>
             </li>
         </ul>

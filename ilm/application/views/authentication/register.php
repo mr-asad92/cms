@@ -8,7 +8,7 @@
                     <div class="col-sm-12">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-user"></i></span>
-                            <input type="text" class="form-control" name="first_name" placeholder="First Name">
+                            <input type="text" class="form-control" name="first_name" placeholder="First Name" required>
                         </div>
                     </div>
                 </div>
@@ -16,7 +16,7 @@
                     <div class="col-sm-12">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-user"></i></span>
-                            <input type="text" class="form-control" name="last_name" placeholder="Last Name">
+                            <input type="text" class="form-control" name="last_name" placeholder="Last Name" required>
                         </div>
                     </div>
                 </div>
@@ -24,7 +24,7 @@
                     <div class="col-sm-12">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-envelope-o"></i></span>
-                            <input type="text" class="form-control" name="email" placeholder="Email">
+                            <input type="text" class="form-control" name="email" placeholder="Email" required>
                         </div>
                     </div>
                 </div>
@@ -32,7 +32,7 @@
                     <div class="col-sm-12">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-lock"></i></span>
-                            <input type="password" class="form-control" name="password" placeholder="Password">
+                            <input type="password" class="form-control" name="password" placeholder="Password" required>
                         </div>
                     </div>
                 </div>
@@ -40,7 +40,7 @@
                     <div class="col-sm-12">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-lock"></i></span>
-                            <input type="password" class="form-control" name="confirm_password" placeholder="Repeat password">
+                            <input type="password" class="form-control" name="confirm_password" placeholder="Repeat password" required>
                         </div>
                     </div>
                 </div>
@@ -48,7 +48,7 @@
                 <div class="form-group">
                     <div class="col-sm-12">
                         <div class="">
-                            <select class="form-control" name="role_id">
+                            <select class="form-control" name="role_id" required>
                                 <option disabled selected>Select Role</option>
                                 <option value="0">Admin</option>
                                 <option value="1">Clerk</option>
@@ -62,9 +62,15 @@
 
 
         </div>
+        <?php
+        $label='Login';
+        if($this->session->userdata('logged_in')){
+            $label = 'Back';
+        }
+        ?>
         <div class="panel-footer">
             <div class="pull-left">
-                <a href="<?php echo base_url();?>authentication" class="btn btn-default">Login</a>
+                <a href="<?php echo base_url();?>authentication" class="btn btn-default"><?php echo $label;?></a>
             </div>
             <div class="pull-right">
                 <button type="submit" class="btn btn-success">Sign up</button>

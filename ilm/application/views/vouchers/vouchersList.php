@@ -2,69 +2,58 @@
 <link href='<?php echo base_url();?>assets/plugins/datatables/dataTables.css' rel='stylesheet' type='text/css' media='all' id='headerswitcher'>
 
 <div class="container">
+
+
     <div class="panel panel-info">
         <div class="panel-heading ">
-            <h4>Search Student Vouchers</h4>
+            <h4>Serach Student</h4>
         </div>
         <div class="panel-body">
             <div class="col-sm-12">
-                <form action="/Admission/Fee" class="" method="get" novalidate="novalidate">                    <div class="mb5 clearfix">
+                <form action="<?php echo base_url().'vouchers';?>" class="" method="post" novalidate="novalidate">                    <div class="mb5 clearfix">
                         <h4 class="pull-left"><strong>Enter any of the following field data to search</strong></h4>
                         <button type="submit" class="btn btn-primary pull-right"><span class="fa fa-search"></span>  Search</button>
-                        <a href="<?php echo base_url();?>vouchers" data-toggle="tooltip" title="Refresh Search"
-                           class="pull-right btn
-                        btn-info"><i
-                                    class="fa fa-refresh" aria-hidden="true"></i> Refresh</a>
-
                     </div>
                     <div class="form-group">
                         <div class="col-sm-2">
-                            <label for="EnrollmentNo">Enrollment No</label>
-                            <input class="form-control" name="enrollment_id" type="text">
+                            <label for="EnrollmentNo">EnrollmentNo</label>
+                            <input class="form-control" id="EnrollmentNo" name="EnrollmentNo" value="<?php echo set_value('EnrollmentNo');?>" type="text">
                         </div>
                         <div class="col-sm-2">
-                            <label class="control-label" for="DateFrom">Date From</label>
+                            <label class="control-label" for="DateFrom">DateFrom</label>
                             <div class="input-group date">
-                                <input type="date" class="form-control" name="">
+                                <input class="form-control" data-val="true" data-val-date="The field DateFrom must be a date." id="dto" name="DateFrom" placeholder="From" value="<?php echo set_value('DateFrom');?>" type="text">
                                 <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                             </div>
                         </div>
                         <div class="col-sm-2">
-                            <label class="control-label" for="DateTo">Date To</label>
+                            <label class="control-label" for="DateTo">DateTo</label>
                             <div class="input-group date">
-                                <input class="form-control" name="DateTo" type="date">
+                                <input class="form-control" data-val="true" data-val-date="The field DateTo must be a date." id="dto" name="DateTo" placeholder="To" value="<?php echo set_value('DateTo');?>" type="text">
                                 <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                             </div>
                         </div>
                         <div class="col-sm-2">
-                            <label for="ClassId">Program</label>
-                            <select class="form-control" id="" name="ProgramId"><option value="">Select
-                                    Class</option>
-                                <option value="7">B</option>
-                                <option value="6">FA</option>
-                                <option value="5">ICS</option>
-                                <option value="4">I-Com</option>
-                                <option value="3">ADP(CS)</option>
-                                <option value="2">ADP (Accounting )</option>
-                                <option value="1">FSC (Medical)</option>
-                            </select>
+                            <label for="ClassId">ClassId</label>
+                            <?php echo form_dropdown('classId', $classes, set_value('classId'),'class="form-control"');?>
                         </div>
                         <div class="col-sm-2">
-                            <label for="SectionId">Class</label>
-                            <select class="form-control" id="ddlSection" name="SectionId"><option value="">Select Section</option>
-                            </select>                        </div>
+                            <label for="SectionId">SectionId</label>
+                            <?php echo form_dropdown('sectionId', $sections, set_value('sectionId'),'class="form-control"');?>
+                        </div>
                         <div class="col-sm-2">
                             <label for="Status">Status</label>
-                            <select class="form-control" data-val="true" data-val-number="The field Status must be a number." id="Status" name="Status"><option selected="selected" value="0">UnPaid</option>
+                            <select class="form-control" data-val="true" data-val-number="The field Status must be a number." id="Status" name="Status">
+                                <option value="0">UnPaid</option>
                                 <option value="1">Paid</option>
-                                <option value="3">All</option>
+                                <option selected="selected" value="2">All</option>
                             </select>
                         </div>
                     </div>
-                </form>
-            </div>
+                </form>            </div>
         </div>
     </div>
+
 
     <div class="panel panel-info">
         <div class="panel-heading">

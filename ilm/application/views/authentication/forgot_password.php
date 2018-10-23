@@ -8,8 +8,10 @@
                     <div class="col-sm-12">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-envelope-o"></i></span>
-                            <input type="text" class="form-control" name="email" id="email" placeholder="Email">
+                            <input type="email" class="form-control" name="email" id="email" placeholder="Email" required>
                         </div>
+                        <span id="errorMsg" class="pull-right"></span>
+
                     </div>
                 </div>
             </form>
