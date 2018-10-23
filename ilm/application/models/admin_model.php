@@ -28,6 +28,10 @@ class Admin_Model extends CI_Model
         return $classesList;
     }
 
+    public function getClassName($classId){
+        return $this->db->where('id', $classId)->get('classes')->result_array()[0]['title'];
+    }
+
     public function getSections($get_empty_selected = false) {
         $sectionsList = [];
         $classes = $this->db->get('sections')->result_array();
@@ -41,6 +45,10 @@ class Admin_Model extends CI_Model
 
 
         return $sectionsList;
+    }
+
+    public function getSectionName($sectionId){
+        return $this->db->where('id', $sectionId)->get('sections')->result_array()[0]['title'];
     }
 
     public function getFeeInfo($enrollment_id)
@@ -741,6 +749,26 @@ class Admin_Model extends CI_Model
         }
 
         return $return;
+    }
+
+    public function getFinesList(){
+        return $this->db->get('fines')->result_array();
+    }
+
+    public function save_fine($data){
+        $this->db->insert('fines', $data);
+        return true;
+    }
+
+    public function update_fine($data){
+        $fineId = $data['fineId'];
+        unset($data['fineId']);
+        $this->db->where('id', $fineId)->update('fines', $data);
+        return true;
+    }
+
+    public function getFinesData($id){
+        return $this->db->where('id', $id)->get('fines')->result_array()[0];
     }
 
 }

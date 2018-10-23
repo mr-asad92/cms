@@ -135,9 +135,9 @@
                     '<tr><th>Class: </th><td>'+data.title+'</td></tr>\n' +
                     '<tr><th>Installment No: </th><td>'+data.installment_no+'</td></tr>\n' +
                     '<tr><th>Installment Date: </th><td>'+data.installment_date+'</td></tr>\n' +
-                    '<tr><th>Installment Amount: </th><td>'+data.fee_amount+'</td></tr>\n' +
-                    '<tr><th>Fine: </th><td>'+data.calculated_fine+'</td></tr>\n' +
-                    '<tr><th class="text-info">Total Amount: </th><th class="text-info">'+data.total_amount+'</th></tr>\n' +
+                    '<tr><th>Installment Amount: </th><td><span id="feeAmount">'+data.fee_amount+'</span></td></tr>\n' +
+                    '<tr><th>Fine: </th><td><input type="text" id="calculatedFine" class="form-control" onchange="calculateTotalAmount()" value="'+data.calculated_fine+'"></td></tr>\n' +
+                    '<tr><th class="text-info">Total Amount: </th><th class="text-info"><span id="totalAmount">'+data.total_amount+'</span></th></tr>\n' +
                     '<tr><th class="text-danger">Status: </th><td class="text-danger">'+status+'</td></tr>\n' +
                     '';
 
@@ -154,8 +154,20 @@
             }
         });
     }
+    
+    function calculateTotalAmount() {
+        var fee_amount = $('#feeAmount').html();
+        var total_amount = $('#totalAmount').html();
+        var fine = $('#calculatedFine').val();
+
+        total_amount = Number(fee_amount) + Number(fine);
+        $('#totalAmount').html(total_amount);
+
+    }
     function payInstallment(id){
-        var url = '<?php echo base_url();?>admin/payInstallment/'+id;
+        var calculatedFine = $('#calculatedFine').val();
+
+        var url = '<?php echo base_url();?>admin/payInstallment/'+id+'/'+calculatedFine;
         $.ajax({
             url: url,
             type:'get',

@@ -258,6 +258,7 @@
                     <li><a href="<?php echo base_url() ; ?>Vouchers"><span>Fee Vouchers</span></a></li>
                     <li><a href="<?php echo base_url() ; ?>admin/fee_payments"><span>Fee payments</span></a></li>
                     <li><a href="<?php echo base_url() ; ?>admin/fee_history"><span>Fee Change History</span></a></li>
+                    <li><a href="<?php echo base_url() ; ?>admin/add_fines"><span>Fines</span></a></li>
                 </ul>
             </li>
             <li class="open hasChild">

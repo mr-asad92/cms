@@ -774,12 +774,13 @@ class Admin extends CI_Controller
     }
 
     public function getInstallmenetData($id, $return = false){
-        $data = $this->admin_model->getInstallmentData($id, true);
+        $data = $this->admin_model->getInstallmentData($id, false); //second parameter was true before.
         $data['calculated_fine'] = 0;
         if($data['installment_date'] < date('Y-m-d')){
             $data['calculated_fine'] = $this->admin_model->getFine($data['classId'],$data['sectionId'],$data['installment_date']);
         }
-        $data['total_amount'] = $data['calculated_fine'] + $data['fee_amount'];
+//        $data['total_amount'] = $data['calculated_fine'] + $data['fee_amount'];
+        $data['total_amount'] = $data['fee_amount'];
 
         if($return){
             return json_encode($data);
@@ -789,7 +790,7 @@ class Admin extends CI_Controller
         }
     }
 
-    public function payInstallment($id){
+    public function payInstallment($id, $fine = 0){
 
         // add transaction in transactions table against cash and fee accounts
 
@@ -821,7 +822,26 @@ class Admin extends CI_Controller
 
         $this->Vouchers_model->save_voucher($data);
 
-        // now make fee status as paid
+        // now check if installment has any fine with it?
+
+        if ($fine > 0){
+            $transaction_title = 'Fine Recevied From: '. $student_name.', Class: '.$class_name;
+            $transaction_descr = $transaction_title;
+            $credit_account = $this->Accounts_model->getAccountId('Fine');;
+            $debit_account = 17;
+            $data = [
+                'title' => $transaction_title,
+                'description' => $transaction_descr,
+                'amount' => $fine,
+                'debit_account' => $debit_account,
+                'credit_account' => $credit_account,
+                'created_by' => $this->session->userdata('user_id'),
+            ];
+
+            $this->Vouchers_model->save_voucher($data);
+        }
+
+        // now make fee status as paid`
         $this->admin_model->payInstallment($id);
 
         echo true;
@@ -966,6 +986,71 @@ class Admin extends CI_Controller
         }
 
         $this->load->view('masterLayouts/admin',$data);
+    }
+
+    public function add_fines(){
+        $data = array(
+            'title' => 'ILM | Admin',
+            'view' => 'admin/add_fines',
+        );
+
+        $data['classes'] = $this->admin_model->getClasses(true);
+        $data['sections'] = $this->admin_model->getSections(true);
+
+        $data['finesList'] = $this->admin_model->getFinesList();
+        $data['formSubmitMethod'] = 'save_fine';
+        $data['submitButtonTitle'] = 'Add';
+        $data['finesData'] = [
+            'sectionId' => '',
+            'classId' => '',
+            'fine' => '',
+        ];
+
+        $this->load->view('masterLayouts/admin',$data);
+    }
+
+    public function edit_fines($id){
+        $data = array(
+            'title' => 'ILM | Admin',
+            'view' => 'admin/add_fines',
+        );
+
+        $data['classes'] = $this->admin_model->getClasses(true);
+        $data['sections'] = $this->admin_model->getSections(true);
+
+        $data['finesList'] = $this->admin_model->getFinesList();
+        $data['finesData'] = $this->admin_model->getFinesData($id);
+        $data['formSubmitMethod'] = 'update_fine';
+        $data['submitButtonTitle'] = 'Update';
+
+        $this->load->view('masterLayouts/admin',$data);
+    }
+
+    public function save_fine(){
+        $fine = [
+            'classId'                   => $this->input->post('classId'),
+            'sectionId'                 => $this->input->post('sectionId'),
+            'fine'                      => $this->input->post('fine'),
+        ];
+
+        $this->admin_model->save_fine($fine);
+
+        $this->session->set_flashdata('msg', '<p class="alert alert-success">Fine has been added successfully!</p>');
+        redirect(base_url().'admin/add_fines');
+    }
+
+    public function update_fine(){
+        $fine = [
+            'classId'                   => $this->input->post('classId'),
+            'sectionId'                 => $this->input->post('sectionId'),
+            'fine'                      => $this->input->post('fine'),
+            'fineId'                      => $this->input->post('fineId'),
+        ];
+
+        $this->admin_model->update_fine($fine);
+
+        $this->session->set_flashdata('msg', '<p class="alert alert-success">Fine has been Updated successfully!</p>');
+        redirect(base_url().'admin/add_fines');
     }
 
 }
