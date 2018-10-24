@@ -615,6 +615,16 @@
 
     });
 
+    function calculateGrandTotal() {
+        $("#saveFormBtn").attr('disabled','disabled');
+        var total_fee = $("#totalFee").val();
+        var discount = $("#discount").val();
+
+        var newGrandTotal = Number(total_fee) - Number(discount);
+
+        $("#grandTotal").val(newGrandTotal);
+        $("#saveFormBtn").removeAttr('disabled');
+    }
     function deleteAccount(id) {
         $.ajax({
             url:'<?php echo base_url()."accounts/deleteAccount/";?>'+id,

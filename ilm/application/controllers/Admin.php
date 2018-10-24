@@ -222,6 +222,7 @@ class Admin extends CI_Controller
                 'miscellaneous_fee'      => $this->input->post('miscFee'),
                 'others'                 => $this->input->post('otherFee'),
                 'total_fee'              => $this->input->post('totalFee'),
+                'discount'               => $this->input->post('discount'),
                 'grand_total'            => $this->input->post('grandTotal'),
             ];
 
@@ -379,6 +380,7 @@ class Admin extends CI_Controller
             'miscellaneous_fee'      => $this->input->post('miscFee'),
             'others'                 => $this->input->post('otherFee'),
             'total_fee'              => $this->input->post('totalFee'),
+            'discount'               => $this->input->post('discount'),
             'grand_total'            => $this->input->post('grandTotal'),
         ];
 
@@ -788,6 +790,11 @@ class Admin extends CI_Controller
         else{
             echo json_encode($data);
         }
+    }
+
+    public function submitWaveOff($id){
+        $this->admin_model->submitWaveOff($id);
+        echo true;
     }
 
     public function payInstallment($id, $fine = 0){

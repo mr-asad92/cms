@@ -152,7 +152,8 @@ function calculateFee(){
     var totalFee = admFee + feePkg + tuitionFee + boardUniRegFee + libFee;
     var grandTotal = totalFee + miscFee + otherFee;
 
-    $("#totalFee").val(totalFee);
+    // $("#totalFee").val(totalFee);
+    $("#totalFee").val(grandTotal);
     $("#grandTotal").val(grandTotal);
 }
 

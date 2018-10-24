@@ -16,6 +16,7 @@
                 <th>Miscellaneous</th>
                 <th>Others</th>
                 <th>Total</th>
+                <th>Discount</th>
                 <th>Grand Total</th>
                 <th>Edited By</th>
                 <th>Edited At</th>
@@ -37,6 +38,7 @@
                         <td><?php echo  $value->miscellaneous_fee; ?></td>
                         <td><?php echo  $value->others; ?></td>
                         <td><b><?php echo  $value->total_fee; ?></b></td>
+                        <td><b><?php echo  $value->discount; ?></b></td>
                         <td><b><?php echo  $value->grand_total; ?></b></td>
                         <td><b><?php echo "<a href='".base_url()."users/userDetails/".$value->modified_by."'>".ucfirst($value->editor_first_name). " ". ucfirst($value->editor_last_name)."</a>"; ?></b></td>
                         <td><b><?php echo  date("d M, Y - h:i A", strtotime($value->modification_date)); ?></b></td>

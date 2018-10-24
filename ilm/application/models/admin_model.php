@@ -386,6 +386,7 @@ class Admin_Model extends CI_Model
             ->join('fee_info','enrollment.id = fee_info.enrollment_id')
             ->join('family_information', 'enrollment.id = family_information.enrollment_id')
             ->where('enrollment.id',$enrollment_id)
+            ->where('fee_info.status',1)
             ->get()->result_array()[0];
 
         return $query;
@@ -583,6 +584,18 @@ class Admin_Model extends CI_Model
         $result = $this->db->query($query)->result_array();
 
         return $result;
+    }
+
+    public function submitWaveOff($id){
+        $data = [
+            'status' => 2,
+            'pay_date' => date("Y-m-d h:i:s")
+        ];
+
+        $this->db->where('id', $id);
+        $this->db->update('paid_fee', $data);
+
+        return true;
     }
 
     public function getInstallmentData($installment_id, $paid = false){

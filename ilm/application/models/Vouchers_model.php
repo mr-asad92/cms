@@ -55,7 +55,7 @@ class Vouchers_model extends CI_Model
             }
 
             if(($search['status'] || $search['status'] == 0) && $search['status']!=null){
-                if($search['status'] != 2){
+                if($search['status'] != 3){
                     $q->where('paid_fee.status',$search['status']);
                 }
             }

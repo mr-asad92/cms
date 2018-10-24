@@ -458,6 +458,18 @@
                                             </div>
                                         </div>
                                     </div>
+
+                                    <div class="row">
+                                        <div class="form-group">
+                                            <div class="col-sm-3 pull-right">
+                                                <label class="col-sm-4 text-right" for="TotalFee">Discount</label>
+                                                <div class="col-sm-8">
+                                                    <input class="form-control" data-val="true" data-val-number="The field Fee Pkg must be a number." data-val-required="This field is requried." id="discount" name="discount" onblur="calculateGrandTotal()" type="text" value="<?php echo set_value('discount', setVal($enrollment_data, '0', 'discount', $editRegistration));?>">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
                                     <div class="row">
                                         <div class="form-group">
                                             <div class="col-sm-3 pull-right">

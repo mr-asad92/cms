@@ -41,6 +41,7 @@
                             <select class="form-control" data-val="true" data-val-number="The field Status must be a number." id="Status" name="Status"><option value="3">Select</option>
                                 <option value="0">UnPaid</option>
                                 <option value="1">Paid</option>
+                                <option value="2">Waved Off</option>
                                 <option selected="selected" value="3">All</option>
                             </select>
                         </div>
@@ -82,6 +83,18 @@
                                 foreach ($installments as $installment){
 
 
+                                    if ($installment['status'] == 0){
+                                        $status = 'UnPaid';
+                                    }
+                                    else if($installment['status'] == 1){
+                                        $status = 'Paid';
+                                    }
+                                    else if($installment['status'] == 2){
+                                        $status = 'Waved Off';
+                                    }
+                                    else{
+                                        $status = '';
+                                    }
                             ?>
                             <tr id="<?php echo $installment['pfid'];?>">
 
@@ -92,14 +105,16 @@
                                 <td><?php echo $installment['fee_amount'];?></td>
                                 <td><?php echo $installment['installment_date'];?></td>
                                 <td><?php echo $installment['title'];?> </td>
-                                <td><?php echo ($installment['status'] == 0)?'UnPaid':'Paid';?></td>
+                                <td><?php echo $status;?> </td>
                                 <td>
 
 
 <!--                                    <a href="javascript:payInstallment('--><?php //echo $installment['pfid'];?><!--')" class="btn btn-info"><i aria-hidden="true"></i>Paid</a>-->
 
-                                    <a href="javascript:getFeeData('<?php echo $installment['pfid'];?>')" class="btn btn-info <?php echo ($installment['status'] == 1)?'disabled':'';?>"><i aria-hidden="true"></i>Paid</a>
-                                    <a href="<?php echo base_url()."admin/editInstallments/".$installment['id'];?>" class="btn btn-primary <?php echo ($installment['status'] == 1)?'disabled':'';?>"><i aria-hidden="true"></i>Change</a>
+
+                                    <a href="javascript:getFeeData('<?php echo $installment['pfid'];?>')" class="btn btn-info <?php echo ($installment['status'] == 1)?'disabled':($installment['status'] == 2)?'disabled':'';?>"><i aria-hidden="true"></i>Paid</a>
+                                    <a href="<?php echo base_url()."admin/editInstallments/".$installment['id'];?>" class="btn btn-primary <?php echo ($installment['status'] == 1)?'disabled':($installment['status'] == 2)?'disabled':'';?>"><i aria-hidden="true"></i>Change</a>
+                                    <a href="javascript:waveOff('<?php echo $installment['pfid'];?>')" class="btn btn-danger <?php echo ($installment['status'] == 1)?'disabled':($installment['status'] == 2)?'disabled':'';?>"><i aria-hidden="true"></i>Wave Off</a>
                                 </td>
                             </tr>
                             <?php } ?>
@@ -116,6 +131,60 @@
 <script type='text/javascript' src='<?php echo base_url();?>assets/js/jquery-1.10.2.min.js'></script>
 
 <script>
+
+    function waveOff(id) {
+        var url = '<?php echo base_url();?>admin/getInstallmenetData/'+id;
+        $.ajax({
+            url: url,
+            type:'get',
+            success: function (data) {
+//                console.log(JSON.stringify(data, null, 4));
+                data = JSON.parse(data);
+                var html = '<table class="table table-stripped table-condensed">';
+
+                var status = data.status == 0? 'UnPaid':'Paid';
+                html += '' +
+                    '<tr><th>Enrollment No: </th><td>'+data.id+'</td></tr>\n' +
+                    '<tr><th>Name: </th><td>'+data.first_name+' '+data.last_name+'</td></tr>\n' +
+                    '<tr><th>Class: </th><td>'+data.title+'</td></tr>\n' +
+                    '<tr><th>Installment No: </th><td>'+data.installment_no+'</td></tr>\n' +
+                    '<tr><th>Installment Date: </th><td>'+data.installment_date+'</td></tr>\n' +
+                    '<tr><th>Installment Amount: </th><td><span id="feeAmount">'+data.fee_amount+'</span></td></tr>\n' +
+                    '<tr><th>Fine: </th><td><input type="text" id="calculatedFine" class="form-control" onchange="calculateTotalAmount()" value="'+data.calculated_fine+'"></td></tr>\n' +
+                    '<tr><th class="text-info">Total Amount: </th><th class="text-info"><span id="totalAmount">'+data.total_amount+'</span></th></tr>\n' +
+                    '<tr><th class="text-danger">Status: </th><td class="text-danger">'+status+'</td></tr>\n' +
+                    '';
+
+                html += "<tr><td></td><td><a href='javascript:submitWaveOff("+data.pfid+")' class='btn btn-danger'><i aria-hidden='true'></i>Wave Off</a></td></tr>";
+
+                html +='</table>';
+
+                $("#payFeeModalBody").html(html);
+                $("#feePayModal").modal('show');
+
+            },
+            error: function (err) {
+                console.log(err);
+            }
+        });
+    }
+    
+    function submitWaveOff(id) {
+
+        var url = '<?php echo base_url();?>admin/submitWaveOff/'+id;
+        $.ajax({
+            url: url,
+            type:'get',
+            success: function (data) {
+                alert("Installment Waved Off!");
+                $("#"+id).slideUp("slow", function() { $("#"+id).remove();});
+
+            },
+            error: function (err) {
+                console.log(err);
+            }
+        });
+    }
 
     function getFeeData(id){
 

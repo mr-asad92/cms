@@ -46,7 +46,8 @@
                             <select class="form-control" data-val="true" data-val-number="The field Status must be a number." id="Status" name="Status">
                                 <option value="0">UnPaid</option>
                                 <option value="1">Paid</option>
-                                <option selected="selected" value="2">All</option>
+                                <option value="2">Waved Off</option>
+                                <option selected="selected" value="3">All</option>
                             </select>
                         </div>
                     </div>
@@ -100,14 +101,18 @@
                                     <td><?php echo $voucher->classTitle ;?></td>
                                     <td>
                                         <?php
-                                        if ($voucher->status == 1)
-                                        {
-                                            echo '<p class="text-success">Paid</p>';
-                                        }
-                                        else
-                                        {
+
+                                        if ($voucher->status == 0){
                                             echo '<p class="text-danger">Unpaid</p>';
                                         }
+                                        else if($voucher->status == 1){
+                                            echo '<p class="text-success">Paid</p>';
+                                        }
+                                        else if($voucher->status == 2){
+                                            echo '<p class="text-danger">Waved Off</p>';
+                                        }
+
+
                                         ;?>
                                     </td>
 
