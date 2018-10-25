@@ -56,6 +56,42 @@ if ( ! function_exists('buildTree')) {
 
 }
 
+if ( ! function_exists('trialBalanceListing')) {
+    function trialBalanceListing($tree_structure, $rows, $level = 0, $trial_balance = []) {
+
+
+        $space_limit = $level * 5;
+        $spaces = '';
+
+        for($i = 0; $i<$space_limit; $i++){
+            $spaces .= "&nbsp;";
+        }
+
+        if (is_array($tree_structure) && count($tree_structure)) {
+
+            foreach ($tree_structure as $key => $leaf) {
+
+                $trial_balance[] =  [
+                    'account_id' => $leaf['id'],
+                    'account_name' => $spaces.$leaf['account_name'],
+                    'debit_amount' => $rows[$leaf['id']]['debit_amount'],
+                    'credit_amount' => $rows[$leaf['id']]['credit_amount']
+                ];
+
+                if (isset($leaf["descendants"])) {
+                    $level++;
+                    $trial_balance[] = trialBalanceListing($leaf["descendants"], $rows,  $level);
+                }
+
+            }
+
+        }
+
+        return $trial_balance;
+    }
+
+}
+
 if ( ! function_exists('getChildren')) {
     function getChildren($tree_structure, $level = 0) {
         $html = "";

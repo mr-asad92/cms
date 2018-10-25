@@ -357,7 +357,24 @@ class Accounts extends CI_Controller
 
     }
 
+    public function trial_balance(){
 
+        $from_date = date('Y-m-d', strtotime("01-10-2018"));
+        $to_date = date('Y-m-d');
+
+        $data = array(
+            'title' => 'ILM | Admin',
+            'view' => 'accounts/trial_balance',
+            'rows' => $this->Accounts_model->getTrialBalance($from_date, $to_date)
+
+        );
+
+//
+        $data['trial_balance'] = trialBalanceListing(buildTree($this->Accounts_model->getAccountsList(), 'parent_id', 'id'), $data['rows']);
+//        debug($data['trial_balance']);
+
+        $this->load->view('masterLayouts/admin',$data);
+    }
 
 
 

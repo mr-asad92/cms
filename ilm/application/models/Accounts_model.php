@@ -313,4 +313,32 @@ class Accounts_model extends CI_Model
         return $this->db->query($query)->result_array()[0]['receiveableFee'];
     }
 
+    public function getTrialBalance($from_date, $to_date){
+
+        $query = "SELECT id, account_name FROM accounts";
+        $res = $this->db->query($query)->result_array();
+
+        $rows = [];
+        foreach ($res as $key => $value){
+            $acc_id = $value['id'];
+            $acc_name = $value['account_name'];
+
+            $query = "SELECT SUM(amount) as debit_amount FROM transactions WHERE debit_account='$acc_id' AND created_at >= '$from_date' AND created_at <= '$to_date' + INTERVAL 1 DAY";
+            $debit_amount = $this->db->query($query)->result_array()[0]['debit_amount'];
+
+            $query = "SELECT SUM(amount) as credit_amount FROM transactions WHERE credit_account='$acc_id' AND created_at >= '$from_date' AND created_at <= '$to_date' + INTERVAL 1 DAY";
+            $credit_amount = $this->db->query($query)->result_array()[0]['credit_amount'];
+
+            $rows[$acc_id] = [
+                'account_id' => $acc_id,
+                'account_name' => $acc_name,
+                'debit_amount' => $debit_amount,
+                'credit_amount' => $credit_amount
+            ];
+
+        }
+
+        return $rows;
+    }
+
 }
