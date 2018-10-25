@@ -358,16 +358,33 @@ class Accounts extends CI_Controller
     }
 
     public function trial_balance(){
-
-        $from_date = date('Y-m-d', strtotime("01-10-2018"));
-        $to_date = date('Y-m-d');
+        date_default_timezone_set('Asia/Karachi');
 
         $data = array(
             'title' => 'ILM | Admin',
             'view' => 'accounts/trial_balance',
-            'rows' => $this->Accounts_model->getTrialBalance($from_date, $to_date)
-
         );
+
+        $from_date = date('Y-m-d');
+        $to_date = date('Y-m-d');
+
+        $data['fromDate'] = $from_date;
+        $data['toDate'] = $to_date;
+
+        if(isset($_POST['from_date'])){
+            $from_date = $this->input->post('from_date');
+            $to_date = $this->input->post('to_date');
+
+            $from_date = date('Y-m-d', strtotime($from_date));
+            $to_date = date('Y-m-d', strtotime($to_date));
+
+            $data['fromDate'] = $from_date;
+            $data['toDate'] = $to_date;
+        }
+
+
+
+        $data['rows'] = $this->Accounts_model->getTrialBalance($from_date, $to_date);
 
 //
         $data['trial_balance'] = trialBalanceListing(buildTree($this->Accounts_model->getAccountsList(), 'parent_id', 'id'), $data['rows']);

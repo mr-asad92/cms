@@ -2,6 +2,22 @@
     <!-- Default panel contents -->
     <div class="panel-heading">Trial Balance</div>
     <div class="panel-body">
+
+        <form action="<?php echo base_url().'/accounts/trial_balance';?>" method="post">
+            <div class="row">
+                <div class="col-sm-1"><label class="control-label">From: </label></div>
+                <div class="col-sm-2"><input type="date" name="from_date" value="<?php echo date('Y-m-d');?>" class="form-control"></div>
+
+                <div class="col-sm-1"><label class="control-label">To: </label></div>
+                <div class="col-sm-2"><input type="date" name="to_date" value="<?php echo date('Y-m-d');?>" class="form-control"></div>
+
+                <div class="col-sm-1"><label class="control-label">&nbsp;</label><input type="submit" value="Submit" class="btn btn-info"></div>
+            </div>
+        </form>
+        <br />
+
+        <b>From:</b> <?php echo $fromDate;?> <br />
+        <b>To:</b> <?php echo $toDate;?> <br /> <br />
         <table class="table table-responsive table-condensed table-bordered table-hover table-stripped">
 
             <thead>
