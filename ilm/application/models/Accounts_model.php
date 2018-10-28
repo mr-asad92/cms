@@ -341,4 +341,23 @@ class Accounts_model extends CI_Model
         return $rows;
     }
 
+    public function getExpensesListing($from_date, $to_date){
+
+        $expense_account = 12;
+        $query = "SELECT t.*, a.account_name FROM transactions t 
+ LEFT JOIN accounts a ON a.id=t.debit_account
+ WHERE t.debit_account='$expense_account' AND t.created_at >= '$from_date' AND t.created_at <= '$to_date' + INTERVAL 1 DAY";
+        return $this->db->query($query)->result_array();
+
+    }
+
+    public function getIncomeListing($from_date, $to_date){
+
+        $fee_account = 17;
+        $fine_account = 18;
+        $query = "SELECT t.*,a.account_name FROM transactions t LEFT JOIN accounts a ON a.id=t.debit_account WHERE (t.debit_account='$fee_account' OR t.debit_account='$fine_account') AND t.created_at >= '$from_date' AND t.created_at <= '$to_date' + INTERVAL 1 DAY";
+        return $this->db->query($query)->result_array();
+
+    }
+
 }

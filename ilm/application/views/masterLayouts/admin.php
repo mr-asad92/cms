@@ -270,6 +270,7 @@
                     <li><a href="<?php echo base_url() ; ?>accounts/cash_book"><span>Cash book</span></a></li>
                     <li><a href="<?php echo base_url() ; ?>accounts/trial_balance"><span>Trial Balance</span></a></li>
                     <li><a href="<?php echo base_url() ; ?>accounts/ledger"><span>Ledger</span></a></li>
+                    <li><a href="<?php echo base_url() ; ?>accounts/profit_and_loss"><span>Profit &amp; Loss</span></a></li>
                 </ul>
             </li>
             <li class="open hasChild">

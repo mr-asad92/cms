@@ -393,6 +393,40 @@ class Accounts extends CI_Controller
         $this->load->view('masterLayouts/admin',$data);
     }
 
+    public function profit_and_loss(){
+        date_default_timezone_set('Asia/Karachi');
+
+        $data = array(
+            'title' => 'ILM | Admin',
+            'view' => 'accounts/profit_and_loss',
+        );
+
+        $from_date = date('Y-m-d');
+        $to_date = date('Y-m-d');
+
+        $data['fromDate'] = $from_date;
+        $data['toDate'] = $to_date;
+
+        if(isset($_POST['from_date'])){
+            $from_date = $this->input->post('from_date');
+            $to_date = $this->input->post('to_date');
+
+            $from_date = date('Y-m-d', strtotime($from_date));
+            $to_date = date('Y-m-d', strtotime($to_date));
+
+            $data['fromDate'] = $from_date;
+            $data['toDate'] = $to_date;
+        }
+
+
+
+        $data['expenses_listing'] = $this->Accounts_model->getExpensesListing($from_date, $to_date);
+        $data['income_listing'] = $this->Accounts_model->getIncomeListing($from_date, $to_date);
+
+
+        $this->load->view('masterLayouts/admin',$data);
+    }
+
 
 
 }
