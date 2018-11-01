@@ -784,6 +784,31 @@ class Admin_Model extends CI_Model
         return $this->db->where('id', $id)->get('fines')->result_array()[0];
     }
 
+    public function getExamTypesList(){
+        return $this->db->get('previous_examination_types')->result_array();
+    }
+
+    public function getExamTypeData($id){
+        return $this->db->where('id', $id)->get('previous_examination_types')->result_array()[0];
+
+    }
+
+    public function save_exam_type($data){
+        $this->db->insert('previous_examination_types', $data);
+        return true;
+    }
+
+    public function update_exam_type($data){
+        $id = $data['id'];
+        unset($data['id']);
+        $this->db->where('id', $id)->update('previous_examination_types', $data);
+        return true;
+    }
+
+    public function delete_examination_types($id){
+        $this->db->where('id', $id)->delete('previous_examination_types');
+    }
+
 }
 
 

@@ -111,8 +111,26 @@
 
 <!--                                    <a href="javascript:payInstallment('--><?php //echo $installment['pfid'];?><!--')" class="btn btn-info"><i aria-hidden="true"></i>Paid</a>-->
 
+<!--                                    <a href="javascript:getFeeData('--><?php //echo $installment['pfid'];?><!--')" class="btn btn-info --><?php //echo ($installment['status'] == 1)?'disabled':($installment['status'] == 2)?'disabled':'';?><!--"><i aria-hidden="true"></i>Paid</a>-->
+                                    <?php
+                                        if ($installment['status'] == 0){
+                                            ?>
+                                            <a href="javascript:getFeeData('<?php echo $installment['pfid'];?>')" class="btn btn-info"><i aria-hidden="true"></i>Paid</a>
 
-                                    <a href="javascript:getFeeData('<?php echo $installment['pfid'];?>')" class="btn btn-info <?php echo ($installment['status'] == 1)?'disabled':($installment['status'] == 2)?'disabled':'';?>"><i aria-hidden="true"></i>Paid</a>
+                                    <?php
+                                        }
+                                        else if($installment['status'] == 1){
+                                            ?>
+                                            <a href="javascript:getFeeData('<?php echo $installment['pfid'];?>','unpay')" class="btn btn-info"><i aria-hidden="true"></i>UnPay</a>
+                                    <?php
+                                        }
+                                        else{
+                                            ?>
+                                                                                <a href="javascript:getFeeData('<?php echo $installment['pfid'];?>')" class="btn btn-info <?php echo ($installment['status'] == 1)?'disabled':($installment['status'] == 2)?'disabled':'';?>"><i aria-hidden="true"></i>Paid</a>
+                                    <?php
+                                        }
+                                    ?>
+
                                     <a href="<?php echo base_url()."admin/editInstallments/".$installment['id'];?>" class="btn btn-primary <?php echo ($installment['status'] == 1)?'disabled':($installment['status'] == 2)?'disabled':'';?>"><i aria-hidden="true"></i>Change</a>
                                     <a href="javascript:waveOff('<?php echo $installment['pfid'];?>')" class="btn btn-danger <?php echo ($installment['status'] == 1)?'disabled':($installment['status'] == 2)?'disabled':'';?>"><i aria-hidden="true"></i>Wave Off</a>
                                 </td>
@@ -186,14 +204,19 @@
         });
     }
 
-    function getFeeData(id){
+    function getFeeData(id, unpay=false){
 
-        var url = '<?php echo base_url();?>admin/getInstallmenetData/'+id;
+        var methodName = 'getPaidInstallmenetData';
+        if(unpay==false){
+            var methodName = 'getInstallmenetData';
+        }
+
+        var url = '<?php echo base_url();?>admin/'+methodName+'/'+id;
         $.ajax({
             url: url,
             type:'get',
             success: function (data) {
-//                console.log(JSON.stringify(data, null, 4));
+                console.log(JSON.stringify(data, null, 4));
                 data = JSON.parse(data);
                 var html = '<table class="table table-stripped table-condensed">';
 
@@ -210,8 +233,12 @@
                     '<tr><th class="text-danger">Status: </th><td class="text-danger">'+status+'</td></tr>\n' +
                     '';
 
-                html += "<tr><td></td><td><a href='javascript:payInstallment("+data.pfid+")' class='btn btn-info'><i aria-hidden='true'></i>Confirm Pay</a></td></tr>";
-
+                if (unpay=='unpay'){
+                    html += "<tr><td></td><td><a href='javascript:unpayInstallment(" + data.pfid + ")' class='btn btn-info'><i aria-hidden='true'></i>Confirm UnPay</a></td></tr>";
+                }
+                else {
+                    html += "<tr><td></td><td><a href='javascript:payInstallment(" + data.pfid + ")' class='btn btn-info'><i aria-hidden='true'></i>Confirm Pay</a></td></tr>";
+                }
                 html +='</table>';
 
                 $("#payFeeModalBody").html(html);
@@ -242,6 +269,25 @@
             type:'get',
             success: function (data) {
                 alert("Installment Paid!");
+                $("#"+id).slideUp("slow", function() { $("#"+id).remove();});
+
+            },
+            error: function (err) {
+                console.log(err);
+            }
+        });
+    }
+
+    function unpayInstallment(id){
+        var calculatedFine = $('#calculatedFine').val();
+
+        var url = '<?php echo base_url();?>admin/unpayInstallment/'+id+'/'+calculatedFine;
+        $.ajax({
+            url: url,
+            type:'get',
+            success: function (data) {
+                console.log(JSON.stringify(data, null, 4));
+                alert("Installment unPaid!");
                 $("#"+id).slideUp("slow", function() { $("#"+id).remove();});
 
             },

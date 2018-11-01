@@ -220,9 +220,15 @@ class Vouchers_model extends CI_Model
         return $query->result();
     }
 
-    public function save_voucher($data){
+    public function save_voucher($data, $return_id = false){
 
         $this->db->insert('transactions', $data);
+
+        return ($return_id)?$this->db->insert_id():true;
+    }
+
+    public function save_paid_installment_voucher_id($data){
+        $this->db->insert('paid_installments_vouchers', $data);
         return true;
     }
 
@@ -243,6 +249,41 @@ class Vouchers_model extends CI_Model
     public function getVoucherData($id){
         $this->db->where('id', $id);
         return $this->db->get('transactions')->result_array()[0];
+    }
+
+    public function getTransactionIds($installment_id){
+        $q = $this->db->query("SELECT transaction_id FROM paid_installments_vouchers WHERE installment_id = '$installment_id'");
+        return $q->result_array();
+//        return $this->db->where('installment_id', $installment_id)->get('paid_installments_vouchers')->result_array();
+    }
+
+    public function deleteTransactions($transaction_ids){
+
+        foreach ($transaction_ids as $transaction_id){
+            $this->db->query("DELETE FROM transactions WHERE id = '".$transaction_id['transaction_id']."'");
+        }
+//        die($this->db->last_query());
+
+        return true;
+    }
+
+    public function deleteTransactionsRecord($transaction_ids){
+
+        foreach ($transaction_ids as $transaction_id){
+            $this->db->query("DELETE FROM paid_installments_vouchers WHERE transaction_id ='".$transaction_id['transaction_id']."'");
+        }
+        return true;
+    }
+
+    public function unpayInstallment($installment_id){
+        $data = [
+            'status' => 0
+        ];
+
+        $this->db->where('id', $installment_id);
+        $this->db->update('paid_fee', $data);
+
+        return true;
     }
 
 

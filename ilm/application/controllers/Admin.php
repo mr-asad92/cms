@@ -792,6 +792,23 @@ class Admin extends CI_Controller
         }
     }
 
+    public function getPaidInstallmenetData($id, $return = false){
+        $data = $this->admin_model->getInstallmentData($id, true); //second parameter was true before.
+        $data['calculated_fine'] = 0;
+        if($data['installment_date'] < date('Y-m-d')){
+            $data['calculated_fine'] = $this->admin_model->getFine($data['classId'],$data['sectionId'],$data['installment_date']);
+        }
+//        $data['total_amount'] = $data['calculated_fine'] + $data['fee_amount'];
+        $data['total_amount'] = $data['fee_amount'];
+
+        if($return){
+            return json_encode($data);
+        }
+        else{
+            echo json_encode($data);
+        }
+    }
+
     public function submitWaveOff($id){
         $this->admin_model->submitWaveOff($id);
         echo true;
@@ -827,10 +844,11 @@ class Admin extends CI_Controller
             'created_by' => $this->session->userdata('user_id'),
         ];
 
-        $this->Vouchers_model->save_voucher($data);
+        $voucher_id = $this->Vouchers_model->save_voucher($data, true);
 
         // now check if installment has any fine with it?
 
+        $fine_transaction_id = false;
         if ($fine > 0){
             $transaction_title = 'Fine Recevied From: '. $student_name.', Class: '.$class_name;
             $transaction_descr = $transaction_title;
@@ -845,13 +863,38 @@ class Admin extends CI_Controller
                 'created_by' => $this->session->userdata('user_id'),
             ];
 
-            $this->Vouchers_model->save_voucher($data);
+            $fine_transaction_id = $this->Vouchers_model->save_voucher($data, true);
+        }
+
+
+        // make record of transaction id (it will be needed for unpay scenario)
+
+        $record = ['installment_id'=>$id,'transaction_id'=>$voucher_id];
+        $this->Vouchers_model->save_paid_installment_voucher_id($record);
+
+
+        if($fine_transaction_id != false){
+            $record = ['installment_id'=>$id,'transaction_id'=>$fine_transaction_id];
+            $this->Vouchers_model->save_paid_installment_voucher_id($record);
         }
 
         // now make fee status as paid`
         $this->admin_model->payInstallment($id);
 
         echo true;
+    }
+
+    public function unpayInstallment($id){
+
+        $transaction_ids = $this->Vouchers_model->getTransactionIds($id);
+
+        $this->Vouchers_model->deleteTransactions($transaction_ids);
+
+        $this->Vouchers_model->deleteTransactionsRecord($transaction_ids);
+
+        $this->Vouchers_model->unpayInstallment($id);
+
+        return $transaction_ids;
     }
 
     public function makeStudentActive($enrollment_id)
@@ -993,6 +1036,64 @@ class Admin extends CI_Controller
         }
 
         $this->load->view('masterLayouts/admin',$data);
+    }
+
+    public function add_examination_types(){
+        $data = array(
+            'title' => 'ILM | Admin',
+            'view' => 'admin/add_institution_details',
+        );
+
+        $data['examTypeList'] = $this->admin_model->getExamTypesList();
+        $data['formSubmitMethod'] = 'save_exam_type';
+        $data['submitButtonTitle'] = 'Add';
+        $data['examType'] = ['title'=>'', 'id'=>''];
+
+        $this->load->view('masterLayouts/admin',$data);
+    }
+
+    public function edit_examination_types($id){
+        $data = array(
+            'title' => 'ILM | Admin',
+            'view' => 'admin/add_institution_details',
+        );
+
+        $data['examTypeList'] = $this->admin_model->getExamTypesList();
+        $data['formSubmitMethod'] = 'update_exam_type';
+        $data['submitButtonTitle'] = 'Update';
+        $data['examType'] = $this->admin_model->getExamTypeData($id);
+
+        $this->load->view('masterLayouts/admin',$data);
+    }
+
+    public function save_exam_type(){
+        $exam_type = [
+            'title' => $this->input->post('title'),
+        ];
+
+        $this->admin_model->save_exam_type($exam_type);
+
+        $this->session->set_flashdata('msg', '<p class="alert alert-success">Exam type has been added successfully!</p>');
+        redirect(base_url().'admin/add_examination_types');
+    }
+
+    public function update_exam_type(){
+        $exam_type = [
+            'id'   => $this->input->post('examTypeId'),
+            'title'=> $this->input->post('title'),
+        ];
+
+        $this->admin_model->update_exam_type($exam_type);
+
+        $this->session->set_flashdata('msg', '<p class="alert alert-success">Exam type has been updated successfully!</p>');
+        redirect(base_url().'admin/add_examination_types');
+    }
+
+    public function delete_examination_types($id){
+        $this->admin_model->delete_examination_types($id);
+
+        $this->session->set_flashdata('msg', '<p class="alert alert-success">Exam type has been deleted successfully!</p>');
+        redirect(base_url().'admin/add_examination_types');
     }
 
     public function add_fines(){
