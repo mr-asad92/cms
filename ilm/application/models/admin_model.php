@@ -809,6 +809,37 @@ class Admin_Model extends CI_Model
         $this->db->where('id', $id)->delete('previous_examination_types');
     }
 
+    public function getPermissionsList(){
+        return $this->db->get('permissions')->result_array();
+    }
+
+    public function getUserTypes(){
+
+        $userTypes = [];
+        $q = $this->db->where('groupId !=', 0)->get('permission_groups')->result_array();
+
+        $userTypes[0] = '--- SELECT ---';
+        foreach ($q as $uType ){
+            $userTypes[$uType['groupId']] = $uType['groupName'];
+        }
+        return $userTypes;
+    }
+
+    public function update_permissions($userType, $permissions){
+        $this->db->where('groupID', $userType);
+        $this->db->delete('permission_map');
+
+        foreach ($permissions as $key => $value){
+
+            $this->db->set('groupID', $userType);
+            $this->db->set('permissionID', $value);
+            $this->db->insert('permission_map');
+
+        }
+
+        return true;
+    }
+
 }
 
 

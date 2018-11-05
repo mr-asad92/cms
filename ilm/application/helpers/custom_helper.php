@@ -199,6 +199,16 @@ if ( ! function_exists('whereClauseExists')) {
 
 }
 
+if ( ! function_exists('check_permissions')) {
+    // this function set the value to form fields based on if it is new form or edit form.
+    function check_permissions() {
+
+
+
+    }
+
+}
+
 if ( ! function_exists('number_shorten')) {
     // this function set the value to form fields based on if it is new form or edit form.
     function number_shorten($number, $precision = 2, $divisors = null) {

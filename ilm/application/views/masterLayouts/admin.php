@@ -278,6 +278,9 @@
             <li class="open hasChild">
                 <a href="javascript:;"><i class="fa fa-cog"></i> <span>Settings</span> </a>
                 <ul class="acc-menu" style="display: block;">
+                    <?php if($this->session->userdata('role_id') == 0){?>
+                    <li><a href="<?php echo base_url().'admin/manage_permissions';?>"><span>Manage Permissions</span></a></li>
+                    <?php } ?>
                     <li><a href="<?php echo base_url().'users/edit_profile/'.$user_id ;?>"><span>Build Profile</span></a></li>
                     <li><a href="<?php echo base_url().'authentication/change_password';?>"><span>Change Password</span></a></li>
 <!--                    <li><a href="--><?php //echo base_url();?><!--users"><span>Forgot Password</span></a></li>-->

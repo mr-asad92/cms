@@ -2,6 +2,7 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 class Admin extends CI_Controller
 {
+    var $permissions = array();
     public function __construct()
     {
         parent::__construct();
@@ -16,10 +17,49 @@ class Admin extends CI_Controller
             }
         }
 
+        if (($this->session->userdata('role_id') != 0)) { // if user is not admin then check for permissions
+
+            if ((!empty($method) && $method != 'invalid_permissions')) {
+                //  load libs
+                $this->load->library('permission');
+
+                // set groupID
+                $groupID = ($this->session->userdata('role_id')) ? $this->session->userdata('role_id') : 0;
+
+                $this->permissions = $this->permission->get_user_permissions($groupID);
+                $current_page = strtolower($this->router->fetch_class()).'/'.$method;
+                if (!in_array($current_page, $this->permissions)) {
+                    redirect(base_url() . 'admin/invalid_permissions');
+                }
+            }
+
+        }
 
         $this->load->model('Vouchers_model');
         $this->load->model('Accounts_model');
 
+
+    }
+
+    public function manage_permissions(){
+        $permissionList = $this->admin_model->getPermissionsList();
+        $userTypes = $this->admin_model->getUserTypes();
+
+        if(isset($_POST['userType'])){
+            $userType = $this->input->post('userType');
+            $permissions = $this->input->post('permissions');
+
+            $this->admin_model->update_permissions($userType, $permissions);
+            $this->session->set_flashdata('msg', '<p class="alert alert-success">Permissions has been saved Successfully</p>');
+        }
+        $data = array(
+            'title' => 'ILM | Manage Permissions',
+            'view' => 'admin/managePermissions',
+            'permissionsList' => $permissionList,
+            'userTypes' => $userTypes,
+        );
+
+        $this->load->view('masterLayouts/admin', $data);
 
     }
 
@@ -36,6 +76,16 @@ class Admin extends CI_Controller
 
         $this->load->view('masterLayouts/admin', $data);
 
+    }
+
+    public function invalid_permissions(){
+
+        $data = array(
+            'title' => 'ILM | Not Allowed',
+            'view' => 'admin/invalid_permissions'
+        );
+
+        $this->load->view('masterLayouts/admin', $data);
     }
 
     public function index() {

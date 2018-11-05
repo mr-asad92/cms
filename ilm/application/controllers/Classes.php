@@ -23,6 +23,24 @@ class Classes extends CI_Controller
             }
         }
 
+        if (($this->session->userdata('role_id') != 0)) { // if user is not admin then check for permissions
+
+            if ((!empty($method) && $method != 'invalid_permissions')) {
+                //  load libs
+                $this->load->library('permission');
+
+                // set groupID
+                $groupID = ($this->session->userdata('role_id')) ? $this->session->userdata('role_id') : 0;
+
+                $this->permissions = $this->permission->get_user_permissions($groupID);
+                $current_page = strtolower($this->router->fetch_class()).'/'.$method;
+                if (!in_array($current_page, $this->permissions)) {
+                    redirect(base_url() . 'admin/invalid_permissions');
+                }
+            }
+
+        }
+
         $this->load->model('Programs_model');
         $this->load->model('Classes_model');
     }

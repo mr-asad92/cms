@@ -31,15 +31,15 @@ class Authentication extends CI_Controller {
             $email=$this->input->post('email');
             $password=md5($this->input->post('password'));
             $this->load->model('authentication_model');
-            $user_id=$this->authentication_model->verifyLogin($email,$password);
+            $isVerified=$this->authentication_model->verifyLogin($email,$password);
 
             //print_r($user_id); exit();
-
-            if ($user_id != FALSE) {
+            if ($isVerified['status'] != FALSE) {
                 // $this->load->view('users/profile',$profile_data);
                 $data=array(
-                    'user_id'=>$user_id,
+                    'user_id'=>$isVerified['user_id'],
                     'email'=>$email,
+                    'role_id' => $isVerified['role_id'],
                     'logged_in'=>TRUE
                 );
                 $this->session->set_userdata($data);

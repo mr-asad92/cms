@@ -44,10 +44,13 @@ class Authentication_Model extends CI_Model
                     'is_approved' => 1
                 )
             );
-            $return = $this->db->get('users')->row(0)->id;
+            $data = $this->db->get('users')->row(0);
+            $return['user_id'] = $data->id;
+            $return['role_id'] = $data->role_id;
+            $return['status'] = TRUE;
         }
         else{
-            $return = FALSE;
+            $return['status'] = FALSE;
         }
         return $return;
     }
