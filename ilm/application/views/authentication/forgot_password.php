@@ -1,5 +1,5 @@
 <div class="verticalcenter">
-    <a href="<?php echo base_url().'authentication';?>"><img src="<?php echo base_url();?>assets/img/logo-big.png" alt="Logo" class="brand" /></a>
+    <a href="<?php echo base_url();?>authentication/index"><img style="width: 400px; padding-bottom: 25px;" src="<?php echo base_url();?>assets/img/logo-big.png" alt="Logo" class="brand" /></a>
     <div class="panel panel-primary">
         <div class="panel-body">
             <h4 class="text-center" style="margin-bottom: 25px;">Reset Password</h4>
