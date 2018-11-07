@@ -1,5 +1,6 @@
 <div class="siginup verticalcenter">
-    <a href="<?php echo base_url();?>authentication/index"><img style="width: 400px; padding-bottom: 25px;" src="<?php echo base_url();?>assets/img/logo-big.png" alt="Logo" class="brand" /></a>
+    <a href="<?php echo base_url();?>authentication"><img src="<?php echo base_url();?>assets/img/logo-big.png" alt="Logo" class="brand" /></a>
+    <br>
     <div class="panel panel-primary">
         <div class="panel-body">
             <h4 class="text-center" style="margin-bottom: 25px;">Sign Up</h4>
@@ -8,7 +9,18 @@
                     <div class="col-sm-12">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-user"></i></span>
-                            <input type="text" class="form-control" name="first_name" placeholder="First Name" required>
+<!--                            <input type="text" class="form-control" name="first_name" placeholder="First Name" value="--><?php //set_value('first_name');?><!--" required="required">-->
+
+                            <?php
+                            echo form_input([
+                                'type' => 'text',
+                                'name' => 'first_name',
+                                'class' => 'form-control',
+                                'placeholder'=>'First Name',
+                                'value' => set_value('first_name'),
+                                'required'=>'required'
+                            ]);
+                            ?>
                         </div>
                     </div>
                 </div>
@@ -16,7 +28,17 @@
                     <div class="col-sm-12">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-user"></i></span>
-                            <input type="text" class="form-control" name="last_name" placeholder="Last Name" required>
+<!--                            <input type="text" class="form-control" name="last_name" placeholder="Last Name" value="--><?php //set_value('last_name');?><!--" required="required">-->
+                            <?php
+                            echo form_input([
+                                'type' => 'text',
+                                'name' => 'last_name',
+                                'class' => 'form-control',
+                                'placeholder'=>'Last Name',
+                                'value' => set_value('last_name'),
+                                'required'=>'required'
+                            ]);
+                            ?>
                         </div>
                     </div>
                 </div>
@@ -24,7 +46,18 @@
                     <div class="col-sm-12">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-envelope-o"></i></span>
-                            <input type="text" class="form-control" name="email" placeholder="Email" required>
+<!--                            <input type="email" class="form-control" name="email" placeholder="Email" value="--><?php //set_value('email');?><!--" required="required">-->
+
+                            <?php
+                            echo form_input([
+                                'type' => 'email',
+                                'name' => 'email',
+                                'class' => 'form-control',
+                                'placeholder'=>'Email',
+                                'value' => set_value('email'),
+                                'required'=>'required'
+                            ]);
+                            ?>
                         </div>
                     </div>
                 </div>

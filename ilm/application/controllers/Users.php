@@ -103,7 +103,9 @@ class Users extends CI_Controller
         }
         else
         {
-            if (!empty($_FILES['image']))
+            $uploaded = '';
+//            debug($_FILES['image']);
+            if (!empty($_FILES['image']) && $_FILES['image']['name'] != '')
             {
                 $config = array(
 
@@ -123,7 +125,8 @@ class Users extends CI_Controller
                 }
                 else
                 {
-                    $uploaded = $this->upload->data();
+                    $uploaded1 = $this->upload->data();
+                    $uploaded = './uploaded_images/'.$this->upload->file_name;
                 }
             }
 
@@ -142,9 +145,13 @@ class Users extends CI_Controller
                 'cnic' => $this->input->post('cnic'),
                 'address' => $this->input->post('address'),
                 //'modified_by' => $this->session->userdata('user_id'),
-                'image_url' => './uploaded_images/'.$this->upload->file_name,
+
                 //'modified_at' => date('y-m-d h:i:s')
             );
+
+            if ($uploaded!=''){
+                $data['image_url'] = $uploaded;
+            }
 
             //print_r($data['modified_at']);exit();
             $result = $this->Users_model->update_profile($data);
@@ -158,8 +165,8 @@ class Users extends CI_Controller
                 $this->session->set_flashdata('errors', '<p class="alert alert-danger">An unknown error occurred.</p>');
             }
 
-
-            redirect('users');
+            redirect('users/edit_profile/'.$this->input->post('id'));
+//            redirect('users');
         }
 
     }

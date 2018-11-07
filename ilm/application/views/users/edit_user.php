@@ -40,8 +40,13 @@
                                 <label class="col-sm-3 control-label" for="Student_RollNo">Gender</label>
                                 <div class="col-sm-3">
 
-                                    <input class="form-control" name="gender" value="<?php echo $user->gender ; ?>"
-                                           type="text">
+                                    <?php
+                                        $options = ['male' => 'Male', 'female' => 'Female'];
+                                   echo form_dropdown('gender', $options, set_value('gender', $user->gender),'class="form-control"');?>
+
+
+<!--                                    <input class="form-control" name="gender" value="--><?php //echo $user->gender ; ?><!--"-->
+<!--                                           type="text">-->
 
                                 </div>
                             </div>

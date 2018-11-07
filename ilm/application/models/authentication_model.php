@@ -47,6 +47,8 @@ class Authentication_Model extends CI_Model
             $data = $this->db->get('users')->row(0);
             $return['user_id'] = $data->id;
             $return['role_id'] = $data->role_id;
+            $return['full_name'] = $data->first_name.' '. $data->last_name;
+            $return['user_dp'] = $data->image_url;
             $return['status'] = TRUE;
         }
         else{
@@ -125,6 +127,10 @@ class Authentication_Model extends CI_Model
             redirect(base_url().'authentication');
         }
 
+    }
+
+    public function getPass($email){
+        return $this->db->select('password')->from('users')->where('email', $email)->get()->result_array()[0]['password'];
     }
 
 }

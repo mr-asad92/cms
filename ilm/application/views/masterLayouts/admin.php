@@ -123,14 +123,21 @@
         <a class="navbar-brand" href="index.html">Avant</a>
     </div>
 
+    <?php
+    $src = base_url().'assets/demo/avatar/dangerfield.png';
+
+        if ($this->session->userdata('user_dp') != NULL){
+            $src = base_url().$this->session->userdata('user_dp');
+        }
+    ?>
     <ul class="nav navbar-nav pull-right toolbar">
         <li class="dropdown">
-            <a href="#" class="dropdown-toggle username" data-toggle="dropdown"><span class="hidden-xs">Admin<i class="fa fa-caret-down"></i></span><img src="<?php echo base_url();?>assets/demo/avatar/dangerfield.png" alt="Dangerfield" /></a>
+            <a href="#" class="dropdown-toggle username" data-toggle="dropdown"><span class="hidden-xs"><?php echo $this->session->userdata('full_name');?><i class="fa fa-caret-down"></i></span><img src="<?php echo $src;?>" alt="Dangerfield" /></a>
             <ul class="dropdown-menu userinfo arrow">
                 <li class="username">
                     <a href="#">
-                        <div class="pull-left"><img src="<?php echo base_url();?>assets/demo/avatar/dangerfield.png" alt="Jeff Dangerfield"/></div>
-                        <div class="pull-right"><h5>Admin</h5><small>Logged in as <span>Admin</span></small></div>
+                        <div class="pull-left"><img src="<?php echo $src;?>" alt="Jeff Dangerfield"/></div>
+                        <div class="pull-right"><h5><?php echo $this->session->userdata('full_name');?></h5><small>Logged in as <span><?php echo $this->session->userdata('full_name');?></span></small></div>
                     </a>
                 </li>
                 <li class="userlinks">

@@ -13,8 +13,15 @@
     <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600' rel='stylesheet' type='text/css'>
 
 </head>
-<body class="focusedform">
-    <?php $this->load->view($view);?>
+<!--class="focusedform"-->
+<body >
+    <div class="row">
+    <div class="col-sm-4"></div>
+
+        <div class="col-sm-4">
+
+        <?php $this->load->view($view);?>
+    <br />
     <div class="container">
     <?php
     if ($this->session->flashdata('errors')) {
@@ -25,6 +32,10 @@
     }
 
     ?>
+    </div>
+        </div>
+        <div class="col-sm-4"></div>
+
     </div>
 
     <script type='text/javascript' src='<?php echo base_url();?>assets/js/jquery-1.10.2.min.js'></script>

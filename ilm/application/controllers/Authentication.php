@@ -7,6 +7,25 @@ class Authentication extends CI_Controller {
         if($this->session->userdata('logged_in')){
             redirect(base_url().'admin');
         }
+
+        if (isset($_COOKIE['cms_user'])) {
+            $email = $_COOKIE['cms_user'];
+            $this->load->model('authentication_model');
+            $password = $this->authentication_model->getPass($email);
+            $isVerified=$this->authentication_model->verifyLogin($email,$password);
+            $data=array(
+                'user_id'=>$isVerified['user_id'],
+                'email'=>$email,
+                'role_id' => $isVerified['role_id'],
+                'full_name' => $isVerified['full_name'],
+                'user_dp' => $isVerified['user_dp'],
+                'logged_in'=>TRUE
+            );
+            $this->session->set_userdata($data);
+            redirect(base_url().'admin');
+
+        }
+
         $data=array(
             'title'=>'ILM | Login',
             'view'=>'authentication/login'
@@ -40,9 +59,15 @@ class Authentication extends CI_Controller {
                     'user_id'=>$isVerified['user_id'],
                     'email'=>$email,
                     'role_id' => $isVerified['role_id'],
+                    'full_name' => $isVerified['full_name'],
+                    'user_dp' => $isVerified['user_dp'],
                     'logged_in'=>TRUE
                 );
                 $this->session->set_userdata($data);
+
+                if ($this->input->post('remember') == 'remember'){
+                    setcookie('cms_user', $email, time() + (86400 * 30), '/'); //set cookie for 1 month
+                }
                 //echo '<pre>'; print_r($this->session->userdata('user_id')); exit();
                 // $this->session->set_flashdata($data);
                 redirect(base_url().'admin');
@@ -83,7 +108,13 @@ class Authentication extends CI_Controller {
                 'errors'=>validation_errors()
             );
             $this->session->set_flashdata($data);
-            redirect('authentication/register');
+//            redirect('authentication/register');
+            $data=array(
+                'title'=>'ILM | Register',
+                'view'=>'authentication/register'
+            );
+
+            $this->load->view('masterLayouts/authentication', $data);
         }
         else{
             $reg_data=array(
@@ -103,7 +134,7 @@ class Authentication extends CI_Controller {
             $this->load->model('authentication_model');
             $status=$this->authentication_model->register($reg_data);
 
-            if ($status) {
+            if ($status != 'user_exists' && $status != FALSE) {
                 $msg=array(
                     'msg'=>'<p class="text-success">User Registered Successfully, Please login to procceed.</p>'
                 );
@@ -111,7 +142,7 @@ class Authentication extends CI_Controller {
             }
             else if ($status=="user_exists") {
                 $msg=array(
-                    'msg'=>'<p class="text-danger">User already exists, please choose another username.</p>'
+                    'msg'=>'<p class="text-danger">User already exists, please enter another email.</p>'
                 );
             }
             else{
@@ -236,6 +267,7 @@ class Authentication extends CI_Controller {
     }
 
     public function logout(){
+        setcookie("cms_user", "", time() - 3600, '/');
         $this->session->sess_destroy();
         redirect(base_url());
     }
