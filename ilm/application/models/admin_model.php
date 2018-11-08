@@ -790,6 +790,26 @@ class Admin_Model extends CI_Model
         return $this->db->get('fines')->result_array();
     }
 
+    public function getSectionsList(){
+        return $this->db->get('sections')->result_array();
+    }
+
+    public function getSectionsData($id){
+        return $this->db->where('id', $id)->get('sections')->result_array()[0];
+    }
+
+    public function save_section($data){
+        $this->db->insert('sections', $data);
+        return true;
+    }
+
+    public function update_section($data){
+        $sectionId = $data['sectionId'];
+        unset($data['sectionId']);
+        $this->db->where('id', $sectionId)->update('sections', $data);
+        return true;
+    }
+
     public function save_fine($data){
         $this->db->insert('fines', $data);
         return true;

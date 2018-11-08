@@ -30,7 +30,7 @@
                                 <div class="form-group">
                                     <label class="col-sm-3 control-label" for="ddlClass">Study Program</label>
                                     <div class="col-sm-3">
-                                        <?php echo form_dropdown('programId', $programs, set_value('programId', setVal($enrollment_data, 0, 'program_id', $editRegistration)),'class="form-control"');?>
+                                        <?php echo form_dropdown('programId', $programs, set_value('programId', setVal($enrollment_data, 0, 'program_id', $editRegistration)),'class="form-control" onchange="getClasses(this.value)"');?>
                                         <span class="field-validation-valid text-danger" data-valmsg-for="Student.programId" data-valmsg-replace="true"></span>
                                     </div>
 
@@ -41,7 +41,7 @@
 <!--                                            --><?php //echo $classes;?>
 <!--                                        </select>-->
 
-                                        <?php echo form_dropdown('classId', $classes, set_value('classId', setVal($enrollment_data, 0, 'class_id', $editRegistration)),'class="form-control"');?>
+                                        <?php echo form_dropdown('classId', $classes, set_value('classId', setVal($enrollment_data, 0, 'class_id', $editRegistration)),'class="form-control" id="classesMenu"');?>
                                         <span class="field-validation-valid text-danger" data-valmsg-for="Student.ClassId" data-valmsg-replace="true"></span>
                                     </div>
 
@@ -50,7 +50,7 @@
 
                                     <label class="col-sm-3 control-label" for="ddlSection">Section</label>
                                     <div class="col-sm-3">
-                                        <?php echo form_dropdown('sectionId', $sections, set_value('sectionId', setVal($enrollment_data, 0, 'section_id', $editRegistration)),'class="form-control"');?>
+                                        <?php echo form_dropdown('sectionId', $sections, set_value('sectionId', setVal($enrollment_data, 0, 'section_id', $editRegistration)),'class="form-control" id="sectionsMenu"');?>
 
                                         <span class="field-validation-valid text-danger" data-valmsg-for="Student.SectionId" data-valmsg-replace="true"></span>
                                     </div>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 24, 2018 at 09:54 PM
+-- Generation Time: Nov 06, 2018 at 12:53 AM
 -- Server version: 10.1.24-MariaDB
 -- PHP Version: 7.1.6
 
@@ -71,16 +71,6 @@ CREATE TABLE `addresses` (
   `address` text NOT NULL,
   `address_type` int(11) NOT NULL COMMENT '0 = present, 1 = permenant'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `addresses`
---
-
-INSERT INTO `addresses` (`id`, `enrollment_id`, `city`, `district`, `country`, `address`, `address_type`) VALUES
-(1, 1, 'Gujranwala', 'Punjab', 'Pakistan', ' Mohallah faisalabad street # 1', 0),
-(2, 1, 'Gujranwala', 'Punjab', 'Pakistan', 'Mohallah faisalabad street # 1', 1),
-(3, 2, 'Gujranwala', 'Punjab', 'Pakistan', '  people colony', 0),
-(4, 2, 'Gujranwala', 'Punjab', 'Pakistan', ' people colony', 1);
 
 -- --------------------------------------------------------
 
@@ -154,14 +144,6 @@ CREATE TABLE `family_information` (
   `email` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `family_information`
---
-
-INSERT INTO `family_information` (`id`, `enrollment_id`, `father_name`, `father_cnic`, `guardian`, `first_name`, `last_name`, `profession`, `designation`, `organization_name`, `office_address`, `telephone`, `mobile_no`, `email`) VALUES
-(1, 1, 'ghulam haider', '34101-1236547-9', 0, 'ghulam', 'haider', '', '', '', '', '', '', ''),
-(2, 2, 'Mohammad', 'Afzal', 0, '', '', '', '', '', '', '', '', '');
-
 -- --------------------------------------------------------
 
 --
@@ -184,15 +166,6 @@ CREATE TABLE `fee_info` (
   `status` int(11) NOT NULL DEFAULT '1' COMMENT '0 = inactive, 1 = active'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `fee_info`
---
-
-INSERT INTO `fee_info` (`id`, `enrollment_id`, `adm_fee`, `fee_package`, `tuition_fee`, `boardUniReg_fee`, `library_fee`, `miscellaneous_fee`, `others`, `total_fee`, `discount`, `grand_total`, `status`) VALUES
-(1, 1, 5000, 20000, 10000, 2000, 1000, 2000, 1000, 38000, 0, 41000, 1),
-(2, 2, 5000, 20000, 5000, 5000, 2000, 2000, 1000, 40000, 2000, 38000, 0),
-(3, 2, 5000, 20000, 5000, 5000, 2000, 2000, 1000, 40000, 1000, 39000, 1);
-
 -- --------------------------------------------------------
 
 --
@@ -206,13 +179,6 @@ CREATE TABLE `fee_pkg_history` (
   `modification_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `modified_by` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `fee_pkg_history`
---
-
-INSERT INTO `fee_pkg_history` (`id`, `enrollment_id`, `fee_pkg_id`, `modification_date`, `modified_by`) VALUES
-(1, 2, 2, '2018-10-24 19:49:49', 5);
 
 -- --------------------------------------------------------
 
@@ -260,21 +226,132 @@ CREATE TABLE `paid_fee` (
   `group_id` varchar(32) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+-- --------------------------------------------------------
+
 --
--- Dumping data for table `paid_fee`
+-- Table structure for table `paid_installments_vouchers`
 --
 
-INSERT INTO `paid_fee` (`id`, `enrollment_id`, `classId`, `sectionId`, `installment_no`, `fee_amount`, `status`, `installment_date`, `pay_date`, `created_by`, `created_at`, `modified_at`, `edited_by`, `delete_status`, `group_id`) VALUES
-(59, 1, 2, 1, 1, '11000.00', 1, '2018-10-19', '2018-10-18 23:53:19', 5, '2018-10-18 23:53:19', '0000-00-00 00:00:00', 5, 1, '5bc91cef524dd'),
-(60, 1, 2, 1, 2, '30000.00', 0, '2018-11-18', '0000-00-00 00:00:00', 5, '2018-10-18 23:53:19', '0000-00-00 00:00:00', 5, 1, '5bc91cef524dd'),
-(61, 1, 2, 1, 1, '11000.00', 1, '2018-10-23', '2018-10-23 16:59:10', 5, '2018-10-23 16:59:10', '0000-00-00 00:00:00', 5, 1, '5bcf535ea93b9'),
-(62, 1, 2, 1, 2, '10000.00', 1, '2018-10-20', '2018-10-24 07:39:46', 5, '2018-10-23 16:59:10', '0000-00-00 00:00:00', 5, 1, '5bcf535ea93b9'),
-(63, 1, 2, 1, 3, '10000.00', 0, '2018-11-12', '0000-00-00 00:00:00', 5, '2018-10-23 16:59:10', '0000-00-00 00:00:00', 5, 1, '5bcf535ea93b9'),
-(64, 1, 2, 1, 4, '10000.00', 0, '2018-11-22', '0000-00-00 00:00:00', 5, '2018-10-23 16:59:10', '0000-00-00 00:00:00', 5, 1, '5bcf535ea93b9'),
-(65, 1, 2, 1, 1, '11000.00', 1, '2018-10-24', '2018-10-24 19:12:04', 5, '2018-10-24 19:12:04', '0000-00-00 00:00:00', 0, 0, '5bd0c404c1ad9'),
-(66, 1, 2, 1, 2, '10000.00', 1, '2018-10-20', '0000-00-00 00:00:00', 5, '2018-10-24 19:12:04', '0000-00-00 00:00:00', 0, 0, '5bd0c404c1ad9'),
-(67, 1, 2, 1, 3, '15000.00', 0, '2018-11-12', '0000-00-00 00:00:00', 5, '2018-10-24 19:12:04', '0000-00-00 00:00:00', 0, 0, '5bd0c404c1ad9'),
-(68, 1, 2, 1, 4, '5000.00', 2, '2018-11-22', '2018-10-24 04:22:05', 5, '2018-10-24 19:12:05', '0000-00-00 00:00:00', 0, 0, '5bd0c404c1ad9');
+CREATE TABLE `paid_installments_vouchers` (
+  `id` int(11) NOT NULL,
+  `installment_id` int(11) NOT NULL,
+  `transaction_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `permissions`
+--
+
+CREATE TABLE `permissions` (
+  `permissionID` int(11) NOT NULL,
+  `permission` varchar(200) DEFAULT NULL,
+  `key` varchar(100) DEFAULT NULL,
+  `category` varchar(100) DEFAULT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `permissions`
+--
+
+INSERT INTO `permissions` (`permissionID`, `permission`, `key`, `category`) VALUES
+(1, NULL, 'admin/dashboard', 'dashboard'),
+(3, NULL, 'users/index', 'users list'),
+(4, NULL, 'programs/index', 'programs list'),
+(5, NULL, 'classes/index', 'classes list'),
+(6, NULL, 'admin/index', 'enrollment'),
+(7, NULL, 'admin/studentsList', 'students list'),
+(8, NULL, 'admin/studentDetails', 'student details'),
+(9, NULL, 'admin/editRegistration', 'edit enrollment'),
+(10, NULL, 'admin/editInstallments', 'edit installments'),
+(11, NULL, 'admin/printStudentDetails', 'print student details'),
+(12, NULL, 'admin/add_examination_types', 'add exam types'),
+(13, NULL, 'vouchers/index', 'fee vouchers list'),
+(14, NULL, 'vouchers/details', 'voucher details'),
+(15, NULL, 'vouchers/printVoucher', 'print voucher'),
+(16, NULL, 'admin/fee_payments', 'fee payments'),
+(17, NULL, 'admin/fee_history', 'fee history'),
+(18, NULL, 'admin/add_fines', 'add fines'),
+(19, NULL, 'accounts/index', 'accounts list'),
+(20, NULL, 'vouchers/post_voucher', 'post voucher'),
+(21, NULL, 'accounts/transactions', 'transactions list'),
+(22, NULL, 'vouchers/edit_transaction', 'edit transaction'),
+(23, NULL, 'accounts/update_account', 'edit accounts'),
+(24, NULL, 'accounts/cash_book', 'cash book'),
+(25, NULL, 'accounts/trial_balance', 'trial balance'),
+(26, NULL, 'accounts/ledger', 'ledger'),
+(27, NULL, 'accounts/profit_and_loss', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `permission_groups`
+--
+
+CREATE TABLE `permission_groups` (
+  `id` int(11) NOT NULL,
+  `groupId` int(11) NOT NULL,
+  `groupName` varchar(200) DEFAULT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `permission_groups`
+--
+
+INSERT INTO `permission_groups` (`id`, `groupId`, `groupName`) VALUES
+(1, 1, 'Clerk'),
+(2, 0, 'Admin'),
+(3, 2, 'Accountant');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `permission_map`
+--
+
+CREATE TABLE `permission_map` (
+  `groupID` int(11) NOT NULL DEFAULT '0',
+  `permissionID` int(11) NOT NULL DEFAULT '0'
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `permission_map`
+--
+
+INSERT INTO `permission_map` (`groupID`, `permissionID`) VALUES
+(0, 1),
+(0, 3),
+(0, 4),
+(0, 5),
+(1, 3),
+(1, 4),
+(1, 5),
+(1, 6),
+(1, 7),
+(1, 8),
+(1, 9),
+(1, 10),
+(1, 11),
+(1, 12),
+(1, 13),
+(1, 14),
+(1, 15),
+(1, 16),
+(1, 18),
+(2, 1),
+(2, 3),
+(2, 4),
+(2, 5),
+(2, 16),
+(2, 19),
+(2, 20),
+(2, 21),
+(2, 22),
+(2, 23),
+(2, 24),
+(2, 25),
+(2, 26);
 
 -- --------------------------------------------------------
 
@@ -294,14 +371,6 @@ CREATE TABLE `personal_details` (
   `caste` varchar(50) NOT NULL,
   `bform_or_cnic_no` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `personal_details`
---
-
-INSERT INTO `personal_details` (`id`, `enrollment_id`, `first_name`, `last_name`, `gender`, `dob`, `religion`, `blood_group`, `caste`, `bform_or_cnic_no`) VALUES
-(1, 1, 'Asad', 'Ullah', 1, '1995-01-09', 1, '3', 'Ansari', '341013552959'),
-(2, 2, 'umer', 'farooq', 1, '1995-01-09', 1, '1', 'Mughal', '341013552959');
 
 -- --------------------------------------------------------
 
@@ -342,15 +411,6 @@ CREATE TABLE `previous_institution_details` (
   `subjects` text NOT NULL,
   `institute_name` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `previous_institution_details`
---
-
-INSERT INTO `previous_institution_details` (`id`, `enrollment_id`, `exam_type`, `exam_year`, `p_roll_no`, `board_university`, `obt_marks`, `total_marks`, `grade`, `subjects`, `institute_name`) VALUES
-(3, 1, '1', 2010, '132132', 'Gujranwala Board', 812, 1050, 'A', 'Math', 'Al-Rehman School'),
-(4, 1, '2', 2012, '345', 'Gujranwala Board', 567, 1050, 'C', 'Math', 'Govt. Clg'),
-(6, 2, '1', 0, '', '', 0, 0, '', '', '');
 
 -- --------------------------------------------------------
 
@@ -430,19 +490,6 @@ CREATE TABLE `transactions` (
   `modified_by` int(11) NOT NULL,
   `is_active` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `transactions`
---
-
-INSERT INTO `transactions` (`id`, `transaction_no`, `title`, `book_reference`, `debit_account`, `credit_account`, `description`, `amount`, `created_by`, `created_at`, `modified_at`, `modified_by`, `is_active`) VALUES
-(1, 0, 'electricity repair', '12', 12, 17, 'electricity repair', '1000', 5, '2018-10-16 23:15:20', '0000-00-00', 0, 0),
-(2, 0, '2nd transaction', 'asdf234', 11, 15, 'asdf transaction', '1000', 5, '2018-10-16 23:18:47', '0000-00-00', 0, 0),
-(4, 0, '3rd transaction', '12', 11, 17, 'asdf transaction', '2000', 5, '2018-10-17 00:09:55', '0000-00-00', 0, 0),
-(5, 0, 'fee received', '12', 17, 16, 'fee received', '5000', 5, '2018-10-17 00:17:19', '0000-00-00', 0, 0),
-(21, 0, 'Fee Recevied From: Asad Ullah, Class: part-II', NULL, 17, 16, 'Fee Recevied From: Asad Ullah, Class: part-II', '11000', 5, '2018-10-18 23:53:19', '0000-00-00', 0, 0),
-(22, 0, 'Fee Recevied From: Asad Ullah, Class: part-II', NULL, 17, 16, 'Fee Recevied From: Asad Ullah, Class: part-II', '10280', 5, '2018-10-23 22:39:46', '0000-00-00', 0, 0),
-(23, 0, 'Fine Recevied From: Asad Ullah, Class: part-II', NULL, 17, 18, 'Fee Recevied From: Asad Ullah, Class: part-II', '200', 5, '2018-10-23 22:39:46', '0000-00-00', 0, 0);
 
 -- --------------------------------------------------------
 
@@ -548,6 +595,31 @@ ALTER TABLE `paid_fee`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `paid_installments_vouchers`
+--
+ALTER TABLE `paid_installments_vouchers`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `permissions`
+--
+ALTER TABLE `permissions`
+  ADD PRIMARY KEY (`permissionID`),
+  ADD UNIQUE KEY `key` (`key`);
+
+--
+-- Indexes for table `permission_groups`
+--
+ALTER TABLE `permission_groups`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `permission_map`
+--
+ALTER TABLE `permission_map`
+  ADD PRIMARY KEY (`groupID`,`permissionID`);
+
+--
 -- Indexes for table `personal_details`
 --
 ALTER TABLE `personal_details`
@@ -603,7 +675,7 @@ ALTER TABLE `accounts`
 -- AUTO_INCREMENT for table `addresses`
 --
 ALTER TABLE `addresses`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `classes`
 --
@@ -618,17 +690,17 @@ ALTER TABLE `enrollment`
 -- AUTO_INCREMENT for table `family_information`
 --
 ALTER TABLE `family_information`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `fee_info`
 --
 ALTER TABLE `fee_info`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `fee_pkg_history`
 --
 ALTER TABLE `fee_pkg_history`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `fines`
 --
@@ -638,12 +710,27 @@ ALTER TABLE `fines`
 -- AUTO_INCREMENT for table `paid_fee`
 --
 ALTER TABLE `paid_fee`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=69;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `paid_installments_vouchers`
+--
+ALTER TABLE `paid_installments_vouchers`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `permissions`
+--
+ALTER TABLE `permissions`
+  MODIFY `permissionID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+--
+-- AUTO_INCREMENT for table `permission_groups`
+--
+ALTER TABLE `permission_groups`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `personal_details`
 --
 ALTER TABLE `personal_details`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `previous_examination_types`
 --
@@ -653,7 +740,7 @@ ALTER TABLE `previous_examination_types`
 -- AUTO_INCREMENT for table `previous_institution_details`
 --
 ALTER TABLE `previous_institution_details`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `programs`
 --
@@ -668,7 +755,7 @@ ALTER TABLE `student_status`
 -- AUTO_INCREMENT for table `transactions`
 --
 ALTER TABLE `transactions`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `users`
 --

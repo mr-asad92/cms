@@ -247,6 +247,7 @@
                     <li><a href="<?php echo base_url();?>users"><span>Employee List</span></a></li>
                     <li><a href="<?php echo base_url() ; ?>programs"><span>Programs</span></a></li>
                     <li><a href="<?php echo base_url() ; ?>classes"><span>Classes</span></a></li>
+                    <li><a href="<?php echo base_url() ; ?>admin/add_section"><span>Sections</span></a></li>
                 </ul>
             </li>
 
@@ -629,6 +630,15 @@
 
     });
 
+    function getClasses(program_id) {
+//        var classes = {'1' : 'Semester-I','2':'Semester-II'};
+//
+//        var html = '';
+//        $.each(classes, function (index, item) {
+//            html+='<option value="'+index+'">'+item+'</option>';
+//        });
+//        $("#classesMenu").html(html);
+    }
     function calculateGrandTotal() {
         $("#saveFormBtn").attr('disabled','disabled');
         var total_fee = $("#totalFee").val();

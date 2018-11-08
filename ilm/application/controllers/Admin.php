@@ -1218,5 +1218,75 @@ class Admin extends CI_Controller
         redirect(base_url().'admin/add_fines');
     }
 
+
+
+    public function add_section(){
+        $data = array(
+            'title' => 'ILM | Admin',
+            'view' => 'admin/add_section',
+        );
+
+        $data['classes'] = $this->admin_model->getClasses(true);
+
+        $data['sectionData'] = $this->admin_model->getSectionsList();
+        $data['formSubmitMethod'] = 'save_section';
+        $data['submitButtonTitle'] = 'Add';
+        $data['section'] = [
+            'class_id' => '',
+            'title' => '',
+        ];
+
+        $this->load->view('masterLayouts/admin',$data);
+    }
+
+    public function edit_section($id){
+        $data = array(
+            'title' => 'ILM | Admin',
+            'view' => 'admin/add_section',
+        );
+
+        $data['classes'] = $this->admin_model->getClasses(true);
+        $data['sectionData'] = $this->admin_model->getSectionsList();
+
+        $data['section'] = $this->admin_model->getSectionsData($id);
+
+
+        $data['formSubmitMethod'] = 'update_section';
+        $data['submitButtonTitle'] = 'Update';
+
+        $this->load->view('masterLayouts/admin',$data);
+    }
+
+    public function save_section(){
+        $section = [
+            'class_id'                   => $this->input->post('classId'),
+            'title'                      => $this->input->post('title'),
+        ];
+
+        $this->admin_model->save_section($section);
+
+        $this->session->set_flashdata('msg', '<p class="alert alert-success">Section has been added successfully!</p>');
+        redirect(base_url().'admin/add_section');
+    }
+
+    public function update_section(){
+        $section = [
+            'classId'                   => $this->input->post('classId'),
+            'title'                      => $this->input->post('title'),
+            'sectionId'                      => $this->input->post('sectionId'),
+        ];
+
+        $this->admin_model->update_section($section);
+
+        $this->session->set_flashdata('msg', '<p class="alert alert-success">Section has been Updated successfully!</p>');
+        redirect(base_url().'admin/add_section');
+    }
+
+    public function delete_section($id){
+        $this->db->where('id',$id)->delete('sections');
+        $this->session->set_flashdata('msg', '<p class="alert alert-success">Section has been Delete successfully!</p>');
+        redirect(base_url().'admin/add_section');
+    }
+
 }
 ?>
