@@ -25,37 +25,37 @@
                         <div class="col-sm-2">
                             <label class="control-label" for="DateFrom">Date From</label>
                             <div class="input-group date">
-                                <input type="date" class="form-control" name="">
+                                <input type="text" class="form-control enableDatePicker" name="">
                                 <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                             </div>
                         </div>
                         <div class="col-sm-2">
                             <label class="control-label" for="DateTo">Date To</label>
                             <div class="input-group date">
-                                <input class="form-control" name="DateTo" type="date">
+                                <input class="form-control enableDatePicker" name="DateTo" type="text">
                                 <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                             </div>
                         </div>
                         <div class="col-sm-2">
                             <label for="ClassId">Account Type</label>
-                            <select class="form-control" id="" name="account_type"><option value="">Select
+                            <select class="form-control " id="" name="account_type"><option value="">Select
                                     Type</option>
                                 <option value="1">Debit</option>
                                 <option value="2">Credit</option>
 
                             </select>
                         </div>
-                        <div class="col-sm-2">
-                            <label for="SectionId">Class</label>
-                            <select class="form-control" id="ddlSection" name="SectionId"><option value="">Select Section</option>
-                            </select>                        </div>
-                        <div class="col-sm-2">
-                            <label for="Status">Status</label>
-                            <select class="form-control" data-val="true" data-val-number="The field Status must be a number." id="Status" name="Status"><option selected="selected" value="0">UnPaid</option>
-                                <option value="1">Paid</option>
-                                <option value="3">All</option>
-                            </select>
-                        </div>
+<!--                        <div class="col-sm-2">-->
+<!--                            <label for="SectionId">Class</label>-->
+<!--                            <select class="form-control" id="ddlSection" name="SectionId"><option value="">Select Section</option>-->
+<!--                            </select>                        </div>-->
+<!--                        <div class="col-sm-2">-->
+<!--                            <label for="Status">Status</label>-->
+<!--                            <select class="form-control" data-val="true" data-val-number="The field Status must be a number." id="Status" name="Status"><option selected="selected" value="0">UnPaid</option>-->
+<!--                                <option value="1">Paid</option>-->
+<!--                                <option value="3">All</option>-->
+<!--                            </select>-->
+<!--                        </div>-->
                     </div>
                 </form>
             </div>

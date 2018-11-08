@@ -274,6 +274,7 @@ class Admin_Model extends CI_Model
             family_information.last_name as guardian_lastName,
             family_information.mobile_no,
             classes.title as class_name,
+            programs.title as study_program,
             sections.title as section_name
             
             ')
@@ -281,6 +282,7 @@ class Admin_Model extends CI_Model
             ->join('personal_details','enrollment.id = personal_details.enrollment_id')
             ->join('family_information', 'enrollment.id = family_information.enrollment_id')
             ->join('classes', 'classes.id = enrollment.class_id' )
+            ->join('programs', 'programs.id = enrollment.program_id' )
             ->join('sections', 'sections.id = enrollment.section_id')
             ->get();
 
@@ -344,11 +346,13 @@ class Admin_Model extends CI_Model
         `personal_details`.`first_name` as `student_firstName`, `personal_details`.`last_name` as `student_lastName`, 
         `family_information`.`first_name` as `guardian_firstName`, `family_information`.`last_name` as `guardian_lastName`, `family_information`.`mobile_no`, 
         `classes`.*, `classes`.`title` as `class_name`, 
+        `programs`.*, `programs`.`title` as `study_program`, 
         `sections`.`title` as `section_name` 
         FROM `enrollment` 
         LEFT JOIN `personal_details` ON `enrollment`.`id` = `personal_details`.`enrollment_id` 
         LEFT JOIN `family_information` ON `enrollment`.`id` = `family_information`.`enrollment_id` 
         LEFT JOIN `classes` ON `classes`.`id` = `enrollment`.`class_id` 
+        LEFT JOIN `programs` ON `programs`.`id` = `enrollment`.`program_id` 
         LEFT JOIN `sections` ON `sections`.`id` = `enrollment`.`section_id`
         ";
 
@@ -378,7 +382,7 @@ class Admin_Model extends CI_Model
             $query .= $condition." (`family_information`.`mobile_no` = '$mobile_no' OR `family_information`.`mobile_no` = '$student_name')";
         }
 
-        if($class_id != ""){
+        if($class_id != 0){
             $condition = (whereClauseExists($query))?'AND ':' WHERE ';
             $query .= $condition." `enrollment`.`class_id` = '$class_id'";
         }

@@ -21,7 +21,7 @@
                                     <label class="col-sm-3 control-label" for="Student_EnrollmentDate">Enrollment Date</label>
                                     <div class="col-sm-3">
                                         <div class="input-group date">
-                                            <input class="form-control" data-val="true" data-val-date="The field Enrollment Date must be a date." data-val-required="This field is requried." id="Student_EnrollmentDate" name="enrollmentDate" type="text" value="<?php echo set_value('enrollmentDate', setVal($enrollment_data, date('Y-m-d'), 'enrollment_date', $editRegistration));?>">
+                                            <input class="form-control enableDatePicker" data-val="true" data-val-date="The field Enrollment Date must be a date." data-val-required="This field is requried." id="Student_EnrollmentDate" name="enrollmentDate" type="text" value="<?php echo set_value('enrollmentDate', setVal($enrollment_data, date('Y-m-d'), 'enrollment_date', $editRegistration));?>">
                                             <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                                         </div>
                                         <span class="field-validation-valid text-danger" data-valmsg-for="Student.EnrollmentDate" data-valmsg-replace="true"></span>
@@ -126,7 +126,7 @@
                                     <label class="col-sm-2 control-label" for="Student_DOB">D.O.B</label>
                                     <div class="col-sm-2">
                                         <div class="input-group date">
-                                            <input class="form-control" data-val="true" data-val-date="The field D.O.B must be a date." data-val-required="This field is requried." id="Student_DOB" name="DOB" type="text" onblur="validate(this, 'dob')" value="<?php echo set_value('DOB',setVal($enrollment_data, '', 'dob', $editRegistration));?>">
+                                            <input class="form-control enableDatePicker" data-val="true" data-val-date="The field D.O.B must be a date." data-val-required="This field is requried." id="Student_DOB" name="DOB" type="text" onblur="validate(this, 'dob')" value="<?php echo set_value('DOB',setVal($enrollment_data, '', 'dob', $editRegistration));?>">
                                             <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                                         </div>
                                         <span class="field-validation-valid text-danger" data-valmsg-for="Student.DOB" data-valmsg-replace="true"></span>

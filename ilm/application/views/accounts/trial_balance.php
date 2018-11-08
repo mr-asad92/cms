@@ -6,10 +6,10 @@
         <form action="<?php echo base_url().'/accounts/trial_balance';?>" method="post">
             <div class="row">
                 <div class="col-sm-1"><label class="control-label">From: </label></div>
-                <div class="col-sm-2"><input type="date" name="from_date" value="<?php echo date('Y-m-d');?>" class="form-control"></div>
+                <div class="col-sm-2"><input type="text" name="from_date" value="<?php echo date('Y-m-d');?>" class="form-control enableDatePicker"></div>
 
                 <div class="col-sm-1"><label class="control-label">To: </label></div>
-                <div class="col-sm-2"><input type="date" name="to_date" value="<?php echo date('Y-m-d');?>" class="form-control"></div>
+                <div class="col-sm-2"><input type="text" name="to_date" value="<?php echo date('Y-m-d');?>" class="form-control enableDatePicker"></div>
 
                 <div class="col-sm-1"><label class="control-label">&nbsp;</label><input type="submit" value="Submit" class="btn btn-info"></div>
             </div>

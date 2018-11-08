@@ -20,7 +20,7 @@
 
                             <tr>
                                 <th>Date: *</th>
-                                <th><input type="date" name="v_date" class="form-control" value="<?php echo date('Y-m-d');?>" required="required"></th>
+                                <th><input type="text" name="v_date" class="form-control enableDatePicker" value="<?php echo date('Y-m-d');?>" required="required"></th>
                             </tr>
 
                             <tr>

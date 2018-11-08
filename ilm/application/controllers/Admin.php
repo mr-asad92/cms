@@ -291,6 +291,7 @@ class Admin extends CI_Controller
             $is_saved = $this->admin_model->save_enrollment($enrollment_data);
 
             if($is_saved){
+                $this->session->set_flashdata('msg','<p class="alert alert-success">Student record has been added Successfully</p>');
                 redirect(base_url().'admin');
             }
 //        }
@@ -458,6 +459,7 @@ class Admin extends CI_Controller
         $is_updated = $this->admin_model->update_enrollment($enrollment_data);
 
         if($is_updated){
+            $this->session->set_flashdata('msg','<p class="alert alert-success">Student record has been updated Successfully</p>');
             redirect(base_url().'admin/editRegistration/'.$regId);
         }
     }
@@ -468,7 +470,7 @@ class Admin extends CI_Controller
         $data = array(
             'title' => 'ILM | Admin',
             'view' => 'admin/studentsList',
-            'classes' => $this->admin_model->getClasses(),
+            'classes' => $this->admin_model->getClasses(true),
             'studentsList' => $this->admin_model->getStudentsList()
         );
 
@@ -574,7 +576,7 @@ class Admin extends CI_Controller
         $data = array(
             'title' => 'ILM | Admin',
             'view' => 'admin/studentsList',
-            'classes' => $this->admin_model->getClasses(),
+            'classes' => $this->admin_model->getClasses(true),
             'studentsList' => $this->admin_model->searchStudent($searchData)
         );
 

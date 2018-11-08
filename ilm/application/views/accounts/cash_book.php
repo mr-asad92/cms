@@ -10,7 +10,7 @@
 
             <form action="<?php echo base_url().'/accounts/cash_book';?>" method="post">
                 <div class="row">
-                    <div class="col-sm-2"><input type="date" name="from_date" value="<?php echo date('Y-m-d');?>" class="form-control"></div>
+                    <div class="col-sm-2"><input type="text" name="from_date" value="<?php echo date('Y-m-d');?>" class="form-control enableDatePicker"></div>
 
                     <div><input type="submit" value="Submit" class="btn btn-info"></div>
                 </div>

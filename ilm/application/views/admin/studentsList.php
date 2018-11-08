@@ -54,7 +54,7 @@
                             <option value="2">ADP (Accounting )</option>
                             <option value="1">FSC (Medical)</option>
                         </select>-->
-                        <?php echo form_dropdown('classId', $classes, set_value('classId', setVal('', 1, 'class_id', '')),'class="form-control"');?>
+                        <?php echo form_dropdown('classId', $classes, set_value('classId', setVal('', 0, 'class_id', '')),'class="form-control"');?>
 
 
                     </div>
@@ -86,7 +86,7 @@
                             <th>Name</th>
                             <th>Guardian Name</th>
                             <th>Guardian Cell No</th>
-                            <th>Class</th>
+                            <th>Study Program</th>
                             <th>Section</th>
                             <th>Roll No</th>
                             <th>Status</th>
@@ -102,7 +102,8 @@
                                 <td><?php echo $student['guardian_firstName'] . ' ' .
                                         $student['guardian_lastName']; ?></td>
                                 <td><?php echo $student['mobile_no']; ?></td>
-                                <td><?php echo $student['class_name']; ?></td>
+                                <td><?php echo $student['study_program']; ?></td>
+<!--                                <td>--><?php //echo $student['class_name']; ?><!--</td>-->
                                 <td><?php echo $student['section_name']; ?></td>
                                 <td><?php echo $student['roll_no']; ?></td>
                                 <td>

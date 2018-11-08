@@ -17,14 +17,14 @@
                         <div class="col-sm-2">
                             <label class="control-label" for="DateFrom">DateFrom</label>
                             <div class="input-group date">
-                                <input class="form-control" data-val="true" data-val-date="The field DateFrom must be a date." id="dto" name="DateFrom" placeholder="From" value="<?php echo set_value('DateFrom');?>" type="text">
+                                <input class="form-control enableDatePicker" data-val="true" data-val-date="The field DateFrom must be a date." id="dto" name="DateFrom" placeholder="From" value="<?php echo set_value('DateFrom');?>" type="text">
                                 <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                             </div>
                         </div>
                         <div class="col-sm-2">
                             <label class="control-label" for="DateTo">DateTo</label>
                             <div class="input-group date">
-                                <input class="form-control" data-val="true" data-val-date="The field DateTo must be a date." id="dto" name="DateTo" placeholder="To" value="<?php echo set_value('DateTo');?>" type="text">
+                                <input class="form-control enableDatePicker" data-val="true" data-val-date="The field DateTo must be a date." id="dto" name="DateTo" placeholder="To" value="<?php echo set_value('DateTo');?>" type="text">
                                 <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                             </div>
                         </div>

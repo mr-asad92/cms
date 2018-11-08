@@ -62,8 +62,8 @@
                                 <label class="col-sm-3 control-label" for="Student_EnrollmentDate">D.O.B</label>
                                 <div class="col-sm-3">
                                     <div class="input-group date">
-                                        <input value="<?php echo $user->dob ;?>" class="form-control" name="dob"
-                                               type="date">
+                                        <input value="<?php echo $user->dob ;?>" class="form-control enableDatePicker" name="dob"
+                                               type="text">
                                         <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                                     </div>
 

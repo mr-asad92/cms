@@ -564,6 +564,7 @@
 <script type='text/javascript' src='<?php echo base_url();?>assets/plugins/datatables/jquery.dataTables.min.js'></script>
 <script>
     $(document).ready( function () {
+        $(".enableDatePicker").datepicker( "setDate" , "2018" );
         $('#studentsList').DataTable();
     } );
 
