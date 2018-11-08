@@ -76,6 +76,8 @@ class Vouchers_model extends CI_Model
             paid_fee.*,
             classes.*,
             classes.title as classTitle,
+            sections.title as sectionTitle,
+            programs.title as programTitle,
             enrollment.id as enrollmentId,
             paid_fee.id as paidFeeId 
             
@@ -84,9 +86,12 @@ class Vouchers_model extends CI_Model
             ->join('enrollment','enrollment.id = paid_fee.enrollment_id')
             ->join('personal_details','enrollment.id = personal_details.enrollment_id')
             ->join('classes', 'classes.id = paid_fee.classId')
+            ->join('sections', 'sections.id = paid_fee.sectionId')
+            ->join('programs', 'programs.id = paid_fee.program_id')
             ->where('paid_fee.id',$id)
             ->get();
 
+//        die($this->db->last_query());
         return $q->row();
 
         /*$query = $this->db->where('id',$id)

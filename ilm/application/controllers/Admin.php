@@ -97,12 +97,13 @@ class Admin extends CI_Controller
 
         $data['submitUrl'] = base_url().'admin/enrollment_save';
         $data['enrollment_id'] = $this->admin_model->getEnrollmentId();
-        $data['classes'] = $this->admin_model->getClasses();
-        $data['sections'] = $this->admin_model->getSections();
+        $data['classes'] = $this->admin_model->getClasses(true);
+        $data['programs'] = $this->admin_model->getPrograms(true);
+        $data['sections'] = $this->admin_model->getSections(true);
         $data['studyMedium'] = ['1' => 'English', '2' => 'Urdu'];
         $data['gender'] = ['1' => 'Male', '2' => 'Female'];
         $data['religion'] = ['1' => 'Muslim', '2' => 'Non-Muslim'];
-        $data['bloodGroup'] = ['1' => 'A+', '2' => 'A-', '3' => 'B+', '4' => 'B-', '5' => 'AB+', '6' => 'AB-', '7' => 'O+', '8' => 'O-'];
+        $data['bloodGroup'] = ['0' => '--- Select ---','1' => 'A+', '2' => 'A-', '3' => 'B+', '4' => 'B-', '5' => 'AB+', '6' => 'AB-', '7' => 'O+', '8' => 'O-'];
         $data['PreviousInstitutesExamType'] = $this->admin_model->getPreviousExamsTypes();
         ;
         $data['editRegistration'] = false;
@@ -195,6 +196,7 @@ class Admin extends CI_Controller
 
             $enrollment = [
                 'enrollment_date'          => $this->input->post('enrollmentDate'),
+                'program_id'                 => $this->input->post('programId'),
                 'class_id'                 => $this->input->post('classId'),
                 'section_id'               => $this->input->post('sectionId'),
                 'study_medium'             => $this->input->post('studyMedium'),
@@ -303,13 +305,14 @@ class Admin extends CI_Controller
 
         $data['submitUrl'] = base_url().'admin/updateRegistration/'.$regId;
         $data['enrollment_id'] = $this->admin_model->getEnrollmentId();
-        $data['classes'] = $this->admin_model->getClasses();
-        $data['sections'] = $this->admin_model->getSections();
+        $data['classes'] = $this->admin_model->getClasses(true);
+        $data['sections'] = $this->admin_model->getSections(true);
+        $data['programs'] = $this->admin_model->getPrograms(true);
         $data['studyMedium'] = ['1' => 'English', '2' => 'Urdu'];
         $data['gender'] = ['1' => 'Male', '2' => 'Female'];
         $data['PreviousInstitutesExamType'] = ['1' => 'MatricOrEqualant', '2' => 'InterOrEqualant', '3' => 'GraduationOrEqualant', '4' => 'Others'];
         $data['religion'] = ['1' => 'Muslim', '2' => 'Non-Muslim'];
-        $data['bloodGroup'] = ['1' => 'A+', '2' => 'A-', '3' => 'B+', '4' => 'B-', '5' => 'AB+', '6' => 'AB-', '7' => 'O+', '8' => 'O-'];
+        $data['bloodGroup'] = ['0' => '--- Select ---','1' => 'A+', '2' => 'A-', '3' => 'B+', '4' => 'B-', '5' => 'AB+', '6' => 'AB-', '7' => 'O+', '8' => 'O-'];
         $data['editRegistration'] = true;
 
         //get record from DB
@@ -348,6 +351,7 @@ class Admin extends CI_Controller
         }
 
         $enrollment = [
+            'program_id'               => $this->input->post('programId'),
             'class_id'                 => $this->input->post('classId'),
             'section_id'               => $this->input->post('sectionId'),
             'study_medium'             => $this->input->post('studyMedium'),
@@ -650,11 +654,13 @@ class Admin extends CI_Controller
 
         $enrollment_id = $this->input->post('enrollmentNo');
 
+        $programId = $this->admin_model->getCurrentProgramId($enrollment_id);
         $classId = $this->admin_model->getCurrentClassId($enrollment_id);
         $sectionId = $this->admin_model->getCurrentSectionId($enrollment_id);
 
         $first_installment = [
             'enrollment_id'            => $enrollment_id,
+            'program_id'               => $programId,
             'classId'                  => $classId,
             'sectionId'                => $sectionId,
             'installment_no'           => 1,
@@ -667,6 +673,7 @@ class Admin extends CI_Controller
 
         $installments = [
             'enrollment_id'            => $enrollment_id,
+            'program_id'               => $programId,
             'classId'                  => $classId,
             'sectionId'                => $sectionId,
             'installment_no'           => $this->input->post('installmentNo'),
@@ -687,7 +694,7 @@ class Admin extends CI_Controller
 //        debug($installment_id);
         // add transaction in transactions table against cash and fee accounts
 
-        $installment = $this->getInstallmenetData($installment_id, true);
+        $installment = $this->getInstallmenetData($installment_id, true, true);
 
         $installment = json_decode($installment, true);
 
@@ -825,8 +832,8 @@ class Admin extends CI_Controller
         $this->load->view('masterLayouts/admin',$data);
     }
 
-    public function getInstallmenetData($id, $return = false){
-        $data = $this->admin_model->getInstallmentData($id, false); //second parameter was true before.
+    public function getInstallmenetData($id, $getPaidInstallment = false,$return = false){
+        $data = $this->admin_model->getInstallmentData($id, $getPaidInstallment); //second parameter was true before.
         $data['calculated_fine'] = 0;
         if($data['installment_date'] < date('Y-m-d')){
             $data['calculated_fine'] = $this->admin_model->getFine($data['classId'],$data['sectionId'],$data['installment_date']);

@@ -25,7 +25,19 @@
 
                     <th>Class </th>
                     <td>
-                        <?php echo $voucher->classTitle.' '. $voucher->title;?>
+<!--                        --><?php //echo $voucher->classTitle.' '. $voucher->title;?>
+                        <?php echo $voucher->classTitle;?>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Study Program</th>
+                    <td>
+                        <?php echo $voucher->programTitle;?>
+                    </td>
+
+                    <th>Section </th>
+                    <td>
+                        <?php echo $voucher->sectionTitle;?>
                     </td>
                 </tr>
                 <tr>
@@ -91,9 +103,21 @@
 
                     <th>Class </th>
                     <td>
-                        <?php echo $voucher->classTitle.' '. $voucher->title;?>
+                        <?php echo $voucher->classTitle?>
                     </td>
                 </tr>
+                <tr>
+                    <th>Study Program</th>
+                    <td>
+                        <?php echo $voucher->programTitle;?>
+                    </td>
+
+                    <th>Section </th>
+                    <td>
+                        <?php echo $voucher->sectionTitle;?>
+                    </td>
+                </tr>
+
                 <tr>
                     <th>Installment No</th>
                     <td>
@@ -157,7 +181,18 @@
 
                     <th>Class </th>
                     <td>
-                        <?php echo $voucher->classTitle.' '. $voucher->title;?>
+                        <?php echo $voucher->classTitle;?>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Study Program</th>
+                    <td>
+                        <?php echo $voucher->programTitle;?>
+                    </td>
+
+                    <th>Section </th>
+                    <td>
+                        <?php echo $voucher->sectionTitle;?>
                     </td>
                 </tr>
                 <tr>

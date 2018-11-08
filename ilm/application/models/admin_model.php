@@ -13,6 +13,21 @@ class Admin_Model extends CI_Model
         return $enrollment_id;
     }
 
+    public function getPrograms($get_empty_selected = false) {
+        $programsList = [];
+        $programs = $this->db->get('programs')->result_array();
+
+        if ($get_empty_selected){
+            $programsList['0'] = '';
+        }
+        foreach ($programs as $program ){
+            $programsList[$program['id']] = $program['title'];
+        }
+
+
+        return $programsList;
+    }
+
     public function getClasses($get_empty_selected = false) {
         $classesList = [];
         $classes = $this->db->get('classes')->result_array();
@@ -293,6 +308,7 @@ class Admin_Model extends CI_Model
     {
         $query = "SELECT e.*, e.id as enroll_id, e.status as std_status, pd.first_name as fName, pd.last_name as lName, fi.*, fi.first_name as g_fname, fi.last_name as g_lname, feei.*, pd.*, fami.*,cl.*,
         cl.title as class_name,
+        pr.title as program_title,
         sec.*, sec.title as section_name FROM 
           enrollment e 
           LEFT JOIN family_information fi ON e.id=fi.enrollment_id
@@ -300,6 +316,7 @@ class Admin_Model extends CI_Model
           LEFT JOIN personal_details pd ON e.id=pd.enrollment_id
           LEFT JOIN family_information fami ON e.id=fami.enrollment_id
           LEFT JOIN classes cl ON cl.id=e.class_id
+          LEFT JOIN programs pr ON pr.id=e.program_id
           LEFT JOIN sections sec ON sec.id=e.section_id
           WHERE e.id='$id' ";
 
@@ -434,6 +451,10 @@ class Admin_Model extends CI_Model
         return $query;
     }
 
+    public function getCurrentProgramId($enrollment_id){
+        return $this->db->select('program_id')->where(['id' => $enrollment_id])->get('enrollment')->result_array()[0]['program_id'];
+    }
+
     public function getCurrentClassId($enrollment_id){
         return $this->db->select('class_id')->where(['id' => $enrollment_id])->get('enrollment')->result_array()[0]['class_id'];
     }
@@ -470,6 +491,7 @@ class Admin_Model extends CI_Model
 
             $installment = [
                 'enrollment_id'            => $data['installments']['enrollment_id'],
+                'program_id'               => $data['installments']['program_id'],
                 'classId'                  => $data['installments']['classId'],
                 'sectionId'                => $data['installments']['sectionId'],
                 'installment_no'           => $data['installments']['installment_no'][$key],
@@ -608,7 +630,7 @@ class Admin_Model extends CI_Model
         $query = $this->db->select('
             e.id,
             pd.first_name, pd.last_name,
-            pf.classId, pf.sectionId,
+            pf.classId, pf.sectionId, pf.program_id,
             pf.installment_no, pf.fee_amount, pf.installment_date, pf.status, pf.installment_date, pf.id as pfid,
             c.title
             ')
@@ -616,7 +638,7 @@ class Admin_Model extends CI_Model
             ->join('personal_details pd', 'pd.enrollment_id = e.id')
             ->join('paid_fee pf', 'pf.enrollment_id = e.id')
             ->join('classes c', 'pf.classId = c.id')
-            ->where(['pf.status' => $status, 'delete_status' => 0, 'pf.id ' => $installment_id])
+            ->where(['pf.status' => $status, 'pf.delete_status' => 0, 'pf.id ' => $installment_id])
             ->get()->result_array()[0];
 
 //            die($this->db->last_query());

@@ -27,6 +27,10 @@
                             <td><h5>Section</h5></td>
                             <td><h5><?php echo $student_detail['section_name'] ;?></h5></td>
                         </tr>
+                        <tr>
+                            <td><h5>Study Program</h5></td>
+                            <td><h5><?php echo $student_detail['program_title'] ;?></h5></td>
+                        </tr>
 
                     </table>
                 </div>

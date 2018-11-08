@@ -28,6 +28,12 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
+                                    <label class="col-sm-3 control-label" for="ddlClass">Study Program</label>
+                                    <div class="col-sm-3">
+                                        <?php echo form_dropdown('programId', $programs, set_value('programId', setVal($enrollment_data, 0, 'program_id', $editRegistration)),'class="form-control"');?>
+                                        <span class="field-validation-valid text-danger" data-valmsg-for="Student.programId" data-valmsg-replace="true"></span>
+                                    </div>
+
                                     <label class="col-sm-3 control-label" for="ddlClass">Class</label>
                                     <div class="col-sm-3">
 <!--                                        <select value="--><?php //echo set_value('classId');?><!--" class="form-control" data-val="true" data-val-number="The field Class must be a number." data-val-required="This field is requried." id="ddlClass" name="classId">-->
@@ -35,22 +41,30 @@
 <!--                                            --><?php //echo $classes;?>
 <!--                                        </select>-->
 
-                                        <?php echo form_dropdown('classId', $classes, set_value('classId', setVal($enrollment_data, 1, 'class_id', $editRegistration)),'class="form-control"');?>
+                                        <?php echo form_dropdown('classId', $classes, set_value('classId', setVal($enrollment_data, 0, 'class_id', $editRegistration)),'class="form-control"');?>
                                         <span class="field-validation-valid text-danger" data-valmsg-for="Student.ClassId" data-valmsg-replace="true"></span>
                                     </div>
+
+                                </div>
+                                <div class="form-group">
+
                                     <label class="col-sm-3 control-label" for="ddlSection">Section</label>
                                     <div class="col-sm-3">
-                                        <?php echo form_dropdown('sectionId', $sections, set_value('sectionId', setVal($enrollment_data, 1, 'section_id', $editRegistration)),'class="form-control"');?>
+                                        <?php echo form_dropdown('sectionId', $sections, set_value('sectionId', setVal($enrollment_data, 0, 'section_id', $editRegistration)),'class="form-control"');?>
 
                                         <span class="field-validation-valid text-danger" data-valmsg-for="Student.SectionId" data-valmsg-replace="true"></span>
                                     </div>
-                                </div>
-                                <div class="form-group">
+
                                     <label class="col-sm-3 control-label" for="Student_Medium">Medium of Study</label>
                                     <div class="col-sm-3">
                                         <?php echo form_dropdown('studyMedium', $studyMedium, set_value('studyMedium', setVal($enrollment_data, 1, 'study_medium', $editRegistration)),'class="form-control"');?>
                                         <span class="field-validation-valid text-danger" data-valmsg-for="Student.Medium" data-valmsg-replace="true"></span>
                                     </div>
+
+                                </div>
+
+                                <div class="form-group">
+
                                     <label class="col-sm-3 control-label" for="Student_RollNo">Roll No</label>
                                     <div class="col-sm-3">
                                         <input class="form-control" id="Student_RollNo" name="roll_no" value="<?php echo set_value('roll_no',setVal($enrollment_data, '', 'roll_no', $editRegistration));?>" type="text" onblur="validate(this, 'srln')">
@@ -128,7 +142,7 @@
                                     <label class="col-sm-2 control-label" for="Student_BloodGroup">Blood Group</label>
                                     <div class="col-sm-2">
 
-                                        <?php echo form_dropdown('bloodGroup', $bloodGroup, set_value('bloodGroup', setVal($enrollment_data, 1, 'blood_group', $editRegistration)),'class="form-control"');?>
+                                        <?php echo form_dropdown('bloodGroup', $bloodGroup, set_value('bloodGroup', setVal($enrollment_data, 0, 'blood_group', $editRegistration)),'class="form-control"');?>
                                         <span class="field-validation-valid text-danger" data-valmsg-for="Student.BloodGroup" data-valmsg-replace="true"></span>
                                     </div>
                                     <label class="col-sm-2 control-label" for="Student_Cast">Caste</label>
@@ -223,12 +237,12 @@
                                             <div class="form-group">
                                                 <label class="col-sm-2 control-label" for="presentcity">City</label>
                                                 <div class="col-sm-2">
-                                                    <input class="form-control" data-val="true" data-val-required="This field is requried." id="presentcity" name="presentCity" type="text" onblur="validate(this, 'pcity')"  value="<?php echo set_value('presentCity', setVal($presentAddresses, '', 'city', $editRegistration));?>" required>
+                                                    <input class="form-control" data-val="true" data-val-required="This field is requried." id="presentcity" name="presentCity" type="text" onblur="validate(this, 'pcity')"  value="<?php echo set_value('presentCity', setVal($presentAddresses, 'Gujranwala', 'city', $editRegistration));?>" required>
                                                     <span class="field-validation-valid text-danger" data-valmsg-for="address[0].City" data-valmsg-replace="true"></span>
                                                 </div>
                                                 <label class="col-sm-2 control-label" for="presentdstrct">District</label>
                                                 <div class="col-sm-2">
-                                                    <input class="form-control" data-val="true" data-val-required="This field is requried." id="presentdstrct" name="presentDistrict" type="text" onblur="validate(this, 'pdistrict')" value="<?php echo set_value('presentDistrict', setVal($presentAddresses, '', 'district', $editRegistration));?>" required>
+                                                    <input class="form-control" data-val="true" data-val-required="This field is requried." id="presentdstrct" name="presentDistrict" type="text" onblur="validate(this, 'pdistrict')" value="<?php echo set_value('presentDistrict', setVal($presentAddresses, 'Gujranwala', 'district', $editRegistration));?>" required>
                                                     <span class="field-validation-valid text-danger" data-valmsg-for="address[0].District" data-valmsg-replace="true"></span>
                                                 </div>
                                                 <label class="col-sm-2 control-label" for="presentcntry">Country</label>
@@ -265,16 +279,16 @@
                                             <div class="form-group">
                                                 <label class="control-label col-sm-2" for="permanentcity">City</label>
                                                 <div class="col-sm-2">
-                                                    <input class="form-control" data-val="true" data-val-required="This field is requried." id="permanentcity" name="permenentCity" type="text" value="<?php echo set_value('permenentCity', setVal($permenantAddresses, '', 'city', $editRegistration));?>">
+                                                    <input class="form-control" data-val="true" data-val-required="This field is requried." id="permanentcity" name="permenentCity" type="text" value="<?php echo set_value('permenentCity', setVal($permenantAddresses, 'Gujranwala', 'city', $editRegistration));?>">
                                                     <span class="field-validation-valid text-danger" data-valmsg-for="address[1].City" data-valmsg-replace="true"></span>
                                                 </div>
                                                 <label class="control-label col-sm-2" for="permanentdstrct">District</label>
                                                 <div class="col-sm-2">
-                                                    <input class="form-control" data-val="true" data-val-required="This field is requried." id="permanentdstrct" name="permenentDistrict" type="text"  value="<?php echo set_value('permenentDistrict', setVal($permenantAddresses, '', 'district', $editRegistration));?>">
+                                                    <input class="form-control" data-val="true" data-val-required="This field is requried." id="permanentdstrct" name="permenentDistrict" type="text"  value="<?php echo set_value('permenentDistrict', setVal($permenantAddresses, 'Gujranwala', 'district', $editRegistration));?>">
                                                 </div>
                                                 <label class="control-label col-sm-2" for="permanentcntry">Country</label>
                                                 <div class="col-sm-2">
-                                                    <input value="Pakistan" class="form-control" data-val="true" data-val-required="This field is requried." id="permanentcntry" name="permenentCountry" type="text"  value="<?php echo set_value('permenentCountry', setVal($permenantAddresses, '', 'country', $editRegistration));?>">
+                                                    <input class="form-control" data-val="true" data-val-required="This field is requried." id="permanentcntry" name="permenentCountry" type="text"  value="<?php echo set_value('permenentCountry', setVal($permenantAddresses, 'Pakistan', 'country', $editRegistration));?>">
                                                     <span class="field-validation-valid text-danger" data-valmsg-for="address[1].Country" data-valmsg-replace="true"></span>
                                                 </div>
                                             </div>
