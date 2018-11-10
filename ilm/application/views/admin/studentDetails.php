@@ -36,7 +36,7 @@
                                     //$blood_group = $student_detail['blood_group'];
                                 ?>
                                 <?php //echo $blood_group ;?>
-                                <?php echo $blood_group[$student_detail['blood_group']]; ?>
+                                <?php echo ($student_detail['blood_group'] == 0)?'-':$blood_group[$student_detail['blood_group']]; ?>
                             </td>
                             <th>Caste</th>
                             <td colspan="3"><?php echo $student_detail['caste'] ;?></td>
@@ -156,7 +156,7 @@
                         <?php foreach ($previousInstitutes as $institute) : ?>
                         <tr>
 
-                            <td><?php echo  $institute['exam_type']; ?></td>
+                            <td><?php echo  $institute['title']; ?></td>
                             <td><?php echo  $institute['exam_year']; ?></td>
                             <td><?php echo  $institute['p_roll_no']; ?> </td>
                             <td><?php echo  $institute['board_university']; ?></td>

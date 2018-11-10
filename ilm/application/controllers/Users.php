@@ -109,7 +109,7 @@ class Users extends CI_Controller
             {
                 $config = array(
 
-                    'upload_path' => './Uploaded_images',
+                    'upload_path' => './uploaded_images',
                     'allowed_types' => 'gif|png|jpeg|jpg'
                 );
 
@@ -158,6 +158,12 @@ class Users extends CI_Controller
 
             if($result)
             {
+
+                $session_data = $this->session->userdata();
+                $session_data['user_dp'] = base_url().$uploaded;
+                $this->session->set_userdata($session_data);
+
+                $this->session->set_userdata("verified", $session_data);
                 $this->session->set_flashdata('msg', '<p class="alert alert-success">Your Profile has been updated successfully</p>');
             }
             else

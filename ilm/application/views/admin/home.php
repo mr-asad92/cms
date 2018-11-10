@@ -41,7 +41,7 @@
 <!--                                            --><?php //echo $classes;?>
 <!--                                        </select>-->
 
-                                        <?php echo form_dropdown('classId', $classes, set_value('classId', setVal($enrollment_data, 0, 'class_id', $editRegistration)),'class="form-control" id="classesMenu"');?>
+                                        <?php echo form_dropdown('classId', $classes, set_value('classId', setVal($enrollment_data, 0, 'class_id', $editRegistration)),'class="form-control" id="classesMenu" onchange="getSections(this.value)"');?>
                                         <span class="field-validation-valid text-danger" data-valmsg-for="Student.ClassId" data-valmsg-replace="true"></span>
                                     </div>
 

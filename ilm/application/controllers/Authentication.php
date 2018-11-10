@@ -87,6 +87,13 @@ class Authentication extends CI_Controller {
     }
 
     public function register(){
+        if(!$this->session->userdata('logged_in')){
+            redirect(base_url().'admin');
+        }
+        else if ($this->session->userdata('logged_in') && $this->session->userdata('role_id') != 0){
+            redirect(base_url().'admin');
+
+        }
         $data=array(
             'title'=>'ILM | Register',
             'view'=>'authentication/register'
@@ -96,6 +103,7 @@ class Authentication extends CI_Controller {
     }
 
     public function init_register(){
+
         $this->form_validation->set_rules('first_name', 'First Name','trim|required|min_length[3]');
         $this->form_validation->set_rules('last_name', 'Last Name', 'trim|required|min_length[3]');
         $this->form_validation->set_rules('password', 'Password', 'trim|required|min_length[6]');
@@ -134,7 +142,7 @@ class Authentication extends CI_Controller {
             $this->load->model('authentication_model');
             $status=$this->authentication_model->register($reg_data);
 
-            if ($status != 'user_exists' && $status != FALSE) {
+            if ($status != 'user_exists' || $status != FALSE) {
                 $msg=array(
                     'msg'=>'<p class="text-success">User Registered Successfully, Please login to procceed.</p>'
                 );

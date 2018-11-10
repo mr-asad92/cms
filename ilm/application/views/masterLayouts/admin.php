@@ -132,7 +132,7 @@
     ?>
     <ul class="nav navbar-nav pull-right toolbar">
         <li class="dropdown">
-            <a href="#" class="dropdown-toggle username" data-toggle="dropdown"><span class="hidden-xs"><?php echo $this->session->userdata('full_name');?><i class="fa fa-caret-down"></i></span><img src="<?php echo $src;?>" alt="Dangerfield" /></a>
+            <a href="#" class="dropdown-toggle username" data-toggle="dropdown"><span class="hidden-xs"><?php echo $this->session->userdata('full_name');?><i class="fa fa-caret-down"></i></span><img src="<?php echo $src;?>" alt="" /></a>
             <ul class="dropdown-menu userinfo arrow">
                 <li class="username">
                     <a href="#">
@@ -632,14 +632,84 @@
     });
 
     function getClasses(program_id) {
-//        var classes = {'1' : 'Semester-I','2':'Semester-II'};
-//
-//        var html = '';
-//        $.each(classes, function (index, item) {
-//            html+='<option value="'+index+'">'+item+'</option>';
-//        });
-//        $("#classesMenu").html(html);
+
+        var html = '<option value="0"></option>';
+
+        $.ajax({
+            url:'<?php echo base_url()."admin/getClassesInStudyProgram/";?>'+program_id,
+            type: 'post',
+            data: {id: program_id},
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function (response) {
+                console.log(JSON.stringify(response, null, 4));
+
+                if(response != 'not_found'){
+                    response = JSON.parse(response);
+                    $.each(response, function (index, item) {
+                        html+='<option value="'+item.id+'">'+item.title+'</option>';
+                    });
+                    $("#classesMenu").html(html);
+                }
+                else{
+                    $("#classesMenu").html(html);
+                }
+
+            },
+            error: function (err) {
+                console.log(JSON.stringify(err, null, 4));
+            }
+
+        });
+
+
     }
+
+    function getSections(class_id) {
+
+        var html = '<option value="0"></option>';
+
+        $.ajax({
+            url:'<?php echo base_url()."admin/getSectionsInClasses/";?>'+class_id,
+            type: 'post',
+            data: {id: class_id},
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function (response) {
+                console.log(JSON.stringify(response, null, 4));
+
+                if(response != 'not_found'){
+                    response = JSON.parse(response);
+                    $.each(response, function (index, item) {
+                        html+='<option value="'+item.id+'">'+item.title+'</option>';
+                    });
+                    $("#sectionsMenu").html(html);
+                }
+                else{
+                    $("#sectionsMenu").html(html);
+                }
+
+            },
+            error: function (err) {
+                console.log(JSON.stringify(err, null, 4));
+            }
+
+        });
+
+
+    }
+
+    function getPermissions(user_id) {
+        if(user_id!=0){
+            window.location.href='<?php echo base_url();?>admin/manage_permissions/'+user_id;
+        }
+        else{
+            window.location.href='<?php echo base_url();?>admin/manage_permissions';
+        }
+    }
+
     function calculateGrandTotal() {
         $("#saveFormBtn").attr('disabled','disabled');
         var total_fee = $("#totalFee").val();

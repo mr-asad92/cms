@@ -82,22 +82,24 @@ class Admin_Model extends CI_Model
         $enrollment_data['personal_details']['enrollment_id'] = $enrollment_id;
         $this->db->insert('personal_details', $enrollment_data['personal_details']);
 
-        foreach ($enrollment_data['previous_institution_detail']['exam_type'] as $key => $value){
+        if($enrollment_data['previous_institution_detail']['exam_type']!=NULL ) {
+            foreach ($enrollment_data['previous_institution_detail']['exam_type'] as $key => $value) {
 
-            $previous_institution_detail = [
-                'exam_type'               => $enrollment_data['previous_institution_detail']['exam_type'][$key],
-                'exam_year'               => $enrollment_data['previous_institution_detail']['exam_year'][$key],
-                'p_roll_no'               => $enrollment_data['previous_institution_detail']['p_roll_no'][$key],
-                'board_university'        => $enrollment_data['previous_institution_detail']['board_university'][$key],
-                'obt_marks'               => $enrollment_data['previous_institution_detail']['obt_marks'][$key],
-                'total_marks'             => $enrollment_data['previous_institution_detail']['total_marks'][$key],
-                'grade'                   => $enrollment_data['previous_institution_detail']['grade'][$key],
-                'subjects'                => $enrollment_data['previous_institution_detail']['subjects'][$key],
-                'institute_name'          => $enrollment_data['previous_institution_detail']['institute_name'][$key],
-                'enrollment_id'           => $enrollment_id
-            ];
+                $previous_institution_detail = [
+                    'exam_type' => $enrollment_data['previous_institution_detail']['exam_type'][$key],
+                    'exam_year' => $enrollment_data['previous_institution_detail']['exam_year'][$key],
+                    'p_roll_no' => $enrollment_data['previous_institution_detail']['p_roll_no'][$key],
+                    'board_university' => $enrollment_data['previous_institution_detail']['board_university'][$key],
+                    'obt_marks' => $enrollment_data['previous_institution_detail']['obt_marks'][$key],
+                    'total_marks' => $enrollment_data['previous_institution_detail']['total_marks'][$key],
+                    'grade' => $enrollment_data['previous_institution_detail']['grade'][$key],
+                    'subjects' => $enrollment_data['previous_institution_detail']['subjects'][$key],
+                    'institute_name' => $enrollment_data['previous_institution_detail']['institute_name'][$key],
+                    'enrollment_id' => $enrollment_id
+                ];
 
-            $this->db->insert('previous_institution_details', $previous_institution_detail);
+                $this->db->insert('previous_institution_details', $previous_institution_detail);
+            }
         }
 
         foreach ($enrollment_data['address'] as $address){
@@ -184,24 +186,26 @@ class Admin_Model extends CI_Model
         $this->db->where('enrollment_id', $enroll_id);
         $this->db->delete('previous_institution_details');
 
-        foreach ($enrollment_data['previous_institution_detail']['exam_type'] as $key => $value){
+        if($enrollment_data['previous_institution_detail']!=NULL) {
+            foreach ($enrollment_data['previous_institution_detail']['exam_type'] as $key => $value) {
 
 //            $rowId = $enrollment_data['previous_institution_detail']['PI_rowId'][$key];
 
-            $previous_institution_detail = [
-                'enrollment_id'           => $enroll_id,
-                'exam_type'               => $enrollment_data['previous_institution_detail']['exam_type'][$key],
-                'exam_year'               => $enrollment_data['previous_institution_detail']['exam_year'][$key],
-                'p_roll_no'               => $enrollment_data['previous_institution_detail']['p_roll_no'][$key],
-                'board_university'        => $enrollment_data['previous_institution_detail']['board_university'][$key],
-                'obt_marks'               => $enrollment_data['previous_institution_detail']['obt_marks'][$key],
-                'total_marks'             => $enrollment_data['previous_institution_detail']['total_marks'][$key],
-                'grade'                   => $enrollment_data['previous_institution_detail']['grade'][$key],
-                'subjects'                => $enrollment_data['previous_institution_detail']['subjects'][$key],
-                'institute_name'          => $enrollment_data['previous_institution_detail']['institute_name'][$key]
-            ];
+                $previous_institution_detail = [
+                    'enrollment_id' => $enroll_id,
+                    'exam_type' => $enrollment_data['previous_institution_detail']['exam_type'][$key],
+                    'exam_year' => $enrollment_data['previous_institution_detail']['exam_year'][$key],
+                    'p_roll_no' => $enrollment_data['previous_institution_detail']['p_roll_no'][$key],
+                    'board_university' => $enrollment_data['previous_institution_detail']['board_university'][$key],
+                    'obt_marks' => $enrollment_data['previous_institution_detail']['obt_marks'][$key],
+                    'total_marks' => $enrollment_data['previous_institution_detail']['total_marks'][$key],
+                    'grade' => $enrollment_data['previous_institution_detail']['grade'][$key],
+                    'subjects' => $enrollment_data['previous_institution_detail']['subjects'][$key],
+                    'institute_name' => $enrollment_data['previous_institution_detail']['institute_name'][$key]
+                ];
 
-            $this->db->insert('previous_institution_details', $previous_institution_detail);
+                $this->db->insert('previous_institution_details', $previous_institution_detail);
+            }
         }
 
         foreach ($enrollment_data['address'] as $address){
@@ -859,6 +863,19 @@ class Admin_Model extends CI_Model
         return $this->db->get('permissions')->result_array();
     }
 
+    public function getUserPermissions($user_id){
+        $p = [];
+        $permissions = $this->db->select('permissionID')->from('permission_map')->where('groupID', $user_id)->get()->result_array();
+//        debug($permissions);
+        if (count($permissions) > 0){
+            foreach ($permissions as $permission){
+                $p[] = $permission['permissionID'];
+            }
+        }
+
+        return $p;
+    }
+
     public function getUserTypes(){
 
         $userTypes = [];
@@ -871,19 +888,40 @@ class Admin_Model extends CI_Model
         return $userTypes;
     }
 
+    public function getUsers(){
+
+        $userTypes = [];
+        $q = $this->db->select('id, first_name, last_name, email')->from('users')->where('role_id !=', 0)->where('is_active', 1)->where('is_approved', 1)->get()->result_array();
+
+        $userTypes[0] = '--- SELECT ---';
+        foreach ($q as $uType ){
+            $userTypes[$uType['id']] = $uType['first_name'].' '.$uType['last_name'].' ('.$uType['email'].')';
+        }
+        return $userTypes;
+    }
+
     public function update_permissions($userType, $permissions){
         $this->db->where('groupID', $userType);
         $this->db->delete('permission_map');
 
         foreach ($permissions as $key => $value){
 
-            $this->db->set('groupID', $userType);
-            $this->db->set('permissionID', $value);
-            $this->db->insert('permission_map');
+//            $this->db->set('groupID', $userType);
+//            $this->db->set('permissionID', $value);
+            $data = ['groupID'=> $userType, 'permissionID' => $value];
+            $status = $this->db->insert('permission_map', $data);
 
         }
 
         return true;
+    }
+
+    public function getClassesInStudyProgram($program_id){
+        return $this->db->where('program_id', $program_id)->get('classes')->result_array();
+    }
+
+    public function getSectionsInClasses($class_id){
+        return $this->db->where('class_id', $class_id)->get('sections')->result_array();
     }
 
 }

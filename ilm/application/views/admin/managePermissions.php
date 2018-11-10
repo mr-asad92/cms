@@ -12,14 +12,16 @@
                         <table class="table table-bordered table-hover table-striped">
                             <tr>
                                 <th>User Type</th>
-                                <th><?php echo form_dropdown('userType', $userTypes,'', 'class="form-control"');?></th>
+                                <th><?php echo form_dropdown('userType', $userTypes,$selectedUser, 'class="form-control" onchange="getPermissions(this.value)"');?></th>
                             </tr>
                             <?php
 
                             foreach ($permissionsList as $permission){
                                 if($permission['category'] != '') {
                                     echo "<tr>";
-                                    echo "<td width='20'><input type='checkbox' name='permissions[]' value='" . $permission['permissionID'] . "'></td>";
+                                    ?>
+                                    <td width='20'><input type='checkbox' name='permissions[]' <?php echo (in_array($permission["permissionID"], $userPermissions))?'checked="checked"':'';?> value='<?php echo $permission["permissionID"];?>'></td>
+                                    <?php
                                     echo "<td>" . $permission['category'] . "</td>";
                                     echo "</tr>";
                                 }

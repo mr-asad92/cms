@@ -24,7 +24,7 @@ class Admin extends CI_Controller
                 $this->load->library('permission');
 
                 // set groupID
-                $groupID = ($this->session->userdata('role_id')) ? $this->session->userdata('role_id') : 0;
+                $groupID = ($this->session->userdata('user_id')) ? $this->session->userdata('user_id') : 0;
 
                 $this->permissions = $this->permission->get_user_permissions($groupID);
                 $current_page = strtolower($this->router->fetch_class()).'/'.$method;
@@ -41,21 +41,32 @@ class Admin extends CI_Controller
 
     }
 
-    public function manage_permissions(){
+    public function manage_permissions($user_id = 0){
         $permissionList = $this->admin_model->getPermissionsList();
-        $userTypes = $this->admin_model->getUserTypes();
+//        $userTypes = $this->admin_model->getUserTypes();
+        $userTypes = $this->admin_model->getUsers();
+        $userPermission = [];
+        if($user_id != 0){
+            $userPermission = $this->admin_model->getUserPermissions($user_id);
+//            debug($userPermission);
+        }
 
         if(isset($_POST['userType'])){
             $userType = $this->input->post('userType');
             $permissions = $this->input->post('permissions');
 
-            $this->admin_model->update_permissions($userType, $permissions);
-            $this->session->set_flashdata('msg', '<p class="alert alert-success">Permissions has been saved Successfully</p>');
+            if (count($permissions) > 0){
+                $this->admin_model->update_permissions($userType, $permissions);
+                $this->session->set_flashdata('msg', '<p class="alert alert-success">Permissions has been saved Successfully</p>');
+            }
+
         }
         $data = array(
             'title' => 'ILM | Manage Permissions',
             'view' => 'admin/managePermissions',
             'permissionsList' => $permissionList,
+            'userPermissions' => $userPermission,
+            'selectedUser' => $user_id,
             'userTypes' => $userTypes,
         );
 
@@ -195,8 +206,8 @@ class Admin extends CI_Controller
 
 
             $enrollment = [
-                'enrollment_date'          => $this->input->post('enrollmentDate'),
-                'program_id'                 => $this->input->post('programId'),
+                'enrollment_date'          => date("Y-m-d h:i:s",strtotime($this->input->post('enrollmentDate'))),
+                'program_id'               => $this->input->post('programId'),
                 'class_id'                 => $this->input->post('classId'),
                 'section_id'               => $this->input->post('sectionId'),
                 'study_medium'             => $this->input->post('studyMedium'),
@@ -877,8 +888,7 @@ class Admin extends CI_Controller
 
         // add transaction in transactions table against cash and fee accounts
 
-        $installment = $this->getInstallmenetData($id, true);
-
+        $installment = $this->getInstallmenetData($id, false, true);
         $installment = json_decode($installment, true);
 
         $enroll_id = $installment['id'];
@@ -902,6 +912,7 @@ class Admin extends CI_Controller
             'credit_account' => $credit_account,
             'created_by' => $this->session->userdata('user_id'),
         ];
+
 
         $voucher_id = $this->Vouchers_model->save_voucher($data, true);
 
@@ -1288,6 +1299,26 @@ class Admin extends CI_Controller
         $this->db->where('id',$id)->delete('sections');
         $this->session->set_flashdata('msg', '<p class="alert alert-success">Section has been Delete successfully!</p>');
         redirect(base_url().'admin/add_section');
+    }
+
+    public function getClassesInStudyProgram($program_id){
+        $classes = $this->admin_model->getClassesInStudyProgram($program_id);
+        if(count($classes) > 0){
+            echo json_encode($classes);
+        }
+        else{
+            echo "not_found";
+        }
+    }
+
+    public function getSectionsInClasses($class_id){
+        $sections = $this->admin_model->getSectionsInClasses($class_id);
+        if(count($sections) > 0){
+            echo json_encode($sections);
+        }
+        else{
+            echo "not_found";
+        }
     }
 
 }

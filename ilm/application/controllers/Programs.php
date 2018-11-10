@@ -30,7 +30,7 @@ class Programs extends CI_Controller
                 $this->load->library('permission');
 
                 // set groupID
-                $groupID = ($this->session->userdata('role_id')) ? $this->session->userdata('role_id') : 0;
+                $groupID = ($this->session->userdata('user_id')) ? $this->session->userdata('user_id') : 0;
 
                 $this->permissions = $this->permission->get_user_permissions($groupID);
                 $current_page = strtolower($this->router->fetch_class()).'/'.$method;
