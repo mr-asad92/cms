@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 06, 2018 at 12:53 AM
+-- Generation Time: Nov 08, 2018 at 06:53 PM
 -- Server version: 10.1.24-MariaDB
 -- PHP Version: 7.1.6
 
@@ -101,6 +101,7 @@ INSERT INTO `classes` (`id`, `title`, `program_id`) VALUES
 CREATE TABLE `enrollment` (
   `id` int(11) NOT NULL,
   `enrollment_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `program_id` varchar(255) NOT NULL,
   `class_id` int(11) NOT NULL,
   `section_id` int(11) NOT NULL,
   `study_medium` int(11) NOT NULL,
@@ -112,14 +113,6 @@ CREATE TABLE `enrollment` (
   `edited_by` int(11) NOT NULL,
   `status` int(11) NOT NULL DEFAULT '1' COMMENT '0 = old, 1 = active, 2 = suspend, 3 = leave'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `enrollment`
---
-
-INSERT INTO `enrollment` (`id`, `enrollment_date`, `class_id`, `section_id`, `study_medium`, `roll_no`, `pic`, `created_at`, `updated_at`, `created_by`, `edited_by`, `status`) VALUES
-(1, '2018-10-17 19:00:00', 2, 1, 1, '345234', '5bc8fae5bc576_simple_cropped.jpg', '2018-10-18 21:27:50', '2018-10-18 06:28:05', 5, 5, 1),
-(2, '2018-10-23 19:00:00', 1, 1, 1, '123', '5bd0ccae0b706_IMG_20180915_150755.jpg', '2018-10-24 19:49:02', '2018-10-24 04:49:48', 5, 5, 1);
 
 -- --------------------------------------------------------
 
@@ -193,15 +186,6 @@ CREATE TABLE `fines` (
   `fine` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `fines`
---
-
-INSERT INTO `fines` (`id`, `classId`, `sectionId`, `fine`) VALUES
-(1, 1, 1, 50),
-(2, 2, 1, 70),
-(3, 1, 2, 30);
-
 -- --------------------------------------------------------
 
 --
@@ -211,6 +195,7 @@ INSERT INTO `fines` (`id`, `classId`, `sectionId`, `fine`) VALUES
 CREATE TABLE `paid_fee` (
   `id` int(11) NOT NULL,
   `enrollment_id` int(11) NOT NULL,
+  `program_id` int(11) NOT NULL,
   `classId` int(11) NOT NULL,
   `sectionId` int(11) NOT NULL,
   `installment_no` int(11) NOT NULL,
@@ -527,7 +512,7 @@ INSERT INTO `users` (`id`, `first_name`, `last_name`, `email`, `password`, `gend
 (2, 'Zeeshan', 'Ahmad', 'Zeeshan@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 'male', 'Shaheenabad, Gujranwala', '03086440945', '2018-09-18', '341015017985', 'F.Sc', 0, 2, 5, '2018-09-13 04:11:12', '2018-10-15 00:37:16', 0, 1, './uploaded_images/3111.jpg'),
 (3, 'Ali', 'Hamza', 'alihamza446014@gmail.com', '9b7141a49138bf8291db51cc6ee158d6', 'male', 'Shaheenabad, Gujranwala,', '03059042500', '1997-05-04', '3410122179850', 'F.Sc', 0, 2, 5, '2018-09-14 04:11:12', '2018-10-07 04:19:35', 0, 1, './uploaded_images/3112.jpg'),
 (4, 'Hafiz', 'Waseem', 'waseem@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 'male', 'Vnext solution gujranwala', '030356842', '2018-09-12', '34101257481', 'F.A', 2, 5, 5, '2018-09-15 04:11:12', '2018-09-18 00:09:30', 0, 0, './uploaded_images/32.jpg'),
-(5, 'Asad', 'ullah', 'king.master127@gmail.com', 'f5de9352cba612589e4b749a58cc9188', 'male', 'Model Town, Gujranwala', '03053020152', '1997-09-10', '34101564513', 'B.A', 0, 3, 3, '2018-09-13 04:11:12', '2018-09-19 05:59:23', 1, 1, './uploaded_images/blured.jpg'),
+(5, 'Asad', 'ullah', 'king.master127@gmail.com', 'f5de9352cba612589e4b749a58cc9188', 'male', 'Model Town, Gujranwala', '03053020152', '1997-09-10', '34101564513', 'B.A', 0, 3, 3, '2018-09-13 04:11:12', '2018-09-19 05:59:23', 1, 1, './uploaded_images/blured_sepia_copy1.jpg'),
 (6, 'Muzammal', 'Ali', 'muzammal@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 'male', 'Rustam Kotli, Gujranwala', '03086440945', '2018-09-04', '34101257481', 'B.Sc', 2, 5, 5, '2018-09-18 04:11:12', '2018-09-19 06:00:10', 0, 0, './uploaded_images/index21.jpg'),
 (7, 'hhfs', 'shfdsgsf', 'gfsgsgf@gmil.com', '123456', 'female', 'fgfgs', '15252554', '2018-09-19', 'y575765', 'hfdg', 2, 2, 2, '2018-09-18 04:11:12', '2018-09-19 05:59:33', 0, 0, ''),
 (8, 'Awais', 'Ali', 'awais@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 'male', 'fdsjhhdahfjhagf', '03006440956', '2018-08-28', '3410122179850', 'B.Sc', 1, 5, 3, '2018-09-18 12:24:46', '2018-09-19 05:59:29', 0, 0, './uploaded_images/3110.jpg'),
@@ -644,6 +629,12 @@ ALTER TABLE `programs`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `sections`
+--
+ALTER TABLE `sections`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `student_status`
 --
 ALTER TABLE `student_status`
@@ -685,7 +676,7 @@ ALTER TABLE `classes`
 -- AUTO_INCREMENT for table `enrollment`
 --
 ALTER TABLE `enrollment`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `family_information`
 --
@@ -705,7 +696,7 @@ ALTER TABLE `fee_pkg_history`
 -- AUTO_INCREMENT for table `fines`
 --
 ALTER TABLE `fines`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `paid_fee`
 --
@@ -745,6 +736,11 @@ ALTER TABLE `previous_institution_details`
 -- AUTO_INCREMENT for table `programs`
 --
 ALTER TABLE `programs`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+--
+-- AUTO_INCREMENT for table `sections`
+--
+ALTER TABLE `sections`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `student_status`

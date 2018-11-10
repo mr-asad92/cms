@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 08, 2018 at 06:53 PM
+-- Generation Time: Nov 10, 2018 at 11:20 PM
 -- Server version: 10.1.24-MariaDB
 -- PHP Version: 7.1.6
 
@@ -90,7 +90,8 @@ CREATE TABLE `classes` (
 
 INSERT INTO `classes` (`id`, `title`, `program_id`) VALUES
 (1, 'part-I', 2),
-(2, 'part-II', 3);
+(2, 'part-II', 3),
+(3, 'part-iii', 2);
 
 -- --------------------------------------------------------
 
@@ -113,6 +114,15 @@ CREATE TABLE `enrollment` (
   `edited_by` int(11) NOT NULL,
   `status` int(11) NOT NULL DEFAULT '1' COMMENT '0 = old, 1 = active, 2 = suspend, 3 = leave'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `enrollment`
+--
+
+INSERT INTO `enrollment` (`id`, `enrollment_date`, `program_id`, `class_id`, `section_id`, `study_medium`, `roll_no`, `pic`, `created_at`, `updated_at`, `created_by`, `edited_by`, `status`) VALUES
+(1, '2018-11-07 19:00:00', '1', 1, 1, 1, '123', '5be604b3626c7_DSC_0021_copy.jpg', '2018-11-08 17:58:07', '2018-11-09 06:05:39', 5, 5, 1),
+(2, '2018-11-11 07:00:00', '1', 1, 1, 1, '21', '5be7482feca77_Screenshot_1.png', '2018-11-10 21:05:21', '2018-11-10 05:05:51', 5, 5, 1),
+(3, '2018-11-11 07:00:00', '2', 1, 1, 1, '2343', '', '2018-11-10 21:49:08', '2018-11-10 05:49:44', 5, 5, 1);
 
 -- --------------------------------------------------------
 
@@ -266,7 +276,8 @@ INSERT INTO `permissions` (`permissionID`, `permission`, `key`, `category`) VALU
 (24, NULL, 'accounts/cash_book', 'cash book'),
 (25, NULL, 'accounts/trial_balance', 'trial balance'),
 (26, NULL, 'accounts/ledger', 'ledger'),
-(27, NULL, 'accounts/profit_and_loss', NULL);
+(30, NULL, 'accounts/profit_and_loss', 'Profit And Loss'),
+(28, NULL, 'admin/add_section', 'Sections');
 
 -- --------------------------------------------------------
 
@@ -305,38 +316,14 @@ CREATE TABLE `permission_map` (
 --
 
 INSERT INTO `permission_map` (`groupID`, `permissionID`) VALUES
-(0, 1),
-(0, 3),
-(0, 4),
-(0, 5),
-(1, 3),
-(1, 4),
-(1, 5),
-(1, 6),
-(1, 7),
-(1, 8),
-(1, 9),
-(1, 10),
-(1, 11),
-(1, 12),
-(1, 13),
-(1, 14),
-(1, 15),
-(1, 16),
-(1, 18),
-(2, 1),
-(2, 3),
-(2, 4),
-(2, 5),
-(2, 16),
-(2, 19),
-(2, 20),
-(2, 21),
-(2, 22),
-(2, 23),
-(2, 24),
-(2, 25),
-(2, 26);
+(6, 1),
+(6, 3),
+(6, 4),
+(6, 5),
+(6, 6),
+(6, 7),
+(6, 8),
+(6, 10);
 
 -- --------------------------------------------------------
 
@@ -513,7 +500,7 @@ INSERT INTO `users` (`id`, `first_name`, `last_name`, `email`, `password`, `gend
 (3, 'Ali', 'Hamza', 'alihamza446014@gmail.com', '9b7141a49138bf8291db51cc6ee158d6', 'male', 'Shaheenabad, Gujranwala,', '03059042500', '1997-05-04', '3410122179850', 'F.Sc', 0, 2, 5, '2018-09-14 04:11:12', '2018-10-07 04:19:35', 0, 1, './uploaded_images/3112.jpg'),
 (4, 'Hafiz', 'Waseem', 'waseem@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 'male', 'Vnext solution gujranwala', '030356842', '2018-09-12', '34101257481', 'F.A', 2, 5, 5, '2018-09-15 04:11:12', '2018-09-18 00:09:30', 0, 0, './uploaded_images/32.jpg'),
 (5, 'Asad', 'ullah', 'king.master127@gmail.com', 'f5de9352cba612589e4b749a58cc9188', 'male', 'Model Town, Gujranwala', '03053020152', '1997-09-10', '34101564513', 'B.A', 0, 3, 3, '2018-09-13 04:11:12', '2018-09-19 05:59:23', 1, 1, './uploaded_images/blured_sepia_copy1.jpg'),
-(6, 'Muzammal', 'Ali', 'muzammal@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 'male', 'Rustam Kotli, Gujranwala', '03086440945', '2018-09-04', '34101257481', 'B.Sc', 2, 5, 5, '2018-09-18 04:11:12', '2018-09-19 06:00:10', 0, 0, './uploaded_images/index21.jpg'),
+(6, 'Muzammal', 'Ali', 'muzammal@gmail.com', 'f5de9352cba612589e4b749a58cc9188', 'male', 'Rustam Kotli, Gujranwala', '03086440945', '2018-09-04', '34101257481', 'B.Sc', 2, 5, 5, '2018-09-18 04:11:12', '2018-09-19 06:00:10', 1, 1, './uploaded_images/index21.jpg'),
 (7, 'hhfs', 'shfdsgsf', 'gfsgsgf@gmil.com', '123456', 'female', 'fgfgs', '15252554', '2018-09-19', 'y575765', 'hfdg', 2, 2, 2, '2018-09-18 04:11:12', '2018-09-19 05:59:33', 0, 0, ''),
 (8, 'Awais', 'Ali', 'awais@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 'male', 'fdsjhhdahfjhagf', '03006440956', '2018-08-28', '3410122179850', 'B.Sc', 1, 5, 3, '2018-09-18 12:24:46', '2018-09-19 05:59:29', 0, 0, './uploaded_images/3110.jpg'),
 (9, 'fhgfdhg', 'fhggfdhd', 'hggfdhgfh@gmil.com', 'e10adc3949ba59abbe56e057f20f883e', '', '', '', '0000-00-00', '', '', 2, 3, 0, '2018-09-19 06:02:49', '0000-00-00 00:00:00', 0, 0, ''),
@@ -671,12 +658,12 @@ ALTER TABLE `addresses`
 -- AUTO_INCREMENT for table `classes`
 --
 ALTER TABLE `classes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `enrollment`
 --
 ALTER TABLE `enrollment`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `family_information`
 --
@@ -711,7 +698,7 @@ ALTER TABLE `paid_installments_vouchers`
 -- AUTO_INCREMENT for table `permissions`
 --
 ALTER TABLE `permissions`
-  MODIFY `permissionID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `permissionID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 --
 -- AUTO_INCREMENT for table `permission_groups`
 --
@@ -741,7 +728,7 @@ ALTER TABLE `programs`
 -- AUTO_INCREMENT for table `sections`
 --
 ALTER TABLE `sections`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `student_status`
 --
