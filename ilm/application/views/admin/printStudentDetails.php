@@ -217,6 +217,7 @@
                                 <th>Miscellaneous</th>
                                 <th>Others</th>
                                 <th>Total</th>
+                                <th>Discount</th>
                                 <th>Grand Total</th>
                             </tr>
                             </thead>
@@ -232,6 +233,7 @@
                                 <td><?php echo  $feeInfo['miscellaneous_fee']; ?></td>
                                 <td><?php echo  $feeInfo['others']; ?></td>
                                 <td><b><?php echo  $feeInfo['total_fee']; ?></b></td>
+                                <td><b><?php echo  $feeInfo['discount']; ?></b></td>
                                 <td><b><?php echo  $feeInfo['grand_total']; ?></b></td>
                             </tr>
 

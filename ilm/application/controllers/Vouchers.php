@@ -91,6 +91,8 @@ class Vouchers extends CI_Controller
             'print' => false
         );
 
+//        debug($data['voucher']);
+
         $this->load->view('masterLayouts/admin',$data);
     }
 

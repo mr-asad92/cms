@@ -24,6 +24,7 @@
                     <th>Miscellaneous</th>
                     <th>Others</th>
                     <th>Total</th>
+                    <th>Discount</th>
                     <th>Grand Total</th>
                 </tr>
                 </thead>
@@ -37,6 +38,7 @@
                     <td><?php echo  $fee_package->miscellaneous_fee; ?></td>
                     <td><?php echo  $fee_package->others; ?></td>
                     <td><b><?php echo  $fee_package->total_fee; ?></b></td>
+                    <td><b><?php echo  $fee_package->discount; ?></b></td>
                     <td><b><?php echo  $fee_package->grand_total; ?></b></td>
                 </tr>
 

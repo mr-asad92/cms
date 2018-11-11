@@ -303,7 +303,7 @@ class Admin extends CI_Controller
 
             if($is_saved){
                 $this->session->set_flashdata('msg','<p class="alert alert-success">Student record has been added Successfully</p>');
-                redirect(base_url().'admin');
+                redirect(base_url().'admin/studentsList');
             }
 //        }
 
@@ -471,7 +471,8 @@ class Admin extends CI_Controller
 
         if($is_updated){
             $this->session->set_flashdata('msg','<p class="alert alert-success">Student record has been updated Successfully</p>');
-            redirect(base_url().'admin/editRegistration/'.$regId);
+//            redirect(base_url().'admin/editRegistration/'.$regId);
+            redirect(base_url().'admin/studentsList');
         }
     }
 
@@ -738,7 +739,8 @@ class Admin extends CI_Controller
 
         if(true){
             $this->session->set_flashdata('msg', 'Installments Saved!');
-            redirect(base_url().'admin/makeInstallments/'.$installments['enrollment_id']);
+//            redirect(base_url().'admin/makeInstallments/'.$installments['enrollment_id']);
+            redirect(base_url().'admin/studentsList');
         }
 
 
@@ -750,11 +752,13 @@ class Admin extends CI_Controller
 
         $classId = $this->admin_model->getCurrentClassId($enrollment_id);
         $sectionId = $this->admin_model->getCurrentSectionId($enrollment_id);
+        $programId = $this->admin_model->getCurrentProgramId($enrollment_id);
 
         $first_installment = [
             'enrollment_id'            => $enrollment_id,
             'classId'                  => $classId,
             'sectionId'                => $sectionId,
+            'program_id'               => $programId,
             'installment_no'           => 1,
             'fee_amount'               => $this->input->post('initialAmount'),
             'installment_date'         => date("Y-m-d"),
@@ -767,6 +771,7 @@ class Admin extends CI_Controller
             'enrollment_id'            => $enrollment_id,
             'classId'                  => $classId,
             'sectionId'                => $sectionId,
+            'program_id'               => $programId,
             'installment_no'           => $this->input->post('installmentNo'),
             'fee_amount'               => $this->input->post('installmentAmount'),
             'paidStatus'               => $this->input->post('paidStatus'),
@@ -779,6 +784,7 @@ class Admin extends CI_Controller
             'installments'        => $installments,
         ];
 
+//        debug($data);
         $is_saved = $this->admin_model->update_installments($data);
 
         if($is_saved){

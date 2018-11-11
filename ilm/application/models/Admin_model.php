@@ -515,6 +515,7 @@ class Admin_Model extends CI_Model
 
         }
 
+
         return $insert_id;
 
     }

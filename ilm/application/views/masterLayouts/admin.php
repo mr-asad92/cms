@@ -271,18 +271,18 @@
                     <li><a href="<?php echo base_url() ; ?>admin/add_fines"><span>Fines</span></a></li>
                 </ul>
             </li>
-            <li class="open hasChild">
-                <a href="#2"><i class="fa fa-pencil-square-o"></i> <span>Accounts Office</span> </a>
-                <ul class="acc-menu" style="display: block;">
-                    <li><a href="<?php echo base_url() ; ?>accounts"><span>Charts of Account</span></a></li>
-                    <li><a href="<?php echo base_url() ; ?>vouchers/post_voucher"><span>Post Voucher</span></a></li>
-                    <li><a href="<?php echo base_url() ; ?>accounts/transactions"><span>Transactions</span></a></li>
-                    <li><a href="<?php echo base_url() ; ?>accounts/cash_book"><span>Cash book</span></a></li>
-                    <li><a href="<?php echo base_url() ; ?>accounts/trial_balance"><span>Trial Balance</span></a></li>
-                    <li><a href="<?php echo base_url() ; ?>accounts/ledger"><span>Ledger</span></a></li>
-                    <li><a href="<?php echo base_url() ; ?>accounts/profit_and_loss"><span>Profit &amp; Loss</span></a></li>
-                </ul>
-            </li>
+<!--            <li class="open hasChild">-->
+<!--                <a href="#2"><i class="fa fa-pencil-square-o"></i> <span>Accounts Office</span> </a>-->
+<!--                <ul class="acc-menu" style="display: block;">-->
+<!--                    <li><a href="--><?php //echo base_url() ; ?><!--accounts"><span>Charts of Account</span></a></li>-->
+<!--                    <li><a href="--><?php //echo base_url() ; ?><!--vouchers/post_voucher"><span>Post Voucher</span></a></li>-->
+<!--                    <li><a href="--><?php //echo base_url() ; ?><!--accounts/transactions"><span>Transactions</span></a></li>-->
+<!--                    <li><a href="--><?php //echo base_url() ; ?><!--accounts/cash_book"><span>Cash book</span></a></li>-->
+<!--                    <li><a href="--><?php //echo base_url() ; ?><!--accounts/trial_balance"><span>Trial Balance</span></a></li>-->
+<!--                    <li><a href="--><?php //echo base_url() ; ?><!--accounts/ledger"><span>Ledger</span></a></li>-->
+<!--                    <li><a href="--><?php //echo base_url() ; ?><!--accounts/profit_and_loss"><span>Profit &amp; Loss</span></a></li>-->
+<!--                </ul>-->
+<!--            </li>-->
             <li class="open hasChild">
                 <a href="javascript:;"><i class="fa fa-cog"></i> <span>Settings</span> </a>
                 <ul class="acc-menu" style="display: block;">
@@ -579,6 +579,27 @@
             }
         );
 
+        $("#makeInstallmentSubmit").on('click', function(){
+            var sum = 0;
+            $(".installment_amounts").each(function(){
+                sum += +$(this).val();
+            });
+
+            var initial_amount = $("#InitialAmount").val();
+
+            sum = Number(sum) + Number(initial_amount);
+            sum = Number(sum);
+            var pending_amount = $("#InstallmentAmount").val();
+            var pending_amount = Number(pending_amount) + Number(initial_amount);
+
+            if(sum != pending_amount){
+                alert("Sum of installment amount must be equal to total fee package amount!");
+            }
+            else{
+//                alert("equal");
+                $("#makeInstallmentForm").submit();
+            }
+        });
 
         $('#addAccountsModal').on('hidden.bs.modal', function () {
             window.location.reload();
