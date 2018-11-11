@@ -42,7 +42,7 @@
                             <div class="col-sm-3">
                                 <label class="control-label" for="FeeInstallment_ToDate">ToDate</label>
                                 <div class="input-group date">
-                                    <input value="<?php echo $to_date;?>" class="form-control enableDatePicker" data-val="true" data-val-date="The field ToDate must be a date." data-val-required="The ToDate field is required." id="dto" name="FeeInstallment.ToDate" type="text">
+                                    <input value="<?php echo $to_date;?>" class="form-control" data-val="true" data-val-date="The field ToDate must be a date." data-val-required="The ToDate field is required." id="dto" name="FeeInstallment.ToDate" type="text">
                                     <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                                 </div>
                                 <span class="field-validation-valid text-danger" data-valmsg-for="FeeInstallment.ToDate" data-valmsg-replace="true"></span>
