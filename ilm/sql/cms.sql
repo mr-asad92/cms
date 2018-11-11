@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 10, 2018 at 11:20 PM
+-- Generation Time: Nov 11, 2018 at 01:32 AM
 -- Server version: 10.1.24-MariaDB
 -- PHP Version: 7.1.6
 
@@ -114,15 +114,6 @@ CREATE TABLE `enrollment` (
   `edited_by` int(11) NOT NULL,
   `status` int(11) NOT NULL DEFAULT '1' COMMENT '0 = old, 1 = active, 2 = suspend, 3 = leave'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `enrollment`
---
-
-INSERT INTO `enrollment` (`id`, `enrollment_date`, `program_id`, `class_id`, `section_id`, `study_medium`, `roll_no`, `pic`, `created_at`, `updated_at`, `created_by`, `edited_by`, `status`) VALUES
-(1, '2018-11-07 19:00:00', '1', 1, 1, 1, '123', '5be604b3626c7_DSC_0021_copy.jpg', '2018-11-08 17:58:07', '2018-11-09 06:05:39', 5, 5, 1),
-(2, '2018-11-11 07:00:00', '1', 1, 1, 1, '21', '5be7482feca77_Screenshot_1.png', '2018-11-10 21:05:21', '2018-11-10 05:05:51', 5, 5, 1),
-(3, '2018-11-11 07:00:00', '2', 1, 1, 1, '2343', '', '2018-11-10 21:49:08', '2018-11-10 05:49:44', 5, 5, 1);
 
 -- --------------------------------------------------------
 
@@ -663,7 +654,7 @@ ALTER TABLE `classes`
 -- AUTO_INCREMENT for table `enrollment`
 --
 ALTER TABLE `enrollment`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `family_information`
 --
