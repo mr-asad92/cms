@@ -925,6 +925,27 @@ class Admin_Model extends CI_Model
         return $this->db->where('class_id', $class_id)->get('sections')->result_array();
     }
 
+    public function getClassesWithProgramTitle($get_empty_selected = false){
+        $classes = $this->db->select('c.*, p.title as programTitle')->from('classes c')->join('programs p','p.id = c.program_id')->get()->result_array();
+        $classesList = [];
+
+        if ($get_empty_selected){
+            $classesList['0'] = '';
+        }
+        foreach ($classes as $class ){
+            $classesList[$class['id']] = $class['title'].' ('.$class['programTitle'].')';
+        }
+
+
+        return $classesList;
+    }
+
+    public function getClassNameWithProgramTitle($class_id){
+        $q = $classes = $this->db->select('c.*, p.title as programTitle')->from('classes c')->join('programs p','p.id = c.program_id')->where('c.id',$class_id)->get()->result_array()[0];
+
+        return $q['title'].' ('.$q['programTitle'].')';
+
+    }
 }
 
 

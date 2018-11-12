@@ -580,24 +580,31 @@
         );
 
         $("#makeInstallmentSubmit").on('click', function(){
-            var sum = 0;
-            $(".installment_amounts").each(function(){
-                sum += +$(this).val();
-            });
 
             var initial_amount = $("#InitialAmount").val();
 
-            sum = Number(sum) + Number(initial_amount);
-            sum = Number(sum);
-            var pending_amount = $("#InstallmentAmount").val();
-            var pending_amount = Number(pending_amount) + Number(initial_amount);
-
-            if(sum != pending_amount){
-                alert("Sum of installment amount must be equal to total fee package amount!");
+            if(initial_amount <= 0 || initial_amount == ""){
+                alert("Please enter initial amount!");
             }
-            else{
+            else {
+                var sum = 0;
+                $(".installment_amounts").each(function () {
+                    sum += +$(this).val();
+                });
+
+
+                sum = Number(sum) + Number(initial_amount);
+                sum = Number(sum);
+                var pending_amount = $("#InstallmentAmount").val();
+                pending_amount = Number(pending_amount) + Number(initial_amount);
+
+                if (sum != pending_amount) {
+                    alert("Sum of installment amount must be equal to total fee package amount!");
+                }
+                else {
 //                alert("equal");
-                $("#makeInstallmentForm").submit();
+                    $("#makeInstallmentForm").submit();
+                }
             }
         });
 

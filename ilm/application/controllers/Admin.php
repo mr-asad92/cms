@@ -657,7 +657,6 @@ class Admin extends CI_Controller
 
         $total_paidFee = $this->admin_model->getTotalPaidFee($enrollment_id, $classId, $sectionId);
 
-//        debug($data['student_detail']['grand_total']);
         $data['pending_amount'] = number_format($data['student_detail']['grand_total'], 2, '.', '') - number_format($total_paidFee['total_paid_fee'], 2, '.', '');
 
         $this->load->view('masterLayouts/admin',$data);
@@ -1245,7 +1244,7 @@ class Admin extends CI_Controller
             'view' => 'admin/add_section',
         );
 
-        $data['classes'] = $this->admin_model->getClasses(true);
+        $data['classes'] = $this->admin_model->getClassesWithProgramTitle(true);
 
         $data['sectionData'] = $this->admin_model->getSectionsList();
         $data['formSubmitMethod'] = 'save_section';

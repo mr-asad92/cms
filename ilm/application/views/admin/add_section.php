@@ -49,7 +49,8 @@
 
             <?php
                 foreach ($sectionData as $data){
-                    $class = $this->admin_model->getClassName($data['class_id']);
+//                    $class = $this->admin_model->getClassName($data['class_id']);
+                    $class = $this->admin_model->getClassNameWithProgramTitle($data['class_id']);
                     ?>
                     <tr>
                         <td><?php echo $data['title'];?></td>

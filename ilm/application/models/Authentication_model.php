@@ -90,6 +90,26 @@ class Authentication_Model extends CI_Model
             require FCPATH.'assets/libs/PHPMailer/src/SMTP.php';
 
             try {
+                /*
+                $mail = new PHPMailer;
+                $mail->isSMTP();
+                $mail->SMTPSecure = "ssl";
+                $mail->Debugoutput = 'html';
+                $mail->Host = "srv41.hosterpk.com";
+                $mail->Port = 465;
+                $mail->SMTPAuth = true;
+                $mail->Username = "ilmcollege@ilm.aimgetsolution.com";
+                $mail->Password = "ilmCollege123";
+                $mail->setFrom('ilmcollege@ilm.aimgetsolution.com', 'ILM College');
+                $mail->IsHTML(true);
+                $mail->addAddress($email);
+                $mail->Subject = 'ILM | Your new password is here!';
+                $mail->Body = $mail_message;
+                $mail->AltBody = $mail_message;
+                $mail->send();
+                */
+
+
                 $mail = new PHPMailer;
                 $mail->isSMTP();
                 $mail->SMTPSecure = "tls";
