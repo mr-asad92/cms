@@ -108,9 +108,9 @@ class Admin extends CI_Controller
 
         $data['submitUrl'] = base_url().'admin/enrollment_save';
         $data['enrollment_id'] = $this->admin_model->getEnrollmentId();
-        $data['classes'] = $this->admin_model->getClasses(true);
+        $data['classes'] = $this->admin_model->getClassesWithProgramTitle(true);
         $data['programs'] = $this->admin_model->getPrograms(true);
-        $data['sections'] = $this->admin_model->getSections(true);
+        $data['sections'] = $this->admin_model->getSectionsWithProgramAndClassTitle(true);
         $data['studyMedium'] = ['1' => 'English', '2' => 'Urdu'];
         $data['gender'] = ['1' => 'Male', '2' => 'Female'];
         $data['religion'] = ['1' => 'Muslim', '2' => 'Non-Muslim'];
@@ -317,8 +317,8 @@ class Admin extends CI_Controller
 
         $data['submitUrl'] = base_url().'admin/updateRegistration/'.$regId;
         $data['enrollment_id'] = $this->admin_model->getEnrollmentId();
-        $data['classes'] = $this->admin_model->getClasses(true);
-        $data['sections'] = $this->admin_model->getSections(true);
+        $data['classes'] = $this->admin_model->getClassesWithProgramTitle(true);
+        $data['sections'] = $this->admin_model->getSectionsWithProgramAndClassTitle(true);
         $data['programs'] = $this->admin_model->getPrograms(true);
         $data['studyMedium'] = ['1' => 'English', '2' => 'Urdu'];
         $data['gender'] = ['1' => 'Male', '2' => 'Female'];
@@ -1178,8 +1178,8 @@ class Admin extends CI_Controller
             'view' => 'admin/add_fines',
         );
 
-        $data['classes'] = $this->admin_model->getClasses(true);
-        $data['sections'] = $this->admin_model->getSections(true);
+        $data['classes'] = $this->admin_model->getClassesWithProgramTitle(true);
+        $data['sections'] = $this->admin_model->getSectionsWithProgramAndClassTitle(true);
 
         $data['finesList'] = $this->admin_model->getFinesList();
         $data['formSubmitMethod'] = 'save_fine';
@@ -1199,8 +1199,8 @@ class Admin extends CI_Controller
             'view' => 'admin/add_fines',
         );
 
-        $data['classes'] = $this->admin_model->getClasses(true);
-        $data['sections'] = $this->admin_model->getSections(true);
+        $data['classes'] = $this->admin_model->getClassesWithProgramTitle(true);
+        $data['sections'] = $this->admin_model->getSectionsWithProgramAndClassTitle(true);
 
         $data['finesList'] = $this->admin_model->getFinesList();
         $data['finesData'] = $this->admin_model->getFinesData($id);

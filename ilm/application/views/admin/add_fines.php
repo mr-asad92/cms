@@ -56,7 +56,7 @@
 
             <?php
                 foreach ($finesList as $fine){
-                    $class = $this->admin_model->getClassName($fine['classId']);
+                    $class = $this->admin_model->getClassNameWithProgramTitle($fine['classId']);
                     $section = $this->admin_model->getSectionName($fine['sectionId']);
                     ?>
                     <tr>
