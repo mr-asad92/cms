@@ -482,7 +482,7 @@ class Admin extends CI_Controller
         $data = array(
             'title' => 'ILM | Admin',
             'view' => 'admin/studentsList',
-            'classes' => $this->admin_model->getClasses(true),
+            'classes' => $this->admin_model->getClassesWithProgramTitle(true),
             'studentsList' => $this->admin_model->getStudentsList()
         );
 
@@ -588,7 +588,7 @@ class Admin extends CI_Controller
         $data = array(
             'title' => 'ILM | Admin',
             'view' => 'admin/studentsList',
-            'classes' => $this->admin_model->getClasses(true),
+            'classes' => $this->admin_model->getClassesWithProgramTitle(true),
             'studentsList' => $this->admin_model->searchStudent($searchData)
         );
 
@@ -788,7 +788,8 @@ class Admin extends CI_Controller
 
         if($is_saved){
             $this->session->set_flashdata('msg', 'Installments Saved!');
-            redirect(base_url().'admin/makeInstallments/'.$installments['enrollment_id']);
+//            redirect(base_url().'admin/makeInstallments/'.$installments['enrollment_id']);
+            redirect(base_url().'admin/studentsList');
         }
 
     }
@@ -844,8 +845,8 @@ class Admin extends CI_Controller
             $data['installments'] = $this->admin_model->getUnPaidInstallments();
         }
 
-        $data['classes'] = $this->admin_model->getClasses(true);
-        $data['sections'] = $this->admin_model->getSections(true);
+        $data['classes'] = $this->admin_model->getClassesWithProgramTitle(true);
+        $data['sections'] = $this->admin_model->getSectionsWithProgramAndClassTitle(true);
 
         $this->load->view('masterLayouts/admin',$data);
     }

@@ -75,8 +75,8 @@ class Vouchers extends CI_Controller
         }
 
 
-        $data['classes'] = $this->admin_model->getClasses(true);
-        $data['sections'] = $this->admin_model->getSections(true);
+        $data['classes'] = $this->admin_model->getClassesWithProgramTitle(true);
+        $data['sections'] = $this->admin_model->getSectionsWithProgramAndClassTitle(true);
 
         //echo '<pre>';print_r($data);exit();
         $this->load->view('masterLayouts/admin',$data);

@@ -276,6 +276,7 @@ class Admin_Model extends CI_Model
             personal_details.last_name as student_lastName,
             family_information.first_name as guardian_firstName,
             family_information.last_name as guardian_lastName,
+            family_information.father_name as father_name,
             family_information.mobile_no,
             classes.title as class_name,
             programs.title as study_program,
@@ -348,7 +349,7 @@ class Admin_Model extends CI_Model
         SELECT 
         `enrollment`.*, `enrollment`.`id` as `enrollment_no`, `enrollment`.`roll_no`, 
         `personal_details`.`first_name` as `student_firstName`, `personal_details`.`last_name` as `student_lastName`, 
-        `family_information`.`first_name` as `guardian_firstName`, `family_information`.`last_name` as `guardian_lastName`, `family_information`.`mobile_no`, 
+        `family_information`.`first_name` as `guardian_firstName`, `family_information`.`last_name` as `guardian_lastName`, `family_information`.`mobile_no`, `family_information`.`father_name` as `father_name`,
         `classes`.*, `classes`.`title` as `class_name`, 
         `programs`.*, `programs`.`title` as `study_program`, 
         `sections`.`title` as `section_name` 
@@ -378,7 +379,8 @@ class Admin_Model extends CI_Model
 
         if($guardian_name != ""){
             $condition = (whereClauseExists($query))?'AND ':' WHERE ';
-            $query .= $condition." (`family_information`.`first_name` LIKE '$guardian_name' OR `family_information`.`last_name` LIKE '$guardian_name')";
+//            $query .= $condition." (`family_information`.`first_name` LIKE '$guardian_name' OR `family_information`.`last_name` LIKE '$guardian_name')";
+            $query .= $condition." (`family_information`.`father_name` LIKE '$guardian_name' )";
         }
 
         if($mobile_no != ""){
@@ -938,6 +940,21 @@ class Admin_Model extends CI_Model
 
 
         return $classesList;
+    }
+
+    public function getSectionsWithProgramAndClassTitle($get_empty_selected = false){
+        $sections = $this->db->select('s.*, c.title as classTitle, p.title as programTitle')->from('sections s')->join('classes c','c.id = s.class_id')->join('programs p','p.id = c.program_id')->get()->result_array();
+        $sectionsList = [];
+
+        if ($get_empty_selected){
+            $sectionsList['0'] = '';
+        }
+        foreach ($sections as $section ){
+            $sectionsList[$section['id']] = $section['title'].' ('.$section['programTitle'].' - '.$section['classTitle'].')';
+        }
+
+
+        return $sectionsList;
     }
 
     public function getClassNameWithProgramTitle($class_id){

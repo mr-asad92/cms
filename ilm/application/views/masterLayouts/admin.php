@@ -30,6 +30,33 @@
 
     <link rel='stylesheet' type='text/css' href='<?php echo base_url();?>assets/plugins/codeprettifier/prettify.css' />
     <link rel='stylesheet' type='text/css' href='<?php echo base_url();?>assets/plugins/form-toggle/toggles.css' />
+    <style>
+        .paginate_enabled_next:hover{
+            cursor: pointer;
+        }
+
+        .paginate_disabled_next:hover{
+            cursor: pointer;
+        }
+
+        .paginate_enabled_previous{
+            margin-right: 5px;
+        }
+
+        .paginate_enabled_previous:hover{
+            margin-right: 5px;
+            cursor: pointer;
+        }
+
+        .paginate_disabled_previous{
+            margin-right: 5px;
+        }
+
+        .paginate_disabled_previous:hover{
+            margin-right: 5px;
+            cursor: pointer;
+        }
+    </style>
 </head>
 
 <body class="">
@@ -565,6 +592,8 @@
 <script>
     $(document).ready( function () {
         $(".enableDatePicker").datepicker( "setDate" , "2018" );
+        $(".enableDatePickerFrom").datepicker( "setDate" , '<?php echo date("m/01/Y");?>' );
+        $(".enableDatePickerTo").datepicker( "setDate" , '<?php echo date("m/t/Y");?>' );
         $('#studentsList').DataTable();
     } );
 

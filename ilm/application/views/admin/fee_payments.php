@@ -8,6 +8,7 @@
                 <form action="<?php echo base_url().'admin/fee_payments';?>" class="" method="post" novalidate="novalidate">                    <div class="mb5 clearfix">
                         <h4 class="pull-left"><strong>Enter any of the following field data to search</strong></h4>
                         <button type="submit" class="btn btn-primary pull-right"><span class="fa fa-search"></span>  Search</button>
+                        <button type="button" style="margin-right: 5px;" class="btn btn-info pull-right" onclick="window.location.href= '<?php echo base_url()."admin/fee_payments";?>';"><span class="fa fa-refresh"></span>  Refresh</button>
                     </div>
                     <div class="form-group">
                         <div class="col-sm-2">
@@ -17,14 +18,14 @@
                         <div class="col-sm-2">
                             <label class="control-label" for="DateFrom">DateFrom</label>
                             <div class="input-group date">
-                                <input class="form-control enableDatePicker" data-val="true" data-val-date="The field DateFrom must be a date." id="dto" name="DateFrom" placeholder="From" value="<?php echo set_value('DateFrom');?>" type="text">
+                                <input class="form-control enableDatePickerFrom" data-val="true" data-val-date="The field DateFrom must be a date." id="dto" name="DateFrom" placeholder="From" value="<?php echo set_value('DateFrom');?>" type="text">
                                 <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                             </div>
                         </div>
                         <div class="col-sm-2">
                             <label class="control-label" for="DateTo">DateTo</label>
                             <div class="input-group date">
-                                <input class="form-control enableDatePicker" data-val="true" data-val-date="The field DateTo must be a date." id="dto" name="DateTo" placeholder="To" value="<?php echo set_value('DateTo');?>" type="text">
+                                <input class="form-control enableDatePickerTo" data-val="true" data-val-date="The field DateTo must be a date." id="dto" name="DateTo" placeholder="To" value="<?php echo set_value('DateTo');?>" type="text">
                                 <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                             </div>
                         </div>

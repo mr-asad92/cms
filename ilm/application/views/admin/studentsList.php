@@ -15,6 +15,7 @@
                 <div class="mb5 clearfix">
                     <h4 class="pull-left"><strong>Enter any of the following field data to search</strong></h4>
                     <button type="submit" class="btn btn-primary pull-right"><span class="fa fa-search"></span>  Search</button>
+                    <button type="button" style="margin-right: 5px;" class="btn btn-info pull-right" onclick="window.location.href= '<?php echo base_url()."admin/searchStudent";?>';"><span class="fa fa-refresh"></span>  Refresh</button>
                 </div>
                 <div class="form-group">
                     <div class="col-sm-2">
@@ -32,7 +33,7 @@
                         <input class="form-control" id="Name" name="Name" value="" type="text">
                     </div>
                     <div class="col-sm-2">
-                        <label for="GuardianName">Guardian Name</label>
+                        <label for="GuardianName">Father Name</label>
                         <input class="form-control" id="GuardianName" name="guardianName"
                                value="" type="text">
                     </div>
@@ -84,7 +85,7 @@
                         <tr>
                             <th>Enrollment No</th>
                             <th>Name</th>
-                            <th>Guardian Name</th>
+                            <th>Father Name</th>
                             <th>Guardian Cell No</th>
                             <th>Study Program</th>
                             <th>Section</th>
@@ -99,8 +100,7 @@
                                 <td><?php echo $student['enrollment_no']; ?></td>
                                 <td><?php echo $student['student_firstName'] . ' ' .
                                         $student['student_lastName']; ?></td>
-                                <td><?php echo $student['guardian_firstName'] . ' ' .
-                                        $student['guardian_lastName']; ?></td>
+                                <td><?php echo $student['father_name'] ; ?></td>
                                 <td><?php echo $student['mobile_no']; ?></td>
                                 <td><?php echo $student['study_program']; ?></td>
 <!--                                <td>--><?php //echo $student['class_name']; ?><!--</td>-->
