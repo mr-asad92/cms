@@ -58,7 +58,9 @@
             <div class="col-sm-12">
                 <div class="">
                     <table class="table table-responsive table-hover  ">
-                        <tbody><tr>
+                        <tbody>
+
+                        <tr>
                             <td colspan="4">
                                 <div class="form-group">
                                     <h4>
@@ -84,6 +86,38 @@
                                 </div>
                             </td>
                         </tr>
+
+                        <tr>
+
+                            <th>
+                                    <h5>
+                                        <span >Father Name</span>
+                                    </h5>
+
+                            </th>
+                            <td>
+                                <span >
+                                        <?php echo $student_detail['father_name']; ?>
+
+                                    </span>
+                            </td>
+
+                            <th>
+                                <h5>
+                                    <span >Father CNIC</span>
+                                </h5>
+
+                            </th>
+                            <td>
+                                <span>
+                                        <?php echo $student_detail['father_cnic']; ?>
+
+                                    </span>
+                            </td>
+
+
+                        </tr>
+
                         <tr>
                             <th>Guardian Name</th>
                             <td><?php echo $student_detail['first_name'].' '. $student_detail['last_name'] ;?></td>

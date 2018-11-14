@@ -294,6 +294,32 @@ class Admin_Model extends CI_Model
         return $query->result_array();
     }
 
+    public function getStudentsFeeList()
+    {
+        $query = $this->db->select('
+
+            enrollment.id as enrollment_no,
+            personal_details.first_name as student_firstName,
+            personal_details.last_name as student_lastName,
+            classes.title as class_name,
+            classes.id as class_id,
+            fee_info.grand_total,
+            ')
+            ->from('enrollment')
+            ->join('personal_details','enrollment.id = personal_details.enrollment_id')
+            ->join('family_information', 'enrollment.id = family_information.enrollment_id')
+            ->join('classes', 'classes.id = enrollment.class_id' )
+            ->join('programs', 'programs.id = enrollment.program_id' )
+            ->join('sections', 'sections.id = enrollment.section_id')
+            ->join('fee_info', 'fee_info.enrollment_id= enrollment.id')
+            ->get();
+
+        return $query->result_array();
+    }
+
+    public function getStudentFee($enrollment_id, $fee_status = 0){
+        return $this->db->select('SUM(fee_amount) as fee')->from('paid_fee')->where(['enrollment_id' => $enrollment_id,'delete_status' => 0, 'status' => $fee_status])->get()->result_array()[0]['fee'];
+    }
 
     public function getStudentAddresses($id){
         $q = $this->db->where('enrollment_id', $id)->get('addresses')->result_array();
@@ -395,6 +421,71 @@ class Admin_Model extends CI_Model
 
         $res = $this->db->query($query);
 
+            return $res->result_array();
+
+    }
+
+
+    public function searchStudentsFeeList($searchData){
+
+        $enroll_no = $searchData['enrollment_no'];
+        $roll_no = $searchData['roll_no'];
+        $student_name = $searchData['student_name'];
+        $guardian_name = $searchData['guardian_name'];
+        $mobile_no = $searchData['mobile_no'];
+        $class_id = $searchData['class_id'];
+
+
+        $query = "
+        SELECT 
+        `enrollment`.*, `enrollment`.`id` as `enrollment_no`, `enrollment`.`roll_no`, 
+        `personal_details`.`first_name` as `student_firstName`, `personal_details`.`last_name` as `student_lastName`,
+        `classes`.id as `class_id`, `classes`.`title` as `class_name`,
+        `fee_info`.`grand_total`
+        FROM `enrollment` 
+        LEFT JOIN `personal_details` ON `enrollment`.`id` = `personal_details`.`enrollment_id` 
+        LEFT JOIN `family_information` ON `enrollment`.`id` = `family_information`.`enrollment_id` 
+        LEFT JOIN `classes` ON `classes`.`id` = `enrollment`.`class_id` 
+        LEFT JOIN `fee_info` ON `fee_info`.`enrollment_id` = `enrollment`.`id` 
+        ";
+
+        $condition = '';
+        if($enroll_no != ""){
+            $condition = (whereClauseExists($query))?'AND ':' WHERE ';
+            $query .= $condition."`enrollment`.`id` = '$enroll_no'";
+        }
+
+        if($roll_no != ""){
+            $condition = (whereClauseExists($query))?'AND ':' WHERE ';
+            $query .= $condition." `enrollment`.`roll_no` = '$roll_no'";
+        }
+
+        if($student_name != ""){
+            $condition = (whereClauseExists($query))?'AND ':' WHERE ';
+            $query .= $condition." (`personal_details`.`first_name` LIKE '$student_name' OR `personal_details`.`last_name` LIKE '$student_name')";
+        }
+
+        if($guardian_name != ""){
+            $condition = (whereClauseExists($query))?'AND ':' WHERE ';
+//            $query .= $condition." (`family_information`.`first_name` LIKE '$guardian_name' OR `family_information`.`last_name` LIKE '$guardian_name')";
+            $query .= $condition." (`family_information`.`father_name` LIKE '$guardian_name' )";
+        }
+
+        if($mobile_no != ""){
+            $condition = (whereClauseExists($query))?'AND ':' WHERE ';
+            $query .= $condition." (`family_information`.`mobile_no` = '$mobile_no' OR `family_information`.`mobile_no` = '$student_name')";
+        }
+
+        if($class_id != 0){
+            $condition = (whereClauseExists($query))?'AND ':' WHERE ';
+            $query .= $condition." `enrollment`.`class_id` = '$class_id'";
+        }
+
+        $res = $this->db->query($query);
+
+//        if(!$res){
+//            debug($this->db->error());
+//        }
             return $res->result_array();
 
     }
@@ -559,15 +650,17 @@ class Admin_Model extends CI_Model
             e.id,
             pd.first_name, pd.last_name,
             pf.installment_no, pf.fee_amount, pf.installment_date, pf.status, pf.installment_date, pf.id as pfid,
-            c.title
+            c.title, p.title as programTitle
             ')
             ->from('enrollment e')
             ->join('personal_details pd', 'pd.enrollment_id = e.id')
             ->join('paid_fee pf', 'pf.enrollment_id = e.id')
             ->join('classes c', 'pf.classId = c.id')
+            ->join('programs p', 'pf.program_id = p.id')
             ->where(['pf.status' => 0, 'delete_status' => 0, 'installment_no > ' => 1])
             ->get()->result_array();
 
+//        debug($this->db->last_query());
         return $query;
     }
 
@@ -578,11 +671,12 @@ class Admin_Model extends CI_Model
             e.id,
             pd.first_name, pd.last_name,
             pf.installment_no, pf.fee_amount, pf.installment_date, pf.status, pf.installment_date, pf.id as pfid,
-            c.title
+            c.title, p.title as programTitle
             FROM enrollment e 
             LEFT JOIN personal_details pd ON pd.enrollment_id = e.id
             LEFT JOIN paid_fee pf ON pf.enrollment_id = e.id
             LEFT JOIN classes c ON pf.classId = c.id
+            LEFT JOIN programs p ON pf.program_id = p.id
             WHERE pf.delete_status = 0
         ";
 
@@ -955,6 +1049,23 @@ class Admin_Model extends CI_Model
 
 
         return $sectionsList;
+    }
+
+    public function getClassesWithProgramAndSectionTitle($get_empty_selected = false){
+        $classes = $this->db->select('c.*, s.title as sectionTitle, p.title as programTitle')->from('classes c')->join('programs p','p.id = c.program_id', 'left')->join('sections s','c.id = s.class_id', 'left')->get()->result_array();
+
+//        debug($this->db->last_query());
+        $classesList = [];
+
+        if ($get_empty_selected){
+            $classesList['0'] = '';
+        }
+        foreach ($classes as $class ){
+            $classesList[$class['id']] = $class['title'].' ('.$class['programTitle'].' - '.$class['sectionTitle'].')';
+        }
+
+
+        return $classesList;
     }
 
     public function getClassNameWithProgramTitle($class_id){

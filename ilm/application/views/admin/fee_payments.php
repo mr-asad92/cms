@@ -105,7 +105,7 @@
                                 <td><?php echo $installment['installment_no'];?></td>
                                 <td><?php echo $installment['fee_amount'];?></td>
                                 <td><?php echo $installment['installment_date'];?></td>
-                                <td><?php echo $installment['title'];?> </td>
+                                <td><?php echo $installment['title'].' ('.$installment['programTitle'].')';?> </td>
                                 <td><?php echo $status;?> </td>
                                 <td>
 

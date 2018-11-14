@@ -486,11 +486,46 @@ class Admin extends CI_Controller
             'studentsList' => $this->admin_model->getStudentsList()
         );
 
+//        debug($data['classes']);
+
         //echo '<pre>'; print_r($data); exit();
 
 
         $this->load->view('masterLayouts/admin',$data);
     }
+
+    public function studentsFeeList(){
+        $data = array(
+            'title' => 'ILM | Admin',
+            'view' => 'admin/studentsFeeList',
+            'classes' => $this->admin_model->getClassesWithProgramTitle(true),
+            'studentsList' => $this->admin_model->getStudentsFeeList()
+        );
+
+        $this->load->view('masterLayouts/admin',$data);
+    }
+
+    public function searchStudentsFeeList(){
+
+        $searchData = array(
+            'enrollment_no' => $this->input->post('EnrollmentNo'),
+            'roll_no' => $this->input->post('rollNo'),
+            'student_name' => $this->input->post('Name'),
+            'guardian_name' => $this->input->post('guardianName'),
+            'mobile_no' => $this->input->post('guardianMobile'),
+            'class_id' => $this->input->post('classId')
+        );
+
+        $data = array(
+            'title' => 'ILM | Admin',
+            'view' => 'admin/studentsFeeList',
+            'classes' => $this->admin_model->getClassesWithProgramTitle(true),
+            'studentsList' => $this->admin_model->searchStudentsFeeList($searchData)
+        );
+
+        $this->load->view('masterLayouts/admin',$data);
+    }
+
 
     public function feeRecord($enrollment_id)
     {
@@ -614,11 +649,13 @@ class Admin extends CI_Controller
         $classId = $this->admin_model->getCurrentClassId($enrollment_id);
         $sectionId = $this->admin_model->getCurrentSectionId($enrollment_id);
 
+//        'to_date' => date("Y-m-d", strtotime("+30 days")),
+
         $data = array(
             'title' => 'ILM | Admin',
             'view' => 'admin/makeInstallments',
             'student_detail' => $this->admin_model->getStudentInfoForInstallments($enrollment_id),
-            'to_date' => date("Y-m-d", strtotime("+30 days")),
+            'to_date' => "2019-03-30",
         );
 
         $data['student_detail']['enrollment_number']=$enrollment_id;
@@ -650,7 +687,7 @@ class Admin extends CI_Controller
             'student_detail' => $this->admin_model->getStudentInfoForInstallments($enrollment_id),
             'initial_amount' => $this->admin_model->getInitialAmount($enrollment_id),
             'installments'   => $this->admin_model->getInstallments($enrollment_id),
-            'to_date' => date("Y-m-d", strtotime("+30 days")),
+            'to_date' => "2019-03-30",
         );
 
         $data['student_detail']['enrollment_number']=$enrollment_id;

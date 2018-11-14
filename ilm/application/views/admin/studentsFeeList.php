@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 //echo '<pre>';print_r($studentsList);exit();
 ?>
@@ -10,12 +10,12 @@
     </div>
     <div class="panel-body">
         <div class="col-sm-12">
-            <form action="<?php echo base_url(); ?>admin/searchStudent" class="" method="post"
+            <form action="<?php echo base_url(); ?>admin/searchStudentsFeeList" class="" method="post"
                   novalidate="novalidate">
                 <div class="mb5 clearfix">
                     <h4 class="pull-left"><strong>Enter any of the following field data to search</strong></h4>
                     <button type="submit" class="btn btn-primary pull-right"><span class="fa fa-search"></span>  Search</button>
-                    <button type="button" style="margin-right: 5px;" class="btn btn-info pull-right" onclick="window.location.href= '<?php echo base_url()."admin/searchStudent";?>';"><span class="fa fa-refresh"></span>  Refresh</button>
+                    <button type="button" style="margin-right: 5px;" class="btn btn-info pull-right" onclick="window.location.href= '<?php echo base_url()."admin/studentsFeeList";?>';"><span class="fa fa-refresh"></span>  Refresh</button>
                 </div>
                 <div class="form-group">
                     <div class="col-sm-2">
@@ -85,58 +85,25 @@
                         <tr>
                             <th>Enrollment No</th>
                             <th>Name</th>
-                            <th>Father Name</th>
-                            <th>Guardian Cell No</th>
-                            <th>Study Program</th>
-<!--                            <th>Section</th>-->
-                            <th>Roll No</th>
-                            <th>Status</th>
-                            <th>Action</th>
+                            <th>Class</th>
+                            <th>Total Fee</th>
+                            <th>Paid</th>
+                            <th>Balance</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <?php foreach ($studentsList as $student) : ?>
+                        <?php foreach ($studentsList as $student) :
+                            $class_name = $this->admin_model->getClassNameWithProgramTitle($student['class_id']);
+                            $paid_fee = $this->admin_model->getStudentFee($student['enrollment_no'], 1);
+                            ?>
                             <tr>
                                 <td><?php echo $student['enrollment_no']; ?></td>
-                                <td><?php echo $student['student_firstName'] . ' ' .
-                                        $student['student_lastName']; ?></td>
-                                <td><?php echo $student['father_name'] ; ?></td>
-                                <td><?php echo $student['mobile_no']; ?></td>
-                                <td><?php echo $student['study_program'].' ('.$student['class_name'].' - '.$student['section_name'].')'; ?></td>
-<!--                                <td>--><?php //echo $student['class_name']; ?><!--</td>-->
-<!--                                <td>--><?php //echo $student['section_name']; ?><!--</td>-->
-                                <td><?php echo $student['roll_no']; ?></td>
-                                <td>
-                                    <?php
-                                    if ($student['status'] == 0)
-                                    {
-                                        echo 'Old';
-                                    }
-                                    elseif ($student['status'] == 1)
-                                    {
-                                        echo '<p class="text-success">Active</p>';
-                                    }
-                                    elseif ($student['status'] == 2)
-                                    {
-                                        echo '<p class="text-danger">Suspend</p>';
-                                    }
-                                    elseif ($student['status'] == 3)
-                                    {
-                                        echo '<p class="text-warning">Leave</p>';
-                                    }
+                                <td><a href="<?php echo base_url().'admin/studentDetails/'.$student['enrollment_no'];?>"><?php echo $student['student_firstName'] . ' ' .$student['student_lastName']; ?></a></td>
+                                <td><?php echo $class_name; ?></td>
+                                <td><?php echo $student['grand_total']; ?></td>
+                                <td><?php echo $paid_fee; ?></td>
+                                <td><?php echo $student['grand_total'] - $paid_fee; ?></td>
 
-                                    ?>
-                                </td>
-                                <td>
-
-                                    <a href="<?php echo base_url();?>admin/studentDetails/<?php echo $student['enrollment_no']; ?>"
-                                       data-toggle="tooltip" title="View Detail"><i
-                                                class="fa fa-info" aria-hidden="true"></i></a> &nbsp; <b>|</b>&nbsp;
-                                    <a href="<?php echo base_url();?>admin/editRegistration/<?php echo $student['enrollment_no']; ?>" data-toggle="tooltip" title="Edit"><i class="fa fa-pencil" aria-hidden="true"></i></a> &nbsp; <b>|</b>&nbsp;
-                                    <a href="<?php echo base_url();?>admin/makeInstallments/<?php echo $student['enrollment_no']; ?>" class="disabled" data-toggle="tooltip" title="Fee Installment"><i class="fa fa-money" aria-hidden="true"></i></a>
-                                    &nbsp; <b>|</b>&nbsp;
-                                    <a style="margin-top:2px" class="fa fa-print" data-ajax="true" data-ajax-method="GET" data-ajax-mode="replace" data-ajax-success="PrintElem('.printable')" data-ajax-update="#rldAdmission" data-toggle="tooltip" href="<?php echo base_url();?>admin/printStudentDetails/<?php echo $student['enrollment_no']; ?>" title="Print"> </a>
-                                </td>
                             </tr>
                         <?php endforeach; ?>
                         </tbody>
