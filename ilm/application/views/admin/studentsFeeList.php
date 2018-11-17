@@ -124,16 +124,16 @@
                         </tr>
                         <tr>
                             <th class="active">Total Fee</th>
-                            <td><?php echo $fee_totals['grandTotal']?></td>
+                            <td><?php echo number_format($fee_totals['grandTotal']);?></td>
                         </tr>
                         <tr>
                             <th class="active">Paid Fee</th>
-                            <td><?php echo $fee_totals['paid_fee']?></td>
+                            <td><?php echo number_format($fee_totals['paid_fee']);?></td>
                         </tr>
 
                         <tr>
                             <th class="active">Balance</th>
-                            <td><?php echo $fee_totals['grandTotal'] - $fee_totals['paid_fee']?></td>
+                            <td><?php echo number_format($fee_totals['grandTotal'] - $fee_totals['paid_fee']);?></td>
                         </tr>
                     </table>
                     <?php } ?>

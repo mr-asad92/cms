@@ -455,6 +455,7 @@ class Admin_Model extends CI_Model
         LEFT JOIN `family_information` ON `enrollment`.`id` = `family_information`.`enrollment_id` 
         LEFT JOIN `classes` ON `classes`.`id` = `enrollment`.`class_id` 
         LEFT JOIN `fee_info` ON `fee_info`.`enrollment_id` = `enrollment`.`id` 
+        WHERE `fee_info`.`status` = '1' 
         ";
 
         $condition = '';
