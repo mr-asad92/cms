@@ -42,7 +42,7 @@
                         <input class="form-control mob" id="GuardianMobile"
                                name="guardianMobile" value="" type="text">
                     </div>
-                    <div class="col-sm-2">
+                    <div class="col-sm-1">
                         <label for="Class">Class</label>
                         <!--classes
                         <select class="form-control" data-val="true" data-val-number="The field Class must be a number." id="ddlclass" name="Class">
@@ -56,6 +56,23 @@
                             <option value="1">FSC (Medical)</option>
                         </select>-->
                         <?php echo form_dropdown('classId', $classes, set_value('classId', setVal('', 0, 'class_id', '')),'class="form-control"');?>
+
+
+                    </div>
+                    <div class="col-sm-1">
+                        <label for="Class">Section</label>
+                        <!--classes
+                        <select class="form-control" data-val="true" data-val-number="The field Class must be a number." id="ddlclass" name="Class">
+                            <option value="">Select Class</option>
+                            <option value="7">B</option>
+                            <option value="6">FA</option>
+                            <option value="5">ICS</option>
+                            <option value="4">I-Com</option>
+                            <option value="3">ADP(CS)</option>
+                            <option value="2">ADP (Accounting )</option>
+                            <option value="1">FSC (Medical)</option>
+                        </select>-->
+                        <?php echo form_dropdown('sectionId', $sections, set_value('sectionId', setVal('', 0, 'sectionId', '')),'class="form-control"');?>
 
 
                     </div>

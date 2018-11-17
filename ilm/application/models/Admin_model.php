@@ -376,6 +376,7 @@ class Admin_Model extends CI_Model
         $guardian_name = $searchData['guardian_name'];
         $mobile_no = $searchData['mobile_no'];
         $class_id = $searchData['class_id'];
+        $section_id = $searchData['section_id'];
 
 
         $query = "
@@ -426,6 +427,11 @@ class Admin_Model extends CI_Model
             $query .= $condition." `enrollment`.`class_id` = '$class_id'";
         }
 
+        if($section_id != 0){
+            $condition = (whereClauseExists($query))?'AND ':' WHERE ';
+            $query .= $condition." `enrollment`.`section_id` = '$section_id'";
+        }
+
         $res = $this->db->query($query);
 
             return $res->result_array();
@@ -441,6 +447,7 @@ class Admin_Model extends CI_Model
         $guardian_name = $searchData['guardian_name'];
         $mobile_no = $searchData['mobile_no'];
         $class_id = $searchData['class_id'];
+        $section_id = $searchData['section_id'];
 
 
         $query = "
@@ -488,6 +495,11 @@ class Admin_Model extends CI_Model
         if($class_id != 0){
             $condition = (whereClauseExists($query))?'AND ':' WHERE ';
             $query .= $condition." `enrollment`.`class_id` = '$class_id'";
+        }
+
+        if($section_id != 0){
+            $condition = (whereClauseExists($query))?'AND ':' WHERE ';
+            $query .= $condition." `enrollment`.`section_id` = '$section_id'";
         }
 
         $res = $this->db->query($query);

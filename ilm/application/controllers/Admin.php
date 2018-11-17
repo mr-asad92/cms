@@ -483,6 +483,7 @@ class Admin extends CI_Controller
             'title' => 'ILM | Admin',
             'view' => 'admin/studentsList',
             'classes' => $this->admin_model->getClassesWithProgramTitle(true),
+            'sections' => $this->admin_model->getSectionsWithProgramAndClassTitle(true),
             'studentsList' => $this->admin_model->getStudentsList()
         );
 
@@ -499,6 +500,7 @@ class Admin extends CI_Controller
             'title' => 'ILM | Admin',
             'view' => 'admin/studentsFeeList',
             'classes' => $this->admin_model->getClassesWithProgramTitle(true),
+            'sections' => $this->admin_model->getSectionsWithProgramAndClassTitle(true),
             'studentsList' => $this->admin_model->getStudentsFeeList(),
             'fee_totals' => $this->admin_model->getStudentsFeeTotals(),
         );
@@ -531,13 +533,15 @@ class Admin extends CI_Controller
             'student_name' => $this->input->post('Name'),
             'guardian_name' => $this->input->post('guardianName'),
             'mobile_no' => $this->input->post('guardianMobile'),
-            'class_id' => $this->input->post('classId')
+            'class_id' => $this->input->post('classId'),
+            'section_id' => $this->input->post('sectionId'),
         );
 
         $data = array(
             'title' => 'ILM | Admin',
             'view' => 'admin/studentsFeeList',
             'classes' => $this->admin_model->getClassesWithProgramTitle(true),
+            'sections' => $this->admin_model->getSectionsWithProgramAndClassTitle(true),
             'studentsList' => $this->admin_model->searchStudentsFeeList($searchData),
             'fee_totals' => false,
 
@@ -637,13 +641,15 @@ class Admin extends CI_Controller
             'student_name' => $this->input->post('Name'),
             'guardian_name' => $this->input->post('guardianName'),
             'mobile_no' => $this->input->post('guardianMobile'),
-            'class_id' => $this->input->post('classId')
+            'class_id' => $this->input->post('classId'),
+            'section_id' => $this->input->post('sectionId'),
         );
 
         $data = array(
             'title' => 'ILM | Admin',
             'view' => 'admin/studentsList',
             'classes' => $this->admin_model->getClassesWithProgramTitle(true),
+            'sections' => $this->admin_model->getSectionsWithProgramAndClassTitle(true),
             'studentsList' => $this->admin_model->searchStudent($searchData)
         );
 
