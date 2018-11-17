@@ -799,6 +799,27 @@
         });
     }
 
+    function PrintElem(elem, redirect_method = 'studentsList') {
+        Popup($(elem).html());
+        window.location.href = '<?php echo base_url()."admin/";?>'+redirect_method;
+    }
+
+    function Popup(data) {
+        var infoPrintWindow = window.open('', 'Students List', "width="+screen.availWidth+",height="+screen.availHeight);
+        infoPrintWindow.document.write('<html><head><title>Student Information</title>');
+        infoPrintWindow.document.write('<link rel="stylesheet" href="<?php echo base_url();?>assets/css/styles.minc726.css?=140">');
+        infoPrintWindow.document.write('<link href=\'<?php echo base_url();?>assets/demo/variations/default.css\' rel=\'stylesheet\' type=\'text/css\' media=\'all\' id=\'styleswitcher\'>');
+        infoPrintWindow.document.write('<link href=\'<?php echo base_url();?>assets/demo/variations/default.css\' rel=\'stylesheet\' type=\'text/css\' media=\'all\' id=\'headerswitcher\'>');
+        infoPrintWindow.document.write('</head><body >');
+        infoPrintWindow.document.write(data);
+        infoPrintWindow.document.write('</body></html>');
+
+        infoPrintWindow.print();
+        infoPrintWindow.close();
+
+        return true;
+    }
+
 </script>
 </body>
 

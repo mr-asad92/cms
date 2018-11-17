@@ -72,6 +72,8 @@
                                 btn-sm
                                 pull-right">Add
             Student</a>
+
+        <a href="<?php echo base_url();?>admin/printStudentsFeeList" style="margin-top:5px;margin-right: 5px;" class="btn btn-primary btn-sm pull-right">Print Students List</a>
         <div class="options">
         </div>
     </div>
@@ -84,21 +86,25 @@
 
                         <tr>
                             <th>Enrollment No</th>
+                            <th>Roll No</th>
                             <th>Name</th>
+                            <th>Father Name</th>
                             <th>Class</th>
                             <th>Total Fee</th>
                             <th>Paid</th>
                             <th>Balance</th>
                         </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="printList">
                         <?php foreach ($studentsList as $student) :
                             $class_name = $this->admin_model->getClassNameWithProgramTitle($student['class_id']);
                             $paid_fee = $this->admin_model->getStudentFee($student['enrollment_no'], 1);
                             ?>
                             <tr>
                                 <td><?php echo $student['enrollment_no']; ?></td>
+                                <td><?php echo $student['roll_no']; ?></td>
                                 <td><a href="<?php echo base_url().'admin/studentDetails/'.$student['enrollment_no'];?>"><?php echo $student['student_firstName'] . ' ' .$student['student_lastName']; ?></a></td>
+                                <td><?php echo $student['father_name']; ?></td>
                                 <td><?php echo $class_name; ?></td>
                                 <td><?php echo $student['grand_total']; ?></td>
                                 <td><?php echo $paid_fee; ?></td>
@@ -108,6 +114,29 @@
                         <?php endforeach; ?>
                         </tbody>
                     </table>
+
+                    <?php
+                        if ($fee_totals != false){
+                    ?>
+                    <table class="table table-stripped table-condensed table-hover table-bordered" style="width: 250px;">
+                        <tr>
+                            <th colspan="2" class="text-center bg-primary">Details</th>
+                        </tr>
+                        <tr>
+                            <th class="active">Total Fee</th>
+                            <td><?php echo $fee_totals['grandTotal']?></td>
+                        </tr>
+                        <tr>
+                            <th class="active">Paid Fee</th>
+                            <td><?php echo $fee_totals['paid_fee']?></td>
+                        </tr>
+
+                        <tr>
+                            <th class="active">Balance</th>
+                            <td><?php echo $fee_totals['grandTotal'] - $fee_totals['paid_fee']?></td>
+                        </tr>
+                    </table>
+                    <?php } ?>
                 </div>
 
             </div>

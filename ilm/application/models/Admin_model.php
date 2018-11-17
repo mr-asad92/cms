@@ -298,14 +298,15 @@ class Admin_Model extends CI_Model
     {
         $query = $this->db->select('
 
-            enrollment.id as enrollment_no,
+            enrollment.id as enrollment_no, roll_no,
             personal_details.first_name as student_firstName,
-            personal_details.last_name as student_lastName,
+            personal_details.last_name as student_lastName, father_name,
             classes.title as class_name,
             classes.id as class_id,
             fee_info.grand_total,
             ')
             ->from('enrollment')
+            ->where('fee_info.status', 1)
             ->join('personal_details','enrollment.id = personal_details.enrollment_id')
             ->join('family_information', 'enrollment.id = family_information.enrollment_id')
             ->join('classes', 'classes.id = enrollment.class_id' )
@@ -315,6 +316,12 @@ class Admin_Model extends CI_Model
             ->get();
 
         return $query->result_array();
+    }
+
+    public function getStudentsFeeTotals(){
+        $q = "SELECT SUM(fi.grand_total) as grandTotal, SUM(pf.fee_amount) as paid_fee FROM fee_info fi LEFT JOIN paid_fee pf ON fi.enrollment_id = pf.enrollment_id WHERE pf.status = 1 AND fi.status = 1 AND pf.delete_status = 0";
+
+        return $this->db->query($q)->result_array()[0];
     }
 
     public function getStudentFee($enrollment_id, $fee_status = 0){
@@ -439,8 +446,9 @@ class Admin_Model extends CI_Model
         $query = "
         SELECT 
         `enrollment`.*, `enrollment`.`id` as `enrollment_no`, `enrollment`.`roll_no`, 
-        `personal_details`.`first_name` as `student_firstName`, `personal_details`.`last_name` as `student_lastName`,
+        `personal_details`.`first_name` as `student_firstName`, `personal_details`.`last_name` as `student_lastName`, 
         `classes`.id as `class_id`, `classes`.`title` as `class_name`,
+        `family_information`.`father_name`,
         `fee_info`.`grand_total`
         FROM `enrollment` 
         LEFT JOIN `personal_details` ON `enrollment`.`id` = `personal_details`.`enrollment_id` 
@@ -473,7 +481,7 @@ class Admin_Model extends CI_Model
 
         if($mobile_no != ""){
             $condition = (whereClauseExists($query))?'AND ':' WHERE ';
-            $query .= $condition." (`family_information`.`mobile_no` = '$mobile_no' OR `family_information`.`mobile_no` = '$student_name')";
+            $query .= $condition." (`family_information`.`mobile_no` = '$mobile_no' )"; // OR `family_information`.`mobile_no` = '$student_name')
         }
 
         if($class_id != 0){

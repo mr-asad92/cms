@@ -499,9 +499,27 @@ class Admin extends CI_Controller
             'title' => 'ILM | Admin',
             'view' => 'admin/studentsFeeList',
             'classes' => $this->admin_model->getClassesWithProgramTitle(true),
-            'studentsList' => $this->admin_model->getStudentsFeeList()
+            'studentsList' => $this->admin_model->getStudentsFeeList(),
+            'fee_totals' => $this->admin_model->getStudentsFeeTotals(),
         );
+        $this->load->view('masterLayouts/admin',$data);
+    }
 
+    public function printStudentsFeeList(){
+        $data = array(
+            'title' => 'ILM | Admin',
+            'view' => 'admin/printStudentsFeeList',
+            'studentsList' => $this->admin_model->getStudentsFeeList(),
+        );
+        $this->load->view('masterLayouts/admin',$data);
+    }
+
+    public function printAllStudentsList(){
+        $data = array(
+            'title' => 'ILM | Admin',
+            'view' => 'admin/printAllStudentsList',
+            'studentsList' => $this->admin_model->getStudentsList(),
+        );
         $this->load->view('masterLayouts/admin',$data);
     }
 
@@ -520,7 +538,9 @@ class Admin extends CI_Controller
             'title' => 'ILM | Admin',
             'view' => 'admin/studentsFeeList',
             'classes' => $this->admin_model->getClassesWithProgramTitle(true),
-            'studentsList' => $this->admin_model->searchStudentsFeeList($searchData)
+            'studentsList' => $this->admin_model->searchStudentsFeeList($searchData),
+            'fee_totals' => false,
+
         );
 
         $this->load->view('masterLayouts/admin',$data);

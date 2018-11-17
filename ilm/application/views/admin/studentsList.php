@@ -72,6 +72,8 @@
                                 btn-sm
                                 pull-right">Add
             Student</a>
+        <a href="<?php echo base_url();?>admin/printAllStudentsList" style="margin-top:5px;margin-right: 5px;" class="btn btn-primary btn-sm pull-right">Print Students List</a>
+
         <div class="options">
         </div>
     </div>
