@@ -91,14 +91,16 @@
                                 pull-right">Add
             Student</a>
 
-        <a href="<?php echo base_url();?>admin/printStudentsFeeList" style="margin-top:5px;margin-right: 5px;" class="btn btn-primary btn-sm pull-right">Print Students List</a>
+        <a href="<?php echo base_url();?>admin/printStudentsFeeList" style="margin-top:5px;margin-right: 5px;" class="btn btn-primary btn-sm pull-right">Print All Students</a>
+        <a href="#" onclick="printStudents('studentsList','studentsListContainer', false, 'studentsFeeList')" style="margin-top:5px;margin-right: 5px;" class="btn btn-primary btn-sm pull-right">Print</a>
+
         <div class="options">
         </div>
     </div>
     <div class="panel-body std-panel infinite-scroll">
         <div class="std-detail clearfix">
             <div class="col-sm-12">
-                <div class="table-responsive">
+                <div class="table-responsive" id="studentsListContainer">
                     <table class="table table-hover table-stripped" id="studentsList">
                         <thead>
 
@@ -110,6 +112,7 @@
                             <th>Class</th>
                             <th>Total Fee</th>
                             <th>Paid</th>
+                            <th>Past Due Amount</th>
                             <th>Balance</th>
                         </tr>
                         </thead>
@@ -117,6 +120,7 @@
                         <?php foreach ($studentsList as $student) :
                             $class_name = $this->admin_model->getClassNameWithProgramTitle($student['class_id']);
                             $paid_fee = $this->admin_model->getStudentFee($student['enrollment_no'], 1);
+                            $past_due_amount = $this->admin_model->getPastDueAmount($student['enrollment_no']);
                             ?>
                             <tr>
                                 <td><?php echo $student['enrollment_no']; ?></td>
@@ -126,6 +130,7 @@
                                 <td><?php echo $class_name; ?></td>
                                 <td><?php echo $student['grand_total']; ?></td>
                                 <td><?php echo $paid_fee; ?></td>
+                                <td class="text-danger"><?php echo $past_due_amount; ?></td>
                                 <td><?php echo $student['grand_total'] - $paid_fee; ?></td>
 
                             </tr>

@@ -543,7 +543,8 @@ class Admin extends CI_Controller
             'classes' => $this->admin_model->getClassesWithProgramTitle(true),
             'sections' => $this->admin_model->getSectionsWithProgramAndClassTitle(true),
             'studentsList' => $this->admin_model->searchStudentsFeeList($searchData),
-            'fee_totals' => false,
+            'fee_totals' => $this->admin_model->searchStudentsFeeTotals($searchData),
+
 
         );
 

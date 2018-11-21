@@ -22,7 +22,7 @@ class Authentication extends CI_Controller {
                 'logged_in'=>TRUE
             );
             $this->session->set_userdata($data);
-            redirect(base_url().'admin');
+            redirect(base_url().'admin/studentsList');
 
         }
 
@@ -70,7 +70,7 @@ class Authentication extends CI_Controller {
                 }
                 //echo '<pre>'; print_r($this->session->userdata('user_id')); exit();
                 // $this->session->set_flashdata($data);
-                redirect(base_url().'admin');
+                redirect(base_url().'admin/studentsList');
                 // redirect('home_cont');
             }
             else{

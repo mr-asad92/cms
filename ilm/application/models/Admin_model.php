@@ -324,6 +324,70 @@ class Admin_Model extends CI_Model
         return $this->db->query($q)->result_array()[0];
     }
 
+    public function searchStudentsFeeTotals($searchData){
+        $query = "SELECT SUM(fi.grand_total) as grandTotal, SUM(pf.fee_amount) as paid_fee FROM fee_info fi 
+LEFT JOIN paid_fee pf ON fi.enrollment_id = pf.enrollment_id 
+LEFT JOIN enrollment e ON fi.enrollment_id = e.id 
+LEFT JOIN personal_details pd ON e.id=pd.enrollment_id
+LEFT JOIN family_information fami ON e.id=fami.enrollment_id
+WHERE pf.status = 1 AND fi.status = 1 AND pf.delete_status = 0 ";
+
+        $enroll_no = $searchData['enrollment_no'];
+        $roll_no = $searchData['roll_no'];
+        $student_name = $searchData['student_name'];
+        $guardian_name = $searchData['guardian_name'];
+        $mobile_no = $searchData['mobile_no'];
+        $class_id = $searchData['class_id'];
+        $section_id = $searchData['section_id'];
+
+        $condition = '';
+        if($enroll_no != ""){
+            $condition = (whereClauseExists($query))?'AND ':' WHERE ';
+            $query .= $condition." e.id = '$enroll_no'";
+        }
+
+        if($roll_no != ""){
+            $condition = (whereClauseExists($query))?'AND ':' WHERE ';
+            $query .= $condition." e.roll_no = '$roll_no'";
+        }
+
+        if($student_name != ""){
+            $condition = (whereClauseExists($query))?'AND ':' WHERE ';
+            $query .= $condition." (pd.first_name LIKE '$student_name' OR pd.last_name LIKE '$student_name')";
+        }
+
+        if($guardian_name != ""){
+            $condition = (whereClauseExists($query))?'AND ':' WHERE ';
+//            $query .= $condition." (family_information.first_name LIKE '$guardian_name' OR family_information.last_name LIKE '$guardian_name')";
+            $query .= $condition." (fami.father_name LIKE '$guardian_name' )";
+        }
+
+        if($mobile_no != ""){
+            $condition = (whereClauseExists($query))?'AND ':' WHERE ';
+            $query .= $condition." (fami.mobile_no = '$mobile_no' )"; // OR family_information.mobile_no = '$student_name')
+        }
+
+        if($class_id != 0){
+            $condition = (whereClauseExists($query))?'AND ':' WHERE ';
+            $query .= $condition." e.class_id = '$class_id'";
+        }
+
+        if($section_id != 0){
+            $condition = (whereClauseExists($query))?'AND ':' WHERE ';
+            $query .= $condition." e.section_id = '$section_id'";
+        }
+        $q = $this->db->query($query);
+//        die($this->db->last_query());
+        return $q->result_array()[0];
+    }
+
+    public function getPastDueAmount($enrollment_no){
+        $today_date = date("Y-m-d");
+        $q = "SELECT SUM(pf.fee_amount) as pastDueAmount FROM paid_fee pf WHERE status = 0 AND delete_status = 0 AND enrollment_id='$enrollment_no' AND installment_date <= '$today_date'";
+
+        return $this->db->query($q)->result_array()[0]['pastDueAmount'];
+    }
+
     public function getStudentFee($enrollment_id, $fee_status = 0){
         return $this->db->select('SUM(fee_amount) as fee')->from('paid_fee')->where(['enrollment_id' => $enrollment_id,'delete_status' => 0, 'status' => $fee_status])->get()->result_array()[0]['fee'];
     }

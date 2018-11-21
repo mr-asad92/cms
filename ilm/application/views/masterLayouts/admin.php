@@ -799,6 +799,21 @@
         });
     }
 
+    function printStudents(table_id, container_id, remove_column = true, redirect_method = 'studentsList') {
+        $("#"+table_id).DataTable().fnDestroy();
+        $("#"+table_id).addClass('table-bordered');
+        $("#"+table_id).addClass('table-condensed');
+
+        if(remove_column) {
+            $("#" + table_id + " thead tr").find("th:eq(7)").remove();
+            $("#" + table_id + " tbody tr").each(function () {
+                $(this).find("td:eq(7)").remove();
+            });
+        }
+
+
+        PrintElem("#"+container_id, redirect_method);
+    }
     function PrintElem(elem, redirect_method = 'studentsList') {
         Popup($(elem).html());
         window.location.href = '<?php echo base_url()."admin/";?>'+redirect_method;

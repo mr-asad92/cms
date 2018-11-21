@@ -89,7 +89,8 @@
                                 btn-sm
                                 pull-right">Add
             Student</a>
-        <a href="<?php echo base_url();?>admin/printAllStudentsList" style="margin-top:5px;margin-right: 5px;" class="btn btn-primary btn-sm pull-right">Print Students List</a>
+        <a href="<?php echo base_url();?>admin/printAllStudentsList" style="margin-top:5px;margin-right: 5px;" class="btn btn-primary btn-sm pull-right">Print All Students</a>
+        <a href="#" onclick="printStudents('studentsList','studentsListContainer')" style="margin-top:5px;margin-right: 5px;" class="btn btn-primary btn-sm pull-right">Print</a>
 
         <div class="options">
         </div>
@@ -97,7 +98,7 @@
     <div class="panel-body std-panel infinite-scroll">
         <div class="std-detail clearfix">
             <div class="col-sm-12">
-                <div class="table-responsive">
+                <div class="table-responsive" id="studentsListContainer">
                     <table class="table table-hover table-stripped" id="studentsList">
                         <thead>
 
