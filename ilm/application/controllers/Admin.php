@@ -1019,7 +1019,7 @@ class Admin extends CI_Controller
         }
 
         // now make fee status as paid`
-        $this->admin_model->payInstallment($id);
+        $this->admin_model->payInstallment($id, $fine);
 
         echo true;
     }

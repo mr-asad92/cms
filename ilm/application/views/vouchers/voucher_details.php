@@ -59,7 +59,7 @@
 
                     <th>Fine</th>
                     <td>
-                        <?php echo $voucher->fee_amount;?>
+                        <?php echo $voucher->installment_fine;?>
                     </td>
                 </tr>
                 <tr>
@@ -137,7 +137,7 @@
 
                     <th>Fine</th>
                     <td>
-                        <?php echo $voucher->fee_amount;?>
+                        <?php echo $voucher->installment_fine;?>
                     </td>
                 </tr>
                 <tr>
@@ -214,7 +214,7 @@
 
                     <th>Fine</th>
                     <td>
-                        <?php echo $voucher->fee_amount;?>
+                        <?php echo $voucher->installment_fine;?>
                     </td>
                 </tr>
                 <tr>

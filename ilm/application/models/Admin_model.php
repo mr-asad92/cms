@@ -855,10 +855,11 @@ WHERE pf.status = 1 AND fi.status = 1 AND pf.delete_status = 0 ";
             return $calculated_fine;
     }
 
-    public function payInstallment($id){
+    public function payInstallment($id, $fine){
         $data = [
             'status' => 1,
-            'pay_date' => date("Y-m-d h:i:s")
+            'pay_date' => date("Y-m-d h:i:s"),
+            'installment_fine' => $fine
         ];
 
         $this->db->where('id', $id);
