@@ -15,6 +15,8 @@ class Users extends CI_Controller
             redirect(base_url().'authentication/logout');
         }
         $this->load->model('Users_model');
+        $this->load->model('Vouchers_model');
+
     }
 
     /**

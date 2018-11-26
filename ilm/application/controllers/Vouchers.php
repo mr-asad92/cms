@@ -82,6 +82,21 @@ class Vouchers extends CI_Controller
         $this->load->view('masterLayouts/admin',$data);
     }
 
+    public function upcoming_vouchers(){
+        $data = array(
+            'title' => 'ILM |Fee Voucher',
+            'view' => 'vouchers/vouchersListUpcoming',
+        );
+//        'vouchers' => $this->Vouchers_model->getVouchers(),
+        $search['dateTo'] = $this->Vouchers_model->getUpcomingVouchersDate();
+        $data['vouchers'] = $this->Vouchers_model->getUpcomingVouchers($search);
+
+        $data['classes'] = $this->admin_model->getClassesWithProgramTitle(true);
+        $data['sections'] = $this->admin_model->getSectionsWithProgramAndClassTitle(true);
+
+        $this->load->view('masterLayouts/admin',$data);
+    }
+
     public function Details($id)
     {
         $data = array(

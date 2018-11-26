@@ -67,6 +67,50 @@ class Vouchers_model extends CI_Model
         //print_r($this->db->last_query()); exit();
     }
 
+
+    public function getUpcomingVouchers($search = [])
+    {
+        //$q = $this->db->get('users');
+        //return $q->result();
+
+        $q = $this->db->select('
+        
+            enrollment.*,
+            personal_details.*,
+            paid_fee.*,
+            paid_fee.id as vocher_id,
+            classes.*,
+            classes.title as classTitle,
+            enrollment.id as enrollmentId,
+            paid_fee.id as paidFeeId 
+            
+        ')
+            ->from('paid_fee')
+            ->join('enrollment','enrollment.id = paid_fee.enrollment_id')
+            ->join('personal_details','enrollment.id = personal_details.enrollment_id')
+            ->join('classes', 'classes.id = paid_fee.classId')
+            ->where('paid_fee.delete_status',0)
+            ->where('paid_fee.status',0);
+
+        if(!empty($search)){
+
+
+
+            $q->where('paid_fee.installment_date >= ',date('Y-m-d'));
+
+
+            if($search['dateTo']){
+                $q->where('paid_fee.installment_date <= ',date('Y-m-d',strtotime($search['dateTo'])));
+
+            }
+
+        }
+
+        return $q->get()->result();
+
+        //print_r($this->db->last_query()); exit();
+    }
+
     public function getById($id)
     {
         $q = $this->db->select('
@@ -99,6 +143,10 @@ class Vouchers_model extends CI_Model
 
         return $query->result();*/
 
+    }
+
+    public function getUpcomingVouchersDate(){
+        return date("Y-m-d", strtotime("+".$this->db->get('settings')->result_array()[0]['next_days']." days"));
     }
 
     public function searchStudent($searchData)

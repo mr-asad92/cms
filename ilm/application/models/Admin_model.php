@@ -981,6 +981,10 @@ WHERE pf.status = 1 AND fi.status = 1 AND pf.delete_status = 0 ";
         return $this->db->get('fines')->result_array();
     }
 
+    public function getDatesList(){
+        return $this->db->get('installments_to_dates')->result_array();
+    }
+
     public function getSectionsList(){
         return $this->db->get('sections')->result_array();
     }
@@ -1015,6 +1019,23 @@ WHERE pf.status = 1 AND fi.status = 1 AND pf.delete_status = 0 ";
 
     public function getFinesData($id){
         return $this->db->where('id', $id)->get('fines')->result_array()[0];
+    }
+
+
+    public function save_date($data){
+        $this->db->insert('installments_to_dates', $data);
+        return true;
+    }
+
+    public function update_date($data){
+        $id = $data['id'];
+        unset($data['id']);
+        $this->db->where('id', $id)->update('installments_to_dates', $data);
+        return true;
+    }
+
+    public function getDatesData($id){
+        return $this->db->where('id', $id)->get('installments_to_dates')->result_array()[0];
     }
 
     public function getExamTypesList(){
@@ -1159,6 +1180,28 @@ WHERE pf.status = 1 AND fi.status = 1 AND pf.delete_status = 0 ";
 
         return $q['title'].' ('.$q['programTitle'].')';
 
+    }
+
+    public function getUpcomingVouchersDays(){
+        return $this->db->get('settings')->result_array()[0]['next_days'];
+    }
+
+    public function updateUpcomingVouchersDays($days){
+        $this->db->query("UPDATE settings set next_days = '$days'");
+    }
+
+    public function getToDate($enrollment_id){
+        $data = $this->db->select('class_id, section_id')->from('enrollment')->where('id', $enrollment_id)->get()->result_array()[0];
+        $q = $this->db->where(['classId' => $data['class_id'], 'sectionId'=>$data['section_id']])->get('installments_to_dates');
+
+        if($q->num_rows() > 0){
+            $return = $q->result_array()[0]['to_date'];
+        }
+        else{
+            $return = date("Y-m-d", strtotime("+30 days"));
+        }
+
+        return $return;
     }
 }
 

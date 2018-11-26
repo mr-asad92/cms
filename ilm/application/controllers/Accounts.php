@@ -43,6 +43,7 @@ class Accounts extends CI_Controller
         }
 
         $this->load->model('Accounts_model');
+        $this->load->model('Vouchers_model');
     }
 
     public function index()

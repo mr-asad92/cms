@@ -682,7 +682,7 @@ class Admin extends CI_Controller
             'title' => 'ILM | Admin',
             'view' => 'admin/makeInstallments',
             'student_detail' => $this->admin_model->getStudentInfoForInstallments($enrollment_id),
-            'to_date' => "2019-03-30",
+            'to_date' => $this->admin_model->getToDate($enrollment_id),
         );
 
         $data['student_detail']['enrollment_number']=$enrollment_id;
@@ -714,8 +714,9 @@ class Admin extends CI_Controller
             'student_detail' => $this->admin_model->getStudentInfoForInstallments($enrollment_id),
             'initial_amount' => $this->admin_model->getInitialAmount($enrollment_id),
             'installments'   => $this->admin_model->getInstallments($enrollment_id),
-            'to_date' => "2019-03-30",
+            'to_date' => $this->admin_model->getToDate($enrollment_id),
         );
+//        'to_date' => "2019-03-30",
 
         $data['student_detail']['enrollment_number']=$enrollment_id;
 
@@ -1302,6 +1303,72 @@ class Admin extends CI_Controller
     }
 
 
+    public function add_date(){
+        $data = array(
+            'title' => 'ILM | Admin',
+            'view' => 'admin/add_date',
+        );
+
+        $data['classes'] = $this->admin_model->getClassesWithProgramTitle(true);
+        $data['sections'] = $this->admin_model->getSectionsWithProgramAndClassTitle(true);
+
+        $data['datesList'] = $this->admin_model->getDatesList();
+        $data['formSubmitMethod'] = 'save_date';
+        $data['submitButtonTitle'] = 'Add';
+        $data['dateData'] = [
+            'sectionId' => '',
+            'classId' => '',
+            'to_date' => date('Y-m-d'),
+        ];
+
+        $this->load->view('masterLayouts/admin',$data);
+    }
+
+    public function edit_date($id){
+        $data = array(
+            'title' => 'ILM | Admin',
+            'view' => 'admin/add_date',
+        );
+
+        $data['classes'] = $this->admin_model->getClassesWithProgramTitle(true);
+        $data['sections'] = $this->admin_model->getSectionsWithProgramAndClassTitle(true);
+
+        $data['datesList'] = $this->admin_model->getDatesList();
+        $data['dateData'] = $this->admin_model->getDatesData($id);
+        $data['formSubmitMethod'] = 'update_date';
+        $data['submitButtonTitle'] = 'Update';
+
+        $this->load->view('masterLayouts/admin',$data);
+    }
+
+    public function save_date(){
+        $date = [
+            'classId'                   => $this->input->post('classId'),
+            'sectionId'                 => $this->input->post('sectionId'),
+            'to_date'                   => $this->input->post('toDate'),
+        ];
+
+        $this->admin_model->save_date($date);
+
+        $this->session->set_flashdata('msg', '<p class="alert alert-success">Date has been added successfully!</p>');
+        redirect(base_url().'admin/add_date');
+    }
+
+    public function update_date(){
+        $fine = [
+            'classId'                   => $this->input->post('classId'),
+            'sectionId'                 => $this->input->post('sectionId'),
+            'to_date'                   => $this->input->post('toDate'),
+            'id'                        => $this->input->post('dateId'),
+        ];
+
+        $this->admin_model->update_date($fine);
+
+        $this->session->set_flashdata('msg', '<p class="alert alert-success">Date has been Updated successfully!</p>');
+        redirect(base_url().'admin/add_date');
+    }
+
+
 
     public function add_section(){
         $data = array(
@@ -1389,6 +1456,28 @@ class Admin extends CI_Controller
         else{
             echo "not_found";
         }
+    }
+
+    public function set_upcoming_voucher_days(){
+        $data = array(
+            'title' => 'ILM | Admin',
+            'view' => 'admin/set_upcoming_voucher_days',
+        );
+
+        $data['days'] = $this->admin_model->getUpcomingVouchersDays();
+
+        $data['formSubmitMethod'] = 'updateUpcomingVouchersDays';
+        $data['submitButtonTitle'] = 'Save';
+
+        $this->load->view('masterLayouts/admin',$data);
+    }
+
+    public function updateUpcomingVouchersDays(){
+        $days = $this->input->post('days');
+
+        $this->admin_model->updateUpcomingVouchersDays($days);
+
+        redirect(base_url().'admin/set_upcoming_voucher_days');
     }
 
 }

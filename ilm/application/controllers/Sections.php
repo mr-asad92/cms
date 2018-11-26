@@ -41,5 +41,7 @@ class Sections extends CI_Controller
         }
 
         $this->load->model('Sections_model');
+        $this->load->model('Vouchers_model');
+
     }
 }

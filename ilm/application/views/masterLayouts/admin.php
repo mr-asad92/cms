@@ -185,7 +185,11 @@
             </ul>
         </li>
         <li class="dropdown">
-            <a href="#" class="hasnotifications dropdown-toggle" data-toggle='dropdown'><i class="fa fa-bell"></i><span class="badge">3</span></a>
+            <?php
+            $search['dateTo'] = $this->Vouchers_model->getUpcomingVouchersDate();
+            $count = count($this->Vouchers_model->getUpcomingVouchers($search));
+            ?>
+            <a href="<?php echo base_url();?>vouchers/upcoming_vouchers" class="hasnotifications" ><i class="fa fa-bell"></i><span class="badge"><?php echo $count;?></span></a>
             <ul class="dropdown-menu notifications arrow">
                 <li class="dd-header">
                     <span>You have 3 new notification(s)</span>
@@ -319,6 +323,8 @@
                     <?php } ?>
                     <li><a href="<?php echo base_url().'users/edit_profile/'.$user_id ;?>"><span>Build Profile</span></a></li>
                     <li><a href="<?php echo base_url().'authentication/change_password';?>"><span>Change Password</span></a></li>
+                    <li><a href="<?php echo base_url().'admin/set_upcoming_voucher_days';?>"><span> Set Upcoming Voucher days</span></a></li>
+                    <li><a href="<?php echo base_url().'admin/add_date';?>"><span> Set Installments To Date</span></a></li>
 <!--                    <li><a href="--><?php //echo base_url();?><!--users"><span>Forgot Password</span></a></li>-->
                 </ul>
             </li>

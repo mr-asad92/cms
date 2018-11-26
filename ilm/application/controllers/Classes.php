@@ -43,6 +43,8 @@ class Classes extends CI_Controller
 
         $this->load->model('Programs_model');
         $this->load->model('Classes_model');
+        $this->load->model('Vouchers_model');
+
     }
 
     public function classesList()
