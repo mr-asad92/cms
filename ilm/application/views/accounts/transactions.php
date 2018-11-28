@@ -32,11 +32,24 @@
 
                             $sr = 1;
                                 foreach ($transactions as $transaction){
+                                    $transaction_id = $transaction['id'];
+                                    $installment_id = $this->Accounts_model->getInstallmentId($transaction_id);
+
+                                    $sectionTitle = '';
+                                    $programTitle = '';
+                                    $otherDetails = '';
+                                    if($installment_id != 'not_found'){
+                                        $details = $this->Accounts_model->getSectionAndProgramId($installment_id);
+//                                        debug($details);
+                                        $sectionTitle = $this->admin_model->getSectionName($details['section_id']);
+                                        $programTitle = $this->admin_model->getProgramName($details['program_id']);
+                                        $otherDetails = ' - '.$programTitle.' - '.$sectionTitle;
+                                    }
                                     ?>
 
                                    <tr>
                                        <th><?php echo $sr;?> </th>
-                                       <td><?php echo $transaction['title'];?></td>
+                                       <td><?php echo $transaction['title'].$otherDetails;?></td>
                                        <td><?php echo $transaction['book_reference'];?></td>
                                        <td><?php echo $transaction['dr_acc_title'];?></td>
                                        <td><?php echo $transaction['cr_acc_title'];?></td>

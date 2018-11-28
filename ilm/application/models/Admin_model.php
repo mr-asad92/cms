@@ -66,6 +66,10 @@ class Admin_Model extends CI_Model
         return $this->db->where('id', $sectionId)->get('sections')->result_array()[0]['title'];
     }
 
+    public function getProgramName($program_id){
+        return $this->db->where('id', $program_id)->get('programs')->result_array()[0]['title'];
+    }
+
     public function getFeeInfo($enrollment_id)
     {
         $query =  $this->db->where('enrollment_id',$enrollment_id)

@@ -283,6 +283,24 @@ class Accounts_model extends CI_Model
         return $transactions;
     }
 
+    public function getInstallmentId($transaction_id){
+        $q = $this->db->where('transaction_id', $transaction_id)->get('paid_installments_vouchers');
+        if ($q->num_rows() > 0){
+            $return = $q->result_array()[0]['installment_id'];
+        }
+        else{
+            $return = 'not_found';
+        }
+        return $return;
+    }
+
+    public function getSectionAndProgramId($installment_id){
+        $q = $this->db->select('program_id, sectionId')->from('paid_fee')->where('id', $installment_id)->get()->result_array()[0];
+//        debug($q);
+        $return = ['program_id' => $q['program_id'], 'section_id' => $q['sectionId']];
+        return $return;
+    }
+
     public function getCurrentMonthIncome($firstDayOfThisMonth, $lastDayThisMonth, $fee_account){
         $query = "SELECT SUM(amount) as monthlyIncome FROM transactions WHERE credit_account='$fee_account' AND created_at>='$firstDayOfThisMonth' AND created_at <= '$lastDayThisMonth' + INTERVAL 1 DAY ";
 
