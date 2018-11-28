@@ -1408,10 +1408,16 @@ class Admin extends CI_Controller
     }
 
     public function save_section(){
+
         $section = [
             'class_id'                   => $this->input->post('classId'),
             'title'                      => $this->input->post('title'),
         ];
+
+        if($section['class_id'] == 0){
+            $this->session->set_flashdata('msg', '<p class="alert alert-danger">Please select a class!</p>');
+            redirect(base_url().'admin/add_section');
+        }
 
         $this->admin_model->save_section($section);
 

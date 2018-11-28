@@ -103,9 +103,10 @@ class Vouchers extends CI_Controller
             'title' => 'ILM | Admin',
             'view' => 'vouchers/voucher_details',
             'voucher' => $this->Vouchers_model->getById($id),
+            'voucher_no' => $id,
             'print' => false
         );
-
+        $data['amounts'] = $this->Vouchers_model->getPaidAndRemainingAmounts($data['voucher']->enr_id);
 //        debug($data['voucher']);
 
         $this->load->view('masterLayouts/admin',$data);
@@ -117,9 +118,11 @@ class Vouchers extends CI_Controller
             'title' => 'ILM | Admin',
             'view' => 'vouchers/voucher_details',
             'voucher' => $this->Vouchers_model->getById($id),
+            'voucher_no' => $id,
             'print' => true
         );
 
+        $data['amounts'] = $this->Vouchers_model->getPaidAndRemainingAmounts($data['voucher']->enr_id);
 
         $this->load->view('masterLayouts/admin',$data);
     }

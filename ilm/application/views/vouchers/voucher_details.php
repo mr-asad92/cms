@@ -5,7 +5,20 @@
         </div>
         <div class="col-md-12">
             <h2 class="text-center"> Student Fee Voucher (Student Copy) </h2>
+            <?php
+                $paid_amount = $amounts['paid_amount'];
+                $unpaid_amount = $amounts['unpaid_amount'];
+                $total_amount = $paid_amount + $amounts['unpaid_amount'];
+                $balance = $total_amount - ($paid_amount + $voucher->fee_amount);
+            ?>
+
             <table class="table">
+                <tr>
+                    <th>Voucher ID</th>
+                    <th colspan="3">
+                        <?php echo $voucher_no;?>
+                    </th>
+                </tr>
                 <tr>
                     <th>Student Name</th>
                     <th class="alert alert-info">
@@ -26,20 +39,20 @@
                     <th>Class </th>
                     <td>
 <!--                        --><?php //echo $voucher->classTitle.' '. $voucher->title;?>
-                        <?php echo $voucher->classTitle;?>
+                        <?php echo $voucher->classTitle.' - '.$voucher->programTitle.' - '.$voucher->sectionTitle;?>
                     </td>
                 </tr>
-                <tr>
-                    <th>Study Program</th>
-                    <td>
-                        <?php echo $voucher->programTitle;?>
-                    </td>
-
-                    <th>Section </th>
-                    <td>
-                        <?php echo $voucher->sectionTitle;?>
-                    </td>
-                </tr>
+<!--                <tr>-->
+<!--                    <th>Study Program</th>-->
+<!--                    <td>-->
+<!--                        --><?php //echo $voucher->programTitle;?>
+<!--                    </td>-->
+<!---->
+<!--                    <th>Section </th>-->
+<!--                    <td>-->
+<!--                        --><?php //echo $voucher->sectionTitle;?>
+<!--                    </td>-->
+<!--                </tr>-->
                 <tr>
                     <th>Installment No</th>
                     <td>
@@ -62,6 +75,18 @@
                         <?php echo $voucher->installment_fine;?>
                     </td>
                 </tr>
+
+                <tr>
+                    <th>Paid Amount</th>
+                    <td>
+                        <?php echo $paid_amount;?>
+                    </td>
+
+                    <th>Un Paid Amount</th>
+                    <td>
+                        <?php echo $unpaid_amount;?>
+                    </td>
+                </tr>
                 <tr>
                     <th></th>
                     <td>
@@ -71,6 +96,18 @@
                     <th>Total Amount</th>
                     <th class="alert alert-warning">
                         <?php echo $voucher->fee_amount;?>
+                    </th>
+                </tr>
+
+                <tr>
+                    <th></th>
+                    <td>
+
+                    </td>
+
+                    <th>Balance</th>
+                    <th>
+                        <?php echo $balance;?>
                     </th>
                 </tr>
             </table>
@@ -85,6 +122,12 @@
             <h2 class="text-center"> Student Fee Voucher (Accounts Copy) </h2>
             <table class="table">
                 <tr>
+                    <th>Voucher ID</th>
+                    <th colspan="3">
+                        <?php echo $voucher_no;?>
+                    </th>
+                </tr>
+                <tr>
                     <th>Student Name</th>
                     <th class="alert alert-info">
                         <?php echo $voucher->first_name.'       '. $voucher->last_name;?>
@@ -103,20 +146,20 @@
 
                     <th>Class </th>
                     <td>
-                        <?php echo $voucher->classTitle?>
+                        <?php echo $voucher->classTitle.' - '.$voucher->programTitle.' - '.$voucher->sectionTitle;?>
                     </td>
                 </tr>
-                <tr>
-                    <th>Study Program</th>
-                    <td>
-                        <?php echo $voucher->programTitle;?>
-                    </td>
-
-                    <th>Section </th>
-                    <td>
-                        <?php echo $voucher->sectionTitle;?>
-                    </td>
-                </tr>
+<!--                <tr>-->
+<!--                    <th>Study Program</th>-->
+<!--                    <td>-->
+<!--                        --><?php //echo $voucher->programTitle;?>
+<!--                    </td>-->
+<!---->
+<!--                    <th>Section </th>-->
+<!--                    <td>-->
+<!--                        --><?php //echo $voucher->sectionTitle;?>
+<!--                    </td>-->
+<!--                </tr>-->
 
                 <tr>
                     <th>Installment No</th>
@@ -141,6 +184,17 @@
                     </td>
                 </tr>
                 <tr>
+                    <th>Paid Amount</th>
+                    <td>
+                        <?php echo $paid_amount;?>
+                    </td>
+
+                    <th>Un Paid Amount</th>
+                    <td>
+                        <?php echo $unpaid_amount;?>
+                    </td>
+                </tr>
+                <tr>
                     <th></th>
                     <td>
 
@@ -149,6 +203,17 @@
                     <th>Total Amount</th>
                     <th class="alert alert-warning">
                         <?php echo $voucher->fee_amount;?>
+                    </th>
+                </tr>
+                <tr>
+                    <th></th>
+                    <td>
+
+                    </td>
+
+                    <th>Balance</th>
+                    <th>
+                        <?php echo $balance;?>
                     </th>
                 </tr>
             </table>
@@ -163,6 +228,12 @@
             <h2 class="text-center"> Student Fee Voucher (Admin Copy) </h2>
             <table class="table">
                 <tr>
+                    <th>Voucher ID</th>
+                    <th colspan="3">
+                        <?php echo $voucher_no;?>
+                    </th>
+                </tr>
+                <tr>
                     <th>Student Name</th>
                     <th class="alert alert-info">
                         <?php echo $voucher->first_name.'       '. $voucher->last_name;?>
@@ -181,20 +252,20 @@
 
                     <th>Class </th>
                     <td>
-                        <?php echo $voucher->classTitle;?>
+                        <?php echo $voucher->classTitle.' - '.$voucher->programTitle.' - '.$voucher->sectionTitle;?>
                     </td>
                 </tr>
-                <tr>
-                    <th>Study Program</th>
-                    <td>
-                        <?php echo $voucher->programTitle;?>
-                    </td>
-
-                    <th>Section </th>
-                    <td>
-                        <?php echo $voucher->sectionTitle;?>
-                    </td>
-                </tr>
+<!--                <tr>-->
+<!--                    <th>Study Program</th>-->
+<!--                    <td>-->
+<!--                        --><?php //echo $voucher->programTitle;?>
+<!--                    </td>-->
+<!---->
+<!--                    <th>Section </th>-->
+<!--                    <td>-->
+<!--                        --><?php //echo $voucher->sectionTitle;?>
+<!--                    </td>-->
+<!--                </tr>-->
                 <tr>
                     <th>Installment No</th>
                     <td>
@@ -218,6 +289,17 @@
                     </td>
                 </tr>
                 <tr>
+                    <th>Paid Amount</th>
+                    <td>
+                        <?php echo $paid_amount;?>
+                    </td>
+
+                    <th>Un Paid Amount</th>
+                    <td>
+                        <?php echo $unpaid_amount;?>
+                    </td>
+                </tr>
+                <tr>
                     <th></th>
                     <td>
 
@@ -226,6 +308,17 @@
                     <th>Total Amount</th>
                     <th class="alert alert-warning">
                         <?php echo $voucher->fee_amount;?>
+                    </th>
+                </tr>
+                <tr>
+                    <th></th>
+                    <td>
+
+                    </td>
+
+                    <th>Balance</th>
+                    <th>
+                        <?php echo $balance;?>
                     </th>
                 </tr>
             </table>

@@ -687,8 +687,18 @@
 
             if(printId != ''){
                 console.log(printId);
+                var arr = printId.split("_");
+                var voucher_id = arr.slice(-1)[0];
 
-                $("#"+printId)[0].click();
+                var infoPrintWindow = window.open('<?php echo base_url();?>/vouchers/printVoucher/'+voucher_id, "_blank", "width="+screen.availWidth+",height="+screen.availHeight);
+                setTimeout(function(){
+                    infoPrintWindow.close();
+                }, 2000);
+
+//                var infoPrintWindow = window.open('<?php //echo base_url();?>///vouchers/printVoucher/'+voucher_id, "_blank", "width="+screen.availWidth+",height="+screen.availHeight);
+//                infoPrintWindow.close();
+
+//                $("#"+printId)[0].click();
             }
 
         });

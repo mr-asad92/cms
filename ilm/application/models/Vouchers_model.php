@@ -21,6 +21,8 @@ class Vouchers_model extends CI_Model
             paid_fee.id as vocher_id,
             classes.*,
             classes.title as classTitle,
+            sections.title as sectionTitle,
+            programs.title as programTitle,
             enrollment.id as enrollmentId,
             paid_fee.id as paidFeeId 
             
@@ -29,6 +31,8 @@ class Vouchers_model extends CI_Model
             ->join('enrollment','enrollment.id = paid_fee.enrollment_id')
             ->join('personal_details','enrollment.id = personal_details.enrollment_id')
             ->join('classes', 'classes.id = paid_fee.classId')
+            ->join('sections', 'sections.id = paid_fee.sectionId')
+            ->join('programs', 'programs.id = paid_fee.program_id')
             ->where('paid_fee.delete_status',0);
 
         if(!empty($search)){
@@ -81,6 +85,8 @@ class Vouchers_model extends CI_Model
             paid_fee.id as vocher_id,
             classes.*,
             classes.title as classTitle,
+            sections.title as sectionTitle,
+            programs.title as programTitle,
             enrollment.id as enrollmentId,
             paid_fee.id as paidFeeId 
             
@@ -89,6 +95,8 @@ class Vouchers_model extends CI_Model
             ->join('enrollment','enrollment.id = paid_fee.enrollment_id')
             ->join('personal_details','enrollment.id = personal_details.enrollment_id')
             ->join('classes', 'classes.id = paid_fee.classId')
+            ->join('sections', 'sections.id = paid_fee.sectionId')
+            ->join('programs', 'programs.id = paid_fee.program_id')
             ->where('paid_fee.delete_status',0)
             ->where('paid_fee.status',0);
 
@@ -115,7 +123,7 @@ class Vouchers_model extends CI_Model
     {
         $q = $this->db->select('
         
-            enrollment.*,
+            enrollment.*, enrollment.id as enr_id,
             personal_details.*,
             paid_fee.*,
             classes.*,
@@ -143,6 +151,13 @@ class Vouchers_model extends CI_Model
 
         return $query->result();*/
 
+    }
+
+    public function getPaidAndRemainingAmounts($enrollment_id){
+        $paid_amount = $this->db->select('SUM(fee_amount) as paid_amount')->from('paid_fee')->where(['enrollment_id' => $enrollment_id, 'status'=>1, 'delete_status'=>0])->get()->result_array()[0]['paid_amount'];
+        $unpaid_amount = $this->db->select('SUM(fee_amount) as unpaid_amount')->from('paid_fee')->where(['enrollment_id' => $enrollment_id, 'status'=>0, 'delete_status'=>0])->get()->result_array()[0]['unpaid_amount'];
+
+        return ['paid_amount'=>$paid_amount, 'unpaid_amount' => $unpaid_amount];
     }
 
     public function getUpcomingVouchersDate(){

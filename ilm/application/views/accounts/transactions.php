@@ -20,7 +20,7 @@
                                 <th>Ref.</th>
                                 <th>Dr. A/C</th>
                                 <th>Cr. A/C</th>
-                                <th>Description</th>
+<!--                                <th>Description</th>-->
                                 <th>Date</th>
                                 <th>Amount</th>
                                 <th>Action</th>
@@ -40,7 +40,7 @@
                                        <td><?php echo $transaction['book_reference'];?></td>
                                        <td><?php echo $transaction['dr_acc_title'];?></td>
                                        <td><?php echo $transaction['cr_acc_title'];?></td>
-                                       <td><?php echo $transaction['description'];?></td>
+<!--                                       <td>--><?php //echo $transaction['description'];?><!--</td>-->
                                        <td><?php echo date("d M, Y - h:i A", strtotime($transaction['created_at']));?></td>
                                        <td class="text-right"><?php echo $transaction['amount'];?></td>
                                        <td>
