@@ -125,6 +125,7 @@ class Vouchers_model extends CI_Model
         
             enrollment.*, enrollment.id as enr_id,
             personal_details.*,
+            family_information.father_name,
             paid_fee.*,
             classes.*,
             classes.title as classTitle,
@@ -137,6 +138,7 @@ class Vouchers_model extends CI_Model
             ->from('paid_fee')
             ->join('enrollment','enrollment.id = paid_fee.enrollment_id')
             ->join('personal_details','enrollment.id = personal_details.enrollment_id')
+            ->join('family_information','enrollment.id = family_information.enrollment_id')
             ->join('classes', 'classes.id = paid_fee.classId')
             ->join('sections', 'sections.id = paid_fee.sectionId')
             ->join('programs', 'programs.id = paid_fee.program_id')
