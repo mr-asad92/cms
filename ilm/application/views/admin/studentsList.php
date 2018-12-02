@@ -19,28 +19,28 @@
                 </div>
                 <div class="form-group">
                     <div class="col-sm-2">
-                        <label for="EnrollmentNo">Enrollment No</label>
-                        <input class="form-control" id="EnrollmentNo" name="EnrollmentNo" value="" type="text">
+                        <label for="EnrollmentNo">Enrollment No: </label>
+                        <input class="form-control" id="EnrollmentNo" name="EnrollmentNo" value="<?php echo set_value('EnrollmentNo');?>" type="text">
                     </div>
                     <div class="col-sm-2">
                         <label for="RollNumber">Roll No</label>
                         <input class="form-control" data-val="true" data-val-number="The
                                                 field Roll No must be a number." id="RollNumber" name="rollNo"
-                               value="" type="text">
+                               value="<?php echo set_value('rollNo');?>" type="text">
                     </div>
                     <div class="col-sm-2">
                         <label for="Name">Name</label>
-                        <input class="form-control" id="Name" name="Name" value="" type="text">
+                        <input class="form-control" id="Name" name="Name" value="<?php echo set_value('Name');?>" type="text">
                     </div>
                     <div class="col-sm-2">
                         <label for="GuardianName">Father Name</label>
                         <input class="form-control" id="GuardianName" name="guardianName"
-                               value="" type="text">
+                               value="<?php echo set_value('guardianName');?>" type="text">
                     </div>
                     <div class="col-sm-2">
                         <label for="GuardianMobile">Guardian Cell No</label>
                         <input class="form-control mob" id="GuardianMobile"
-                               name="guardianMobile" value="" type="text">
+                               name="guardianMobile" value="<?php echo set_value('guardianMobile');?>" type="text">
                     </div>
                     <div class="col-sm-1">
                         <label for="Class">Class</label>

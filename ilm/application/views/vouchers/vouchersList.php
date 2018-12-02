@@ -35,8 +35,11 @@
                             </div>
                         </div>
                         <div class="col-sm-2">
-                            <label for="ClassId">ClassId</label>
-                            <?php echo form_dropdown('classId', $classes, set_value('classId'),'class="form-control"');?>
+<!--                            <label for="ClassId">ClassId</label>-->
+<!--                            --><?php //echo form_dropdown('classId', $classes, set_value('classId'),'class="form-control"');?>
+
+                            <label for="ClassId">Roll #</label>
+                            <input class="form-control" data-val="true" data-val-date="The field Roll No must be a date." id="dto" name="roll_no" value="<?php echo set_value('roll_no');?>" type="text">
                         </div>
                         <div class="col-sm-2">
                             <label for="SectionId">SectionId</label>
@@ -78,6 +81,7 @@
                                     <input id="checkAll" type="checkbox">
                                 </th>
                                 <th>Enrollment No</th>
+                                <th>Roll No</th>
                                 <th>Full Name</th>
                                 <th>Installment No</th>
                                 <th>Installment Amount</th>
@@ -95,10 +99,11 @@
                                         <input class="checkbox chkbulk" name="printChkBox" type="checkbox" value="<?php echo $voucher->enrollmentId."_".$voucher->installment_no."_".$voucher->vocher_id;?>">
                                     </td>
                                     <td><?php echo $voucher->enrollmentId ;?></td>
+                                    <td><?php echo $voucher->roll_no ;?></td>
                                     <td><?php echo $voucher->first_name .' '.$voucher->last_name  ;?></td>
                                     <td><?php echo $voucher->installment_no ;?></td>
                                     <td><?php echo $voucher->fee_amount ;?></td>
-                                    <td><?php echo $voucher->installment_date ;?></td>
+                                    <td><?php echo formatDateForView($voucher->installment_date) ;?></td>
                                     <td><?php echo $voucher->programTitle.' - '.$voucher->classTitle.' - '.$voucher->sectionTitle ;?></td>
                                     <td>
                                         <?php

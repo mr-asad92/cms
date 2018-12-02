@@ -50,8 +50,12 @@ class Vouchers_model extends CI_Model
 
             }
 
-            if($search['classId']){
-                $q->where('paid_fee.classId',$search['classId']);
+//            if($search['classId']){
+//                $q->where('paid_fee.classId',$search['classId']);
+//            }
+
+            if($search['roll_no']){
+                $q->where('enrollment.roll_no',$search['roll_no']);
             }
 
             if($search['sectionId']){
@@ -128,8 +132,8 @@ class Vouchers_model extends CI_Model
             family_information.father_name,
             paid_fee.*,
             classes.*,
-            classes.title as classTitle,
-            sections.title as sectionTitle,
+            classes.title as classTitle, classes.id as classId,
+            sections.title as sectionTitle, sections.id as sectionId,
             programs.title as programTitle,
             enrollment.id as enrollmentId,
             paid_fee.id as paidFeeId 
@@ -153,6 +157,11 @@ class Vouchers_model extends CI_Model
 
         return $query->result();*/
 
+    }
+
+    public function getFineAfterDueDate($class_id, $section_id){
+        $q =  $this->db->select('fine')->from('fines')->where(['classId' => $class_id, 'sectionId'=>$section_id])->get();
+        return ($q->num_rows() > 0)?$q->result_array()[0]['fine']:0;
     }
 
     public function getPaidAndRemainingAmounts($enrollment_id){

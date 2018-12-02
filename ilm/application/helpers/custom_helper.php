@@ -29,6 +29,15 @@ if ( ! function_exists('formatDateForDb')) {
 
 }
 
+
+if ( ! function_exists('formatDateForView')) {
+    // this function set the value to form fields based on if it is new form or edit form.
+    function formatDateForView($date, $format = "d-m-Y") {
+       return date($format, strtotime($date));
+    }
+
+}
+
 if ( ! function_exists('buildTree')) {
     function buildTree($flat, $pidKey, $idKey = null)
     {

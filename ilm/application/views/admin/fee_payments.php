@@ -104,7 +104,7 @@
                                 <td><?php echo ucfirst($installment['first_name'])." ".ucfirst($installment['last_name']);?></td>
                                 <td><?php echo $installment['installment_no'];?></td>
                                 <td><?php echo $installment['fee_amount'];?></td>
-                                <td><?php echo $installment['installment_date'];?></td>
+                                <td><?php echo formatDateForView($installment['installment_date']);?></td>
                                 <td><?php echo $installment['title'].' ('.$installment['programTitle'].')';?> </td>
                                 <td><?php echo $status;?> </td>
                                 <td>
@@ -116,24 +116,24 @@
                                     <?php
                                         if ($installment['status'] == 0){
                                             ?>
-                                            <a href="javascript:getFeeData('<?php echo $installment['pfid'];?>')" class="btn btn-info"><i aria-hidden="true"></i>Paid</a>
+                                            <a href="javascript:getFeeData('<?php echo $installment['pfid'];?>')" class="fa fa-money" data-toggle="tooltip" title="Pay"><i aria-hidden="true"></i></a> |
 
                                     <?php
                                         }
                                         else if($installment['status'] == 1){
                                             ?>
-                                            <a href="javascript:getFeeData('<?php echo $installment['pfid'];?>','unpay')" class="btn btn-info"><i aria-hidden="true"></i>UnPay</a>
+                                            <a href="javascript:getFeeData('<?php echo $installment['pfid'];?>','unpay')" class="fa fa-money" data-toggle="tooltip" title="Un Pay"><i aria-hidden="true"></i>UnPay</a> |
                                     <?php
                                         }
                                         else{
                                             ?>
-                                                                                <a href="javascript:getFeeData('<?php echo $installment['pfid'];?>')" class="btn btn-info <?php echo ($installment['status'] == 1)?'disabled':($installment['status'] == 2)?'disabled':'';?>"><i aria-hidden="true"></i>Paid</a>
+                                             <a href="javascript:getFeeData('<?php echo $installment['pfid'];?>')" class="fa fa-money <?php echo ($installment['status'] == 1)?'disabled':($installment['status'] == 2)?'disabled':'';?>" data-toggle="tooltip" title="Paid"><i aria-hidden="true"></i></a> |
                                     <?php
                                         }
                                     ?>
 
-                                    <a href="<?php echo base_url()."admin/editInstallments/".$installment['id'];?>" class="btn btn-primary <?php echo ($installment['status'] == 1)?'disabled':($installment['status'] == 2)?'disabled':'';?>"><i aria-hidden="true"></i>Change</a>
-                                    <a href="javascript:waveOff('<?php echo $installment['pfid'];?>')" class="btn btn-danger <?php echo ($installment['status'] == 1)?'disabled':($installment['status'] == 2)?'disabled':'';?>"><i aria-hidden="true"></i>Wave Off</a>
+                                    <a href="<?php echo base_url()."admin/editInstallments/".$installment['id'];?>" class="fa fa-pencil <?php echo ($installment['status'] == 1)?'disabled':($installment['status'] == 2)?'disabled':'';?>" data-toggle="tooltip" title="Change"><i aria-hidden="true"></i></a>
+<!--                                    <a href="javascript:waveOff('--><?php //echo $installment['pfid'];?><!--')" class="fa fa-clipboard --><?php //echo ($installment['status'] == 1)?'disabled':($installment['status'] == 2)?'disabled':'';?><!--" data-toggle="tooltip" title="Wave Off"><i aria-hidden="true"></i></a>-->
                                 </td>
                             </tr>
                             <?php } ?>

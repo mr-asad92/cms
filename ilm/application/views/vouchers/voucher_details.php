@@ -34,7 +34,7 @@
                     </td>
                     <th>Due Date</th>
                     <td>
-                        <?php echo $voucher->installment_date;?>
+                        <?php echo date("d-m-Y", strtotime($voucher->installment_date));?>
                     </td>
                 </tr>
                 <tr>
@@ -60,9 +60,9 @@
 <!--                        --><?php //echo $voucher->classTitle.' '. $voucher->title;?>
                         <?php echo $voucher->classTitle.' - '.$voucher->programTitle.' - '.$voucher->sectionTitle;?>
                     </td>
-                    <th>Fine</th>
+                    <th>Roll #</th>
                     <td>
-                        <?php echo $voucher->installment_fine;?>
+                        <?php echo $voucher->roll_no;?>
                     </td>
                     <th>Installment Amount </th>
                     <td>
@@ -83,15 +83,19 @@
 
 
                 <tr>
-                    <td></td><td></td>
-                    <th>Previously Paid Amount</th>
+                    <td></td><td></td><td></td><td></td>
+<!--                    <th>Previously Paid Amount</th>-->
+<!--                    <td>-->
+<!--                        --><?php //echo $paid_amount;?>
+<!--                    </td>-->
+<!---->
+<!--                    <th>Un Paid Amount</th>-->
+<!--                    <td>-->
+<!--                        --><?php //echo $unpaid_amount;?>
+<!--                    </td>-->
+                    <th>Fine</th>
                     <td>
-                        <?php echo $paid_amount;?>
-                    </td>
-
-                    <th>Un Paid Amount</th>
-                    <td>
-                        <?php echo $unpaid_amount;?>
+                        <?php echo $voucher->installment_fine;?>
                     </td>
                 </tr>
                 <tr>
@@ -102,7 +106,7 @@
                     <td></td><td></td>
                     <th>Total Amount</th>
                     <th class="alert alert-warning">
-                        <?php echo $voucher->fee_amount;?>
+                        <?php echo ($voucher->fee_amount + $voucher->installment_fine);?>
                     </th>
                 </tr>
 
@@ -112,12 +116,25 @@
 
                     </td>
                     <td></td><td></td>
-                    <th>Balance</th>
+                    <th> </th>
                     <th>
-                        <?php echo $balance;?>
+                        Sign: &nbsp;&nbsp;&nbsp; ______________
                     </th>
                 </tr>
+
+<!--                <tr>-->
+<!--                    <th></th>-->
+<!--                    <td>-->
+<!---->
+<!--                    </td>-->
+<!--                    <td></td><td></td>-->
+<!--                    <th>Balance</th>-->
+<!--                    <th>-->
+<!--                        --><?php //echo $balance;?>
+<!--                    </th>-->
+<!--                </tr>-->
             </table>
+            <small><b>Note: <?php echo $fineAfterDueDate;?> Rs. will be charged per day after due date.</b></small>
         </div>
     </div>
 
@@ -143,7 +160,7 @@
                     </td>
                     <th>Due Date</th>
                     <td>
-                        <?php echo $voucher->installment_date;?>
+                        <?php echo date("d-m-Y", strtotime($voucher->installment_date));?>
                     </td>
                 </tr>
                 <tr>
@@ -169,9 +186,9 @@
                         <!--                        --><?php //echo $voucher->classTitle.' '. $voucher->title;?>
                         <?php echo $voucher->classTitle.' - '.$voucher->programTitle.' - '.$voucher->sectionTitle;?>
                     </td>
-                    <th>Fine</th>
+                    <th>Roll #</th>
                     <td>
-                        <?php echo $voucher->installment_fine;?>
+                        <?php echo $voucher->roll_no;?>
                     </td>
                     <th>Installment Amount </th>
                     <td>
@@ -192,15 +209,19 @@
 
 
                 <tr>
-                    <td></td><td></td>
-                    <th>Previously Paid Amount</th>
+                    <td></td><td></td><td></td><td></td>
+                    <!--                    <th>Previously Paid Amount</th>-->
+                    <!--                    <td>-->
+                    <!--                        --><?php //echo $paid_amount;?>
+                    <!--                    </td>-->
+                    <!---->
+                    <!--                    <th>Un Paid Amount</th>-->
+                    <!--                    <td>-->
+                    <!--                        --><?php //echo $unpaid_amount;?>
+                    <!--                    </td>-->
+                    <th>Fine</th>
                     <td>
-                        <?php echo $paid_amount;?>
-                    </td>
-
-                    <th>Un Paid Amount</th>
-                    <td>
-                        <?php echo $unpaid_amount;?>
+                        <?php echo $voucher->installment_fine;?>
                     </td>
                 </tr>
                 <tr>
@@ -211,7 +232,7 @@
                     <td></td><td></td>
                     <th>Total Amount</th>
                     <th class="alert alert-warning">
-                        <?php echo $voucher->fee_amount;?>
+                        <?php echo ($voucher->fee_amount + $voucher->installment_fine);?>
                     </th>
                 </tr>
 
@@ -221,12 +242,25 @@
 
                     </td>
                     <td></td><td></td>
-                    <th>Balance</th>
+                    <th> </th>
                     <th>
-                        <?php echo $balance;?>
+                        Sign: &nbsp;&nbsp;&nbsp; ______________
                     </th>
                 </tr>
+
+                <!--                <tr>-->
+                <!--                    <th></th>-->
+                <!--                    <td>-->
+                <!---->
+                <!--                    </td>-->
+                <!--                    <td></td><td></td>-->
+                <!--                    <th>Balance</th>-->
+                <!--                    <th>-->
+                <!--                        --><?php //echo $balance;?>
+                <!--                    </th>-->
+                <!--                </tr>-->
             </table>
+            <small><b>Note: <?php echo $fineAfterDueDate;?> Rs. will be charged per day after due date.</b></small>
         </div>
     </div>
 
@@ -252,7 +286,7 @@
                     </td>
                     <th>Due Date</th>
                     <td>
-                        <?php echo $voucher->installment_date;?>
+                        <?php echo date("d-m-Y", strtotime($voucher->installment_date));?>
                     </td>
                 </tr>
                 <tr>
@@ -278,9 +312,9 @@
                         <!--                        --><?php //echo $voucher->classTitle.' '. $voucher->title;?>
                         <?php echo $voucher->classTitle.' - '.$voucher->programTitle.' - '.$voucher->sectionTitle;?>
                     </td>
-                    <th>Fine</th>
+                    <th>Roll #</th>
                     <td>
-                        <?php echo $voucher->installment_fine;?>
+                        <?php echo $voucher->roll_no;?>
                     </td>
                     <th>Installment Amount </th>
                     <td>
@@ -301,15 +335,19 @@
 
 
                 <tr>
-                    <td></td><td></td>
-                    <th>Previously Paid Amount</th>
+                    <td></td><td></td><td></td><td></td>
+                    <!--                    <th>Previously Paid Amount</th>-->
+                    <!--                    <td>-->
+                    <!--                        --><?php //echo $paid_amount;?>
+                    <!--                    </td>-->
+                    <!---->
+                    <!--                    <th>Un Paid Amount</th>-->
+                    <!--                    <td>-->
+                    <!--                        --><?php //echo $unpaid_amount;?>
+                    <!--                    </td>-->
+                    <th>Fine</th>
                     <td>
-                        <?php echo $paid_amount;?>
-                    </td>
-
-                    <th>Un Paid Amount</th>
-                    <td>
-                        <?php echo $unpaid_amount;?>
+                        <?php echo $voucher->installment_fine;?>
                     </td>
                 </tr>
                 <tr>
@@ -320,7 +358,7 @@
                     <td></td><td></td>
                     <th>Total Amount</th>
                     <th class="alert alert-warning">
-                        <?php echo $voucher->fee_amount;?>
+                        <?php echo ($voucher->fee_amount + $voucher->installment_fine);?>
                     </th>
                 </tr>
 
@@ -330,12 +368,26 @@
 
                     </td>
                     <td></td><td></td>
-                    <th>Balance</th>
+                    <th> </th>
                     <th>
-                        <?php echo $balance;?>
+                        Sign: &nbsp;&nbsp;&nbsp; ______________
                     </th>
                 </tr>
+
+                <!--                <tr>-->
+                <!--                    <th></th>-->
+                <!--                    <td>-->
+                <!---->
+                <!--                    </td>-->
+                <!--                    <td></td><td></td>-->
+                <!--                    <th>Balance</th>-->
+                <!--                    <th>-->
+                <!--                        --><?php //echo $balance;?>
+                <!--                    </th>-->
+                <!--                </tr>-->
             </table>
+            <small><b>Note: <?php echo $fineAfterDueDate;?> Rs. will be charged per day after due date.</b></small>
+
         </div>
     </div>
 
