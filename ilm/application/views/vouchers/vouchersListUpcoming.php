@@ -27,6 +27,7 @@
                                 <th>Enrollment No</th>
                                 <th>Full Name</th>
                                 <th>Installment No</th>
+                                <th>Roll No</th>
                                 <th>Installment Amount</th>
                                 <th>Installment Date</th>
                                 <th>Class</th>
@@ -42,6 +43,7 @@
                                         <input class="checkbox chkbulk" name="printChkBox" type="checkbox" value="<?php echo $voucher->enrollmentId."_".$voucher->installment_no."_".$voucher->vocher_id;?>">
                                     </td>
                                     <td><?php echo $voucher->enrollmentId ;?></td>
+                                    <td><?php echo $voucher->roll_no ;?></td>
                                     <td><?php echo $voucher->first_name .' '.$voucher->last_name  ;?></td>
                                     <td><?php echo $voucher->installment_no ;?></td>
                                     <td><?php echo $voucher->fee_amount ;?></td>
