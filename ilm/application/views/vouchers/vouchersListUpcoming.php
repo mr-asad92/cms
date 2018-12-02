@@ -47,7 +47,7 @@
                                     <td><?php echo $voucher->first_name .' '.$voucher->last_name  ;?></td>
                                     <td><?php echo $voucher->installment_no ;?></td>
                                     <td><?php echo $voucher->fee_amount ;?></td>
-                                    <td><?php echo $voucher->installment_date ;?></td>
+                                    <td><?php echo formatDateForView($voucher->installment_date) ;?></td>
                                     <td><?php echo $voucher->programTitle.' - '.$voucher->classTitle.' - '.$voucher->sectionTitle ;?></td>
                                     <td>
                                         <?php
