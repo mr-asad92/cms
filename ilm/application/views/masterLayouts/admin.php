@@ -25,6 +25,7 @@
     <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/respond.js/1.1.0/respond.min.js"></script>
     <script type="text/javascript" src="<?php echo base_url();?>assets/plugins/charts-flot/excanvas.min.js"></script>
     <![endif]-->
+    <link href='<?php echo base_url();?>assets/plugins/datatables/dataTables.css' rel='stylesheet' type='text/css' media='all' id='headerswitcher'>
 
     <!-- The following CSS are included as plugins and can be removed if unused-->
 
@@ -602,10 +603,27 @@
         $(".enableDatePickerFrom").datepicker( "setDate" , '<?php echo date("m/01/Y");?>' );
         $(".enableDatePickerTo").datepicker( "setDate" , '<?php echo date("m/t/Y");?>' );
         $('#studentsList').DataTable();
+
+        $('#saveFormBtn').on('click', function(){
+            if($('#studyProgramMenu').val() == 0){
+                alert('Please select a Study Program');
+            }
+            else if($('#classesMenu').val() == 0){
+                alert('Please select a class');
+            }
+            else if($('#sectionsMenu').val() == 0){
+                alert('Please select a section');
+            }
+            else{
+                $("#submitEnrollment").click();
+            }
+        });
     } );
 
     $(document).ready( function () {
         $('#vouchersList').DataTable();
+        $('#feePaymentsList').DataTable();
+
     } );
 
     $(document).ready( function () {

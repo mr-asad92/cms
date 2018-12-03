@@ -50,9 +50,9 @@ class Vouchers_model extends CI_Model
 
             }
 
-//            if($search['classId']){
-//                $q->where('paid_fee.classId',$search['classId']);
-//            }
+            if($search['classId']){
+                $q->where('paid_fee.classId',$search['classId']);
+            }
 
             if($search['roll_no']){
                 $q->where('enrollment.roll_no',$search['roll_no']);

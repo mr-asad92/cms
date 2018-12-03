@@ -41,7 +41,13 @@
                             <label for="ClassId">Roll #</label>
                             <input class="form-control" data-val="true" data-val-date="The field Roll No must be a date." id="dto" name="roll_no" value="<?php echo set_value('roll_no');?>" type="text">
                         </div>
-                        <div class="col-sm-2">
+                        <div class="col-sm-1">
+                            <label for="Class">Class</label>
+                            <?php echo form_dropdown('classId', $classes, set_value('classId', setVal('', 0, 'class_id', '')),'class="form-control"');?>
+
+
+                        </div>
+                        <div class="col-sm-1">
                             <label for="SectionId">SectionId</label>
                             <?php echo form_dropdown('sectionId', $sections, set_value('sectionId'),'class="form-control"');?>
                         </div>

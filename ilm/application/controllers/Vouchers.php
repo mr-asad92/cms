@@ -66,7 +66,7 @@ class Vouchers extends CI_Controller
             $search['enrollmentNo'] = $this->input->post('EnrollmentNo');
             $search['dateFrom'] = $this->input->post('DateFrom');
             $search['dateTo'] = $this->input->post('DateTo');
-//            $search['classId'] = $this->input->post('classId');
+            $search['classId'] = $this->input->post('classId');
             $search['roll_no'] = $this->input->post('roll_no');
             $search['sectionId'] = $this->input->post('sectionId');
             $search['status'] = $this->input->post('Status');
@@ -125,6 +125,7 @@ class Vouchers extends CI_Controller
         );
 
         $data['amounts'] = $this->Vouchers_model->getPaidAndRemainingAmounts($data['voucher']->enr_id);
+        $data['fineAfterDueDate'] = $this->Vouchers_model->getFineAfterDueDate($data['voucher']->classId, $data['voucher']->sectionId);
 
         $this->load->view('masterLayouts/admin',$data);
     }

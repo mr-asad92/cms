@@ -13,7 +13,7 @@
 
                 <div class="col-sm-2">
                     <label for="" class="control-label">Title: </label>
-                    <input type="text" name="title" class="form-control" value="<?php echo $section['title'];?>">
+                    <input type="text" name="title" class="form-control" value="<?php echo $section['title'];?>" required="required">
         </div>
 
                 <div class="col-sm-2">
@@ -56,8 +56,8 @@
                         <td><?php echo $data['title'];?></td>
                         <td><?php echo $class;?></td>
                         <th>
-                            <a href="<?php echo base_url().'admin/edit_section/'.$data['id'];?>">Edit</a> |
-                            <a href="<?php echo base_url().'admin/delete_section/'.$data['id'];?>">Delete</a>
+                            <a href="<?php echo base_url().'admin/edit_section/'.$data['id'];?>">Edit</a>
+<!--                            <a href="--><?php //echo base_url().'admin/delete_section/'.$data['id'];?><!--">Delete</a>-->
                         </th>
                     </tr>
             <?php

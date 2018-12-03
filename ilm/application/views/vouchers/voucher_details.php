@@ -134,7 +134,9 @@
 <!--                    </th>-->
 <!--                </tr>-->
             </table>
-            <small><b>Note: <?php echo $fineAfterDueDate;?> Rs. will be charged per day after due date.</b></small>
+            <?php if($voucher->status == 0){?>
+                <small><b>Note: <?php echo $fineAfterDueDate;?> Rs. will be charged per day after due date.</b></small>
+            <?php } ?>
         </div>
     </div>
 
@@ -260,7 +262,9 @@
                 <!--                    </th>-->
                 <!--                </tr>-->
             </table>
-            <small><b>Note: <?php echo $fineAfterDueDate;?> Rs. will be charged per day after due date.</b></small>
+            <?php if($voucher->status == 0){?>
+                <small><b>Note: <?php echo $fineAfterDueDate;?> Rs. will be charged per day after due date.</b></small>
+            <?php } ?>
         </div>
     </div>
 
@@ -386,8 +390,9 @@
                 <!--                    </th>-->
                 <!--                </tr>-->
             </table>
-            <small><b>Note: <?php echo $fineAfterDueDate;?> Rs. will be charged per day after due date.</b></small>
-
+            <?php if($voucher->status == 0){?>
+                <small><b>Note: <?php echo $fineAfterDueDate;?> Rs. will be charged per day after due date.</b></small>
+            <?php } ?>
         </div>
     </div>
 

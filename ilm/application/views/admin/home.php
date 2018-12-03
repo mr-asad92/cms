@@ -1,5 +1,5 @@
 <div class="container">
-    <form action="<?php echo $submitUrl;?>" class="form-horizontal" enctype="multipart/form-data" method="post">
+    <form action="<?php echo $submitUrl;?>" class="form-horizontal" enctype="multipart/form-data" method="post" id="enrollmentForm">
         <div class="row">
             <div class="col-md-12">
                 <?php
@@ -30,7 +30,7 @@
                                 <div class="form-group">
                                     <label class="col-sm-3 control-label" for="ddlClass">Study Program</label>
                                     <div class="col-sm-3">
-                                        <?php echo form_dropdown('programId', $programs, set_value('programId', setVal($enrollment_data, 0, 'program_id', $editRegistration)),'class="form-control" onchange="getClasses(this.value)"');?>
+                                        <?php echo form_dropdown('programId', $programs, set_value('programId', setVal($enrollment_data, 0, 'program_id', $editRegistration)),'class="form-control" id="studyProgramMenu" onchange="getClasses(this.value)"');?>
                                         <span class="field-validation-valid text-danger" data-valmsg-for="Student.programId" data-valmsg-replace="true"></span>
                                     </div>
 
@@ -314,7 +314,7 @@
                                     <div class="form-group">
                                         <label class="control-label col-sm-2" for="fatherfirstname">Full Name</label>
                                         <div class="col-sm-3">
-                                            <input class="form-control" data-val="true" data-val-required="This field is requried." id="fathername" name="fathername" type="text" onblur="validate(this, 'fathername')" value="<?php echo set_value('fathername', setVal($enrollment_data, '', 'father_name', $editRegistration));?>">
+                                            <input class="form-control" data-val="true" data-val-required="This field is requried." id="fathername" name="fathername" type="text" onblur="validate(this, 'fathername')" value="<?php echo set_value('fathername', setVal($enrollment_data, '', 'father_name', $editRegistration));?>" required="required">
                                             <span class="field-validation-valid text-danger" data-valmsg-for="Parent.FirstName" data-valmsg-replace="true"></span>
                                         </div>
 
@@ -494,7 +494,8 @@
                     <div class="row">
                         <div class="col-sm-2 pull-right">
                             <div class="col-md-6">
-                                <button class="btn-primary btn pull-right" type="submit" id="saveFormBtn"> Save </button>
+                                <button class="btn-primary btn pull-right" type="submit" id="submitEnrollment" style="display: none;"> Save </button>
+                                <button class="btn-primary btn pull-right" type="button" id="saveFormBtn"> Save </button>
                             </div>
                             <div class="col-md-6">
                                 <a href="<?php echo base_url().'admin';?>" class="btn-default btn pull-right"> Cancel </a>

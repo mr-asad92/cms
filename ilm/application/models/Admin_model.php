@@ -1006,6 +1006,7 @@ WHERE pf.status = 1 AND fi.status = 1 AND pf.delete_status = 0 ";
         $sectionId = $data['sectionId'];
         unset($data['sectionId']);
         $this->db->where('id', $sectionId)->update('sections', $data);
+//        debug($this->db->last_query());
         return true;
     }
 

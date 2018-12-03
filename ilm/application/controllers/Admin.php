@@ -717,7 +717,7 @@ class Admin extends CI_Controller
             'to_date' => $this->admin_model->getToDate($enrollment_id),
         );
 //        'to_date' => "2019-03-30",
-
+//        debug($data['installments']);
         $data['student_detail']['enrollment_number']=$enrollment_id;
 
         $total_paidFee = $this->admin_model->getTotalPaidFee($enrollment_id, $classId, $sectionId);
@@ -1427,10 +1427,20 @@ class Admin extends CI_Controller
 
     public function update_section(){
         $section = [
-            'classId'                   => $this->input->post('classId'),
+            'class_id'                   => $this->input->post('classId'),
             'title'                      => $this->input->post('title'),
             'sectionId'                      => $this->input->post('sectionId'),
         ];
+//        debug($section);
+        if($section['class_id'] == 0){
+            $this->session->set_flashdata('msg', '<p class="alert alert-danger">You must select class !</p>');
+            redirect(base_url() . 'admin/add_section');
+        }
+
+        if ( $section['title'] == '') {
+            $this->session->set_flashdata('msg', '<p class="alert alert-danger">You must select section title!</p>');
+            redirect(base_url() . 'admin/add_section');
+        }
 
         $this->admin_model->update_section($section);
 

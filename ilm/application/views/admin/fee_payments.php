@@ -63,8 +63,8 @@
         <div class="panel-body std-panel infinite-scroll">
             <div class="std-detail clearfix">
                 <div class="col-sm-12">
-                    <div class="table-responsive">
-                        <table class="table">
+                    <div class="">
+                        <table class="table table-responsive" id="feePaymentsList">
                             <thead>
                             <tr>
 

@@ -33,7 +33,7 @@
                         <div class="form-group">
                             <div class="col-sm-2">
                                 <label for="FeeInstallment_InitialAmount">InitialAmount</label>
-                                <input class="form-control txtCal valid" data-val="true" data-val-number="The field InitialAmount must be a number." id="InitialAmount" name="initialAmount" value="<?php echo $initial_amount;?>" aria-describedby="InitialAmount-error" aria-invalid="false" type="text" readonly="readonly">
+                                <input class="form-control txtCal valid" data-val="true" data-val-number="The field InitialAmount must be a number." id="InitialAmount" name="initialAmount" value="<?php echo $initial_amount;?>" aria-describedby="InitialAmount-error" aria-invalid="false" type="text">
                             </div>
                             <div class="col-sm-2">
                                 <label for="FeeInstallment_PendingAmount">PendingAmount</label>

@@ -81,7 +81,9 @@ function GenerateRow() {
             htm += '<td class="text-center" id="PendAmnt"><input class="form-control txtAmnt installment_amounts" data-val="true" data-val-number="The field InstallmentAmount must be a number." data-val-required="The InstallmentAmount field is required." id="FeeInstallmentDetails" name="installmentAmount[]" value="10000" type="text"><span class="field-validation-valid text-danger VLDAmnt" data-valmsg-for="FeeInstallmentDetails[0].InstallmentAmount" data-valmsg-replace="true"></span></td>'
             htm += '<td class="text-center" id="dte"><div class="input-group date "><input value="05/20/2018" class="form-control txtDate" data-val="true" data-val-date="The field InstallmentDate must be a date." data-val-required="The InstallmentDate field is required." id="Date" name="installmentDate[]" type="text"><span class="input-group-addon"><i class="fa fa-calendar"></i></span></div><span class="field-validation-valid text-danger VLDDate" data-valmsg-for="FeeInstallmentDetails[0].InstallmentDate" data-valmsg-replace="true"></span></td>'
 
-            htm += '<td>UnPaid</td>';
+            htm += '<td>UnPaid';
+            htm += '<input name="paidStatus[]" type="hidden" value="0" />';
+            htm += '</td>';
             htm += '<td><input type="button" value="Add" class="btn btn-info btnAdd">&nbsp;<input type="button" value="Remove" class="btn btn-info btnDel"></td></tr>'
         }
         $('#tbdy').append(htm);
