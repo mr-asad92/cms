@@ -734,6 +734,17 @@ WHERE pf.status = 1 AND fi.status = 1 AND pf.delete_status = 0 ";
 
     }
 
+    public function getFeeListInstallments($enrollment_id){
+        $query = $this->db->select('
+            installment_no, fee_amount, installment_date, status
+            ')
+            ->from('paid_fee')
+            ->where(['enrollment_id'=>$enrollment_id, 'delete_status' => 0])
+            ->get()->result_array();
+
+        return $query;
+    }
+
     public function getUnPaidInstallments(){
         $query = $this->db->select('
             e.id,

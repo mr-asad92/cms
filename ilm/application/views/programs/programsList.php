@@ -31,11 +31,10 @@
                                     <i class="fa fa-pencil"></i>
 
                                 </a>
-                                <a class="btn btn-danger"
-                                   href="<?php echo base_url();?>programs/delete/<?= $program->id?>">
-
-                                    <i  class="fa fa-trash-o" aria-hidden="true"></i>
-                                </a>
+<!--                                <a class="btn btn-danger" href="--><?php //echo base_url();?><!--programs/delete/--><?php //echo $program->id?><!--">-->
+<!---->
+<!--                                    <i  class="fa fa-trash-o" aria-hidden="true"></i>-->
+<!--                                </a>-->
                             </td>
                     </tr>
                     <?php endforeach;?>

@@ -112,7 +112,7 @@
                             <th>Class</th>
                             <th>Total Fee</th>
                             <th>Paid</th>
-                            <th>Past Due Amount</th>
+                            <th>Installments</th>
                             <th>Balance</th>
                         </tr>
                         </thead>
@@ -120,7 +120,8 @@
                         <?php foreach ($studentsList as $student) :
                             $class_name = $this->admin_model->getClassNameWithProgramTitle($student['class_id']);
                             $paid_fee = $this->admin_model->getStudentFee($student['enrollment_no'], 1);
-                            $past_due_amount = $this->admin_model->getPastDueAmount($student['enrollment_no']);
+//                            $past_due_amount = $this->admin_model->getPastDueAmount($student['enrollment_no']);
+                            $installments = $this->admin_model->getFeeListInstallments($student['enrollment_no']);
                             ?>
                             <tr>
                                 <td><?php echo $student['enrollment_no']; ?></td>
@@ -130,7 +131,20 @@
                                 <td><?php echo $class_name; ?></td>
                                 <td><?php echo $student['grand_total']; ?></td>
                                 <td><?php echo $paid_fee; ?></td>
-                                <td class="text-danger"><?php echo $past_due_amount; ?></td>
+                                <td>
+                                    <?php
+
+                                    if (count($installments) > 0) {
+                                        foreach ($installments as $installment) {
+                                            $paidStatus = ($installment['status'] == 0) ? 'UnPaid' : 'Paid';
+                                            echo "<span style='border-bottom:1px solid #ccc;'><span class='text-danger'>" . $installment['fee_amount'] . "</span> <b>" . formatDateForView($installment['installment_date']) . "</b> <span class='badge'>" . $paidStatus . "</span>  </span><br />";
+                                        }
+                                    }
+                                    else{
+                                        echo "<span class='badge'>No Installments!</span>";
+                                    }
+                                    ?>
+                                </td>
                                 <td><?php echo $student['grand_total'] - $paid_fee; ?></td>
 
                             </tr>
@@ -141,7 +155,6 @@
                     <?php
                         if ($fee_totals != false){
                     ?>
-                            <div class="col-sm-3">
                     <table class="table table-stripped table-condensed table-hover table-bordered" style="width: 250px;">
                         <tr>
                             <th colspan="2" class="text-center bg-primary">Details</th>
@@ -160,19 +173,6 @@
                             <td><?php echo number_format($fee_totals['grandTotal'] - $fee_totals['paid_fee']);?></td>
                         </tr>
                     </table>
-                            </div>
-                            <div class="col-sm-3">
-                                <table class="table table-stripped table-condensed table-hover table-bordered" style="width: 250px;">
-                                    <tr>
-                                        <th colspan="2" class="text-center bg-primary">Due Amount</th>
-                                    </tr>
-                                    <tr>
-                                        <th class="active"></th>
-                                        <td><?php echo number_format($fee_totals['grandTotal'] - $fee_totals['paid_fee']);?></td>
-                                    </tr>
-
-                                </table>
-                            </div>
                     <?php } ?>
                 </div>
 

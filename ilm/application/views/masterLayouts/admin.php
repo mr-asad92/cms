@@ -289,6 +289,7 @@
                     <li><a href="<?php echo base_url()."admin/index";?>"><span>Registration</span></a></li>
                     <li><a href="<?php echo base_url();?>admin/studentsList"><span>Students List</span></a></li>
                     <li><a href="<?php echo base_url();?>admin/studentsFeeList"><span>Students Fee List</span></a></li>
+                    <li><a href="<?php echo base_url();?>admin/studentsFeeListInstallments"><span>Fee List (installments)</span></a></li>
                     <li><a href="<?php echo base_url() ; ?>admin/add_examination_types"><span>Add Examination Types</span></a></li>
 
                 </ul>

@@ -46,7 +46,9 @@
                 ?>
                 <tr>
                     <td><?php echo $examType['title'];?></td>
-                    <th><a href="<?php echo base_url().'admin/edit_examination_types/'.$examType['id'];?>">Edit</a> | <a href="<?php echo base_url().'admin/delete_examination_types/'.$examType['id'];?>">Delete</a></th>
+                    <th><a href="<?php echo base_url().'admin/edit_examination_types/'.$examType['id'];?>">Edit</a>
+<!--                        | <a href="--><?php //echo base_url().'admin/delete_examination_types/'.$examType['id'];?><!--">Delete</a>-->
+                    </th>
                 </tr>
                 <?php
             }

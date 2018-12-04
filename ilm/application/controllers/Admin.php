@@ -507,6 +507,18 @@ class Admin extends CI_Controller
         $this->load->view('masterLayouts/admin',$data);
     }
 
+    public function studentsFeeListInstallments(){
+        $data = array(
+            'title' => 'ILM | Admin',
+            'view' => 'admin/studentsFeeListInstallments',
+            'classes' => $this->admin_model->getClassesWithProgramTitle(true),
+            'sections' => $this->admin_model->getSectionsWithProgramAndClassTitle(true),
+            'studentsList' => $this->admin_model->getStudentsFeeList(),
+            'fee_totals' => $this->admin_model->getStudentsFeeTotals(),
+        );
+        $this->load->view('masterLayouts/admin',$data);
+    }
+
     public function printStudentsFeeList(){
         $data = array(
             'title' => 'ILM | Admin',
