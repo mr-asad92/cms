@@ -10,7 +10,7 @@
     </div>
     <div class="panel-body">
         <div class="col-sm-12">
-            <form action="<?php echo base_url(); ?>admin/searchStudentsFeeList" class="" method="post"
+            <form action="<?php echo base_url(); ?>admin/searchStudentsFeeListInstallments" class="" method="post"
                   novalidate="novalidate">
                 <div class="mb5 clearfix">
                     <h4 class="pull-left"><strong>Enter any of the following field data to search</strong></h4>

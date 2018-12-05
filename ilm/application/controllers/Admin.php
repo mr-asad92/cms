@@ -563,6 +563,32 @@ class Admin extends CI_Controller
         $this->load->view('masterLayouts/admin',$data);
     }
 
+    public function searchStudentsFeeListInstallments(){
+
+        $searchData = array(
+            'enrollment_no' => $this->input->post('EnrollmentNo'),
+            'roll_no' => $this->input->post('rollNo'),
+            'student_name' => $this->input->post('Name'),
+            'guardian_name' => $this->input->post('guardianName'),
+            'mobile_no' => $this->input->post('guardianMobile'),
+            'class_id' => $this->input->post('classId'),
+            'section_id' => $this->input->post('sectionId'),
+        );
+
+        $data = array(
+            'title' => 'ILM | Admin',
+            'view' => 'admin/studentsFeeListInstallments',
+            'classes' => $this->admin_model->getClassesWithProgramTitle(true),
+            'sections' => $this->admin_model->getSectionsWithProgramAndClassTitle(true),
+            'studentsList' => $this->admin_model->searchStudentsFeeList($searchData),
+            'fee_totals' => $this->admin_model->searchStudentsFeeTotals($searchData),
+
+
+        );
+
+        $this->load->view('masterLayouts/admin',$data);
+    }
+
 
     public function feeRecord($enrollment_id)
     {
