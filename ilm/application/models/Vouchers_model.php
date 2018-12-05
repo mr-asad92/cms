@@ -13,16 +13,34 @@ class Vouchers_model extends CI_Model
         //$q = $this->db->get('users');
         //return $q->result();
 
+//        $q = $this->db->select('
+//
+//            enrollment.*,
+//            personal_details.*,
+//            paid_fee.*,
+//            paid_fee.id as vocher_id,
+//            classes.title as classTitle,
+//            sections.title as sectionTitle,
+//            programs.title as programTitle,
+//            enrollment.id as enrollmentId,
+//            paid_fee.id as paidFeeId
+//
+//        ')
+//            ->from('paid_fee')
+//            ->join('enrollment','enrollment.id = paid_fee.enrollment_id')
+//            ->join('personal_details','enrollment.id = personal_details.enrollment_id')
+//            ->join('classes', 'classes.id = paid_fee.classId')
+//            ->join('sections', 'sections.id = paid_fee.sectionId')
+//            ->join('programs', 'programs.id = paid_fee.program_id')
+//            ->where('paid_fee.delete_status',0);
+
+
         $q = $this->db->select('
         
             enrollment.*,
             personal_details.*,
             paid_fee.*,
             paid_fee.id as vocher_id,
-            classes.*,
-            classes.title as classTitle,
-            sections.title as sectionTitle,
-            programs.title as programTitle,
             enrollment.id as enrollmentId,
             paid_fee.id as paidFeeId 
             
@@ -30,9 +48,6 @@ class Vouchers_model extends CI_Model
             ->from('paid_fee')
             ->join('enrollment','enrollment.id = paid_fee.enrollment_id')
             ->join('personal_details','enrollment.id = personal_details.enrollment_id')
-            ->join('classes', 'classes.id = paid_fee.classId')
-            ->join('sections', 'sections.id = paid_fee.sectionId')
-            ->join('programs', 'programs.id = paid_fee.program_id')
             ->where('paid_fee.delete_status',0);
 
         if(!empty($search)){
@@ -81,16 +96,35 @@ class Vouchers_model extends CI_Model
         //$q = $this->db->get('users');
         //return $q->result();
 
+//        $q = $this->db->select('
+//
+//            enrollment.*,
+//            personal_details.*,
+//            paid_fee.*,
+//            paid_fee.id as vocher_id,
+//            classes.*,
+//            classes.title as classTitle,
+//            sections.title as sectionTitle,
+//            programs.title as programTitle,
+//            enrollment.id as enrollmentId,
+//            paid_fee.id as paidFeeId
+//
+//        ')
+//            ->from('paid_fee')
+//            ->join('enrollment','enrollment.id = paid_fee.enrollment_id')
+//            ->join('personal_details','enrollment.id = personal_details.enrollment_id')
+//            ->join('classes', 'classes.id = paid_fee.classId')
+//            ->join('sections', 'sections.id = paid_fee.sectionId')
+//            ->join('programs', 'programs.id = paid_fee.program_id')
+//            ->where('paid_fee.delete_status',0)
+//            ->where('paid_fee.status',0);
+
         $q = $this->db->select('
         
             enrollment.*,
             personal_details.*,
             paid_fee.*,
             paid_fee.id as vocher_id,
-            classes.*,
-            classes.title as classTitle,
-            sections.title as sectionTitle,
-            programs.title as programTitle,
             enrollment.id as enrollmentId,
             paid_fee.id as paidFeeId 
             
@@ -98,11 +132,7 @@ class Vouchers_model extends CI_Model
             ->from('paid_fee')
             ->join('enrollment','enrollment.id = paid_fee.enrollment_id')
             ->join('personal_details','enrollment.id = personal_details.enrollment_id')
-            ->join('classes', 'classes.id = paid_fee.classId')
-            ->join('sections', 'sections.id = paid_fee.sectionId')
-            ->join('programs', 'programs.id = paid_fee.program_id')
-            ->where('paid_fee.delete_status',0)
-            ->where('paid_fee.status',0);
+            ->where('paid_fee.delete_status',0);
 
         if(!empty($search)){
 

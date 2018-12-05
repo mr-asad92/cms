@@ -140,7 +140,6 @@ function validate(currentElement, className){
 }
 
 function calculateFee(){
-
     var admFee = Number($("#AdmFee").val());
     var feePkg = Number($("#feePkg").val());
     var tuitionFee = Number($("#tuitionFee").val());
@@ -148,12 +147,15 @@ function calculateFee(){
     var libFee = Number($("#libFee").val());
     var miscFee = Number($("#miscFee").val());
     var otherFee = Number($("#otherFee").val());
+    var discount = Number($("#discount").val());
 
     var totalFee = admFee + feePkg + tuitionFee + boardUniRegFee + libFee;
     var grandTotal = totalFee + miscFee + otherFee;
 
+    var balance = grandTotal  - discount;
+
     // $("#totalFee").val(totalFee);
     $("#totalFee").val(grandTotal);
-    $("#grandTotal").val(grandTotal);
+    $("#grandTotal").val(balance);
 }
 

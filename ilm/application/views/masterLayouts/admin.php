@@ -601,8 +601,8 @@
 <script>
     $(document).ready( function () {
         $(".enableDatePicker").datepicker( "setDate" , "2018" );
-        $(".enableDatePickerFrom").datepicker( "setDate" , '<?php echo date("m/01/Y");?>' );
-        $(".enableDatePickerTo").datepicker( "setDate" , '<?php echo date("m/t/Y");?>' );
+        $(".enableDatePickerFrom").datepicker( {"setDate" : '<?php echo date("m/01/Y");?>' });
+        $(".enableDatePickerTo").datepicker( {"setDate" : '<?php echo date("m/t/Y");?>' });
         $('#studentsList').DataTable();
 
         $('#saveFormBtn').on('click', function(){

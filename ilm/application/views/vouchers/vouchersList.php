@@ -98,7 +98,12 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <?php foreach ($vouchers as $voucher): ?>
+                            <?php foreach ($vouchers as $voucher){
+                                $classTitle = $this->admin_model->getClassName($voucher->classId);
+                                $sectionTitle = $this->admin_model->getSectionName($voucher->sectionId);
+                                $programTitle = $this->admin_model->getProgramName($voucher->program_id);
+//                                debug($programTitle.' - '.$classTitle.' - '.$sectionTitle);
+                                ?>
                                 <tr>
 
                                     <td class="text-center hdns">
@@ -110,7 +115,7 @@
                                     <td><?php echo $voucher->installment_no ;?></td>
                                     <td><?php echo $voucher->fee_amount ;?></td>
                                     <td><?php echo formatDateForView($voucher->installment_date) ;?></td>
-                                    <td><?php echo $voucher->programTitle.' - '.$voucher->classTitle.' - '.$voucher->sectionTitle ;?></td>
+                                    <td><?php echo $programTitle.' - '.$classTitle.' - '.$sectionTitle ;?></td>
                                     <td>
                                         <?php
 
@@ -149,7 +154,7 @@
 
 
                                 </tr>
-                            <?php endforeach; ?>
+                            <?php } ?>
                             </tbody>
                         </table>
                     </div>

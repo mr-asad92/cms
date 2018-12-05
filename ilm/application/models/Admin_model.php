@@ -44,7 +44,14 @@ class Admin_Model extends CI_Model
     }
 
     public function getClassName($classId){
-        return $this->db->where('id', $classId)->get('classes')->result_array()[0]['title'];
+        $q = $this->db->where('id', $classId)->get('classes');
+        if($q->num_rows() > 0){
+            $return = $q->result_array()[0]['title'];
+        }
+        else{
+            $return = '';
+        }
+        return $return;
     }
 
     public function getSections($get_empty_selected = false) {
@@ -63,11 +70,27 @@ class Admin_Model extends CI_Model
     }
 
     public function getSectionName($sectionId){
-        return $this->db->where('id', $sectionId)->get('sections')->result_array()[0]['title'];
+
+        $q = $this->db->where('id', $sectionId)->get('sections');
+        if($q->num_rows() > 0){
+            $return = $q->result_array()[0]['title'];
+        }
+        else{
+            $return = '';
+        }
+        return $return;
     }
 
     public function getProgramName($program_id){
-        return $this->db->where('id', $program_id)->get('programs')->result_array()[0]['title'];
+        $q = $this->db->where('id', $program_id)->get('programs');
+
+        if($q->num_rows() > 0){
+            $return = $q->result_array()[0]['title'];
+        }
+        else{
+            $return = '';
+        }
+        return $return;
     }
 
     public function getFeeInfo($enrollment_id)
@@ -184,6 +207,13 @@ class Admin_Model extends CI_Model
         $this->db->where('id', $enroll_id);
         $this->db->update('enrollment', $enrollment_data['enrollment']);
 
+        //update fee installments section, class, program
+
+        $paid_fee_updateData = ['program_id' => $enrollment_data['enrollment']['program_id'], 'classId' => $enrollment_data['enrollment']['class_id'], 'sectionId' => $enrollment_data['enrollment']['section_id']];
+
+        $this->db->where('enrollment_id', $enroll_id);
+        $this->db->update('paid_fee', $paid_fee_updateData);
+
         $this->db->where('enrollment_id', $enroll_id);
         $this->db->update('personal_details', $enrollment_data['personal_details']);
 
@@ -250,6 +280,10 @@ class Admin_Model extends CI_Model
             //update status of all old fee pkgs to maintain history
             $this->db->where('enrollment_id', $enroll_id);
             $this->db->update('fee_info', ['status' => 0]);
+
+            //update status of all old fee installments ()
+            $this->db->where('enrollment_id', $enroll_id);
+            $this->db->update('paid_fee', ['delete_status' => 1]);
 
             //add entry to fee_pkg_history table
             $enrollment_data['fee_pkg_history']['enrollment_id'] = $enroll_id;
