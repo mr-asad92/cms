@@ -20,6 +20,10 @@
                 $total_amount = $paid_amount + $amounts['unpaid_amount'];
                 $balance = $total_amount - ($paid_amount + $voucher->fee_amount);
                 $balance = ($balance < 0)?0:$balance;
+
+                $classTitle = $this->admin_model->getClassName($voucher->classId);
+                $sectionTitle = $this->admin_model->getSectionName($voucher->sectionId);
+                $programTitle = $this->admin_model->getProgramName($voucher->program_id);
             ?>
 
             <table class="table table-condensed custom_table">
@@ -58,7 +62,7 @@
                     <th>Class </th>
                     <td>
 <!--                        --><?php //echo $voucher->classTitle.' '. $voucher->title;?>
-                        <?php echo $voucher->classTitle.' - '.$voucher->programTitle.' - '.$voucher->sectionTitle;?>
+                        <?php echo $programTitle.' - '.$classTitle.' - '.$sectionTitle;?>
                     </td>
                     <th>Roll #</th>
                     <td>
@@ -186,7 +190,7 @@
                     <th>Class </th>
                     <td>
                         <!--                        --><?php //echo $voucher->classTitle.' '. $voucher->title;?>
-                        <?php echo $voucher->classTitle.' - '.$voucher->programTitle.' - '.$voucher->sectionTitle;?>
+                        <?php echo $programTitle.' - '.$classTitle.' - '.$sectionTitle;?>
                     </td>
                     <th>Roll #</th>
                     <td>
@@ -314,7 +318,7 @@
                     <th>Class </th>
                     <td>
                         <!--                        --><?php //echo $voucher->classTitle.' '. $voucher->title;?>
-                        <?php echo $voucher->classTitle.' - '.$voucher->programTitle.' - '.$voucher->sectionTitle;?>
+                        <?php echo $programTitle.' - '.$classTitle.' - '.$sectionTitle;?>
                     </td>
                     <th>Roll #</th>
                     <td>
