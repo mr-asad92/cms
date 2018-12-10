@@ -1,9 +1,9 @@
 
 <link href='<?php echo base_url();?>assets/plugins/datatables/dataTables.css' rel='stylesheet' type='text/css' media='all' id='headerswitcher'>
 
-<div class="container">
+<div class="container col-md-6 col-md-offset-3">
 
-    <div class="panel panel-info">
+    <div class="panel panel-info ">
         <div class="panel-heading">
             <h4>General Voucher</h4>
 
@@ -11,7 +11,7 @@
 
             </div>
         </div>
-        <div class="panel-body std-panel infinite-scroll">
+        <div class="panel-body std-panel infinite-scroll ">
             <div class="std-detail clearfix">
                 <div class="col-sm-12">
                     <div class="">

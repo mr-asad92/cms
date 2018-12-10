@@ -122,7 +122,7 @@
                     <td></td><td></td>
                     <th> </th>
                     <th>
-                        Sign: &nbsp;&nbsp;&nbsp; ______________
+                        Accountant's Signature: &nbsp;&nbsp;&nbsp; ______________
                     </th>
                 </tr>
 
@@ -250,7 +250,7 @@
                     <td></td><td></td>
                     <th> </th>
                     <th>
-                        Sign: &nbsp;&nbsp;&nbsp; ______________
+                        Accountant's Signature: &nbsp;&nbsp;&nbsp; ______________
                     </th>
                 </tr>
 
@@ -378,7 +378,7 @@
                     <td></td><td></td>
                     <th> </th>
                     <th>
-                        Sign: &nbsp;&nbsp;&nbsp; ______________
+                        Accountant's Signature: &nbsp;&nbsp;&nbsp; ______________
                     </th>
                 </tr>
 
@@ -425,7 +425,7 @@
 //            infoPrintWindow.document.write('<link rel="stylesheet" href="<?php //echo base_url();?>//assets/css/bootstrap.css">');
 //            infoPrintWindow.document.write('<link href=\'<?php //echo base_url();?>//assets/demo/variations/default.css\' rel=\'stylesheet\' type=\'text/css\' media=\'all\' id=\'styleswitcher\'>');
 //            infoPrintWindow.document.write('<link href=\'<?php //echo base_url();?>//assets/demo/variations/default.css\' rel=\'stylesheet\' type=\'text/css\' media=\'all\' id=\'headerswitcher\'>');
-            infoPrintWindow.document.write('<style>table {\n' +
+            infoPrintWindow.document.write('<style>body{padding:20px 50px 20px 50px;}table {\n' +
                 '  background-color: transparent;\n' +
                 '}\n' +
                 'caption {\n' +

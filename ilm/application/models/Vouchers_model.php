@@ -52,6 +52,10 @@ class Vouchers_model extends CI_Model
 
         if(!empty($search)){
 
+            if($search['voucherNo']){
+                $q->where('paid_fee.id',$search['voucherNo']);
+            }
+
             if($search['enrollmentNo']){
                 $q->where('paid_fee.enrollment_id',$search['enrollmentNo']);
             }
@@ -195,6 +199,7 @@ class Vouchers_model extends CI_Model
             ->join('personal_details','enrollment.id = personal_details.enrollment_id')
             ->join('family_information','enrollment.id = family_information.enrollment_id')
             ->where('paid_fee.delete_status',0)
+            ->where('paid_fee.id',$id)
             ->get();
 
 //        die($this->db->last_query());

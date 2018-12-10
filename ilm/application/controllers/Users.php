@@ -14,6 +14,8 @@ class Users extends CI_Controller
         if(!$this->session->userdata('logged_in')){
             redirect(base_url().'authentication/logout');
         }
+        date_default_timezone_set('Asia/Karachi');
+
         $this->load->model('Users_model');
         $this->load->model('Vouchers_model');
 

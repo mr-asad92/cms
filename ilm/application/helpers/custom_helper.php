@@ -123,8 +123,9 @@ if ( ! function_exists('getChildren')) {
 <td >".$account_type."</td>
 <td >".$leaf['created_at']."</td>
 <td >".$leaf['description']."</td>
-<td > <a href=\"".base_url()."accounts/update_account/".$leaf['id']."\">Edit </a>| <a href=\"javascript:deleteAccount('".$leaf['id']."')\">Delete</a></td>
+<td > <a href=\"".base_url()."accounts/update_account/".$leaf['id']."\">Edit </a></td>
 </tr>\n";
+//                | <a href=\"javascript:deleteAccount('".$leaf['id']."')\">Delete</a>
                 if (isset($leaf["descendants"])) {
                     $level++;
                     $html .= getChildren($leaf["descendants"],  $level);

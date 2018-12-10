@@ -16,7 +16,11 @@
                         <button type="button" style="margin-right: 5px;" class="btn btn-info pull-right" onclick="window.location.href= '<?php echo base_url()."Vouchers";?>';"><span class="fa fa-refresh"></span>  Refresh</button>
                     </div>
                     <div class="form-group">
-                        <div class="col-sm-2">
+                        <div class="col-sm-1">
+                            <label for="voucherNo">VoucherNo</label>
+                            <input class="form-control" id="voucherNo" name="voucherNo" value="<?php echo set_value('voucherNo');?>" type="text">
+                        </div>
+                        <div class="col-sm-1">
                             <label for="EnrollmentNo">EnrollmentNo</label>
                             <input class="form-control" id="EnrollmentNo" name="EnrollmentNo" value="<?php echo set_value('EnrollmentNo');?>" type="text">
                         </div>
@@ -86,6 +90,7 @@
                                 <th class="text-center">
                                     <input id="checkAll" type="checkbox">
                                 </th>
+                                <th>Voucher No</th>
                                 <th>Enrollment No</th>
                                 <th>Roll No</th>
                                 <th>Full Name</th>
@@ -102,6 +107,7 @@
                                 $classTitle = $this->admin_model->getClassName($voucher->classId);
                                 $sectionTitle = $this->admin_model->getSectionName($voucher->sectionId);
                                 $programTitle = $this->admin_model->getProgramName($voucher->program_id);
+                                $csp = trim($programTitle.' - '.$classTitle.' - '.$sectionTitle);
 //                                debug($programTitle.' - '.$classTitle.' - '.$sectionTitle);
                                 ?>
                                 <tr>
@@ -109,13 +115,14 @@
                                     <td class="text-center hdns">
                                         <input class="checkbox chkbulk" name="printChkBox" type="checkbox" value="<?php echo $voucher->enrollmentId."_".$voucher->installment_no."_".$voucher->vocher_id;?>">
                                     </td>
+                                    <td><?php echo $voucher->id ;?></td>
                                     <td><?php echo $voucher->enrollmentId ;?></td>
                                     <td><?php echo $voucher->roll_no ;?></td>
                                     <td><?php echo $voucher->first_name .' '.$voucher->last_name  ;?></td>
                                     <td><?php echo $voucher->installment_no ;?></td>
                                     <td><?php echo $voucher->fee_amount ;?></td>
                                     <td><?php echo formatDateForView($voucher->installment_date) ;?></td>
-                                    <td><?php echo $programTitle.' - '.$classTitle.' - '.$sectionTitle ;?></td>
+                                    <td><?php echo $csp ;?></td>
                                     <td>
                                         <?php
 

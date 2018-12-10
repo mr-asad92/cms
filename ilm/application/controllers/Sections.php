@@ -14,6 +14,7 @@ class Sections extends CI_Controller
         if(!$this->session->userdata('logged_in')){
             redirect(base_url().'authentication/logout');
         }
+        date_default_timezone_set('Asia/Karachi');
 
         $method = $this->router->fetch_method();
         if(!empty($method ) && $method != 'buildProfileFirst') {

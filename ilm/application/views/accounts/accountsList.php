@@ -8,7 +8,7 @@
         </div>
         <div class="panel-body">
             <div class="col-sm-12">
-                <form action="/Admission/Fee" class="" method="get" novalidate="novalidate">                    <div class="mb5 clearfix">
+                <form action="<?php echo base_url();?>accounts" class="" method="post" novalidate="novalidate">                    <div class="mb5 clearfix">
                         <h4 class="pull-left"><strong>Enter any of the following field data to search</strong></h4>
                         <button type="submit" class="btn btn-primary pull-right"><span class="fa fa-search"></span>  Search</button>
                         <a href="<?php echo base_url();?>accounts" data-toggle="tooltip" title="Refresh Search"
@@ -25,14 +25,14 @@
                         <div class="col-sm-2">
                             <label class="control-label" for="DateFrom">Date From</label>
                             <div class="input-group date">
-                                <input type="text" class="form-control enableDatePicker" name="">
+                                <input type="text" class="form-control enableDatePicker" name="dateFrom">
                                 <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                             </div>
                         </div>
                         <div class="col-sm-2">
                             <label class="control-label" for="DateTo">Date To</label>
                             <div class="input-group date">
-                                <input class="form-control enableDatePicker" name="DateTo" type="text">
+                                <input class="form-control enableDatePicker" name="dateTo" type="text">
                                 <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                             </div>
                         </div>
@@ -41,7 +41,7 @@
                             <select class="form-control " id="" name="account_type"><option value="">Select
                                     Type</option>
                                 <option value="1">Debit</option>
-                                <option value="2">Credit</option>
+                                <option value="0">Credit</option>
 
                             </select>
                         </div>

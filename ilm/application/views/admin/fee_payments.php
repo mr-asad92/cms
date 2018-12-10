@@ -230,6 +230,7 @@
                     '<tr><th>Installment Date: </th><td>'+data.installment_date+'</td></tr>\n' +
                     '<tr><th>Installment Amount: </th><td><span id="feeAmount">'+data.fee_amount+'</span></td></tr>\n' +
                     '<tr><th>Fine: </th><td><input type="text" id="calculatedFine" class="form-control" onchange="calculateTotalAmount()" value="'+data.calculated_fine+'"></td></tr>\n' +
+                    '<tr><th>Book Ref: </th><td><input type="text" id="bookRef" class="form-control"></td></tr>\n' +
                     '<tr><th class="text-info">Total Amount: </th><th class="text-info"><span id="totalAmount">'+data.total_amount+'</span></th></tr>\n' +
                     '<tr><th class="text-danger">Status: </th><td class="text-danger">'+status+'</td></tr>\n' +
                     '';
@@ -263,12 +264,15 @@
     }
     function payInstallment(id){
         var calculatedFine = $('#calculatedFine').val();
+        var bookRef = $('#bookRef').val();
 
         var url = '<?php echo base_url();?>admin/payInstallment/'+id+'/'+calculatedFine;
         $.ajax({
             url: url,
             type:'get',
+            data:{'bookRef':bookRef},
             success: function (data) {
+                console.log(data);
                 alert("Installment Paid!");
                 $("#"+id).slideUp("slow", function() { $("#"+id).remove();});
 

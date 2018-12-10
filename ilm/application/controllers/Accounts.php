@@ -16,6 +16,7 @@ class Accounts extends CI_Controller
         if(!$this->session->userdata('logged_in')){
             redirect(base_url().'authentication/logout');
         }
+        date_default_timezone_set('Asia/Karachi');
 
         $method = $this->router->fetch_method();
         if(!empty($method ) && $method != 'buildProfileFirst') {
@@ -52,9 +53,27 @@ class Accounts extends CI_Controller
             'title' => 'ILM | Accounts',
             'view' => 'accounts/accountsList',
 //            'accounts' => getChildren(buildTree1($this->Accounts_model->getAccountsList(), 'parent_id', 'id')),
-            'accounts' => getChildren(buildTree($this->Accounts_model->getAccountsList(), 'parent_id', 'id')),
             'accountsOptions' => getHieraricalAccounts(buildTree($this->Accounts_model->getAccountsList(), 'parent_id', 'id'))
         );
+
+        if(isset($_POST)){
+            $search = [];
+            $search['account_name'] = $this->input->post('account_name');
+            $search['dateFrom'] = $this->input->post('dateFrom');
+            $search['dateTo'] = $this->input->post('DateTo');
+            $search['account_type'] = $this->input->post('account_type');
+
+            $accountsList = $this->Accounts_model->getAccountsList($search);
+            if (count($accountsList) > 0){
+                $data['accounts'] = getChildren(buildTree($accountsList, 'parent_id', 'id'));
+            }
+            else{
+                $data['accounts'] = "";
+            }
+        }
+        else {
+            $data['accounts'] = getChildren(buildTree($this->Accounts_model->getAccountsList(), 'parent_id', 'id'));
+        }
 
         $this->load->view('masterLayouts/admin',$data);
     }

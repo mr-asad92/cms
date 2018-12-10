@@ -15,6 +15,7 @@ class Vouchers extends CI_Controller
         if(!$this->session->userdata('logged_in')){
             redirect(base_url().'authentication/logout');
         }
+        date_default_timezone_set('Asia/Karachi');
 
         $method = $this->router->fetch_method();
         if(!empty($method ) && $method != 'buildProfileFirst') {
@@ -63,6 +64,7 @@ class Vouchers extends CI_Controller
 
         if(isset($_POST)){
 
+            $search['voucherNo'] = $this->input->post('voucherNo');
             $search['enrollmentNo'] = $this->input->post('EnrollmentNo');
             $search['dateFrom'] = $this->input->post('DateFrom');
             $search['dateTo'] = $this->input->post('DateTo');

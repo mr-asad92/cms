@@ -7,6 +7,7 @@ class Authentication extends CI_Controller {
         if($this->session->userdata('logged_in')){
             redirect(base_url().'admin');
         }
+        date_default_timezone_set('Asia/Karachi');
 
         if (isset($_COOKIE['cms_user'])) {
             $email = $_COOKIE['cms_user'];

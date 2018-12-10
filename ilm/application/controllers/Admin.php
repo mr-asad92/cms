@@ -9,7 +9,7 @@ class Admin extends CI_Controller
         if(!$this->session->userdata('logged_in')){
             redirect(base_url().'authentication/logout');
         }
-
+        date_default_timezone_set('Asia/Karachi');
         $method = $this->router->fetch_method();
         if(!empty($method ) && $method != 'buildProfileFirst') {
             if (!$this->admin_model->isProfileExists($this->session->userdata('email'))) {
@@ -996,7 +996,6 @@ class Admin extends CI_Controller
     public function payInstallment($id, $fine = 0){
 
         // add transaction in transactions table against cash and fee accounts
-
         $installment = $this->getInstallmenetData($id, false, true);
         $installment = json_decode($installment, true);
 
@@ -1013,12 +1012,18 @@ class Admin extends CI_Controller
         $credit_account = 16;
         $debit_account = 17;
 
+        $bookRef = "";
+        if ($this->input->get('bookRef') != NULL){
+            $bookRef = $this->input->get('bookRef');
+        }
+
         $data = [
             'title' => $transaction_title,
             'description' => $transaction_descr,
             'amount' => $amount,
             'debit_account' => $debit_account,
             'credit_account' => $credit_account,
+            'book_reference' => $bookRef,
             'created_by' => $this->session->userdata('user_id'),
         ];
 
@@ -1039,6 +1044,7 @@ class Admin extends CI_Controller
                 'amount' => $fine,
                 'debit_account' => $debit_account,
                 'credit_account' => $credit_account,
+                'book_reference' => $bookRef,
                 'created_by' => $this->session->userdata('user_id'),
             ];
 

@@ -8,10 +8,32 @@
 
 class Accounts_model extends CI_Model
 {
-    public function getAccountsList()
+    public function getAccountsList($search = [])
     {
-        $q = $this->db->get('accounts');
-        return $q->result_array();
+//        $q = $this->db->get('accounts');
+
+
+        $q = $this->db->select('*')->from('accounts');
+        if(!empty($search)){
+
+            if($search['account_name']){
+                $q->where('account_name',$search['account_name']);
+            }
+
+            if($search['dateFrom']){
+                $q->where('created_at >= ',date('Y-m-d',strtotime($search['dateFrom'])));
+            }
+
+            if($search['dateTo']){
+                $q->where('created_at <= ',date('Y-m-d',strtotime($search['dateTo'])));
+            }
+
+            if($search['account_type'] || $search['account_type']!=""){
+                $q->where('account_type',$search['account_type']);
+            }
+
+        }
+        return $q->get()->result_array();
 
     }
 
