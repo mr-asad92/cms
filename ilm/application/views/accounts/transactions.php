@@ -1,6 +1,44 @@
 <div class="container">
 
     <div class="panel panel-info">
+        <div class="panel-heading ">
+            <h4>Search Transactions</h4>
+        </div>
+        <div class="panel-body">
+            <div class="col-sm-12">
+                <form action="<?php echo base_url();?>accounts/transactions" class="" method="post" novalidate="novalidate">                    <div class="mb5 clearfix">
+                        <h4 class="pull-left"><strong>Enter any of the following field data to search</strong></h4>
+                        <button type="submit" class="btn btn-primary pull-right"><span class="fa fa-search"></span>  Search</button>
+                        <a href="<?php echo base_url();?>accounts/transactions" data-toggle="tooltip" title="Refresh Search"
+                           class="pull-right btn
+                        btn-info"><i
+                                    class="fa fa-refresh" aria-hidden="true"></i> Refresh</a>
+
+                    </div>
+                    <div class="form-group">
+
+                        <div class="col-sm-2">
+                            <label class="control-label" for="DateFrom">Date From</label>
+                            <div class="input-group date">
+                                <input type="text" class="form-control enableDatePicker" name="dateFrom">
+                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <label class="control-label" for="DateTo">Date To</label>
+                            <div class="input-group date">
+                                <input class="form-control enableDatePicker" name="DateTo" type="text">
+                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="panel panel-info">
         <div class="panel-heading">
             <h4>Transactions List</h4>
 

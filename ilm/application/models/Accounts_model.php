@@ -290,19 +290,40 @@ class Accounts_model extends CI_Model
 
     }
 
-    public function getTransactions(){
-        $query = "SELECT * FROM transactions ORDER BY created_at DESC";
-        $res = $this->db->query($query)->result_array();
-
-        $transactions = [];
-        foreach ($res as $key => $value){
-            $value['dr_acc_title'] = $this->getAccountTitle($value['debit_account']);
-            $value['cr_acc_title'] = $this->getAccountTitle($value['credit_account']);
-
-            $transactions[] = $value;
+    public function getTransactions($search = []){
+//        $query = "SELECT * FROM transactions ORDER BY created_at DESC";
+        $query = "SELECT * FROM transactions ";
+        if(!empty($search)){
+            if ($search['dateFrom'] != ''){
+                $condition = (whereClauseExists($query))?'AND ':' WHERE ';
+                $query .= $condition." created_at >= '".date("Y-m-d",strtotime($search['dateFrom']))."'";
+            }
+            else if ($search['dateTo'] != ''){
+                $condition = (whereClauseExists($query))?'AND ':' WHERE ';
+                $query .= $condition." created_at <= '".date("Y-m-d",strtotime($search['dateTo']))."'";
+            }
         }
 
-        return $transactions;
+        $query .= ' ORDER BY created_at DESC';
+//        debug($query);
+
+        $res = $this->db->query($query);
+
+        if ($res->num_rows() > 0) {
+            $transactions = [];
+            foreach ($res->result_array() as $key => $value) {
+                $value['dr_acc_title'] = $this->getAccountTitle($value['debit_account']);
+                $value['cr_acc_title'] = $this->getAccountTitle($value['credit_account']);
+
+                $transactions[] = $value;
+            }
+            $return = $transactions;
+        }
+        else{
+            $return = [];
+        }
+
+        return $return;
     }
 
     public function getInstallmentId($transaction_id){

@@ -209,6 +209,19 @@ class Vouchers extends CI_Controller
 
     }
 
+    public function payment_and_receipt(){
+
+        $data = array(
+            'title' => 'ILM | Payment And Receipt',
+            'view' => 'vouchers/payment_and_receipt',
+            'accounts' => getHieraricalAccounts(buildTree($this->Accounts_model->getAccountsList(), 'parent_id', 'id'))
+        );
+
+//        debug($data['accounts']);
+        $this->load->view('masterLayouts/admin', $data);
+
+    }
+
     public function save_voucher(){
 
         $v_date = $this->input->post('v_date');
@@ -236,6 +249,45 @@ class Vouchers extends CI_Controller
         }
 
         redirect(base_url().'vouchers/post_voucher');
+    }
+
+    public function save_payment_and_receipt(){
+
+        $v_date = $this->input->post('v_date');
+        $title = $this->input->post('title');
+        $book_reference = $this->input->post('book_reference');
+        $acc_head = $this->input->post('acc_head');
+        $debit_credit = $this->input->post('debit_credit');
+        $description = $this->input->post('description');
+        $amount = $this->input->post('amount');
+
+        $cash_account = 17;
+
+        if ($debit_credit == 'payment'){
+            $acc_debit = $cash_account;
+            $acc_credit = $acc_head;
+        }
+        else{
+            $acc_debit = $acc_head;
+            $acc_credit = $cash_account;
+        }
+        $data = [
+            'title'      => $title,
+            'book_reference'=> $book_reference,
+            'debit_account'  => $acc_debit,
+            'credit_account'  => $acc_credit,
+            'description'  => $description,
+            'amount'  => $amount,
+            'created_by' => $this->session->userdata['user_id'],
+        ];
+
+        $status = $this->Vouchers_model->save_voucher($data);
+
+        if ($status){
+            $this->session->set_flashdata('msg','<p class="alert alert-success">Transaction added successfully!</p>');
+        }
+
+        redirect(base_url().'vouchers/payment_and_receipt');
     }
 
     public function delete_transaction($id){

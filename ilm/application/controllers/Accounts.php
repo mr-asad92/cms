@@ -83,8 +83,25 @@ class Accounts extends CI_Controller
         $data = array(
             'title' => 'ILM | Accounts',
             'view' => 'accounts/transactions',
-            'transactions' => $this->Accounts_model->getTransactions(),
         );
+
+
+        if(isset($_POST)){
+            $search = [];
+            $search['dateFrom'] = $this->input->post('dateFrom');
+            $search['dateTo'] = $this->input->post('DateTo');
+
+            $transactions = $this->Accounts_model->getTransactions($search);
+            if (count($transactions) > 0){
+                $data['transactions'] = $transactions;
+            }
+            else{
+                $data['transactions'] = [];
+            }
+        }
+        else {
+            $data['transactions'] = $this->Accounts_model->getTransactions();
+        }
 
         $this->load->view('masterLayouts/admin',$data);
     }
