@@ -58,7 +58,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-4 text-right">
 
                                 <?php
                                 $src = base_url().'assets/img/profile picture.png';
@@ -71,7 +71,7 @@
                                     <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 200px; height: 150px;">
                                         <img src="<?php echo $src;?>" style="width: 200px; height: 160px;">
                                     </div>
-                                    <div>
+                                    <div class="text-center">
                                         <span class="btn btn-default btn-file"><span class="fileinput-new">Select image</span><span class="fileinput-exists">Change</span><input type="file" name="studentsPics"></span>
                                         <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
                                     </div>
@@ -163,7 +163,7 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label class="col-sm-2 control-label" for="PreviousInstitutes_0__InstituteName">InstituteName</label>
+                                    <label class="col-sm-2 control-label" for="PreviousInstitutes_0__InstituteName">Institute Name</label>
                                     <div class="col-sm-4">
 
                                         <div class="form-group">
@@ -206,7 +206,8 @@
                     <div class="row stdpresentadress">
                         <div class="col-md-12">
                             <div class="panel panel-midnightblue">
-                                <h4><img src="assets/img/address.png" style="height:30px; width:30px; float:left;
+                                <h4><img src="<?php echo 
+                                base_url();?>assets/img/address.png" style="height:30px; width:30px; float:left;
                                 margin-right:5px;"> Present Address</h4>
                                 <div class="panel-body" style="border-radius: 0px;">
                                     <div class="row">
@@ -375,18 +376,6 @@
 
 
                             </div>
-
-                            <div class="col-sm-3" id="guardianimg" style="display:none;">
-                                <div class="fileinput fileinput-new" data-provides="fileinput">
-                                    <input type="hidden">
-                                    <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 200px; height: 150px; line-height: 150px; margin-left:97px"><img src="assets/img/parent profile picture.png" style="width: 200px; height: 150px;"></div>
-                                    <div class="text-center" style="margin-left: 95px;">
-                                        <span class="btn btn-default btn-file"><span class="fileinput-new">Select image</span><span class="fileinput-exists">Change</span><input name="GuardianImage" type="file"></span>
-                                        <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
-                                    </div>
-                                </div>
-                            </div>
-
                         </div>
                     </div>
                     <?php
