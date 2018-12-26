@@ -347,17 +347,28 @@ class Accounts extends CI_Controller
         }
 
         $openingBalanceDate = $this->Accounts_model->getOpeningBalanceDate(date('Y-m-d', strtotime($from_date.' -1 day')));
-
+//        var_dump($openingBalanceDate);exit;
         $cash_account = $this->Accounts_model->getAccountId('Cash');
         $expense_account = $this->Accounts_model->getAccountId('Expense');
+//        $data = array(
+//            'title' => 'ILM | Admin',
+//            'view' => 'accounts/cash_book_new',
+//            'transactions' => $this->Accounts_model->getCashBookTransactions($from_date, $to_date, $cash_account_id),
+//            'opening_balance' => $this->Accounts_model->getOpeningBalance($cash_account, $openingBalanceDate, $cash_account_id),
+//            'grand_total' => $this->Accounts_model->getGrandTotal($from_date, $to_date, $cash_account, $expense_account),
+//            'cashOrLedgerAccount' => $cash_account,
+//            'date' => $from_date
+//        );
+
         $data = array(
             'title' => 'ILM | Admin',
-            'view' => 'accounts/cash_book',
+            'view' => 'accounts/cash_book_new',
             'transactions' => $this->Accounts_model->getCashBookTransactions($from_date, $to_date, $cash_account_id),
-            'opening_balance' => $this->Accounts_model->getOpeningBalance($cash_account, $openingBalanceDate),
+            'opening_balance' => $this->Accounts_model->getOpeningBalanceNew($cash_account, $this->Accounts_model->getOpeningBalanceDate(date('Y-m-d', strtotime($openingBalanceDate.' -1 day'))), $cash_account_id),
+            'closing_balance' => $this->Accounts_model->getOpeningBalanceNew($cash_account, $openingBalanceDate, $cash_account_id),
             'grand_total' => $this->Accounts_model->getGrandTotal($from_date, $to_date, $cash_account, $expense_account),
-            'cashOrLedgerAccount' => $cash_account
-
+            'cashOrLedgerAccount' => $cash_account,
+            'date' => $from_date
         );
 
         if ($data['grand_total'] == 0){

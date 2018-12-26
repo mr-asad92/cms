@@ -198,15 +198,21 @@ class Accounts_model extends CI_Model
 
     public function getCashBookTransactions($from_date, $to_date, $account){
 
+        $from_date = date("Y-m-d", strtotime($from_date));
+        $to_date = date("Y-m-d", strtotime($to_date));
+
         $query = "SELECT * FROM transactions WHERE (debit_account='$account' OR credit_account='$account') AND created_at >= '$from_date' AND created_at <= '$to_date' + INTERVAL 1 DAY";
-        $res = $this->db->query($query)->result_array();
-
+        $r = $this->db->query($query);
         $transactions = [];
-        foreach ($res as $key => $value){
-            $value['dr_acc_title'] = $this->getAccountTitle($value['debit_account']);
-            $value['cr_acc_title'] = $this->getAccountTitle($value['credit_account']);
 
-            $transactions[] = $value;
+        if ($r->num_rows() > 0) {
+            $res = $r->result_array();
+            foreach ($res as $key => $value) {
+                $value['dr_acc_title'] = $this->getAccountTitle($value['debit_account']);
+                $value['cr_acc_title'] = $this->getAccountTitle($value['credit_account']);
+
+                $transactions[] = $value;
+            }
         }
 
         return $transactions;
@@ -251,7 +257,7 @@ class Accounts_model extends CI_Model
         $q = "SELECT count(id) as nR FROM transactions  WHERE created_at <= '$date' + INTERVAL 1 DAY";
         $nR = $this->db->query($q)->result_array()[0]['nR'];
 //        debug($nR);
-        if($nR != 0){
+        if($nR == 0){
 
             do{
 
@@ -267,12 +273,15 @@ class Accounts_model extends CI_Model
             }
             while($lastWorkingDay == null);
         }
+        else{
+            $lastWorkingDay = $date;
+        }
 
 
         return $lastWorkingDay;
     }
 
-    public function getOpeningBalance($cash_account, $date){
+    public function getOpeningBalance($cash_account, $date, $account = 17){
 
         if($date == null){
             // get initial opening Balance
@@ -284,7 +293,40 @@ class Accounts_model extends CI_Model
             $result = $this->db->query($query)->result_array()[0];
 
             $openingBalance = $result['debit_sum'] - $result['credit_sum'];
+            // + opening balance of previous working day
+
+            $qry = "SELECT sum(amount) as amnt FROM transactions WHERE (debit_account='$account' OR credit_account='$account') AND created_at LIKE '%$date%'";
+            $r = $this->db->query($qry);
+            if($r->num_rows() > 0){
+//                debug($r->result_array()[0]['amnt']);
+//                $openingBalance += $r->result_array()[0]['amnt'];
+            }
         }
+
+
+        return $openingBalance;
+
+    }
+
+    public function getOpeningBalanceNew($cash_account, $date, $account = 17){
+
+        if($date == null){
+            // get initial opening Balance
+            $openingBalance = $this->db->select('opening_balance')->from('accounts')->where('id', $cash_account)->get()->result_array()[0]['opening_balance'];
+        }
+        else{
+            $query = "SELECT (SELECT SUM(amount) FROM transactions WHERE debit_account = '$cash_account' AND created_at <= '$date' + INTERVAL 1 DAY) as debit_sum, (SELECT SUM(amount) FROM transactions WHERE credit_account = '$cash_account' AND created_at <= '$date' + INTERVAL 1 DAY) as credit_sum FROM transactions";
+
+            $result = $this->db->query($query)->result_array()[0];
+
+            $openingBalance = $result['debit_sum'] - $result['credit_sum'];
+            // + opening balance of previous working day
+
+            $startOpeningBalance = $this->db->select('opening_balance')->from('accounts')->where('id', $cash_account)->get()->result_array()[0]['opening_balance'];
+
+            $openingBalance += $startOpeningBalance;
+        }
+
 
         return $openingBalance;
 
